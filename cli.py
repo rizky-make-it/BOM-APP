@@ -9,21 +9,24 @@ import sys
 import json
 from pathlib import Path
 
-from .config import GOLDEN_MASTER_PATH, DEFAULT_RATES
+from .config import GOLDEN_MASTER_PATH, RULES_V2_PATH, DEFAULT_RATES
 from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
 from .generators.single_bom import build_single_bom_workbook
 from .generators.comparison import build_3way_comparison
+from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate
 
 def cmd_info(args):
     print("=" * 60)
     print("  FACTORY BOM APPLICATION - GOLDEN ENGINE v2.0")
     print("=" * 60)
     print(f"Golden Master Template: {GOLDEN_MASTER_PATH}")
+    print(f"Rules & Schema v2:      {RULES_V2_PATH}")
     exists = GOLDEN_MASTER_PATH.exists()
     print(f"Status: {'LOCKED & READY (0444)' if exists else 'MISSING'}")
     print("\nDefault Rate Card Snapshot:")
     print(f"  Mindi Log Tier B: Rp {DEFAULT_RATES['MINDI_B']:,.2f} / m3")
     print(f"  Plywood 18mm MSF: Rp {DEFAULT_RATES['PLY-18-MSF']:,.2f} / sheet")
+    print(f"  MDF 18mm 2-Face:  Rp {DEFAULT_RATES['MDF-18-MDF']:,.2f} / sheet")
     print(f"  Fasteners Rate:   Rp {DEFAULT_RATES['FASTENERS_RATE']:,.2f} / m3")
     print(f"  Overhead Rate:    {DEFAULT_RATES['OH_PCT'] * 100:.2f}%")
     print(f"  Misc Buffer:      {DEFAULT_RATES['MISC_PCT'] * 100:.2f}%")
@@ -38,7 +41,6 @@ def cmd_create(args):
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Parse JSON into BOMSpecification
     h_data = data["header"]
     header = ItemHeader(
         item_code=h_data["item_code"],
@@ -140,7 +142,6 @@ def cmd_verify(args):
         sys.exit(1)
 
     wb = openpyxl.load_workbook(target, data_only=True)
-    # Find item sheet
     item_sh = None
     for s in wb.sheetnames:
         if s not in ['README', 'ITEMS', 'TEMPLATE', 'RATES', 'LISTS', 'PART LIST REFERENCE']:
@@ -167,6 +168,42 @@ def cmd_verify(args):
     else:
         print(f"  Status:       [FAIL] {checks} input errors detected. Check column R.")
 
+def cmd_rules(args):
+    print("=" * 70)
+    print("  BOM CONSTRUCTION RULES V2 (GROUND TRUTH SUMMARY)")
+    print("=" * 70)
+    print("1. Drawer Front:     W_front x H_front (MDF-18-MDF)")
+    print("2. Drawer Side:      D x (H_front - 20 mm) (PLY-12-MRD, Qty 2)")
+    print("3. Inner Front:      (W_front - 64 mm) x (H_front - 20 mm) (PLY-12-MRD)")
+    print("4. Drawer Back:      (W_front - 64 mm) x (H_front - 36 mm) (PLY-12-MRD)")
+    print("5. Drawer Bottom:    (W_front - 54 mm) x (D - 7 mm) (PLY-6-MRD)")
+    print("6. Side Length D:    Rounded to standard DTC slide: 300, 350, 400, 450 mm")
+    print("7. Outer Box Size:   H_box = H_front - 30 mm | W_box = W_front - 40 mm")
+    print("8. Side Panel:       (Clear Depth + 10) x (Body H + 10) (18mm Plywood 1F, NEVER solid)")
+    print("9. Back Panel:       Clear Width x Body H (PLY-9-RAW)")
+    print("10. Back Frame:      Solid 40x25 mm (2 rails + 2 stiles + center mullion)")
+    print("11. Door Opening:    Height/n - 2mm | Width/n - 2mm (MDF-18-MDF)")
+    print("12. Fasteners/Misc:  Screws/dowel dropped from cutlist (covered by m3 rate)")
+    print("=" * 70)
+
+def cmd_derive_drawer(args):
+    w = args.width
+    h = args.height
+    depth = args.depth
+    res = derive_drawer_box(w, h, depth)
+
+    print("=" * 60)
+    print(f"  DRAWER DERIVATION RESULT (Front: {w} x {h} mm, Case: {depth} mm)")
+    print("=" * 60)
+    print(f"Slide Length D:    {res['side_length_d']} mm")
+    print(f"Drawer Front (AD): {res['front'].l} x {res['front'].w} x {res['front'].t} mm ({res['front'].panel_type})")
+    print(f"Drawer Side (K):   {res['side'].l} x {res['side'].w} x {res['side'].t} mm ({res['side'].panel_type}, Qty {res['side'].qty})")
+    print(f"Inner Front (AL):  {res['inner_front'].l} x {res['inner_front'].w} x {res['inner_front'].t} mm ({res['inner_front'].panel_type})")
+    print(f"Drawer Back (L):   {res['back'].l} x {res['back'].w} x {res['back'].t} mm ({res['back'].panel_type})")
+    print(f"Drawer Bottom (M): {res['bottom'].l} x {res['bottom'].w} x {res['bottom'].t} mm ({res['bottom'].panel_type})")
+    print(f"Slide Hardware:    {res['slide'].description} (Qty {res['slide'].qty})")
+    print("=" * 60)
+
 def main():
     parser = argparse.ArgumentParser(
         prog="bom-app",
@@ -177,6 +214,17 @@ def main():
     # info
     p_info = subparsers.add_parser("info", help="Display application version, Golden Master status, and rates.")
     p_info.set_defaults(func=cmd_info)
+
+    # rules
+    p_rules = subparsers.add_parser("rules", help="Display construction rules v2 summary.")
+    p_rules.set_defaults(func=cmd_rules)
+
+    # derive-drawer
+    p_drawer = subparsers.add_parser("derive-drawer", help="Calculate exact drawer box cuts from front dimensions.")
+    p_drawer.add_argument("-w", "--width", type=float, required=True, help="Drawer front width in mm.")
+    p_drawer.add_argument("-H", "--height", type=float, required=True, help="Drawer front height in mm.")
+    p_drawer.add_argument("-d", "--depth", type=float, required=True, help="Case overall depth in mm.")
+    p_drawer.set_defaults(func=cmd_derive_drawer)
 
     # create
     p_create = subparsers.add_parser("create", help="Generate single-item BOM from JSON spec file.")
