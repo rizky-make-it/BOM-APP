@@ -13,16 +13,18 @@ from .config import GOLDEN_MASTER_PATH, RULES_V2_PATH, DEFAULT_RATES
 from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
 from .generators.single_bom import build_single_bom_workbook
 from .generators.comparison import build_3way_comparison
-from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate
+from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate, PART_CATALOG, SPECIES_MAP
 
 def cmd_info(args):
-    print("=" * 60)
-    print("  FACTORY BOM APPLICATION - GOLDEN ENGINE v2.0")
-    print("=" * 60)
+    print("=" * 65)
+    print("  FACTORY BOM APPLICATION - GOLDEN ENGINE v2.1 (UPDATED)")
+    print("=" * 65)
     print(f"Golden Master Template: {GOLDEN_MASTER_PATH}")
     print(f"Rules & Schema v2:      {RULES_V2_PATH}")
     exists = GOLDEN_MASTER_PATH.exists()
     print(f"Status: {'LOCKED & READY (0444)' if exists else 'MISSING'}")
+    print(f"\nPart Catalog Count:     {len(PART_CATALOG)} official parts (1 to 25)")
+    print(f"Supported Wood Species: {', '.join(f'{k}={v}' for k, v in SPECIES_MAP.items())}")
     print("\nDefault Rate Card Snapshot:")
     print(f"  Mindi Log Tier B: Rp {DEFAULT_RATES['MINDI_B']:,.2f} / m3")
     print(f"  Plywood 18mm MSF: Rp {DEFAULT_RATES['PLY-18-MSF']:,.2f} / sheet")
@@ -30,7 +32,50 @@ def cmd_info(args):
     print(f"  Fasteners Rate:   Rp {DEFAULT_RATES['FASTENERS_RATE']:,.2f} / m3")
     print(f"  Overhead Rate:    {DEFAULT_RATES['OH_PCT'] * 100:.2f}%")
     print(f"  Misc Buffer:      {DEFAULT_RATES['MISC_PCT'] * 100:.2f}%")
-    print("=" * 60)
+    print("=" * 65)
+
+def cmd_parts(args):
+    print("=" * 75)
+    print("  OFFICIAL FACTORY PART CATALOG (PARTS 1 TO 25)")
+    print("=" * 75)
+    for num, p in sorted(PART_CATALOG.items()):
+        print(f"  Part {num:2d} | {p['name']:25} | Revise: {p['revise']:30} | Role: {p['role']}")
+    print("=" * 75)
+
+def cmd_rules(args):
+    print("=" * 75)
+    print("  BOM CONSTRUCTION RULES V2.1 (LATEST OWNER MANDATES)")
+    print("=" * 75)
+    print("1. Inner Front (AL): Jarak atas 20mm, bawah 10mm -> H_inner = H_front - 30 mm")
+    print("                     Jarak kanan/kiri 10mm -> W_box = W_front - 20 mm")
+    print("2. Drawer Back (L):  TINGGI DISAMAKAN PERSIS DENGAN BOX DEPAN = H_inner = H_front - 30 mm")
+    print("3. Drawer Side (K):  Panjang = D (350, 400 mm); Tinggi = H_front - 20 mm")
+    print("4. Drawer Bottom (M): Lebar masuk dado 5mm (W_inner + 10 mm); Kedalaman = D - 7 mm")
+    print("5. Side Panel:       Plywood 18 mm 1F (PLY-18-MSF), TIDAK PERNAH SOLID WOOD")
+    print("6. Back Panel:       Wajib Plywood 9 mm RAW + Back Frame solid 40x25 mm")
+    print("7. Door Opening:     Height/n - 2mm | Width/n - 2mm (MDF-18-MDF)")
+    print("8. Part Naming:      Bahasa Inggris murni untuk standardisasi ekspor")
+    print("9. Fasteners/Misc:   Baut, sekrup, lem, dowel ditanggung rate flat per m3 solid")
+    print("10. Catalog Parts:   25 Part resmi (1: Bottom stretcher F/B ... 25: vertical support)")
+    print("=" * 75)
+
+def cmd_derive_drawer(args):
+    w = args.width
+    h = args.height
+    depth = args.depth
+    res = derive_drawer_box(w, h, depth)
+
+    print("=" * 65)
+    print(f"  DRAWER DERIVATION RESULT (Front: {w} x {h} mm, Case: {depth} mm)")
+    print("=" * 65)
+    print(f"Slide Length D:    {res['side_length_d']} mm (DTC-14\")")
+    print(f"Drawer Front (AD): {res['front'].l} x {res['front'].w} x {res['front'].t} mm ({res['front'].panel_type})")
+    print(f"Drawer Side (K):   {res['side'].l} x {res['side'].w} x {res['side'].t} mm ({res['side'].panel_type}, Qty {res['side'].qty})")
+    print(f"Inner Front (AL):  {res['inner_front'].l} x {res['inner_front'].w} x {res['inner_front'].t} mm ({res['inner_front'].panel_type})")
+    print(f"Drawer Back (L):   {res['back'].l} x {res['back'].w} x {res['back'].t} mm ({res['back'].panel_type}) [SAMA DGN INNER DEPAN]")
+    print(f"Drawer Bottom (M): {res['bottom'].l} x {res['bottom'].w} x {res['bottom'].t} mm ({res['bottom'].panel_type})")
+    print(f"Slide Hardware:    {res['slide'].description} (Qty {res['slide'].qty})")
+    print("=" * 65)
 
 def cmd_create(args):
     json_path = Path(args.spec_json)
@@ -168,42 +213,6 @@ def cmd_verify(args):
     else:
         print(f"  Status:       [FAIL] {checks} input errors detected. Check column R.")
 
-def cmd_rules(args):
-    print("=" * 70)
-    print("  BOM CONSTRUCTION RULES V2 (GROUND TRUTH SUMMARY)")
-    print("=" * 70)
-    print("1. Drawer Front:     W_front x H_front (MDF-18-MDF)")
-    print("2. Drawer Side:      D x (H_front - 20 mm) (PLY-12-MRD, Qty 2)")
-    print("3. Inner Front:      (W_front - 64 mm) x (H_front - 20 mm) (PLY-12-MRD)")
-    print("4. Drawer Back:      (W_front - 64 mm) x (H_front - 36 mm) (PLY-12-MRD)")
-    print("5. Drawer Bottom:    (W_front - 54 mm) x (D - 7 mm) (PLY-6-MRD)")
-    print("6. Side Length D:    Rounded to standard DTC slide: 300, 350, 400, 450 mm")
-    print("7. Outer Box Size:   H_box = H_front - 30 mm | W_box = W_front - 40 mm")
-    print("8. Side Panel:       (Clear Depth + 10) x (Body H + 10) (18mm Plywood 1F, NEVER solid)")
-    print("9. Back Panel:       Clear Width x Body H (PLY-9-RAW)")
-    print("10. Back Frame:      Solid 40x25 mm (2 rails + 2 stiles + center mullion)")
-    print("11. Door Opening:    Height/n - 2mm | Width/n - 2mm (MDF-18-MDF)")
-    print("12. Fasteners/Misc:  Screws/dowel dropped from cutlist (covered by m3 rate)")
-    print("=" * 70)
-
-def cmd_derive_drawer(args):
-    w = args.width
-    h = args.height
-    depth = args.depth
-    res = derive_drawer_box(w, h, depth)
-
-    print("=" * 60)
-    print(f"  DRAWER DERIVATION RESULT (Front: {w} x {h} mm, Case: {depth} mm)")
-    print("=" * 60)
-    print(f"Slide Length D:    {res['side_length_d']} mm")
-    print(f"Drawer Front (AD): {res['front'].l} x {res['front'].w} x {res['front'].t} mm ({res['front'].panel_type})")
-    print(f"Drawer Side (K):   {res['side'].l} x {res['side'].w} x {res['side'].t} mm ({res['side'].panel_type}, Qty {res['side'].qty})")
-    print(f"Inner Front (AL):  {res['inner_front'].l} x {res['inner_front'].w} x {res['inner_front'].t} mm ({res['inner_front'].panel_type})")
-    print(f"Drawer Back (L):   {res['back'].l} x {res['back'].w} x {res['back'].t} mm ({res['back'].panel_type})")
-    print(f"Drawer Bottom (M): {res['bottom'].l} x {res['bottom'].w} x {res['bottom'].t} mm ({res['bottom'].panel_type})")
-    print(f"Slide Hardware:    {res['slide'].description} (Qty {res['slide'].qty})")
-    print("=" * 60)
-
 def main():
     parser = argparse.ArgumentParser(
         prog="bom-app",
@@ -216,8 +225,12 @@ def main():
     p_info.set_defaults(func=cmd_info)
 
     # rules
-    p_rules = subparsers.add_parser("rules", help="Display construction rules v2 summary.")
+    p_rules = subparsers.add_parser("rules", help="Display construction rules v2.1 summary.")
     p_rules.set_defaults(func=cmd_rules)
+
+    # parts
+    p_parts = subparsers.add_parser("parts", help="Display 25-part catalog reference.")
+    p_parts.set_defaults(func=cmd_parts)
 
     # derive-drawer
     p_drawer = subparsers.add_parser("derive-drawer", help="Calculate exact drawer box cuts from front dimensions.")

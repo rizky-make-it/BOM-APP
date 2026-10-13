@@ -1,17 +1,60 @@
 """
-BOM Rules & Part Schema v2 Engine.
-Implementation of ground-truth rules from BOM rules and part schema v2.xlsx.
+BOM Rules & Part Schema v2 Engine (Updated with October 2026 Mandates).
+Implementation of ground-truth rules from BOM rules and part schema v2.xlsx:
+1. Inner front: jarak atas 20mm, bawah 10mm, kanan/kiri 10mm.
+2. Drawer back: ukuran tinggi disamakan dengan box depan (inner front).
+3. Expanded Part Catalog: Parts 1 to 25 (including 20: Back support, 21: side rail,
+   22: frame top/bottom drawer, 23: frame side drawer, 24: horizontal support, 25: vertical support).
+4. Full wood species letters: M=Mindi, T=Teak, O=Oak, W=Walnut, G=Gemelina, A=Ash, J=Johar.
 """
 
 from typing import Dict, Any, List, Optional
 from ..models.item import SolidPart, PanelPart, HardwarePart
 
+# Official 25-part catalog mapping
+PART_CATALOG = {
+    1: {"name": "Bottom back stretcher", "revise": "Bottom front/ back stretcher", "role": "stretcher_back", "type": "solid"},
+    2: {"name": "Side stretcher", "revise": "Side stretcher", "role": "stretcher_side", "type": "solid"},
+    3: {"name": "Leg", "revise": "Leg", "role": "leg", "type": "solid"},
+    4: {"name": "Drawer front", "revise": "drawer front", "role": "drawer_front", "type": "panel"},
+    5: {"name": "Drawer side", "revise": "drawer box side", "role": "drawer_side", "type": "panel"},
+    6: {"name": "Top front rail", "revise": "Top front rail", "role": "top_front_rail", "type": "solid"},
+    7: {"name": "Top", "revise": "Top", "role": "top", "type": "panel"},
+    8: {"name": "Side panel", "revise": "Side panel", "role": "side_panel", "type": "panel"},
+    9: {"name": "Back panel", "revise": "Back panel", "role": "back_panel", "type": "panel"},
+    10: {"name": "Back frame stile", "revise": "back panel frame", "role": "back_frame", "type": "solid"},
+    11: {"name": "Drawer inner front", "revise": "drawer box front/back", "role": "drawer_box_front", "type": "panel"},
+    12: {"name": "Drawer bottom", "revise": "drawer base", "role": "drawer_bottom", "type": "panel"},
+    13: {"name": "Divider", "revise": "Divider", "role": "divider", "type": "panel"},
+    14: {"name": "Door", "revise": "Door", "role": "door", "type": "panel"},
+    15: {"name": "Drawer slide", "revise": "drawer support", "role": "drawer_slide", "type": "hardware"},
+    16: {"name": "Handle", "revise": "Handle", "role": "handle", "type": "hardware"},
+    17: {"name": "Back frame rail", "revise": "Back frame rail", "role": "back_frame", "type": "solid"},
+    18: {"name": "Shelf", "revise": "Shelf", "role": "shelf", "type": "panel"},
+    19: {"name": "Glass / mirror", "revise": "Glass / mirror", "role": "glass", "type": "hardware"},
+    20: {"name": "Back support", "revise": "Back support", "role": "back_support", "type": "solid"},
+    21: {"name": "side rail", "revise": "side rail", "role": "side_rail", "type": "solid"},
+    22: {"name": "frame top/bottom drawer", "revise": "frame top/bottom drawer", "role": "drawer_frame_rail", "type": "solid"},
+    23: {"name": "frame side drawer", "revise": "frame side drawer", "role": "drawer_frame_stile", "type": "solid"},
+    24: {"name": "horizontal support", "revise": "horizontal support", "role": "horizontal_support", "type": "solid"},
+    25: {"name": "vertical support", "revise": "vertical support", "role": "vertical_support", "type": "solid"},
+}
+
+SPECIES_MAP = {
+    "M": "MINDI",
+    "T": "TEAK",
+    "O": "OAK",
+    "W": "WALNUT",
+    "G": "GEMELINA",
+    "A": "ASH",
+    "J": "JOHAR",
+}
+
 def get_standard_glide_length(case_depth: float) -> float:
     """
-    Rule 6 & 7: Drawer side length rule
     Fit to nearest standard catalog DTC drawer glide sizes: 300, 350, 400, 450 mm.
     """
-    usable_depth = case_depth - 100.0  # case depth minus clearance & frame
+    usable_depth = case_depth - 100.0
     if usable_depth >= 450.0:
         return 450.0
     elif usable_depth >= 400.0:
@@ -21,21 +64,39 @@ def get_standard_glide_length(case_depth: float) -> float:
     elif usable_depth >= 300.0:
         return 300.0
     else:
-        return 250.0  # minimum DTC-10"
+        return 250.0
 
 def derive_drawer_box(
     w_front: float,
     h_front: float,
     case_depth: float,
     side_length: Optional[float] = None,
-    qty: int = 1
+    qty: int = 1,
+    side_wall_thickness: float = 12.0
 ) -> Dict[str, Any]:
     """
-    Rules 1-7: Derivation of drawer box components from Drawer Front (W x H) and Case Depth.
+    Updated Drawer Box Rules per Owner Mandates:
+    1. Inner front (AL):
+       - Jarak atas: 20 mm
+       - Jarak bawah: 10 mm
+       -> Tinggi Inner Front = H_front - (20 + 10) = H_front - 30 mm
+       - Jarak kanan/kiri: 10 mm per sisi
+       -> Lebar Kotak Luar = W_front - 20 mm
+       -> Lebar Inner Front (di antara dinding samping) = (W_front - 20) - 2 * side_wall_thickness
+    2. Drawer back (L):
+       - Ukuran tinggi DISAMAKAN dengan box depan (inner front)!
+       -> Tinggi Drawer Back = Tinggi Inner Front = H_front - 30 mm
+       -> Lebar Drawer Back = Lebar Inner Front
+    3. Drawer side (K):
+       - Panjang = D (350, 400, etc.)
+       - Tinggi = H_front - 20 mm (atau diselaraskan)
+    4. Drawer bottom (M):
+       - Lebar = Inner width + 2 * 5mm dado groove
+       - Kedalaman = D - 7 mm
     """
     d_side = side_length or get_standard_glide_length(case_depth)
 
-    # 1. Drawer Front (AD) - MDF 18 mm veneer both faces (MDF-18-MDF)
+    # 1. Drawer Front (AD / ④) - MDF 18 mm veneer both faces
     front = PanelPart(
         label="④ / AD",
         component="Drawer front",
@@ -45,76 +106,88 @@ def derive_drawer_box(
         t=18.0,
         qty=qty,
         exposed_faces=2,
-        note="Role AD | Rule 1: W_front x H_front"
+        note="Role AD | W_front x H_front"
     )
 
-    # 2. Drawer Side (K) - Plywood 12 mm MRD (PLY-12-MRD)
-    # Size: D x (H_front - 20 mm)
+    # 2. Drawer Side (K / ⑤) - Plywood 12 mm
+    # Length D, Height H_front - 20 mm (gap 10mm top & 10mm bottom)
+    side_h = h_front - 20.0
     side = PanelPart(
         label="⑤ / K",
         component="Drawer side",
-        panel_type="PLY-12-MRD",
+        panel_type="PLY-12-RAW",
         l=d_side,
-        w=h_front - 20.0,
-        t=12.0,
+        w=side_h,
+        t=side_wall_thickness,
         qty=qty * 2,
         exposed_faces=0,
-        note=f"Role K | Rule 2: D ({d_side}mm) x (H - 20mm)"
+        note=f"Role K | D ({d_side}mm) x (H - 20mm={side_h}mm)"
     )
 
-    # 3. Inner Front (AL) - Plywood 12 mm MRD
-    # Size: (W_front - 64 mm) x (H_front - 20 mm)
+    # 3. Inner Front (AL / ⑪) - Plywood 12 mm
+    # Jarak atas 20mm, bawah 10mm -> Height = H_front - 30 mm
+    # Jarak kanan/kiri 10mm -> Outer box = W_front - 20 mm
+    # Inner front span between sides = (W_front - 20) - 2 * 12 = W_front - 44 mm
+    # (If using standard 20mm DTC slide gap per side, inner front is W_front - 64 mm)
+    # Here owner explicitly mandated: "kanan/kiri 10mm" -> outer box width W_front - 20mm
+    inner_front_h = h_front - 20.0 - 10.0  # H_front - 30 mm
+    inner_front_w = (w_front - 20.0) - (2 * side_wall_thickness) # W_front - 44 mm
     inner_front = PanelPart(
         label="⑪ / AL",
         component="Drawer inner front",
-        panel_type="PLY-12-MRD",
-        l=w_front - 64.0,
-        w=h_front - 20.0,
-        t=12.0,
+        panel_type="PLY-12-RAW",
+        l=inner_front_w,
+        w=inner_front_h,
+        t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note="Role AL | Rule 3: (W - 64mm) x (H - 20mm)"
+        note=f"Role AL | Mandate 1: Atas 20mm, Bawah 10mm (H-30={inner_front_h}mm), Kanan/Kiri 10mm"
     )
 
-    # 4. Drawer Back (L) - Plywood 12 mm MRD
-    # Size: (W_front - 64 mm) x (H_front - 36 mm)
+    # 4. Drawer Back (L / ⑫) - Plywood 12 mm
+    # Mandate 2: "untuk drawer back ukuran tinggi disamakan dengan box depan"
+    back_h = inner_front_h  # DISAMAKAN PERSIS!
+    back_w = inner_front_w
     back = PanelPart(
         label="⑫ / L",
         component="Drawer back",
-        panel_type="PLY-12-MRD",
-        l=w_front - 64.0,
-        w=h_front - 36.0,
-        t=12.0,
+        panel_type="PLY-12-RAW",
+        l=back_w,
+        w=back_h,
+        t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note="Role L | Rule 4: (W - 64mm) x (H - 36mm) rests on bottom"
+        note=f"Role L | Mandate 2: Tinggi disamakan dengan box depan = {back_h}mm"
     )
 
-    # 5. Drawer Bottom (M) - Plywood 6 mm MRD
-    # Size: (W_front - 54 mm) x (D - 7 mm)
+    # 5. Drawer Bottom (M / ⑫ on new list, ⑬ on old) - Plywood 6 mm
+    # Width enters 5mm dado each side: inner_width + 10 mm
+    # Depth enters front dado: D - 7 mm
+    bottom_w = inner_front_w + 10.0
+    bottom_d = d_side - 7.0
     bottom = PanelPart(
-        label="⑬ / M",
+        label="⑫ / M",
         component="Drawer bottom",
-        panel_type="PLY-6-MRD",
-        l=w_front - 54.0,
-        w=d_side - 7.0,
+        panel_type="PLY-6-RAW",
+        l=bottom_w,
+        w=bottom_d,
         t=6.0,
         qty=qty,
         exposed_faces=0,
-        note="Role M | Rule 5: (W - 54mm) x (D - 7mm) in 5mm dado groove"
+        note=f"Role M | Dado 5mm: (Inner W + 10 = {bottom_w}mm) x (D - 7 = {bottom_d}mm)"
     )
 
     # 6. Slide - DTC Soft close
     slide_inch = int(d_side / 25.4)
     slide = HardwarePart(
-        label="⑯",
+        label="⑮",
         description=f"Rel laci DTC soft close {slide_inch}\" ({int(d_side)} mm)",
         qty=float(qty),
-        unit_price=61396.2,  # default DTC slide
+        unit_price=61396.2,
         uom="set",
         item_master_code="HARDWARE",
         vendor="Sukey / DTC",
-        note=f"Rule 8: Longest DTC slide fitting D={d_side}mm"
+        note=f"Rule 8: DTC slide fitting D={d_side}mm"
     )
 
     return {
@@ -136,7 +209,7 @@ def derive_door(opening_w: float, opening_h: float, num_doors: int = 1) -> Panel
     door_w = (opening_w / num_doors) - 2.0
     door_h = opening_h - 2.0
     return PanelPart(
-        label="⑮ / A",
+        label="⑭ / A",
         component="Door",
         panel_type="MDF-18-MDF",
         l=door_w,
@@ -144,7 +217,7 @@ def derive_door(opening_w: float, opening_h: float, num_doors: int = 1) -> Panel
         t=18.0,
         qty=num_doors,
         exposed_faces=2,
-        note=f"Role A | Rule 11: Door opening / {num_doors} - 2mm"
+        note=f"Role A | Door opening / {num_doors} - 2mm"
     )
 
 def map_drawing_code_to_rate(drawing_code: str, dominant_species: str = "MINDI") -> Dict[str, str]:
