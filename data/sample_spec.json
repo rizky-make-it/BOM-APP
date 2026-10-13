@@ -1,0 +1,246 @@
+{
+  "header": {
+    "item_code": "LV453-B51",
+    "item_name": "TALLBOY 4 DRAWERS",
+    "collection": "NEW HOI AN / Bedroom",
+    "overall_l": 950,
+    "overall_w": 450,
+    "overall_h": 1200,
+    "order_qty": 1,
+    "drawing_link": "LV453 - B51 - Tallboy 4 Drawers.pdf",
+    "finish_recipe": "NC NATURAL",
+    "flatpack_yn": "N",
+    "notes": "Koleksi New Hoi An — Tallboy 4 Drawers solid Mindi + Plywood + Inlay Rotan Alami",
+    "spec_link": "https://rezekilancar.com/spec/LV453-B51",
+    "photo_link": "https://rezekilancar.com/photo/LV453-B51.jpg"
+  },
+  "solid_parts": [
+    {
+      "label": "3 / A",
+      "component": "Tiang Kaki Utama (Corner Posts)",
+      "l": 1200,
+      "w": 45,
+      "t": 45,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 3 / Code A (Solid wood 45x45) | P-01"
+    },
+    {
+      "label": "14 / A",
+      "component": "Rel Muka Atas (Top Front Rail)",
+      "l": 860,
+      "w": 40,
+      "t": 30,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 14 / Code A (Solid wood 40x30) | P-02"
+    },
+    {
+      "label": "18 / A",
+      "component": "Rel Sekat Laci Depan (Divider Rails)",
+      "l": 860,
+      "w": 30,
+      "t": 30,
+      "qty": 3,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 18 / Code A (Solid wood 30x30) | P-03"
+    },
+    {
+      "label": "1 / A",
+      "component": "Rel Bawah Depan (Bottom Apron)",
+      "l": 860,
+      "w": 40,
+      "t": 30,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 1 / Code A (Solid wood 40x30) | P-04"
+    },
+    {
+      "label": "2 / A",
+      "component": "Rel Samping (Side Rails Bawah & Atas)",
+      "l": 360,
+      "w": 40,
+      "t": 30,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 2 / Code A (Solid wood 40x30) | P-05"
+    },
+    {
+      "label": "16 / A",
+      "component": "Rel Belakang (Rear Rails)",
+      "l": 860,
+      "w": 40,
+      "t": 30,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "C",
+      "note": "Part 16 / Code A (Solid wood 40x30) | P-06"
+    },
+    {
+      "label": "6 / A",
+      "component": "Frame Muka Laci Stile",
+      "l": 230,
+      "w": 45,
+      "t": 20,
+      "qty": 8,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 6 / Code A (Solid wood 45x20) | P-07"
+    },
+    {
+      "label": "6 / A",
+      "component": "Frame Muka Laci Rail",
+      "l": 770,
+      "w": 45,
+      "t": 20,
+      "qty": 8,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 6 / Code A (Solid wood 45x20) | P-08"
+    },
+    {
+      "label": "18 / A",
+      "component": "Drawer Cleats / Runner Supports",
+      "l": 350,
+      "w": 30,
+      "t": 20,
+      "qty": 8,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "C",
+      "note": "Part 18 / Code A (Solid wood 30x20) | P-09"
+    }
+  ],
+  "panel_parts": [
+    {
+      "label": "20 / B-18-1X",
+      "component": "Top Cap Panel (Veneer Mindi 1F)",
+      "panel_type": "PLY-18-MSF",
+      "l": 950,
+      "w": 450,
+      "t": 18,
+      "qty": 1,
+      "exposed_faces": 1,
+      "note": "Part 20 / Code B-18-1X (Plywood 18mm MSF) | PNL-01"
+    },
+    {
+      "label": "13 / B-9-1X",
+      "component": "Dinding Samping (Left & Right)",
+      "panel_type": "PLY-9-MSF",
+      "l": 930,
+      "w": 360,
+      "t": 9,
+      "qty": 2,
+      "exposed_faces": 1,
+      "note": "Part 13 / Code B-9-1X (Plywood 9mm MSF) | PNL-02"
+    },
+    {
+      "label": "12 / B-9-0X",
+      "component": "Dinding Belakang (Backing Panel)",
+      "panel_type": "PLY-9-RAW",
+      "l": 930,
+      "w": 860,
+      "t": 9,
+      "qty": 1,
+      "exposed_faces": 0,
+      "note": "Part 12 / Code B-9-0X (Plywood 9mm RAW) | PNL-03"
+    },
+    {
+      "label": "8 / B-12-0X",
+      "component": "Kotak Laci Dinding Samping",
+      "panel_type": "PLY-12-RAW",
+      "l": 350,
+      "w": 170,
+      "t": 12,
+      "qty": 8,
+      "exposed_faces": 0,
+      "note": "Part 8 / Code B-12-0X (Plywood 12mm RAW) | PNL-04"
+    },
+    {
+      "label": "9 / B-12-0X",
+      "component": "Kotak Laci Muka & Belakang",
+      "panel_type": "PLY-12-RAW",
+      "l": 776,
+      "w": 170,
+      "t": 12,
+      "qty": 8,
+      "exposed_faces": 0,
+      "note": "Part 9 / Code B-12-0X (Plywood 12mm RAW) | PNL-05"
+    },
+    {
+      "label": "10 / B-6-0X",
+      "component": "Alas Dasar Laci (Drawer Bottom)",
+      "panel_type": "PLY-6-RAW",
+      "l": 788,
+      "w": 338,
+      "t": 6,
+      "qty": 4,
+      "exposed_faces": 0,
+      "note": "Part 10 / Code B-6-0X (Plywood 6mm RAW) | PNL-06"
+    }
+  ],
+  "hardware_parts": [
+    {
+      "label": "D2 / DTC-14",
+      "description": "Rel laci DTC soft close 14\" (356 mm)",
+      "qty": 4,
+      "unit_price": 61396.2,
+      "uom": "set",
+      "item_master_code": "HARDWARE",
+      "vendor": "Sukey / DTC",
+      "note": "Part D2 / Code D2 (Drawer rail DTC 14\")"
+    },
+    {
+      "label": "ROTAN / SQ",
+      "description": "Anyaman Rotan Kotak Alami (Square Cane Mesh)",
+      "qty": 1.0,
+      "unit_price": 160000.0,
+      "uom": "m'",
+      "item_master_code": "BOUGHT-IN",
+      "vendor": "Cirebon",
+      "note": "Aksen 4 muka laci anyaman rotan kotak alami"
+    },
+    {
+      "label": "HNDL / 128MM",
+      "description": "Handle, solid brass / custom wood 128 mm",
+      "qty": 4,
+      "unit_price": 25000.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Handle tarikan solid brass 128 mm"
+    },
+    {
+      "label": "GLIDES / 25MM",
+      "description": "Nylon glides 25 mm",
+      "qty": 4,
+      "unit_price": 3500.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Alas sepatu nylon 25 mm"
+    }
+  ]
+}
