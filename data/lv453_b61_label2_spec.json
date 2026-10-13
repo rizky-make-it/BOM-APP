@@ -10,7 +10,7 @@
     "drawing_link": "NEW HOI AN LV453-B61 LABEL 2.pdf",
     "finish_recipe": "NC NATURAL",
     "flatpack_yn": "N",
-    "notes": "Koleksi New Hoi An — Dresser 6 Drawers Label 2 Mindi + Plywood + Inlay Rotan (BOM Rules v2)",
+    "notes": "Koleksi New Hoi An — Dresser 6 Drawers Label 2 Mindi + Plywood + Inlay Rotan (BOM Rules v2.2)",
     "spec_link": "https://rezekilancar.com/spec/LV453-B61"
   },
   "solid_parts": [
@@ -25,7 +25,7 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 3 / Code A | P-01"
+      "note": "Part 3 | Leg (Corner posts 45x45)"
     },
     {
       "label": "14 / A",
@@ -38,10 +38,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "A",
-      "note": "Part 14 / Code A (20mm rail) | P-07"
+      "note": "Part 6 | Top front rail 20mm"
     },
     {
-      "label": "18 / A",
+      "label": "24 / A",
       "component": "Rel Sekat Laci Horizontal",
       "l": 705,
       "w": 40,
@@ -51,7 +51,7 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 18 / Code A (40x20 flat) | P-04"
+      "note": "Part 24 | horizontal support (40x20 flat)"
     },
     {
       "label": "1 / A",
@@ -64,7 +64,7 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "A",
-      "note": "Part 1 / Code A (20mm rail) | P-01"
+      "note": "Part 1 | Bottom front/ back stretcher"
     },
     {
       "label": "2 / A",
@@ -77,10 +77,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 2 / Code A (20mm rail) | P-02"
+      "note": "Part 2 | Side stretcher"
     },
     {
-      "label": "15 / A",
+      "label": "21 / A",
       "component": "Rel Samping Atas (Top Side Rails)",
       "l": 360,
       "w": 45,
@@ -90,10 +90,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 15 / Code A (20mm rail) | P-08"
+      "note": "Part 21 | side rail"
     },
     {
-      "label": "16 / A",
+      "label": "1 / A",
       "component": "Rel Belakang Atas/Bawah (Rear Rails)",
       "l": 1410,
       "w": 45,
@@ -103,10 +103,10 @@
       "exposed": "N",
       "curved": "N",
       "tier_override": "C",
-      "note": "Part 16 / Code A (20mm rail) | P-07"
+      "note": "Part 1 | Bottom front/ back stretcher (rear)"
     },
     {
-      "label": "17 / A",
+      "label": "25 / A",
       "component": "Tiang Sekat Tengah (Center Mullion)",
       "l": 600,
       "w": 50,
@@ -116,10 +116,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 17 / Code A | P-09"
+      "note": "Part 25 | vertical support"
     },
     {
-      "label": "6 / A",
+      "label": "23 / A",
       "component": "Frame Muka Laci Stile",
       "l": 200,
       "w": 40,
@@ -129,10 +129,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 6 / Code A (40mm slim stile) | P-05"
+      "note": "Part 23 | frame side drawer"
     },
     {
-      "label": "6 / A",
+      "label": "22 / A",
       "component": "Frame Muka Laci Rail",
       "l": 625,
       "w": 40,
@@ -142,10 +142,10 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Part 6 / Code A (40mm rail, span 625) | P-06"
+      "note": "Part 22 | frame top/bottom drawer"
     },
     {
-      "label": "18 / A",
+      "label": "24 / A",
       "component": "Drawer Cleats / Runner Supports",
       "l": 350,
       "w": 30,
@@ -155,12 +155,12 @@
       "exposed": "N",
       "curved": "N",
       "tier_override": "C",
-      "note": "Part 18 / Code A | P-11"
+      "note": "Part 24 | horizontal support (cleats)"
     }
   ],
   "panel_parts": [
     {
-      "label": "20 / B-18-1X",
+      "label": "7 / B-18-1X",
       "component": "Top Cap Panel",
       "panel_type": "PLY-18-MSF",
       "l": 1500,
@@ -168,10 +168,10 @@
       "t": 18,
       "qty": 1,
       "exposed_faces": 1,
-      "note": "Part 20 / Code B-18-1X (Plywood 18mm MSF)"
+      "note": "Part 7 | Top (Plywood 18mm MSF)"
     },
     {
-      "label": "13 / B-12-1X",
+      "label": "8 / B-12-1X",
       "component": "Side End Panels (2x)",
       "panel_type": "PLY-12-MSF",
       "l": 600,
@@ -179,10 +179,10 @@
       "t": 12,
       "qty": 2,
       "exposed_faces": 1,
-      "note": "Part 13 / Code B-12-1X (Plywood 12mm MSF)"
+      "note": "Part 8 | Side panel (Plywood 12mm MSF)"
     },
     {
-      "label": "12 / B-9-0X",
+      "label": "9 / B-9-0X",
       "component": "Backing Panel (2x Split)",
       "panel_type": "PLY-9-RAW",
       "l": 680,
@@ -190,10 +190,10 @@
       "t": 9,
       "qty": 2,
       "exposed_faces": 0,
-      "note": "Part 12 / Code B-9-0X (Split panels in dado)"
+      "note": "Part 9 | Back panel (Split in dado)"
     },
     {
-      "label": "8 / B-12-0X",
+      "label": "5 / B-12-0X",
       "component": "Drawer Box Sides (12x)",
       "panel_type": "PLY-12-RAW",
       "l": 350,
@@ -201,32 +201,32 @@
       "t": 12,
       "qty": 12,
       "exposed_faces": 0,
-      "note": "Rule 2: D (350) x (H-20=180)"
+      "note": "Part 5 | Drawer side: D (350) x (H-20=180)"
     },
     {
-      "label": "7 / B-12-0X",
+      "label": "11 / B-12-0X",
       "component": "Drawer Inner Front (6x)",
       "panel_type": "PLY-12-RAW",
       "l": 641,
-      "w": 180,
+      "w": 170,
       "t": 12,
       "qty": 6,
       "exposed_faces": 0,
-      "note": "Rule 3: (W-64=641) x (H-20=180)"
+      "note": "Part 11 | Inner front: (W-64=641) x (H-30=170)"
     },
     {
-      "label": "9 / B-12-0X",
+      "label": "11 / B-12-0X",
       "component": "Drawer Back (6x)",
       "panel_type": "PLY-12-RAW",
       "l": 641,
-      "w": 164,
+      "w": 170,
       "t": 12,
       "qty": 6,
       "exposed_faces": 0,
-      "note": "Rule 4: (W-64=641) x (H-36=164)"
+      "note": "Part 11/L | Back: Height matches inner front = 170mm"
     },
     {
-      "label": "10 / B-6-0X",
+      "label": "12 / B-6-0X",
       "component": "Drawer Bottom Panels (6x)",
       "panel_type": "PLY-6-RAW",
       "l": 651,
@@ -234,10 +234,10 @@
       "t": 6,
       "qty": 6,
       "exposed_faces": 0,
-      "note": "Rule 5: (W-54=651) x (D-7=343)"
+      "note": "Part 12 | Drawer bottom: (W-54=651) x (D-7=343)"
     },
     {
-      "label": "18 / B-9-0X",
+      "label": "24 / B-9-0X",
       "component": "Side Slide Spacers (6x)",
       "panel_type": "PLY-9-RAW",
       "l": 420,
@@ -245,10 +245,10 @@
       "t": 9,
       "qty": 6,
       "exposed_faces": 0,
-      "note": "Part 18 / Code B-9-0X (Spacer blok samping)"
+      "note": "Part 24 | horizontal support (spacer side)"
     },
     {
-      "label": "18 / B-18-0X",
+      "label": "24 / B-18-0X",
       "component": "Center Slide Spacers (3x)",
       "panel_type": "PLY-18-RAW",
       "l": 405,
@@ -256,19 +256,19 @@
       "t": 18,
       "qty": 3,
       "exposed_faces": 0,
-      "note": "Part 18 / Code B-18-0X (Spacer blok tengah Qty=3)"
+      "note": "Part 24 | horizontal support (spacer mid Qty=3)"
     }
   ],
   "hardware_parts": [
     {
-      "label": "D2 / DTC-14",
+      "label": "15 / DTC-14",
       "description": "Rel laci DTC soft close 14\" (356 mm)",
       "qty": 6,
       "unit_price": 61396.2,
       "uom": "set",
       "item_master_code": "HARDWARE",
       "vendor": "Sukey / DTC",
-      "note": "Rule 8: DTC-14 fitting D=350"
+      "note": "Part 15 | Drawer slide (DTC 14\")"
     },
     {
       "label": "ROTAN / SQ",
@@ -278,17 +278,17 @@
       "uom": "m'",
       "item_master_code": "BOUGHT-IN",
       "vendor": "Cirebon",
-      "note": "Aksen 6 muka laci"
+      "note": "Inlay rotan alami"
     },
     {
-      "label": "HNDL / 128MM",
-      "description": "Handle Solid Brass / Wood 128 mm",
+      "label": "16 / 128MM",
+      "description": "Handle Solid Brass 128 mm",
       "qty": 6,
       "unit_price": 25000.0,
       "uom": "pcs",
       "item_master_code": "HARDWARE",
       "vendor": "Lokal",
-      "note": "Handle bar solid brass"
+      "note": "Part 16 | Handle bar brass"
     },
     {
       "label": "GLIDES / 25MM",
@@ -298,7 +298,7 @@
       "uom": "pcs",
       "item_master_code": "HARDWARE",
       "vendor": "Lokal",
-      "note": "Alas sepatu nylon (4 sudut + 1 tengah)"
+      "note": "Alas sepatu nylon kaki"
     }
   ]
 }

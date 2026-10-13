@@ -1,11 +1,22 @@
 """
 BOM Rules & Part Schema v2 Engine (Updated with October 2026 Mandates).
 Implementation of ground-truth rules from BOM rules and part schema v2.xlsx:
-1. Inner front: jarak atas 20mm, bawah 10mm, kanan/kiri 10mm.
-2. Drawer back: ukuran tinggi disamakan dengan box depan (inner front).
-3. Expanded Part Catalog: Parts 1 to 25 (including 20: Back support, 21: side rail,
-   22: frame top/bottom drawer, 23: frame side drawer, 24: horizontal support, 25: vertical support).
-4. Full wood species letters: M=Mindi, T=Teak, O=Oak, W=Walnut, G=Gemelina, A=Ash, J=Johar.
+1. Inner front:
+   - Jarak atas: 20 mm
+   - Jarak bawah: 10 mm -> Tinggi Inner Front = H_front - (20 + 10) = H_front - 30 mm
+   - Jarak kanan/kiri: 20 mm per sisi -> Celah samping 20mm + 20mm = 40mm
+     -> Lebar Inner Front = W_front - 40 - 24 = W_front - 64 mm
+2. Drawer back:
+   - Ukuran tinggi DISAMAKAN dengan box depan (inner front) = H_front - 30 mm
+   - Lebar = W_front - 64 mm
+3. Drawer bottom:
+   - Lebar masuk dado 5mm tiap sisi = Inner width + 10 mm = W_front - 54 mm
+   - Kedalaman = D - 7 mm
+4. Drawer side:
+   - Panjang = D (300, 350, 400, 450 mm)
+   - Tinggi = H_front - 20 mm
+5. Expanded Part Catalog: Parts 1 to 25
+6. Full wood species letters: M=Mindi, T=Teak, O=Oak, W=Walnut, G=Gemelina, A=Ash, J=Johar
 """
 
 from typing import Dict, Any, List, Optional
@@ -75,23 +86,22 @@ def derive_drawer_box(
     side_wall_thickness: float = 12.0
 ) -> Dict[str, Any]:
     """
-    Updated Drawer Box Rules per Owner Mandates:
+    Drawer Box Derivation Rules (Updated):
     1. Inner front (AL):
        - Jarak atas: 20 mm
        - Jarak bawah: 10 mm
        -> Tinggi Inner Front = H_front - (20 + 10) = H_front - 30 mm
-       - Jarak kanan/kiri: 10 mm per sisi
-       -> Lebar Kotak Luar = W_front - 20 mm
-       -> Lebar Inner Front (di antara dinding samping) = (W_front - 20) - 2 * side_wall_thickness
+       - Jarak kanan/kiri: 20 mm per sisi (celah rel)
+       -> Lebar Inner Front = W_front - 2 * 20mm - 2 * side_wall_thickness = W_front - 64 mm
     2. Drawer back (L):
        - Ukuran tinggi DISAMAKAN dengan box depan (inner front)!
        -> Tinggi Drawer Back = Tinggi Inner Front = H_front - 30 mm
-       -> Lebar Drawer Back = Lebar Inner Front
+       -> Lebar Drawer Back = Lebar Inner Front = W_front - 64 mm
     3. Drawer side (K):
-       - Panjang = D (350, 400, etc.)
-       - Tinggi = H_front - 20 mm (atau diselaraskan)
+       - Panjang = D (300, 350, 400, 450 mm)
+       - Tinggi = H_front - 20 mm
     4. Drawer bottom (M):
-       - Lebar = Inner width + 2 * 5mm dado groove
+       - Lebar = Inner width + 2 * 5mm dado groove = W_front - 54 mm
        - Kedalaman = D - 7 mm
     """
     d_side = side_length or get_standard_glide_length(case_depth)
@@ -110,7 +120,7 @@ def derive_drawer_box(
     )
 
     # 2. Drawer Side (K / ⑤) - Plywood 12 mm
-    # Length D, Height H_front - 20 mm (gap 10mm top & 10mm bottom)
+    # Length D, Height H_front - 20 mm
     side_h = h_front - 20.0
     side = PanelPart(
         label="⑤ / K",
@@ -126,12 +136,9 @@ def derive_drawer_box(
 
     # 3. Inner Front (AL / ⑪) - Plywood 12 mm
     # Jarak atas 20mm, bawah 10mm -> Height = H_front - 30 mm
-    # Jarak kanan/kiri 10mm -> Outer box = W_front - 20 mm
-    # Inner front span between sides = (W_front - 20) - 2 * 12 = W_front - 44 mm
-    # (If using standard 20mm DTC slide gap per side, inner front is W_front - 64 mm)
-    # Here owner explicitly mandated: "kanan/kiri 10mm" -> outer box width W_front - 20mm
+    # Jarak kanan/kiri 20mm -> Width = W_front - 40 - 24 = W_front - 64 mm
     inner_front_h = h_front - 20.0 - 10.0  # H_front - 30 mm
-    inner_front_w = (w_front - 20.0) - (2 * side_wall_thickness) # W_front - 44 mm
+    inner_front_w = w_front - 40.0 - (2 * side_wall_thickness) # W_front - 64 mm
     inner_front = PanelPart(
         label="⑪ / AL",
         component="Drawer inner front",
@@ -141,11 +148,11 @@ def derive_drawer_box(
         t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note=f"Role AL | Mandate 1: Atas 20mm, Bawah 10mm (H-30={inner_front_h}mm), Kanan/Kiri 10mm"
+        note=f"Role AL | Atas 20mm, Bawah 10mm (H-30={inner_front_h}mm), Kanan/Kiri 20mm (W-64={inner_front_w}mm)"
     )
 
     # 4. Drawer Back (L / ⑫) - Plywood 12 mm
-    # Mandate 2: "untuk drawer back ukuran tinggi disamakan dengan box depan"
+    # Mandate: "untuk drawer back ukuran tinggi disamakan dengan box depan"
     back_h = inner_front_h  # DISAMAKAN PERSIS!
     back_w = inner_front_w
     back = PanelPart(
@@ -157,13 +164,13 @@ def derive_drawer_box(
         t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note=f"Role L | Mandate 2: Tinggi disamakan dengan box depan = {back_h}mm"
+        note=f"Role L | Tinggi disamakan dengan box depan = {back_h}mm (W-64={back_w}mm)"
     )
 
-    # 5. Drawer Bottom (M / ⑫ on new list, ⑬ on old) - Plywood 6 mm
-    # Width enters 5mm dado each side: inner_width + 10 mm
+    # 5. Drawer Bottom (M) - Plywood 6 mm
+    # Width enters 5mm dado each side: inner_width + 10 mm = W_front - 54 mm
     # Depth enters front dado: D - 7 mm
-    bottom_w = inner_front_w + 10.0
+    bottom_w = inner_front_w + 10.0  # W_front - 54 mm
     bottom_d = d_side - 7.0
     bottom = PanelPart(
         label="⑫ / M",
@@ -174,7 +181,7 @@ def derive_drawer_box(
         t=6.0,
         qty=qty,
         exposed_faces=0,
-        note=f"Role M | Dado 5mm: (Inner W + 10 = {bottom_w}mm) x (D - 7 = {bottom_d}mm)"
+        note=f"Role M | Dado 5mm: (W-54={bottom_w}mm) x (D - 7={bottom_d}mm)"
     )
 
     # 6. Slide - DTC Soft close
