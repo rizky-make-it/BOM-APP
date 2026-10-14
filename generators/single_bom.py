@@ -44,6 +44,10 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
         ws = wb.copy_worksheet(wb["TEMPLATE"])
         ws.title = item_code
 
+    # Remove any leftover images from template
+    if hasattr(ws, "_images"):
+        ws._images.clear()
+
     ws.views.sheetView[0].showGridLines = True
     cached_map = {}
 
