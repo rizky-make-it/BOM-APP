@@ -1,0 +1,268 @@
+{
+  "header": {
+    "item_code": "TALLBOY 4 DRAWERS",
+    "item_name": "Tallboy 4 Drawers",
+    "collection": "Living Ikon Standard",
+    "overall_l": 950.0,
+    "overall_w": 450.0,
+    "overall_h": 1200.0,
+    "order_qty": 1,
+    "drawing_link": "doc_dfd98c1d3fb2_NW HOI AN LV453-B51 LABEL.pdf",
+    "finish_recipe": "NC NATURAL",
+    "flatpack_yn": "N",
+    "notes": "Generated via 9router Gemini + Factory Rules Pipeline",
+    "spec_link": "",
+    "photo_link": ""
+  },
+  "drawer": {
+    "count": 4,
+    "front_w": 860,
+    "front_h": 230,
+    "depth_D": 350,
+    "handles_per_drawer": 2,
+    "drawer_front_type": "framed_inlay",
+    "evidence": "Section C & Front View menunjukkan 4 laci tipe inset dengan bukaan/pitch 860 x 230 mm. Muka laci menggunakan konstruksi berbingkai solid 40x20 mm (Part 22 & Part 23) dengan panel pengisi 6 mm (Part 4: 800 x 170 x 6 mm). Kedalaman laci D = 350 mm tercetak jelas pada Section C. Front View menampilkan 2 handle per laci (total 8 handle)."
+  },
+  "solid_parts": [
+    {
+      "label": "3 / A",
+      "component": "Leg",
+      "l": 1200.0,
+      "w": 45.0,
+      "t": 45.0,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Kaki solid 45x45 mm menerus full height 1200 mm sesuai callout Section A, B, dan C."
+    },
+    {
+      "label": "1 / A",
+      "component": "Bottom back stretcher",
+      "l": 860.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Rel/stretcher bawah horizontal depan & belakang pada elevasi 190 mm dari lantai, callout 1 / A-0X (860 x 40 x 20 mm)."
+    },
+    {
+      "label": "2 / A",
+      "component": "Side stretcher",
+      "l": 360.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Stretcher samping bawah menghubungkan kaki depan dan belakang pada elevasi 190 mm, callout 2 / A-0X (360 x 40 x 20 mm)."
+    },
+    {
+      "label": "6 / A",
+      "component": "Top front rail",
+      "l": 860.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Rel depan atas penahan bukaan laci teratas. Catatan teks Section B tertulis 360x40x20 (duplikasi drafter dari side rail), namun bentang struktural antar-kaki adalah Clear Width 860 mm (860 x 40 x 20 mm)."
+    },
+    {
+      "label": "21 / A",
+      "component": "side rail",
+      "l": 360.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Rel samping atas penopang top panel di sisi kiri dan kanan, callout 21 / A-0X (360 x 40 x 20 mm)."
+    },
+    {
+      "label": "22 / A",
+      "component": "frame top/bottom drawer",
+      "l": 860.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 8,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Rel atas dan bawah bingkai muka laci (2 batang per laci x 4 laci = 8 pcs), callout 22 / A-0X (860 x 40 x 20 mm)."
+    },
+    {
+      "label": "23 / A",
+      "component": "frame side drawer",
+      "l": 230.0,
+      "w": 40.0,
+      "t": 20.0,
+      "qty": 8,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Stile samping vertikal bingkai muka laci (2 batang per laci x 4 laci = 8 pcs), callout 23 / A-0X (230 x 40 x 20 mm)."
+    }
+  ],
+  "panel_parts": [
+    {
+      "label": "7 / B-18-1X",
+      "component": "Top",
+      "panel_type": "PLY-18-MSF",
+      "l": 930.0,
+      "w": 430.0,
+      "t": 18.0,
+      "qty": 1,
+      "exposed_faces": 1,
+      "note": "Top panel callout tercetak 930x430x20 (B-20-1X); disesuaikan ke standar tebal pabrik 18 mm (PLY-18-MSF) sesuai Mandat Resmi V2.1."
+    },
+    {
+      "label": "8 / B-12-1X",
+      "component": "Side panel",
+      "panel_type": "PLY-12-MSF",
+      "l": 930.0,
+      "w": 360.0,
+      "t": 12.0,
+      "qty": 2,
+      "exposed_faces": 1,
+      "note": "Side panel samping kiri dan kanan, callout 8 / B-12-1X (930 x 360 x 12 mm)."
+    },
+    {
+      "label": "9 / B-9-1X",
+      "component": "Back panel",
+      "panel_type": "PLY-9-MSF",
+      "l": 930.0,
+      "w": 860.0,
+      "t": 9.0,
+      "qty": 1,
+      "exposed_faces": 1,
+      "note": "Back panel belakang tertanam pada alur kaki, callout 9 / B-9-1X (930 x 860 x 9 mm)."
+    },
+    {
+      "label": "4 / B-6-1X",
+      "component": "Drawer front",
+      "panel_type": "PLY-6-MSF",
+      "l": 800.0,
+      "w": 170.0,
+      "t": 6.0,
+      "qty": 4,
+      "exposed_faces": 1,
+      "note": "Panel pengisi (inlay) muka laci berbingkai, callout 4 / B-6-1X (800 x 170 x 6 mm), 1 pc per laci x 4 laci = 4 pcs."
+    },
+    {
+      "label": "5 / B-12-0X",
+      "component": "Drawer side",
+      "panel_type": "PLY-12-RAW",
+      "l": 350.0,
+      "w": 210.0,
+      "t": 12.0,
+      "qty": 8,
+      "exposed_faces": 0,
+      "note": "Rumus Pabrik Paten (derive_drawer_box)"
+    },
+    {
+      "label": "11 / B-12-0X",
+      "component": "Drawer inner front",
+      "panel_type": "PLY-12-RAW",
+      "l": 796.0,
+      "w": 200.0,
+      "t": 12.0,
+      "qty": 4,
+      "exposed_faces": 0,
+      "note": "Rumus Pabrik Paten: (W-64) x (H-30)"
+    },
+    {
+      "label": "11 / B-12-0X",
+      "component": "Drawer back",
+      "panel_type": "PLY-12-RAW",
+      "l": 796.0,
+      "w": 200.0,
+      "t": 12.0,
+      "qty": 4,
+      "exposed_faces": 0,
+      "note": "Rumus Pabrik Paten: Tinggi sama persis inner front"
+    },
+    {
+      "label": "12 / B-6-0X",
+      "component": "Drawer bottom",
+      "panel_type": "PLY-6-RAW",
+      "l": 806.0,
+      "w": 343.0,
+      "t": 6.0,
+      "qty": 4,
+      "exposed_faces": 0,
+      "note": "Rumus Pabrik Paten: (W-54) x (D-7)"
+    }
+  ],
+  "hardware_parts": [
+    {
+      "label": "16 / HANDLE",
+      "description": "Drawer Pull Handle",
+      "qty": 8.0,
+      "unit_price": 0.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Tercetak pada Front View: 2 handle per laci x 4 laci = 8 pcs."
+    },
+    {
+      "label": "15 / DTC-350",
+      "description": "Rel laci DTC soft close 13\" (350 mm)",
+      "qty": 4.0,
+      "unit_price": 61396.2,
+      "uom": "set",
+      "item_master_code": "HARDWARE",
+      "vendor": "Sukey / DTC",
+      "note": "Rumus Pabrik: DTC slide"
+    }
+  ],
+  "reading_notes": [
+    {
+      "parameter": "Overall Dimensions",
+      "value": "950 x 450 x 1200 mm",
+      "source": "PAGE 0 (Top View, Front View, Side View)",
+      "confidence": "HIGH"
+    },
+    {
+      "parameter": "Leg Dimension & Clearance",
+      "value": "45x45 mm, Height 1200 mm, Floor Clearance 190 mm",
+      "source": "PAGE 0 & PAGE 1 Section A, B, C",
+      "confidence": "HIGH"
+    },
+    {
+      "parameter": "Drawer Front Construction",
+      "value": "Framed Inlay: Frame 40x20 mm (Part 22 & 23) + Inlay Panel 6 mm (Part 4: 800x170x6)",
+      "source": "PAGE 1 Section B & C callouts (4, 22, 23)",
+      "confidence": "HIGH"
+    },
+    {
+      "parameter": "Top Panel Thickness",
+      "value": "Callout 20 mm diubah menjadi 18 mm (PLY-18-MSF)",
+      "source": "Mandat Resmi V2.1 Aturan Carcass & Rangka",
+      "confidence": "HIGH"
+    },
+    {
+      "parameter": "Internal Drawer Box Exclusion",
+      "value": "Part 5, 11, 12, 15 tidak dihitung manual",
+      "source": "Mandat Resmi V2.1 Aturan Laci (derive_drawer_box)",
+      "confidence": "HIGH"
+    }
+  ],
+  "assumptions_and_doubts": [
+    "Callout gelembung 6 pada Section B mencantumkan dimensi teks '360 x 40 x 20', namun posisinya adalah rel depan atas (Top Front Rail) yang secara struktural harus membentang selebar Clear Width (860 mm). Estimator menetapkan panjang L = 860 mm.",
+    "Callout gelembung 7 pada Section B menuliskan teks '530 x 400 x 20' akibat kesalahan penulisan drafter CAD, namun pada Section A terkonfirmasi presisi '930 x 430 x 20'. Dimensi $930 \\times 430$ mm diadopsi secara resmi.",
+    "Back panel (Part 9) dipasang langsung masuk ke alur kaki dan panel samping sebagaimana detail potongan Section C, sehingga tidak memerlukan Part 10 & 17 (Back frame stiles & rails terpisah)."
+  ]
+}
