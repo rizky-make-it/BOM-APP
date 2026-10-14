@@ -120,22 +120,31 @@ ATURAN STRUKTURAL PABRIK (MANDAT RESMI V2.1):
 1. KATALOG 25 PART RESMI:
 {catalog_desc}
 
-2. ATURAN CARCASS & RANGKA:
-- Kaki (Part 3 / Leg): Kayu solid (Mindi/Teak sesuai gambar). Panjang = overall_h - top_thickness (atau ikuti callout kaki jika tercetak khusus).
-- Clear Width = overall_l - 2 * leg_section
-- Clear Depth = overall_w - 2 * leg_section
-- Top (Part 7): Panel Plywood/MDF veneer 1 muka (PLY-18-MSF). Jika gambar cetak 20mm, gunakan tebal 18mm & catat.
-- Side Panel (Part 8): Plywood (PLY-12-MSF atau PLY-18-MSF). TIDAK PERNAH SOLID WOOD.
-- Back Panel (Part 9): Plywood 9mm (PLY-9-MSF atau PLY-9-RAW).
-- Back Frame (Part 17 Rail & Part 10 Stile): Solid wood 40x25mm (2 rail = clear_width + 10mm; 2 stile = body_height + 10mm).
-- Rel/Stretcher (Part 1, 2, 6, 21): Sesuai callout dimensi gambar.
+2. ATURAN CARCASS & RANGKA (STANDAR PABRIK RESMI):
+- Komponen Carcass HANYA terdiri dari part fungsional riil:
+  * Kaki (Leg): 4x sudut (45x45mm)
+  * Rel Panjang (front/back rail top and bottom): 4x (1410x40x35mm untuk dresser, mengikat depan atas/bawah dan belakang atas/bawah)
+  * Rel Samping Atas (top rail front to back): 2x
+  * Stretcher Samping Bawah (Side stretcher): 2x
+  * Partisi Tengah (center panel): 1x plywood 18mm diapit rangka penguat (frame @ center panel 2x solid 40x25mm)
+  * Rangka Belakang (frame @ back panel): 1x tiang vertikal penguat tengah
+  * Panel Top: 1x Plywood 18mm MSF
+  * Panel Samping (Side panel): 2x Plywood 12mm MSF
+  * Panel Belakang (Back panel): 2x Plywood 9mm RAW
+  * JANGAN menambah rel/cleats bayangan yang tidak ada dalam daftar potongan resmi!
 
-3. ATURAN LACI (DRAWER):
-- Jika unit memiliki laci, laporkan detail laci pada blok "drawer" (count, front_w, front_h, depth_D, handles_per_drawer).
-- Drawer Front (Part 4):
-  * Standar pabrik: Front utuh W x H tebal 18mm (PLY-18-MDF / C-18-2X).
-  * Jika gambar memiliki desain berbingkai: masukkan frame stiles (Part 23) dan rails (Part 22) serta panel pengisi (Part 4), ATAU gunakan front standar sesuai kaidah konstruksi.
-- KOTAK LACI DALAM (Side, Inner Front, Back, Bottom, Rel): JANGAN Anda hitung manual! Sistem akan menghitung otomatis menggunakan rumus paten pabrik (derive_drawer_box).
+3. ATURAN MUKA LACI & KOTAK LACI:
+- Muka laci berbingkai rotan:
+  * Wood trim side/side (Part 23)
+  * Wood trim front/back (Part 22)
+  * Anyaman rotan (ROTAN / SQ)
+  * Panel penutup belakang rotan (drawer front back panel, Plywood 12mm RAW)
+- KOTAK LACI DALAM (Side, Inner Front, Back, Bottom, Rel DTC): JANGAN Anda hitung manual! Sistem akan menghitung otomatis menggunakan rumus paten pabrik (derive_drawer_box).
+
+4. FINISHING 3-ZONA:
+- exterior_m2: Top + Front + Sides luar
+- interior_m2: Belakang luar + dalam laci keliling + rel samping + alas laci + belakang laci
+- sealer_only_m2: Belakang dalam + samping dalam + top dalam
 
 4. ATURAN KODE MATERIAL:
 - Solid: '<no> / A'
