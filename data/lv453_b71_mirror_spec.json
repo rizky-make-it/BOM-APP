@@ -1,0 +1,93 @@
+{
+  "header": {
+    "item_code": "LV453-B71",
+    "item_name": "MIRROR",
+    "collection": "NEW HOI AN / Bedroom",
+    "overall_l": 1000.0,
+    "overall_w": 25.0,
+    "overall_h": 1000.0,
+    "order_qty": 1,
+    "drawing_link": "LV453-B71-MIRROR.pdf",
+    "finish_recipe": "NC NATURAL",
+    "flatpack_yn": "N",
+    "notes": "Koleksi New Hoi An — Cermin Dinding Mindi Solid 1000x1000mm + Kaca Cermin 5mm (920x920mm) + Backing Plywood 3mm",
+    "spec_link": "",
+    "photo_link": ""
+  },
+  "solid_parts": [
+    {
+      "label": "20 / A",
+      "component": "Back support",
+      "l": 900.0,
+      "w": 10.0,
+      "t": 10.0,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "D",
+      "note": "Retaining beads penahan kaca cermin keliling"
+    },
+    {
+      "label": "24 / A",
+      "component": "horizontal support",
+      "l": 1000.0,
+      "w": 50.0,
+      "t": 25.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Outer frame horizontal rails (atas & bawah, miter 45 deg)"
+    },
+    {
+      "label": "25 / A",
+      "component": "vertical support",
+      "l": 900.0,
+      "w": 50.0,
+      "t": 25.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Outer frame vertical stiles (kiri & kanan antara rail)"
+    }
+  ],
+  "panel_parts": [
+    {
+      "label": "9 / B-3-RAW",
+      "component": "Back panel",
+      "panel_type": "PLY-3-RAW",
+      "l": 920.0,
+      "w": 920.0,
+      "t": 3.0,
+      "qty": 1,
+      "exposed_faces": 0,
+      "note": "Backing panel penutup debu belakang cermin 3mm"
+    }
+  ],
+  "hardware_parts": [
+    {
+      "label": "19 / MIRROR",
+      "description": "Kaca Cermin Beveled / Flat 5 mm (920x920 mm)",
+      "qty": 1.0,
+      "unit_price": 145000.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Kaca cermin potong bersih masuk sponeng 10mm"
+    },
+    {
+      "label": "BRACKET / WALL",
+      "description": "French Cleat / Heavy Duty Mirror Hanging Brackets",
+      "qty": 1.0,
+      "unit_price": 25000.0,
+      "uom": "set",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Gantungan cermin dinding"
+    }
+  ]
+}

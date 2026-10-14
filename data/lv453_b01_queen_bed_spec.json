@@ -1,0 +1,179 @@
+{
+  "header": {
+    "item_code": "LV453-B01",
+    "item_name": "QUEEN BED",
+    "collection": "NEW HOI AN / Bedroom",
+    "overall_l": 1690.0,
+    "overall_w": 2140.0,
+    "overall_h": 1300.0,
+    "order_qty": 1,
+    "drawing_link": "LV453 - B01 - Queen Bed.pdf.pdf",
+    "finish_recipe": "NC NATURAL",
+    "flatpack_yn": "Y",
+    "notes": "Koleksi New Hoi An — Queen Bed Mindi Solid + Inlay Rotan Alami Square Webbing + Slat Base Queen",
+    "spec_link": "",
+    "photo_link": ""
+  },
+  "solid_parts": [
+    {
+      "label": "1 / A",
+      "component": "Bottom back stretcher",
+      "l": 1530.0,
+      "w": 50.0,
+      "t": 35.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Headboard horizontal middle & bottom rails"
+    },
+    {
+      "label": "1 / A",
+      "component": "Bottom back stretcher",
+      "l": 1530.0,
+      "w": 80.0,
+      "t": 35.0,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Footboard top rail horisontal"
+    },
+    {
+      "label": "1 / A",
+      "component": "Bottom back stretcher",
+      "l": 1530.0,
+      "w": 150.0,
+      "t": 35.0,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Footboard bottom rail penutup bawah"
+    },
+    {
+      "label": "3 / A",
+      "component": "Leg",
+      "l": 1300.0,
+      "w": 80.0,
+      "t": 50.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Headboard main posts / tiang sudut tinggi 1300mm"
+    },
+    {
+      "label": "3 / A",
+      "component": "Leg",
+      "l": 500.0,
+      "w": 80.0,
+      "t": 50.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Footboard corner posts / tiang sudut pendek 500mm"
+    },
+    {
+      "label": "6 / A",
+      "component": "Top front rail",
+      "l": 1690.0,
+      "w": 80.0,
+      "t": 35.0,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Headboard top cap rail penutup mahkota atas"
+    },
+    {
+      "label": "21 / A",
+      "component": "side rail",
+      "l": 2040.0,
+      "w": 150.0,
+      "t": 35.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Side rails kiri & kanan bentang bersih 2040mm"
+    },
+    {
+      "label": "24 / A",
+      "component": "horizontal support",
+      "l": 2040.0,
+      "w": 35.0,
+      "t": 35.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Slat ledger cleats / balok dudukan slat kasur di side rail"
+    },
+    {
+      "label": "25 / A",
+      "component": "vertical support",
+      "l": 741.0,
+      "w": 50.0,
+      "t": 35.0,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Headboard vertical divider stiles (pembagi 3 panel bawah)"
+    }
+  ],
+  "panel_parts": [],
+  "hardware_parts": [
+    {
+      "label": "GLIDES / 25MM",
+      "description": "Nylon Glides 25 mm",
+      "qty": 4.0,
+      "unit_price": 3500.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Floor glides 4 tiang kaki sudut"
+    },
+    {
+      "label": "BED-BRACKET",
+      "description": "Heavy Duty Knock-Down Bed Rail Bracket / Fitting Corners",
+      "qty": 4.0,
+      "unit_price": 18500.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Fitting sambungan sudut rel ranjang ke tiang kaki"
+    },
+    {
+      "label": "ROTAN / SQ",
+      "description": "Anyaman Rotan Kotak Alami Headboard & Footboard (2.2 m lari)",
+      "qty": 2.2,
+      "unit_price": 160000.0,
+      "uom": "m'",
+      "item_master_code": "BOUGHT-IN",
+      "vendor": "Cirebon",
+      "note": "Inlay rotan alami HB atas (1530x130), HB bawah 3 panel, FB (1530x120)"
+    },
+    {
+      "label": "SLAT-BASE-QUEEN",
+      "description": "Bed Slat Base Metal Frame + Beechwood Slats Queen (1530x2030 mm)",
+      "qty": 1.0,
+      "unit_price": 400000.0,
+      "uom": "set",
+      "item_master_code": "HARDWARE",
+      "vendor": "Import",
+      "note": "Rule 26: Slat base bought-in metal frame ex-China USD 25"
+    }
+  ]
+}
