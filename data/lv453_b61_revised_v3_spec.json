@@ -1,0 +1,260 @@
+{
+  "header": {
+    "item_code": "LV453-B61",
+    "item_name": "DRESSER 6 DRAWERS",
+    "collection": "NEW HOI AN / Bedroom",
+    "overall_l": 1480,
+    "overall_w": 450,
+    "overall_h": 820,
+    "order_qty": 1,
+    "drawing_link": "NEW HOI AN LV453-B61 LABEL 3 (1).pdf",
+    "finish_recipe": "NC NATURAL",
+    "flatpack_yn": "N",
+    "notes": "Koleksi New Hoi An — Dresser 6 Drawers Revisi v2.3 (BOM Cutlist Riil + 3-Zone Finishing: Exterior 2.33m², Interior 5.77m², Sealer 2.33m²)",
+    "spec_link": "https://rezekilancar.com/spec/LV453-B61"
+  },
+  "solid_parts": [
+    {
+      "label": "3 / A",
+      "component": "Leg",
+      "l": 820,
+      "w": 45,
+      "t": 45,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 3 | Leg (Corner posts 45x45)"
+    },
+    {
+      "label": "6 / A",
+      "component": "front/back rail, top and bottom",
+      "l": 1410,
+      "w": 40,
+      "t": 35,
+      "qty": 4,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "A",
+      "note": "Part 6 | front/back rail, top and bottom (4x rails)"
+    },
+    {
+      "label": "21 / A",
+      "component": "top rail front to back",
+      "l": 360,
+      "w": 45,
+      "t": 45,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 21 | top rail front to back (upper side rails)"
+    },
+    {
+      "label": "2 / A",
+      "component": "Side stretcher",
+      "l": 360,
+      "w": 45,
+      "t": 20,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 2 | Side stretcher (bottom side rails)"
+    },
+    {
+      "label": "25 / A",
+      "component": "frame @ center panel",
+      "l": 360,
+      "w": 40,
+      "t": 25,
+      "qty": 2,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 25 | frame @ center panel (center partition framing)"
+    },
+    {
+      "label": "23 / A",
+      "component": "frame side drawer",
+      "l": 200,
+      "w": 40,
+      "t": 20,
+      "qty": 12,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 23 | drawer front wood trim side/side (2 per drawer x6)"
+    },
+    {
+      "label": "22 / A",
+      "component": "frame top/bottom drawer",
+      "l": 705,
+      "w": 40,
+      "t": 20,
+      "qty": 12,
+      "material": "MINDI",
+      "exposed": "Y",
+      "curved": "N",
+      "tier_override": "B",
+      "note": "Part 22 | drawer front wood trim front/back (2 per drawer x6)"
+    },
+    {
+      "label": "10 / A",
+      "component": "frame @ back panel",
+      "l": 600,
+      "w": 50,
+      "t": 25,
+      "qty": 1,
+      "material": "MINDI",
+      "exposed": "N",
+      "curved": "N",
+      "tier_override": "C",
+      "note": "Part 10 | frame @ back panel (center vertical support)"
+    }
+  ],
+  "panel_parts": [
+    {
+      "label": "7 / B-18-1X",
+      "component": "top panel",
+      "panel_type": "PLY-18-MSF",
+      "l": 1480,
+      "w": 430,
+      "t": 18,
+      "qty": 1,
+      "exposed_faces": 1,
+      "note": "Part 7 | top panel (1480x430x18mm MSF)"
+    },
+    {
+      "label": "8 / B-12-1X",
+      "component": "side panel",
+      "panel_type": "PLY-12-MSF",
+      "l": 600,
+      "w": 360,
+      "t": 12,
+      "qty": 2,
+      "exposed_faces": 1,
+      "note": "Part 8 | side panel (600x360x12mm MSF)"
+    },
+    {
+      "label": "13 / B-18-1X",
+      "component": "center panel",
+      "panel_type": "PLY-18-MSF",
+      "l": 575,
+      "w": 405,
+      "t": 18,
+      "qty": 1,
+      "exposed_faces": 1,
+      "note": "Part 13 | center panel (575x405x18mm MSF)"
+    },
+    {
+      "label": "4 / B-12-0X",
+      "component": "drawer front back panel",
+      "panel_type": "PLY-12-RAW",
+      "l": 641,
+      "w": 170,
+      "t": 12,
+      "qty": 6,
+      "exposed_faces": 0,
+      "note": "Part 4 | drawer front back panel (backing behind rattan)"
+    },
+    {
+      "label": "9 / B-9-0X",
+      "component": "back panel",
+      "panel_type": "PLY-9-RAW",
+      "l": 680,
+      "w": 600,
+      "t": 9,
+      "qty": 2,
+      "exposed_faces": 0,
+      "note": "Part 9 | back panel (2x split panels in dado)"
+    },
+    {
+      "label": "5 / B-12-0X",
+      "component": "drawer box side",
+      "panel_type": "PLY-12-RAW",
+      "l": 350,
+      "w": 180,
+      "t": 12,
+      "qty": 12,
+      "exposed_faces": 0,
+      "note": "Part 5 | drawer box side (D=350, H-20=180mm)"
+    },
+    {
+      "label": "11 / B-12-0X",
+      "component": "drawer box front/back",
+      "panel_type": "PLY-12-RAW",
+      "l": 641,
+      "w": 170,
+      "t": 12,
+      "qty": 12,
+      "exposed_faces": 0,
+      "note": "Part 11 | drawer box front/back (6 inner front + 6 back = 12 total)"
+    },
+    {
+      "label": "12 / B-6-0X",
+      "component": "drawer base",
+      "panel_type": "PLY-6-RAW",
+      "l": 651,
+      "w": 343,
+      "t": 6,
+      "qty": 6,
+      "exposed_faces": 0,
+      "note": "Part 12 | drawer base (W-54=651mm, D-7=343mm in 5mm dado)"
+    }
+  ],
+  "hardware_parts": [
+    {
+      "label": "15 / DTC-14",
+      "description": "Rel laci DTC soft close 14\" (356 mm)",
+      "qty": 6,
+      "unit_price": 61396.2,
+      "uom": "set",
+      "item_master_code": "HARDWARE",
+      "vendor": "Sukey / DTC",
+      "note": "Part 15 | drawer rail dtc 350mm"
+    },
+    {
+      "label": "ROTAN / SQ",
+      "description": "Anyaman Rotan Kotak Alami (1.5 m lari)",
+      "qty": 1.5,
+      "unit_price": 160000.0,
+      "uom": "m'",
+      "item_master_code": "BOUGHT-IN",
+      "vendor": "Cirebon",
+      "note": "rattan woven @ drawer front center (6 drawer faces)"
+    },
+    {
+      "label": "16 / 128MM",
+      "description": "Handle Solid Brass 128 mm",
+      "qty": 6,
+      "unit_price": 25000.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Part 16 | handle"
+    },
+    {
+      "label": "GLIDES / 25MM",
+      "description": "Nylon Glides 25 mm",
+      "qty": 4,
+      "unit_price": 3500.0,
+      "uom": "pcs",
+      "item_master_code": "HARDWARE",
+      "vendor": "Lokal",
+      "note": "Part 20 | nylon glides (4 corner posts)"
+    }
+  ],
+  "finishing_zones": {
+    "exterior_m2": 2.331,
+    "interior_m2": 5.7741,
+    "sealer_only_m2": 2.331,
+    "total_m2": 10.4361
+  }
+}

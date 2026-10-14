@@ -267,3 +267,56 @@ def map_drawing_code_to_rate(drawing_code: str, dominant_species: str = "MINDI")
         "thickness": thickness,
         "faces": face_part
     }
+
+def calculate_3zone_finishing(
+    overall_l: float,
+    overall_w: float,
+    body_h: float,
+    drawer_count: int = 0,
+    drawer_d: float = 350.0,
+    drawer_inner_w: float = 641.0,
+    drawer_inner_h: float = 170.0,
+    drawer_box_h: float = 190.0,
+) -> Dict[str, float]:
+    """
+    3-Zone Finishing Surface Area Calculation (Revised Factory Standard v2.3):
+    1. Exterior m²: Top (1 face) + Front (1 face) + Sides (2 faces)
+    2. Interior m²: Back panel exterior + Drawer inside perimeter unfolded + Drawer side rails + Drawer base exterior + Drawer back exterior
+    3. Sealer Only m²: Back panel interior + Side panel interior + Top panel interior
+    """
+    # 1. Exterior
+    ext_top = (overall_l * overall_w) / 1e6
+    ext_front = (overall_l * body_h) / 1e6
+    ext_side = (body_h * overall_w * 2.0) / 1e6
+    tot_exterior = ext_top + ext_front + ext_side
+
+    # 2. Interior
+    int_back_panel = (overall_l * body_h) / 1e6
+    int_drawer_inside = 0.0
+    int_drawer_rails = 0.0
+    int_drawer_base = 0.0
+    int_drawer_back = 0.0
+
+    if drawer_count > 0:
+        # Perimeter unfolded approx 2 * (drawer_inner_w + drawer_d) or standard 2000mm
+        perimeter_unfolded = 2.0 * (drawer_inner_w + drawer_d)
+        int_drawer_inside = (perimeter_unfolded * drawer_box_h * drawer_count) / 1e6
+        int_drawer_rails = (drawer_d * drawer_box_h * (2 * drawer_count)) / 1e6
+        int_drawer_base = (drawer_inner_w * drawer_d * drawer_count) / 1e6
+        int_drawer_back = (drawer_d * (drawer_box_h - 40.0) * drawer_count) / 1e6
+
+    tot_interior = int_back_panel + int_drawer_inside + int_drawer_rails + int_drawer_base + int_drawer_back
+
+    # 3. Sealer Only
+    sealer_back = (overall_l * body_h) / 1e6
+    sealer_side = (body_h * overall_w * 2.0) / 1e6
+    sealer_top = (overall_l * overall_w) / 1e6
+    tot_sealer = sealer_back + sealer_side + sealer_top
+
+    return {
+        "exterior_m2": round(tot_exterior, 4),
+        "interior_m2": round(tot_interior, 4),
+        "sealer_only_m2": round(tot_sealer, 4),
+        "total_finishing_m2": round(tot_exterior + tot_interior + tot_sealer, 4)
+    }
+

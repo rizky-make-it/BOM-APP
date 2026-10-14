@@ -14,6 +14,7 @@ from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpec
 from .generators.single_bom import build_single_bom_workbook
 from .generators.comparison import build_3way_comparison
 from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate, PART_CATALOG, SPECIES_MAP
+from .pipeline import run_pipeline
 
 def cmd_info(args):
     print("=" * 65)
@@ -256,6 +257,23 @@ def main():
     p_verify = subparsers.add_parser("verify", help="Validate an existing BOM workbook (D102 checks & formulas).")
     p_verify.add_argument("workbook", help="Path to BOM .xlsx file.")
     p_verify.set_defaults(func=cmd_verify)
+
+    # auto / pipeline
+    def cmd_auto(args):
+        res = run_pipeline(args.pdf, args.output)
+        print("\n" + "=" * 65)
+        print("  AUTOMATED BOM GENERATION SUCCESSFUL")
+        print("=" * 65)
+        print(f"File:       {res['output_file']}")
+        print(f"Direct:     Rp {res['direct_cost']:,.2f}")
+        print(f"Unit (HPP): Rp {res['unit_cost']:,.2f}")
+        print(f"Checks:     {res['open_checks']} (0 = PASS)")
+        print("=" * 65)
+
+    p_auto = subparsers.add_parser("auto", help="End-to-end automated BOM generation from PDF drawing.")
+    p_auto.add_argument("pdf", help="Path to PDF drawing file.")
+    p_auto.add_argument("-o", "--output", help="Optional output .xlsx path.")
+    p_auto.set_defaults(func=cmd_auto)
 
     args = parser.parse_args()
     args.func(args)
