@@ -33,6 +33,13 @@ def get_workbook_rates() -> Dict[str, float]:
                 rates[r[0]] = float(vals[0])
     return rates
 
+def sort_by_part_number(item):
+    label = getattr(item, 'label', str(item))
+    m = re.search(r'\d+', label)
+    if m:
+        return (0, int(m.group(0)), label)
+    return (1, 999, label)
+
 def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
@@ -48,6 +55,11 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     # Setup each item tab
     for idx, item_dict in enumerate(specs):
         spec: BOMSpecification = item_dict["spec"]
+        # Sort components by part number ascending
+        spec.solid_parts.sort(key=sort_by_part_number)
+        spec.panel_parts.sort(key=sort_by_part_number)
+        spec.hardware_parts.sort(key=sort_by_part_number)
+
         front_img_path: str = item_dict["front_img_path"]
         row_num = 6 + idx
         header = spec.header

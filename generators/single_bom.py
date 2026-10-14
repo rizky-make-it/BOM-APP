@@ -3,6 +3,7 @@ Canonical Single-Item BOM Workbook Generator.
 Strictly clones from Golden Master without shifting columns or breaking formulas.
 """
 
+import re
 from pathlib import Path
 import openpyxl
 from ..config import GOLDEN_MASTER_PATH
@@ -10,9 +11,21 @@ from ..models.item import BOMSpecification
 from ..core.costing_engine import calculate_bom_costing
 from ..core.writer import enable_cached_writer, clear_active_cache
 
+def sort_by_part_number(item):
+    label = getattr(item, 'label', str(item))
+    m = re.search(r'\d+', label)
+    if m:
+        return (0, int(m.group(0)), label)
+    return (1, 999, label)
+
 def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_rates: dict = None) -> dict:
     if not GOLDEN_MASTER_PATH.exists():
         raise FileNotFoundError(f"Golden Master template missing at {GOLDEN_MASTER_PATH}")
+
+    # Sort components by catalog part number ascending
+    spec.solid_parts.sort(key=sort_by_part_number)
+    spec.panel_parts.sort(key=sort_by_part_number)
+    spec.hardware_parts.sort(key=sort_by_part_number)
 
     # Compute all values
     cost_data = calculate_bom_costing(spec, custom_rates)
@@ -67,10 +80,10 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     ws["D4"] = header.drawing_link
 
     # Packing row 11
-    ws["D11"] = header.overall_l
-    ws["E11"] = header.overall_w
-    ws["F11"] = header.overall_h
-    ws["G11"] = 1
+    ws["E11"] = header.overall_l
+    ws["F11"] = header.overall_w
+    ws["G11"] = header.overall_h
+    ws["H11"] = 1
 
     # Header Array Formula cache
     cached_map[(item_code, "G1")] = header.overall_l
