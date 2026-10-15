@@ -266,7 +266,10 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "D102")] = 0
 
     # If original LV453-B61 was in template but not in specs or replaced, remove if necessary
-    spec_codes = [s["spec"].header.item_code for s in specs]
+    spec_codes = [
+        s.header.item_code if isinstance(s, BOMSpecification) else (s["spec"].header.item_code if isinstance(s, dict) and "spec" in s else s.header.item_code)
+        for s in specs
+    ]
     if "LV453-B61" in wb.sheetnames and "LV453-B61" not in spec_codes:
         wb.remove(wb["LV453-B61"])
 
