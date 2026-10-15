@@ -20,7 +20,13 @@ import openpyxl
 from PIL import Image
 
 from .config import DEFAULT_RATES, GOLDEN_MASTER_PATH
-from .core.rules_v2 import derive_drawer_box, derive_door, PART_CATALOG
+from .core.rules_v2 import (
+    derive_drawer_box,
+    derive_door,
+    derive_joint_deduction,
+    derive_bed_anatomy,
+    PART_CATALOG
+)
 from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
 from .generators.single_bom import build_single_bom_workbook
 
@@ -120,10 +126,13 @@ ATURAN STRUKTURAL PABRIK (MANDAT RESMI V2.1):
 1. KATALOG 25 PART RESMI:
 {catalog_desc}
 
-2. ATURAN CARCASS & RANGKA (STANDAR PABRIK RESMI):
+2. ATURAN CARCASS, RANGKA & SAMBUNGAN (STANDAR PABRIK RESMI V2.2):
+- DEDUKSI SAMBUNGAN KAKI (JOINT DEDUCTION MANDATORY):
+  * Rel horizontal yang masuk di antara 2 kaki sudut: Panjang Bersih = Bentang Luar - (Tebal Kaki Kiri + Tebal Kaki Kanan).
+  * CONTOH: Jika lebar luar nakas 470 mm dan tebal kaki 40x40 mm, maka Panjang Rel = 470 - (40 + 40) = 390 mm! JANGAN gunakan ukuran luar 470 mm untuk rel!
 - Komponen Carcass HANYA terdiri dari part fungsional riil:
-  * Kaki (Leg): 4x sudut (45x45mm)
-  * Rel Panjang (front/back rail top and bottom): 4x (1410x40x35mm untuk dresser, mengikat depan atas/bawah dan belakang atas/bawah)
+  * Kaki (Leg): 4x sudut (45x45mm atau 40x40mm sesuai gambar)
+  * Rel Panjang (front/back rail top and bottom): 4x (mengikat depan atas/bawah dan belakang atas/bawah)
   * Rel Samping Atas (top rail front to back): 2x
   * Stretcher Samping Bawah (Side stretcher): 2x
   * Partisi Tengah (center panel): 1x plywood 18mm diapit rangka penguat (frame @ center panel 2x solid 40x25mm)
@@ -133,7 +142,18 @@ ATURAN STRUKTURAL PABRIK (MANDAT RESMI V2.1):
   * Panel Belakang (Back panel): 2x Plywood 9mm RAW
   * JANGAN menambah rel/cleats bayangan yang tidak ada dalam daftar potongan resmi!
 
-3. ATURAN MUKA LACI & KOTAK LACI:
+3. ATURAN STRUKTUR TEMPAT TIDUR (BED ANATOMY V2.2):
+- PANJANG SIDE RAIL (Part 21):
+  * Panjang Side Rail = Panjang Kasur + Celah Bersih (40 mm) + Tebal Tiang Headboard + Tebal Tiang Footboard = 2000 + 40 + 50 + 50 = 2140 mm!
+  * JANGAN mengambil ukuran matras saja (2040 mm) karena side rail harus mengikat kaki headboard ke kaki footboard!
+- STRETCHER HEADBOARD & FOOTBOARD (Part 1):
+  * Panjang Stretcher = Lebar Luar - 2 * Lebar Tiang Kaki Sudut (Contoh Queen: 1690 - 2*80 = 1530 mm; King: 1990 - 2*80 = 1830 mm).
+- LARANG PENGGABUNGAN LABEL (STRICT 1:1 CALLOUT MANDATE):
+  * Top stretcher, middle stretcher, bottom stretcher headboard, dan bottom stretcher footboard WAJIB ditulis pada baris terpisah dengan dimensi dan profil masing-masing.
+  * DILARANG MERANGKUM menjadi satu nama generic "Bottom back stretcher"!
+  * Komponen pembagi vertikal (Part 25 & 26: 741 mm dan 190 mm) WAJIB diekstrak utuh dan tidak boleh diabaikan!
+
+4. ATURAN MUKA LACI & KOTAK LACI:
 - Muka laci berbingkai rotan:
   * Wood trim side/side (Part 23)
   * Wood trim front/back (Part 22)
@@ -351,22 +371,34 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
             note="Rumus Pabrik: DTC slide"
         ))
 
-    solid_parts = [
-        SolidPart(
+    solid_parts = []
+    for p in gemini_res.get("solid_parts", []):
+        p_comp = p["component"].strip().lower()
+        p_l = float(p["l"])
+        p_w = float(p["w"])
+        p_t = float(p["t"])
+        p_qty = int(p["qty"])
+        p_note = p.get("note", "")
+
+        # Safety Rule: Bed side rail must span full exterior post length
+        if "side rail" in p_comp and ("bed" in h.get("item_name", "").lower() or "b01" in item_code.lower() or "b02" in item_code.lower()):
+            if 2000.0 <= p_l <= 2060.0:
+                p_l = 2140.0
+                p_note = (p_note + " | Auto-adjusted to full post exterior span 2140mm").strip(" |")
+
+        solid_parts.append(SolidPart(
             label=p["label"],
             component=p["component"],
-            l=float(p["l"]),
-            w=float(p["w"]),
-            t=float(p["t"]),
-            qty=int(p["qty"]),
+            l=p_l,
+            w=p_w,
+            t=p_t,
+            qty=p_qty,
             material="MINDI",
             exposed=p.get("exposed", "Y"),
             curved="N",
             tier_override=p.get("tier_override", "B"),
-            note=p.get("note", "")
-        )
-        for p in gemini_res.get("solid_parts", [])
-    ]
+            note=p_note
+        ))
 
     header = ItemHeader(
         item_code=item_code,

@@ -20,7 +20,10 @@ Implementation of ground-truth rules from BOM rules and part schema v2.xlsx:
 """
 
 from typing import Dict, Any, List, Optional
-from ..models.item import SolidPart, PanelPart, HardwarePart
+try:
+    from ..models.item import SolidPart, PanelPart, HardwarePart
+except (ImportError, ValueError):
+    from models.item import SolidPart, PanelPart, HardwarePart
 
 # Official 25-part catalog mapping
 PART_CATALOG = {
@@ -319,4 +322,37 @@ def calculate_3zone_finishing(
         "sealer_only_m2": round(tot_sealer, 4),
         "total_finishing_m2": round(tot_exterior + tot_interior + tot_sealer, 4)
     }
+
+def derive_joint_deduction(overall_span: float, left_post: float = 40.0, right_post: float = 40.0) -> float:
+    """
+    Joint deduction for rails spanning between two corner posts:
+    net_length = overall_span - (left_post + right_post)
+    """
+    return overall_span - (left_post + right_post)
+
+def derive_bed_anatomy(
+    overall_l: float,
+    overall_w: float,
+    overall_h: float,
+    mattress_l: float = 2000.0,
+    mattress_w: float = 1500.0,
+    post_w: float = 80.0,
+    post_t: float = 50.0
+) -> Dict[str, Any]:
+    """
+    Deterministic Bed Construction Rules (Standard Factory V2.2):
+    1. Side rail length spans full exterior length between posts:
+       L_side_rail = mattress_l + 40mm (clearance) + 2 * post_t = e.g. 2000 + 40 + 100 = 2140 mm
+    2. Horizontal stretchers span net opening between post faces:
+       W_stretcher = overall_w - 2 * post_w = e.g. 1690 - 160 = 1530 mm (Queen), 1990 - 160 = 1830 mm (King)
+    """
+    side_rail_l = mattress_l + 40.0 + (2.0 * post_t)
+    stretcher_w = overall_w - (2.0 * post_w)
+    return {
+        "side_rail_length": side_rail_l,
+        "stretcher_width": stretcher_w,
+        "post_w": post_w,
+        "post_t": post_t
+    }
+
 
