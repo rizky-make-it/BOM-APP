@@ -283,6 +283,35 @@ def main():
     p_auto.add_argument("-o", "--output", help="Optional output .xlsx path.")
     p_auto.set_defaults(func=cmd_auto)
 
+    # collection
+    def cmd_collection(args):
+        from generators.multi_bom import build_multi_bom
+        import datetime
+        specs = []
+        for p in args.spec_files:
+            with open(p, "r", encoding="utf-8") as fp:
+                d = json.load(fp)
+            h = ItemHeader(**d["header"])
+            solids = [SolidPart(**x) for x in d["solid_parts"]]
+            panels = [PanelPart(**x) for x in d.get("panel_parts", [])]
+            hws = [HardwarePart(**x) for x in d.get("hardware_parts", [])]
+            specs.append(BOMSpecification(h, solids, panels, hws))
+
+        now_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+        title = args.title or "COLLECTION"
+        out_name = args.output or f"{title} {now_str}.xlsx"
+        build_multi_bom(specs, out_name)
+        print("\n" + "=" * 65)
+        print(f"  COLLECTION MULTI-ITEM BOM GENERATED: {out_name}")
+        print(f"  Total Items: {len(specs)}")
+        print("=" * 65)
+
+    p_coll = subparsers.add_parser("collection", help="Generate single multi-item collection BOM workbook.")
+    p_coll.add_argument("spec_files", nargs="+", help="JSON spec files for collection items.")
+    p_coll.add_argument("-t", "--title", help="Collection title banner.")
+    p_coll.add_argument("-o", "--output", help="Output .xlsx workbook path.")
+    p_coll.set_defaults(func=cmd_collection)
+
     args = parser.parse_args()
     args.func(args)
 
