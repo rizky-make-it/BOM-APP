@@ -26,6 +26,7 @@ try:
         derive_door,
         derive_joint_deduction,
         derive_bed_anatomy,
+        derive_buffet_casegoods,
         PART_CATALOG
     )
     from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
@@ -37,6 +38,7 @@ except (ImportError, ValueError):
         derive_door,
         derive_joint_deduction,
         derive_bed_anatomy,
+        derive_buffet_casegoods,
         PART_CATALOG
     )
     from models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
@@ -165,15 +167,21 @@ ATURAN STRUKTURAL PABRIK (MANDAT RESMI V2.1):
   * DILARANG MERANGKUM menjadi satu nama generic "Bottom back stretcher"!
   * Komponen pembagi vertikal (Part 25 & 26: 741 mm dan 190 mm) WAJIB diekstrak utuh dan tidak boleh diabaikan!
 
-4. ATURAN MUKA LACI & KOTAK LACI:
-- Muka laci berbingkai rotan:
-  * Wood trim side/side (Part 23)
-  * Wood trim front/back (Part 22)
-  * Anyaman rotan (ROTAN / SQ)
-  * Panel penutup belakang rotan (drawer front back panel, Plywood 12mm RAW)
-- KOTAK LACI DALAM (Side, Inner Front, Back, Bottom, Rel DTC): JANGAN Anda hitung manual! Sistem akan menghitung otomatis menggunakan rumus paten pabrik (derive_drawer_box).
+4. ATURAN MUKA LACI & KOTAK LACI (MANDAT TERBARU V2.2):
+- KOTAK LACI DALAM (Side, Inner Front, Back, Bottom, Rel DTC): JANGAN Anda hitung manual! Sistem akan menghitung otomatis menggunakan rumus paten pabrik (derive_drawer_box):
+  * Lebar Kotak: W_front - 64 mm (celah kanan/kiri 20mm + dinding 24mm)
+  * Tinggi Kotak: H_front - 30 mm (celah atas 20mm, celah bawah 10mm, seragam keliling)
+  * Dasar Laci: (W_front - 54 mm) x (D - 7 mm)
+  * Rel Laci: DTC undermount sesuai kedalaman D
 
-4. FINISHING 3-ZONA:
+5. ATURAN CASEGOODS / BUFFET / CREDENZA (STANDAR PABRIK V2.3):
+- DEDUKSI SAMBUNGAN: Panjang rel apron dan stretcher = Overall L/W - (2 x tebal kaki sudut).
+- KAKI TINGGI (> 200 mm): Bagian dasar bawah bodi TIDAK menggunakan lantai triplek utuh, melainkan menggunakan rangka rel kayu solid pengikat bodi (apron rails 40x25 mm dan rel tengah 45x36 mm).
+- PINTU (DOOR): Tinggi daun pintu bersih = bukaan kabinet - celah lis atas/bawah 25 mm (contoh bukaan 525 mm -> daun pintu 500 mm). Jumlah pintu DIKUNCI strictly sesuai nama item (misal "2 Doors" = 2 pcs, DILARANG dobel).
+- PARTISI & AMBALAN: Partisi vertikal masuk menjangkau bibir rebate pintu (kedalaman 410 mm). Ambalan berpintu diberi lis kayu solid depan (520 x 30 x 20 mm).
+- PANEL BELAKANG BERSEKAT: Jika ada tiang vertikal belakang, panel belakang dipotong per kompartemen (3 bay terpisah), bukan 1 lembar utuh.
+
+6. FINISHING 3-ZONA:
 - exterior_m2: Top + Front + Sides luar
 - interior_m2: Belakang luar + dalam laci keliling + rel samping + alas laci + belakang laci
 - sealer_only_m2: Belakang dalam + samping dalam + top dalam

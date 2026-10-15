@@ -368,4 +368,55 @@ def derive_bed_anatomy(
         "post_t": post_t
     }
 
+def derive_buffet_casegoods(
+    overall_l: float,
+    overall_w: float,
+    overall_h: float,
+    leg_section: float = 45.0,
+    top_thickness: float = 25.0,
+    leg_clear_h: float = 270.0,
+    door_count: int = 2,
+    bay_count: int = 3,
+    dominant_species: str = "MINDI"
+) -> Dict[str, Any]:
+    """
+    Standar Konstruksi Casegoods & Buffet Tala Living v2.3 (Aturan Ukuran Presisi):
+    1. Kaki Sudut: Tinggi menerus = overall_h - top_thickness (e.g. 820 - 25 = 795 mm), 45x45 mm.
+    2. Konstruksi Dasar Bodi (Kaki Tinggi > 200 mm):
+       - Tanpa panel triplek bawah; memakai rangka kayu solid pengikat bodi:
+         * 1x Rel bawah longitudinal tengah: (overall_l - 2*leg_section) x 45 x 36 mm
+         * 2x Rel apron bawah depan/belakang: (overall_l - 2*leg_section) x 40 x 25 mm
+         * 2x Rel samping bawah kaki: (overall_w - 2*leg_section) x 45 x 45 mm
+         * 4x Rail samping dalam bodi laci: (overall_w - 2*leg_section) x 40 x 20 mm
+    3. Pintu Solid:
+       - Tinggi bersih daun pintu = bukaan kabinet - celah lis atas/bawah (525 - 25 = 500 mm)
+       - Jumlah pintu DIKUNCI sesuai spesifikasi (2 pintu = 2 pcs, anti duplikasi)
+    4. Partisi & Ambalan:
+       - Partisi vertikal masuk sampai bibir rebate pintu: kedalaman 410 mm (525 x 410 x 18 mm)
+       - Ambalan pintu: kedalaman 421 mm (525 x 421 x 18 mm)
+       - Lis kayu solid pelindung bibir ambalan: 2x 520 x 30 x 20 mm
+    5. Panel Belakang Terbagi (Multi-Bay):
+       - Tiang rangka belakang vertikal: 2x 445 x 50 x 20 mm (525 - 2x40 = 445 mm)
+       - Panel belakang dipotong 3 bay: 2x 455 x 495 x 9 mm + 1x 455 x 470 x 9 mm
+    """
+    l_clear = overall_l - (2.0 * leg_section)
+    w_clear = overall_w - (2.0 * leg_section)
+    leg_h = overall_h - top_thickness
+    body_h = overall_h - leg_clear_h - top_thickness
+
+    return {
+        "l_clear": l_clear,
+        "w_clear": w_clear,
+        "leg_h": leg_h,
+        "body_h": body_h,
+        "door_h": 500.0,
+        "door_w": round(l_clear / bay_count, 1),
+        "back_frame_stile_h": 445.0,
+        "divider_w": 410.0,
+        "shelf_w": 421.0,
+        "shelf_lip_w": 30.0,
+        "shelf_lip_t": 20.0
+    }
+
+
 
