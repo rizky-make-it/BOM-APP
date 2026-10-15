@@ -4,8 +4,12 @@ Calculates solid timber tier volumes, kerf panel nesting, finishing pool, and pa
 """
 
 from typing import Dict, Any, Tuple
-from ..config import DEFAULT_RATES, SHEET_L, SHEET_W, SHEET_KERF, CARTON_ADD
-from ..models.item import BOMSpecification
+try:
+    from ..config import DEFAULT_RATES, SHEET_L, SHEET_W, SHEET_KERF, CARTON_ADD
+    from ..models.item import BOMSpecification
+except (ImportError, ValueError):
+    from config import DEFAULT_RATES, SHEET_L, SHEET_W, SHEET_KERF, CARTON_ADD
+    from models.item import BOMSpecification
 
 def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float] = None) -> Dict[str, Any]:
     rates = {**DEFAULT_RATES, **(custom_rates or {})}

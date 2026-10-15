@@ -15,9 +15,14 @@ from typing import List, Dict, Any
 import openpyxl
 from openpyxl.drawing.image import Image as XLImage
 
-from bom_app.config import GOLDEN_MASTER_PATH, DEFAULT_RATES
-from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
-from bom_app.core.costing_engine import calculate_bom_costing
+try:
+    from bom_app.config import GOLDEN_MASTER_PATH, DEFAULT_RATES
+    from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
+    from bom_app.core.costing_engine import calculate_bom_costing
+except (ImportError, ModuleNotFoundError):
+    from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
+    from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
+    from core.costing_engine import calculate_bom_costing
 from bom_app.core.writer import enable_cached_writer, clear_active_cache
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"

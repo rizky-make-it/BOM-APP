@@ -30,7 +30,7 @@
     {
       "label": "6 / A",
       "component": "Top front rail",
-      "l": 470,
+      "l": 390,
       "w": 40,
       "t": 20,
       "qty": 1,
@@ -38,12 +38,12 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "A",
-      "note": "Part 6 | Top front rail (470x40x20)"
+      "note": "Part 6 | Top front rail (470x40x20) | Joint deduction applied (470 - 2x40 = 390mm)"
     },
     {
       "label": "1 / A",
       "component": "Bottom front/ back stretcher",
-      "l": 470,
+      "l": 390,
       "w": 40,
       "t": 20,
       "qty": 1,
@@ -51,7 +51,7 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "A",
-      "note": "Part 1 | Bottom front/ back stretcher (front bottom apron)"
+      "note": "Part 1 | Bottom front/ back stretcher (front bottom apron) | Joint deduction applied (470 - 2x40 = 390mm)"
     },
     {
       "label": "2 / A",
@@ -82,7 +82,7 @@
     {
       "label": "1 / A",
       "component": "Bottom front/ back stretcher",
-      "l": 470,
+      "l": 390,
       "w": 40,
       "t": 20,
       "qty": 2,
@@ -90,7 +90,7 @@
       "exposed": "N",
       "curved": "N",
       "tier_override": "C",
-      "note": "Part 1 | Bottom front/ back stretcher (rear rails 470x40x20)"
+      "note": "Part 1 | Bottom front/ back stretcher (rear rails 470x40x20) | Joint deduction applied (470 - 2x40 = 390mm)"
     },
     {
       "label": "22 / A",

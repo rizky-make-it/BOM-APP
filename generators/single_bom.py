@@ -6,10 +6,16 @@ Strictly clones from Golden Master without shifting columns or breaking formulas
 import re
 from pathlib import Path
 import openpyxl
-from ..config import GOLDEN_MASTER_PATH
-from ..models.item import BOMSpecification
-from ..core.costing_engine import calculate_bom_costing
-from ..core.writer import enable_cached_writer, clear_active_cache
+try:
+    from ..config import GOLDEN_MASTER_PATH
+    from ..models.item import BOMSpecification
+    from ..core.costing_engine import calculate_bom_costing
+    from ..core.writer import enable_cached_writer, clear_active_cache
+except (ImportError, ValueError):
+    from config import GOLDEN_MASTER_PATH
+    from models.item import BOMSpecification
+    from core.costing_engine import calculate_bom_costing
+    from core.writer import enable_cached_writer, clear_active_cache
 
 def sort_by_part_number(item):
     label = getattr(item, 'label', str(item))
