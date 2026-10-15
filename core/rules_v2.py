@@ -89,23 +89,22 @@ def derive_drawer_box(
     side_wall_thickness: float = 12.0
 ) -> Dict[str, Any]:
     """
-    Drawer Box Derivation Rules (Updated):
-    1. Inner front (AL):
+    Drawer Box Derivation Rules (Standar Resmi Pabrik Tala Living v2.2 - Mandat Terbaru):
+    1. Inner front (AL / ⑪):
        - Jarak atas: 20 mm
        - Jarak bawah: 10 mm
        -> Tinggi Inner Front = H_front - (20 + 10) = H_front - 30 mm
-       - Jarak kanan/kiri: 20 mm per sisi (celah rel)
-       -> Lebar Inner Front = W_front - 2 * 20mm - 2 * side_wall_thickness = W_front - 64 mm
-    2. Drawer back (L):
-       - Ukuran tinggi DISAMAKAN dengan box depan (inner front)!
-       -> Tinggi Drawer Back = Tinggi Inner Front = H_front - 30 mm
-       -> Lebar Drawer Back = Lebar Inner Front = W_front - 64 mm
-    3. Drawer side (K):
+       - Jarak kanan/kiri: 20 mm per sisi (celah rel samping)
+       -> Lebar Inner Front = W_front - 2 * 20mm - 2 * 12mm = W_front - 64 mm
+    2. Drawer back (L / ⑪):
+       - Ukuran tinggi DISAMAKAN dengan box depan (inner front) = H_front - 30 mm
+       - Lebar = W_front - 64 mm
+    3. Drawer side (K / ⑤):
        - Panjang = D (300, 350, 400, 450 mm)
-       - Tinggi = H_front - 20 mm
-    4. Drawer bottom (M):
-       - Lebar = Inner width + 2 * 5mm dado groove = W_front - 54 mm
-       - Kedalaman = D - 7 mm
+       - Tinggi = H_front - 30 mm (Diseragamkan keliling H_front - 30 mm)
+    4. Drawer bottom (M / ⑫):
+       - Lebar masuk alur dado 5mm tiap sisi = Inner width + 10 mm = W_front - 54 mm
+       - Kedalaman = D - 7 mm (Toleransi kaitan rel DTC)
     """
     d_side = side_length or get_standard_glide_length(case_depth)
 
