@@ -9,12 +9,20 @@ import sys
 import json
 from pathlib import Path
 
-from .config import GOLDEN_MASTER_PATH, RULES_V2_PATH, DEFAULT_RATES
-from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
-from .generators.single_bom import build_single_bom_workbook
-from .generators.comparison import build_3way_comparison
-from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate, PART_CATALOG, SPECIES_MAP
-from .pipeline import run_pipeline
+try:
+    from .config import GOLDEN_MASTER_PATH, RULES_V2_PATH, DEFAULT_RATES
+    from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
+    from .generators.single_bom import build_single_bom_workbook
+    from .generators.comparison import build_3way_comparison
+    from .core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate, PART_CATALOG, SPECIES_MAP
+    from .pipeline import run_pipeline
+except (ImportError, ValueError):
+    from config import GOLDEN_MASTER_PATH, RULES_V2_PATH, DEFAULT_RATES
+    from models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
+    from generators.single_bom import build_single_bom_workbook
+    from generators.comparison import build_3way_comparison
+    from core.rules_v2 import derive_drawer_box, derive_door, map_drawing_code_to_rate, PART_CATALOG, SPECIES_MAP
+    from pipeline import run_pipeline
 
 def cmd_info(args):
     print("=" * 65)

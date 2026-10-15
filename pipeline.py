@@ -277,7 +277,11 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
     h = gemini_res["header"]
     dr = gemini_res.get("drawer", {})
     item_code = h.get("item_code", "ITEM-01")
-    output_xlsx = output_xlsx or os.path.join(os.path.expanduser("~"), "bom_out", f"{item_code}_BOM.xlsx")
+    import datetime
+    now_str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    pdf_stem = Path(pdf_path).stem
+    default_name = f"{pdf_stem} {now_str}.xlsx"
+    output_xlsx = output_xlsx or os.path.join(os.path.expanduser("~"), "bom_out", default_name)
 
     print(f"[3/5] Applying Factory Construction Rules (Item: {item_code})...")
     
@@ -381,11 +385,17 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
         p_qty = int(p["qty"])
         p_note = p.get("note", "")
 
-        # Safety Rule: Bed side rail must span full exterior post length
+        # Safety Rule: Bed side rail must span full exterior post length (2140 mm)
         if "side rail" in p_comp and ("bed" in h.get("item_name", "").lower() or "b01" in item_code.lower() or "b02" in item_code.lower()):
             if 2000.0 <= p_l <= 2060.0:
                 p_l = 2140.0
                 p_note = (p_note + " | Auto-adjusted to full post exterior span 2140mm").strip(" |")
+
+        # Safety Rule: Mirror outer frame miter 45 deg length = outer frame size
+        if ("mirror" in h.get("item_name", "").lower() or "b71" in item_code.lower()) and ("support" in p_comp or "frame" in p_comp):
+            if "vertical" in p_comp and 880.0 <= p_l <= 920.0:
+                p_l = float(h.get("overall_h") or 1000.0)
+                p_note = (p_note + " | Miter 45 deg outer length").strip(" |")
 
         solid_parts.append(SolidPart(
             label=p["label"],
