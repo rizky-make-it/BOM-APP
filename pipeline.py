@@ -19,16 +19,28 @@ import pymupdf
 import openpyxl
 from PIL import Image
 
-from .config import DEFAULT_RATES, GOLDEN_MASTER_PATH
-from .core.rules_v2 import (
-    derive_drawer_box,
-    derive_door,
-    derive_joint_deduction,
-    derive_bed_anatomy,
-    PART_CATALOG
-)
-from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
-from .generators.single_bom import build_single_bom_workbook
+try:
+    from .config import DEFAULT_RATES, GOLDEN_MASTER_PATH
+    from .core.rules_v2 import (
+        derive_drawer_box,
+        derive_door,
+        derive_joint_deduction,
+        derive_bed_anatomy,
+        PART_CATALOG
+    )
+    from .models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
+    from .generators.single_bom import build_single_bom_workbook
+except (ImportError, ValueError):
+    from config import DEFAULT_RATES, GOLDEN_MASTER_PATH
+    from core.rules_v2 import (
+        derive_drawer_box,
+        derive_door,
+        derive_joint_deduction,
+        derive_bed_anatomy,
+        PART_CATALOG
+    )
+    from models.item import ItemHeader, SolidPart, PanelPart, HardwarePart, BOMSpecification
+    from generators.single_bom import build_single_bom_workbook
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 

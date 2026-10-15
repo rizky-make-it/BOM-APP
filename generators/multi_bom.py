@@ -19,11 +19,12 @@ try:
     from bom_app.config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from bom_app.core.costing_engine import calculate_bom_costing
+    from bom_app.core.writer import enable_cached_writer, clear_active_cache
 except (ImportError, ModuleNotFoundError):
     from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from core.costing_engine import calculate_bom_costing
-from bom_app.core.writer import enable_cached_writer, clear_active_cache
+    from core.writer import enable_cached_writer, clear_active_cache
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -59,13 +60,21 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
 
     # Setup each item tab
     for idx, item_dict in enumerate(specs):
-        spec: BOMSpecification = item_dict["spec"]
+        if isinstance(item_dict, BOMSpecification):
+            spec: BOMSpecification = item_dict
+            front_img_path = None
+        elif isinstance(item_dict, dict) and "spec" in item_dict:
+            spec: BOMSpecification = item_dict["spec"]
+            front_img_path = item_dict.get("front_img_path", None)
+        else:
+            spec: BOMSpecification = item_dict
+            front_img_path = None
+
         # Sort components by part number ascending
         spec.solid_parts.sort(key=sort_by_part_number)
         spec.panel_parts.sort(key=sort_by_part_number)
         spec.hardware_parts.sort(key=sort_by_part_number)
 
-        front_img_path: str = item_dict["front_img_path"]
         row_num = 6 + idx
         header = spec.header
         item_code = header.item_code

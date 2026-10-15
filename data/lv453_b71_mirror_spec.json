@@ -44,7 +44,7 @@
     {
       "label": "25 / A",
       "component": "vertical support",
-      "l": 900.0,
+      "l": 1000.0,
       "w": 50.0,
       "t": 25.0,
       "qty": 2,
@@ -52,7 +52,7 @@
       "exposed": "Y",
       "curved": "N",
       "tier_override": "B",
-      "note": "Outer frame vertical stiles (kiri & kanan antara rail)"
+      "note": "Outer frame vertical stiles (miter 45 deg, 1000x50x25mm)"
     }
   ],
   "panel_parts": [
