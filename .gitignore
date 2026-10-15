@@ -2,3 +2,9 @@ __pycache__/
 *.pyc
 .DS_Store
 tmp/
+*.xlsx
+*.xls
+*.pdf
+output/
+bom_out/
+data/lv232*
