@@ -123,10 +123,10 @@ def derive_drawer_box(
     )
 
     # 2. Drawer Side (K / ⑤) - Plywood 12 mm
-    # Length D, Height H_front - 20 mm
-    side_h = h_front - 20.0
+    # Mandat Pabrik Terbaru (Oktober 2026): Tinggi kotak laci diseragamkan keliling = H_front - 30 mm
+    side_h = h_front - 30.0
     side = PanelPart(
-        label="⑤ / K",
+        label="5 / B-12-0X",
         component="Drawer side",
         panel_type="PLY-12-RAW",
         l=d_side,
@@ -134,16 +134,16 @@ def derive_drawer_box(
         t=side_wall_thickness,
         qty=qty * 2,
         exposed_faces=0,
-        note=f"Role K | D ({d_side}mm) x (H - 20mm={side_h}mm)"
+        note=f"Rumus Pabrik Paten: D ({d_side}mm) x (H - 30mm={side_h}mm)"
     )
 
-    # 3. Inner Front (AL / ⑪) - Plywood 12 mm
+    # 3. Inner Front (AL / ⑪) & Drawer Back (L / ⑪) - Plywood 12 mm
     # Jarak atas 20mm, bawah 10mm -> Height = H_front - 30 mm
     # Jarak kanan/kiri 20mm -> Width = W_front - 40 - 24 = W_front - 64 mm
-    inner_front_h = h_front - 20.0 - 10.0  # H_front - 30 mm
+    inner_front_h = h_front - 30.0  # H_front - 30 mm
     inner_front_w = w_front - 40.0 - (2 * side_wall_thickness) # W_front - 64 mm
     inner_front = PanelPart(
-        label="⑪ / AL",
+        label="11 / B-12-0X",
         component="Drawer inner front",
         panel_type="PLY-12-RAW",
         l=inner_front_w,
@@ -151,15 +151,15 @@ def derive_drawer_box(
         t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note=f"Role AL | Atas 20mm, Bawah 10mm (H-30={inner_front_h}mm), Kanan/Kiri 20mm (W-64={inner_front_w}mm)"
+        note=f"Rumus Pabrik Paten: (W-64={inner_front_w}mm) x (H-30={inner_front_h}mm)"
     )
 
-    # 4. Drawer Back (L / ⑫) - Plywood 12 mm
-    # Mandate: "untuk drawer back ukuran tinggi disamakan dengan box depan"
+    # 4. Drawer Back (L / ⑪) - Plywood 12 mm
+    # Mandat: "untuk drawer back ukuran tinggi disamakan dengan box depan"
     back_h = inner_front_h  # DISAMAKAN PERSIS!
     back_w = inner_front_w
     back = PanelPart(
-        label="⑫ / L",
+        label="11 / B-12-0X",
         component="Drawer back",
         panel_type="PLY-12-RAW",
         l=back_w,
@@ -167,7 +167,20 @@ def derive_drawer_box(
         t=side_wall_thickness,
         qty=qty,
         exposed_faces=0,
-        note=f"Role L | Tinggi disamakan dengan box depan = {back_h}mm (W-64={back_w}mm)"
+        note=f"Rumus Pabrik Paten: (W-64={back_w}mm) x (H-30={back_h}mm)"
+    )
+
+    # 4b. Combined Drawer Box Front/Back (Standar Tala Living v2.2)
+    box_front_back = PanelPart(
+        label="11 / B-12-0X",
+        component="Drawer box front/back",
+        panel_type="PLY-12-RAW",
+        l=inner_front_w,
+        w=inner_front_h,
+        t=side_wall_thickness,
+        qty=qty * 2,
+        exposed_faces=0,
+        note=f"Rumus Pabrik Paten: (W-64={inner_front_w}mm) x (H-30={inner_front_h}mm)"
     )
 
     # 5. Drawer Bottom (M) - Plywood 6 mm
@@ -206,6 +219,7 @@ def derive_drawer_box(
         "side": side,
         "inner_front": inner_front,
         "back": back,
+        "box_front_back": box_front_back,
         "bottom": bottom,
         "slide": slide
     }

@@ -340,25 +340,14 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
         ))
         panel_parts.append(PanelPart(
             label="11 / B-12-0X",
-            component="Drawer inner front",
-            panel_type=box["inner_front"].panel_type,
-            l=box["inner_front"].l,
-            w=box["inner_front"].w,
-            t=box["inner_front"].t,
-            qty=drawer_count,
+            component="Drawer box front/back",
+            panel_type=box["box_front_back"].panel_type,
+            l=box["box_front_back"].l,
+            w=box["box_front_back"].w,
+            t=box["box_front_back"].t,
+            qty=int(box["box_front_back"].qty),
             exposed_faces=0,
             note="Rumus Pabrik Paten: (W-64) x (H-30)"
-        ))
-        panel_parts.append(PanelPart(
-            label="11 / B-12-0X",
-            component="Drawer back",
-            panel_type=box["back"].panel_type,
-            l=box["back"].l,
-            w=box["back"].w,
-            t=box["back"].t,
-            qty=drawer_count,
-            exposed_faces=0,
-            note="Rumus Pabrik Paten: Tinggi sama persis inner front"
         ))
         panel_parts.append(PanelPart(
             label="12 / B-6-0X",
