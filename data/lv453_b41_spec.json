@@ -184,33 +184,33 @@
       "component": "Drawer side",
       "panel_type": "PLY-12-RAW",
       "l": 300,
-      "w": 130,
+      "w": 120.0,
       "t": 12,
       "qty": 4,
       "exposed_faces": 0,
-      "note": "Part 5 | Drawer side (D=300, H-20=130mm)"
+      "note": "Part 5 | Drawer side (D=300, H-30=120mm)"
     },
     {
       "label": "11 / B-12-0X",
       "component": "Drawer inner front",
       "panel_type": "PLY-12-RAW",
       "l": 406,
-      "w": 120,
+      "w": 120.0,
       "t": 12,
       "qty": 2,
       "exposed_faces": 0,
-      "note": "Part 11 | Drawer inner front (W-64=406mm, H-30=120mm)"
+      "note": "Part 11 | (W-64=406mm, H-30=120mm)"
     },
     {
       "label": "11 / B-12-0X",
       "component": "Drawer back",
       "panel_type": "PLY-12-RAW",
       "l": 406,
-      "w": 120,
+      "w": 120.0,
       "t": 12,
       "qty": 2,
       "exposed_faces": 0,
-      "note": "Part 11 | Drawer back (Height matches inner front = 120mm)"
+      "note": "Part 11 | (W-64=406mm, H-30=120mm)"
     },
     {
       "label": "12 / B-6-0X",

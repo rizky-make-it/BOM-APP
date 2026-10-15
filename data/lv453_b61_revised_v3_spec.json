@@ -180,11 +180,11 @@
       "component": "drawer box side",
       "panel_type": "PLY-12-RAW",
       "l": 350,
-      "w": 180,
+      "w": 170.0,
       "t": 12,
       "qty": 12,
       "exposed_faces": 0,
-      "note": "Part 5 | drawer box side (D=350, H-20=180mm)"
+      "note": "Part 5 | drawer box side (D=350, H-30=170mm)"
     },
     {
       "label": "11 / B-12-0X",

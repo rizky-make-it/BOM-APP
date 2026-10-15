@@ -14,7 +14,7 @@ Implementation of ground-truth rules from BOM rules and part schema v2.xlsx:
    - Kedalaman = D - 7 mm
 4. Drawer side:
    - Panjang = D (300, 350, 400, 450 mm)
-   - Tinggi = H_front - 20 mm
+   - Tinggi = H_front - 30 mm (Diseragamkan keliling H_front - 30 mm)
 5. Expanded Part Catalog: Parts 1 to 25
 6. Full wood species letters: M=Mindi, T=Teak, O=Oak, W=Walnut, G=Gemelina, A=Ash, J=Johar
 """

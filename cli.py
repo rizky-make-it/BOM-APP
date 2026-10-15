@@ -53,13 +53,13 @@ def cmd_parts(args):
 
 def cmd_rules(args):
     print("=" * 75)
-    print("  BOM CONSTRUCTION RULES V2.1 (LATEST OWNER MANDATES)")
+    print("  BOM CONSTRUCTION RULES V2.2 (LATEST OWNER MANDATES)")
     print("=" * 75)
     print("1. Inner Front (AL): Jarak atas 20mm, bawah 10mm -> H_inner = H_front - 30 mm")
-    print("                     Jarak kanan/kiri 10mm -> W_box = W_front - 20 mm")
+    print("                     Jarak kanan/kiri 20mm -> W_box = W_front - 64 mm")
     print("2. Drawer Back (L):  TINGGI DISAMAKAN PERSIS DENGAN BOX DEPAN = H_inner = H_front - 30 mm")
-    print("3. Drawer Side (K):  Panjang = D (350, 400 mm); Tinggi = H_front - 20 mm")
-    print("4. Drawer Bottom (M): Lebar masuk dado 5mm (W_inner + 10 mm); Kedalaman = D - 7 mm")
+    print("3. Drawer Side (K):  Panjang = D (350, 400 mm); Tinggi = H_front - 30 mm (Diseragamkan Keliling)")
+    print("4. Drawer Bottom (M): Lebar masuk dado 5mm (W_front - 54 mm); Kedalaman = D - 7 mm")
     print("5. Side Panel:       Plywood 18 mm 1F (PLY-18-MSF), TIDAK PERNAH SOLID WOOD")
     print("6. Back Panel:       Wajib Plywood 9 mm RAW + Back Frame solid 40x25 mm")
     print("7. Door Opening:     Height/n - 2mm | Width/n - 2mm (MDF-18-MDF)")
