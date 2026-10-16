@@ -1,0 +1,2423 @@
+{
+  "version": "3.0",
+  "updated": "2026-10-16",
+  "total_parts": 126,
+  "families": [
+    {
+      "family_id": 1,
+      "name": "1 Legs & base",
+      "range": "101-199",
+      "covers": "Legs, bottom stretchers, plinth, pedestal",
+      "count": 10
+    },
+    {
+      "family_id": 2,
+      "name": "2 Frame rails & supports",
+      "range": "201-299",
+      "covers": "Top and bottom rails, mid rails, runners, supports, face frame, cleats",
+      "count": 16
+    },
+    {
+      "family_id": 3,
+      "name": "3 Case panels",
+      "range": "301-399",
+      "covers": "Side, back, bottom, divider, shelves, frame-and-panel, end panel, filler, mirror",
+      "count": 17
+    },
+    {
+      "family_id": 4,
+      "name": "4 Drawers",
+      "range": "401-499",
+      "covers": "Drawer front and its trims and insert, drawer box, trays",
+      "count": 12
+    },
+    {
+      "family_id": 5,
+      "name": "5 Doors",
+      "range": "501-599",
+      "covers": "Slab and framed doors, door insert, sliding and flap doors",
+      "count": 10
+    },
+    {
+      "family_id": 6,
+      "name": "6 Tops & surfaces",
+      "range": "601-699",
+      "covers": "Case top, table top, edges, inserts, countertop, backsplash",
+      "count": 9
+    },
+    {
+      "family_id": 7,
+      "name": "7 Seating & upholstery",
+      "range": "701-799",
+      "covers": "Seat and back frames, arms, suspension, foam, cushions, cover",
+      "count": 22
+    },
+    {
+      "family_id": 8,
+      "name": "8 Beds",
+      "range": "801-899",
+      "covers": "Headboard, footboard, bed rails, slats, bed base",
+      "count": 14
+    },
+    {
+      "family_id": 9,
+      "name": "9 Hardware & bought-in",
+      "range": "901-999",
+      "covers": "Slides, hinges, handles, glides, fittings, lighting",
+      "count": 16
+    }
+  ],
+  "parts": [
+    {
+      "part_no": "101",
+      "family": "1 Legs & base",
+      "name": "Leg",
+      "also_called": "LEG (VERTICAL); Leg; sofa leg; bed post (short)",
+      "description": "Vertical leg, any section (square, turned, tapered). Tall bed posts use 813.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "A",
+      "standard_rule": "40 x 40, length = item H - top 18 (casegoods rule)",
+      "old_no_9okt": "3",
+      "old_no_13okt": "③",
+      "status": "Existing"
+    },
+    {
+      "part_no": "102",
+      "family": "1 Legs & base",
+      "name": "Bottom stretcher front/back",
+      "also_called": "BOTTOM STRETCHER FRONT / BACK; bottom back stretcher",
+      "description": "Low stretcher between legs, running along the width (front and back).",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating"
+      ],
+      "default_mat_code": "A",
+      "standard_rule": "40 x 40, length as drawn",
+      "old_no_9okt": "1",
+      "old_no_13okt": "①",
+      "status": "Existing"
+    },
+    {
+      "part_no": "103",
+      "family": "1 Legs & base",
+      "name": "Bottom stretcher left/right",
+      "also_called": "BOTTOM STRETCHER LEFT / RIGHT; side stretcher; Bottom stretcher S/S",
+      "description": "Low stretcher between legs, running front to back (sides).",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating"
+      ],
+      "default_mat_code": "A1",
+      "standard_rule": "40 x 40, length as drawn",
+      "old_no_9okt": "2",
+      "old_no_13okt": "②",
+      "status": "Existing"
+    },
+    {
+      "part_no": "104",
+      "family": "1 Legs & base",
+      "name": "Center stretcher",
+      "also_called": "H-stretcher middle; long stretcher",
+      "description": "Stretcher joining the two side stretchers in the middle (H-frame tables, benches).",
+      "used_in": [
+        "Table",
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "105",
+      "family": "1 Legs & base",
+      "name": "Plinth front/back",
+      "also_called": "kickboard; toe kick; base front",
+      "description": "Recessed base board under a case or kitchen cabinet, front and back.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "106",
+      "family": "1 Legs & base",
+      "name": "Plinth left/right",
+      "also_called": "plinth side; base side",
+      "description": "Base board on the sides of a plinth base.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "107",
+      "family": "1 Legs & base",
+      "name": "Pedestal column",
+      "also_called": "column; center post; trestle post",
+      "description": "Central support of a pedestal or trestle table.",
+      "used_in": [
+        "Table"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "108",
+      "family": "1 Legs & base",
+      "name": "Pedestal foot",
+      "also_called": "base arm; trestle foot; spider foot",
+      "description": "Foot or arm at the bottom of a pedestal or trestle.",
+      "used_in": [
+        "Table"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "109",
+      "family": "1 Legs & base",
+      "name": "Leg block",
+      "also_called": "corner block; glue block; leg bracket (wood)",
+      "description": "Small block reinforcing a leg-to-rail corner.",
+      "used_in": [
+        "Table",
+        "Seating",
+        "Bed",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "199",
+      "family": "1 Legs & base",
+      "name": "Other base part (describe)",
+      "also_called": "",
+      "description": "Base part not listed. Write the name in the BOM; ask IT for a permanent number if it repeats.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "201",
+      "family": "2 Frame rails & supports",
+      "name": "Top rail front/back",
+      "also_called": "Apron rail front; front/back rail, top; apron",
+      "description": "Rail joining the legs at the top, along the width (front and back). Apron on tables.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating"
+      ],
+      "default_mat_code": "A",
+      "standard_rule": "Thickness 35, width as printed in front view, length between legs",
+      "old_no_9okt": "",
+      "old_no_13okt": "⑥",
+      "status": "Existing"
+    },
+    {
+      "part_no": "202",
+      "family": "2 Frame rails & supports",
+      "name": "Top rail left/right",
+      "also_called": "top rail front to back; side apron",
+      "description": "Rail joining the legs at the top, front to back (sides).",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "203",
+      "family": "2 Frame rails & supports",
+      "name": "Mid rail front",
+      "also_called": "FRONT RAIL; drawer divider rail",
+      "description": "Horizontal front rail between drawers or between drawer and door.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "A (A-25 in 9 Okt list)",
+      "standard_rule": "",
+      "old_no_9okt": "14",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "204",
+      "family": "2 Frame rails & supports",
+      "name": "Mid rail back",
+      "also_called": "BACK RAIL",
+      "description": "Horizontal back rail matching a mid rail front.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "A (A-25 in 9 Okt list)",
+      "standard_rule": "",
+      "old_no_9okt": "16",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "205",
+      "family": "2 Frame rails & supports",
+      "name": "Drawer runner rail left/right",
+      "also_called": "SIDE RAIL; drawer runner",
+      "description": "Rail on the inside of the case side that carries a drawer or slide.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "15",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "206",
+      "family": "2 Frame rails & supports",
+      "name": "Bottom rail front/back",
+      "also_called": "front/back rail, bottom; base rail",
+      "description": "Rail joining the legs at the bottom of the case body, along the width.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "207",
+      "family": "2 Frame rails & supports",
+      "name": "Bottom rail left/right",
+      "also_called": "base rail side",
+      "description": "Rail joining the legs at the bottom of the case body, front to back.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "208",
+      "family": "2 Frame rails & supports",
+      "name": "Top stretcher",
+      "also_called": "TOP STRETCHER; top cross rail",
+      "description": "Cross member under the top that the top is fixed to.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Kitchen"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "19",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "209",
+      "family": "2 Frame rails & supports",
+      "name": "Vertical support",
+      "also_called": "VERTICAL SUPPORT; mullion; center stile",
+      "description": "Vertical member inside or on the front of a case.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Seating"
+      ],
+      "default_mat_code": "A (A-20 in 9 Okt list)",
+      "standard_rule": "",
+      "old_no_9okt": "17",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "210",
+      "family": "2 Frame rails & supports",
+      "name": "Horizontal support",
+      "also_called": "HORIZONTAL SUPPORT; cross bar; brace",
+      "description": "Horizontal member inside a case or frame that is not a rail.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Seating",
+        "Bed"
+      ],
+      "default_mat_code": "A (A-20 in 9 Okt list)",
+      "standard_rule": "",
+      "old_no_9okt": "18",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "211",
+      "family": "2 Frame rails & supports",
+      "name": "Drawer kicker",
+      "also_called": "kicker rail; anti-tip rail",
+      "description": "Rail above a drawer that stops it tipping when opened.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "212",
+      "family": "2 Frame rails & supports",
+      "name": "Drawer guide",
+      "also_called": "center guide",
+      "description": "Center guide for a drawer without metal slides.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "213",
+      "family": "2 Frame rails & supports",
+      "name": "Face frame stile",
+      "also_called": "front frame stile",
+      "description": "Vertical member of a face frame on the front of a case.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "214",
+      "family": "2 Frame rails & supports",
+      "name": "Face frame rail",
+      "also_called": "front frame rail",
+      "description": "Horizontal member of a face frame on the front of a case.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "215",
+      "family": "2 Frame rails & supports",
+      "name": "Cleat",
+      "also_called": "ledger strip; hanging cleat; french cleat; fixing strip",
+      "description": "Strip that fixes a top, panel, or wall-hung unit.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "299",
+      "family": "2 Frame rails & supports",
+      "name": "Other frame part (describe)",
+      "also_called": "",
+      "description": "Frame part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "301",
+      "family": "3 Case panels",
+      "name": "Side panel",
+      "also_called": "SIDE PANEL; case side",
+      "description": "Side panel of the case body. Always a panel, never solid (owner 13 Okt).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "C18 1X",
+      "standard_rule": "(clear depth + 10) x (body H + 10), 2 per case",
+      "old_no_9okt": "13",
+      "old_no_13okt": "⑧",
+      "status": "Existing"
+    },
+    {
+      "part_no": "302",
+      "family": "3 Case panels",
+      "name": "Back panel",
+      "also_called": "BACK PANEL",
+      "description": "Back panel of the case body. Every case has one (owner 13 Okt).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "B9 1X",
+      "standard_rule": "clear width x body H, 1 per case, added automatically",
+      "old_no_9okt": "12",
+      "old_no_13okt": "⑨",
+      "status": "Existing"
+    },
+    {
+      "part_no": "303",
+      "family": "3 Case panels",
+      "name": "Back panel frame",
+      "also_called": "frame @ back panel; Back frame (rail & stile)",
+      "description": "Solid frame holding the back panel: rails and stiles.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "A",
+      "standard_rule": "40 x 25: 2 rails (clear width + 10) + 2 stiles (body H + 10) + 1 middle stile per divider, added automatically",
+      "old_no_9okt": "",
+      "old_no_13okt": "⑩",
+      "status": "Existing"
+    },
+    {
+      "part_no": "304",
+      "family": "3 Case panels",
+      "name": "Center panel",
+      "also_called": "center panel; infill panel",
+      "description": "Panel held inside a frame (frame-and-panel side, back or end).",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "305",
+      "family": "3 Case panels",
+      "name": "Center panel frame",
+      "also_called": "frame @ center panel; panel frame stile/rail",
+      "description": "Solid frame (stiles and rails) around a center panel.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "306",
+      "family": "3 Case panels",
+      "name": "Bottom panel",
+      "also_called": "case bottom; floor panel; base panel",
+      "description": "Horizontal panel closing the bottom of the case body.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "307",
+      "family": "3 Case panels",
+      "name": "Divider",
+      "also_called": "DIVIDER; Internal divider; partition",
+      "description": "Vertical internal panel between compartments.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "B18 1X",
+      "standard_rule": "(clear depth + 10) x (opening H + 10)",
+      "old_no_9okt": "5",
+      "old_no_13okt": "⑭",
+      "status": "Existing"
+    },
+    {
+      "part_no": "308",
+      "family": "3 Case panels",
+      "name": "Shelf, fixed",
+      "also_called": "SHELFING; shelf; rak",
+      "description": "Fixed shelf.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "B18 1X (B-20-1X in 9 Okt list)",
+      "standard_rule": "",
+      "old_no_9okt": "4",
+      "old_no_13okt": "",
+      "status": "Existing"
+    },
+    {
+      "part_no": "309",
+      "family": "3 Case panels",
+      "name": "Shelf, adjustable",
+      "also_called": "loose shelf",
+      "description": "Shelf resting on shelf pins (906).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "310",
+      "family": "3 Case panels",
+      "name": "Fixed horizontal panel",
+      "also_called": "sub-top; dust panel; drawer deck; intermediate bottom",
+      "description": "Horizontal panel inside the case that is not a shelf (under the top, between drawer and door zones).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "311",
+      "family": "3 Case panels",
+      "name": "End panel",
+      "also_called": "gable; finished end; decorative end",
+      "description": "Exposed finishing panel on the end of a cabinet run.",
+      "used_in": [
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "312",
+      "family": "3 Case panels",
+      "name": "Filler",
+      "also_called": "scribe strip; filler strip",
+      "description": "Strip that closes a gap to a wall or between units.",
+      "used_in": [
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "313",
+      "family": "3 Case panels",
+      "name": "Edge lipping",
+      "also_called": "solid edge; edge band (solid)",
+      "description": "Solid strip glued to a visible panel edge (shelves, sides).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "314",
+      "family": "3 Case panels",
+      "name": "Mirror",
+      "also_called": "cermin",
+      "description": "Mirror glass (wall mirror, dresser mirror, wardrobe door).",
+      "used_in": [
+        "Mirror",
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "315",
+      "family": "3 Case panels",
+      "name": "Mirror frame",
+      "also_called": "mirror frame stile/rail",
+      "description": "Frame around a mirror.",
+      "used_in": [
+        "Mirror"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "316",
+      "family": "3 Case panels",
+      "name": "Mirror back panel",
+      "also_called": "mirror backer",
+      "description": "Backing board behind a mirror.",
+      "used_in": [
+        "Mirror"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "399",
+      "family": "3 Case panels",
+      "name": "Other panel (describe)",
+      "also_called": "",
+      "description": "Panel not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "401",
+      "family": "4 Drawers",
+      "name": "Drawer front",
+      "also_called": "FRONT DRAWER; muka laci",
+      "description": "Visible front of a drawer.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "A",
+      "standard_rule": "Size as printed in front view, 1 per drawer",
+      "old_no_9okt": "6",
+      "old_no_13okt": "④",
+      "status": "Existing"
+    },
+    {
+      "part_no": "402",
+      "family": "4 Drawers",
+      "name": "Drawer box side",
+      "also_called": "SIDE DRAWER; Drawer Side; drawer box side",
+      "description": "Left and right sides of the drawer box.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "B12 0X",
+      "standard_rule": "Length = largest standard slide (300/350/400/450) that fits the clear case depth; H = front H - 30; 2 per drawer",
+      "old_no_9okt": "8",
+      "old_no_13okt": "⑤",
+      "status": "Existing"
+    },
+    {
+      "part_no": "403",
+      "family": "4 Drawers",
+      "name": "Drawer box front",
+      "also_called": "INNER DRAWER; Drawer box front (inner); drawer box front/back",
+      "description": "Inner front of the drawer box, behind the drawer front.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "B12 0X",
+      "standard_rule": "W = front W - 64; H = front H - 30; 1 per drawer",
+      "old_no_9okt": "7",
+      "old_no_13okt": "⑪",
+      "status": "Existing"
+    },
+    {
+      "part_no": "404",
+      "family": "4 Drawers",
+      "name": "Drawer box back",
+      "also_called": "BACK DRAWER; Drawer back; drawer box front/back",
+      "description": "Back of the drawer box.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "B12 0X",
+      "standard_rule": "W = front W - 64; sits on the drawer base; 1 per drawer",
+      "old_no_9okt": "9",
+      "old_no_13okt": "⑫",
+      "status": "Existing"
+    },
+    {
+      "part_no": "405",
+      "family": "4 Drawers",
+      "name": "Drawer base",
+      "also_called": "BOTTOM DRAWER; Drawer bottom; drawer base",
+      "description": "Bottom panel of the drawer box.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "B6 0X",
+      "standard_rule": "1 per drawer, in a 5 mm groove",
+      "old_no_9okt": "10",
+      "old_no_13okt": "⑬",
+      "status": "Existing"
+    },
+    {
+      "part_no": "406",
+      "family": "4 Drawers",
+      "name": "Drawer front back panel",
+      "also_called": "drawer front back panel; backer",
+      "description": "Panel behind a framed or woven drawer front that closes it from the inside.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "407",
+      "family": "4 Drawers",
+      "name": "Drawer front trim left/right",
+      "also_called": "drawer front wood trim side/side",
+      "description": "Vertical solid trims on the left and right of a framed drawer front.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "408",
+      "family": "4 Drawers",
+      "name": "Drawer front trim top/bottom",
+      "also_called": "drawer front wood trim front/back",
+      "description": "Horizontal solid trims on the top and bottom of a framed drawer front.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "409",
+      "family": "4 Drawers",
+      "name": "Drawer front center panel",
+      "also_called": "rattan woven @ drawer front center; drawer front insert",
+      "description": "Infill inside the drawer front trims. Material code says what it is (rattan, cane, veneer panel).",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New (from your list)"
+    },
+    {
+      "part_no": "410",
+      "family": "4 Drawers",
+      "name": "False drawer front",
+      "also_called": "fixed front; sink front",
+      "description": "Fixed front that looks like a drawer but does not open.",
+      "used_in": [
+        "Kitchen",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "411",
+      "family": "4 Drawers",
+      "name": "Pull-out tray",
+      "also_called": "inner drawer (hidden); pull-out shelf",
+      "description": "Tray or hidden drawer behind a door.",
+      "used_in": [
+        "Kitchen",
+        "Wardrobe",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "499",
+      "family": "4 Drawers",
+      "name": "Other drawer part (describe)",
+      "also_called": "",
+      "description": "Drawer part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "501",
+      "family": "5 Doors",
+      "name": "Door panel",
+      "also_called": "DOOR PANEL; Door; pintu",
+      "description": "Slab door, or the whole door when it is one panel.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "C18 2X",
+      "standard_rule": "From opening: W = opening W / no. of doors - 2, H = opening H - 2",
+      "old_no_9okt": "11",
+      "old_no_13okt": "⑮",
+      "status": "Existing"
+    },
+    {
+      "part_no": "502",
+      "family": "5 Doors",
+      "name": "Door frame stile",
+      "also_called": "door stile",
+      "description": "Vertical members of a framed door.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "503",
+      "family": "5 Doors",
+      "name": "Door frame rail",
+      "also_called": "door rail",
+      "description": "Horizontal members of a framed door.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "504",
+      "family": "5 Doors",
+      "name": "Door center panel",
+      "also_called": "door insert; rattan @ door center; glass @ door",
+      "description": "Infill inside a framed door. Material code says what it is (veneer panel, rattan, glass).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "505",
+      "family": "5 Doors",
+      "name": "Door back panel",
+      "also_called": "door backer",
+      "description": "Panel behind a woven or framed door that closes it from the inside.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "506",
+      "family": "5 Doors",
+      "name": "Door trim",
+      "also_called": "moulding; bead",
+      "description": "Applied trim or moulding on a door.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "507",
+      "family": "5 Doors",
+      "name": "Sliding door",
+      "also_called": "bypass door",
+      "description": "Door running on a track (911).",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "508",
+      "family": "5 Doors",
+      "name": "Flap door",
+      "also_called": "lift-up door; drop-down door",
+      "description": "Door hinged at top or bottom, with a stay (910).",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "509",
+      "family": "5 Doors",
+      "name": "Louver slat",
+      "also_called": "louvre",
+      "description": "Slat in a louvered door or panel.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "599",
+      "family": "5 Doors",
+      "name": "Other door part (describe)",
+      "also_called": "",
+      "description": "Door part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "601",
+      "family": "6 Tops & surfaces",
+      "name": "Top panel",
+      "also_called": "TOP PANEL; Top; top / daun meja",
+      "description": "Top of a case, nightstand, desk or console.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Wardrobe"
+      ],
+      "default_mat_code": "C18 1X",
+      "standard_rule": "Size as drawn, 1 per item",
+      "old_no_9okt": "20",
+      "old_no_13okt": "⑦",
+      "status": "Existing"
+    },
+    {
+      "part_no": "602",
+      "family": "6 Tops & surfaces",
+      "name": "Table top",
+      "also_called": "dining top; coffee table top",
+      "description": "Top of a dining, coffee or side table.",
+      "used_in": [
+        "Table"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "603",
+      "family": "6 Tops & surfaces",
+      "name": "Top edge front/back",
+      "also_called": "top lipping front/back; edge band",
+      "description": "Solid edge on the front and back of a top.",
+      "used_in": [
+        "Table",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "604",
+      "family": "6 Tops & surfaces",
+      "name": "Top edge left/right",
+      "also_called": "top lipping side; breadboard end",
+      "description": "Solid edge on the ends of a top.",
+      "used_in": [
+        "Table",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "605",
+      "family": "6 Tops & surfaces",
+      "name": "Top insert",
+      "also_called": "inlay; leather inlay; stone insert; glass insert",
+      "description": "Insert set into a top. Material code says what it is.",
+      "used_in": [
+        "Table",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "606",
+      "family": "6 Tops & surfaces",
+      "name": "Countertop",
+      "also_called": "worktop; kitchen top",
+      "description": "Kitchen or vanity worktop (stone, solid surface, wood).",
+      "used_in": [
+        "Kitchen"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "607",
+      "family": "6 Tops & surfaces",
+      "name": "Backsplash",
+      "also_called": "upstand",
+      "description": "Panel or strip above a countertop against the wall.",
+      "used_in": [
+        "Kitchen"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "608",
+      "family": "6 Tops & surfaces",
+      "name": "Extension leaf",
+      "also_called": "table leaf",
+      "description": "Removable or folding leaf that extends a table.",
+      "used_in": [
+        "Table"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "699",
+      "family": "6 Tops & surfaces",
+      "name": "Other top part (describe)",
+      "also_called": "",
+      "description": "Top part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "701",
+      "family": "7 Seating & upholstery",
+      "name": "Seat rail front/back",
+      "also_called": "seat frame rail; sofa front rail",
+      "description": "Front and back rails of a seat frame.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "702",
+      "family": "7 Seating & upholstery",
+      "name": "Seat rail left/right",
+      "also_called": "seat side rail",
+      "description": "Side rails of a seat frame.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "703",
+      "family": "7 Seating & upholstery",
+      "name": "Seat cross rail",
+      "also_called": "seat brace; seat stretcher",
+      "description": "Cross member inside a seat frame.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "704",
+      "family": "7 Seating & upholstery",
+      "name": "Seat deck",
+      "also_called": "seat board; seat ply",
+      "description": "Panel the seat cushion or foam rests on.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "705",
+      "family": "7 Seating & upholstery",
+      "name": "Back stile",
+      "also_called": "back post; backrest post",
+      "description": "Vertical members of a backrest frame.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "706",
+      "family": "7 Seating & upholstery",
+      "name": "Back rail",
+      "also_called": "crest rail; backrest rail",
+      "description": "Horizontal members of a backrest frame.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "707",
+      "family": "7 Seating & upholstery",
+      "name": "Back slat",
+      "also_called": "splat; back spindle",
+      "description": "Slats or spindles in a chair back.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "708",
+      "family": "7 Seating & upholstery",
+      "name": "Back panel, outside",
+      "also_called": "outer back; back board",
+      "description": "Panel closing the outside of an upholstered back.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "709",
+      "family": "7 Seating & upholstery",
+      "name": "Arm",
+      "also_called": "armrest; arm top",
+      "description": "Armrest of a chair or sofa.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "710",
+      "family": "7 Seating & upholstery",
+      "name": "Arm post",
+      "also_called": "arm support; arm stump",
+      "description": "Vertical support under an armrest.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "711",
+      "family": "7 Seating & upholstery",
+      "name": "Arm panel",
+      "also_called": "arm board; arm side",
+      "description": "Panel forming an upholstered sofa arm.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "712",
+      "family": "7 Seating & upholstery",
+      "name": "Webbing / springs",
+      "also_called": "elastic webbing; zig-zag spring; pocket spring",
+      "description": "Seat or back suspension (bought in).",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "713",
+      "family": "7 Seating & upholstery",
+      "name": "Foam, seat",
+      "also_called": "seat foam",
+      "description": "Foam for the seat.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "714",
+      "family": "7 Seating & upholstery",
+      "name": "Foam, back",
+      "also_called": "back foam",
+      "description": "Foam for the back.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "715",
+      "family": "7 Seating & upholstery",
+      "name": "Foam, arm",
+      "also_called": "arm foam",
+      "description": "Foam for the arms.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "716",
+      "family": "7 Seating & upholstery",
+      "name": "Wadding",
+      "also_called": "dacron; polyester fibre",
+      "description": "Fibre wrap over foam.",
+      "used_in": [
+        "Seating",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "717",
+      "family": "7 Seating & upholstery",
+      "name": "Seat cushion",
+      "also_called": "loose seat cushion",
+      "description": "Loose seat cushion (foam + cover).",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "718",
+      "family": "7 Seating & upholstery",
+      "name": "Back cushion",
+      "also_called": "loose back cushion",
+      "description": "Loose back cushion.",
+      "used_in": [
+        "Seating"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "719",
+      "family": "7 Seating & upholstery",
+      "name": "Scatter cushion",
+      "also_called": "throw pillow; bantal",
+      "description": "Decorative cushion.",
+      "used_in": [
+        "Seating",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "720",
+      "family": "7 Seating & upholstery",
+      "name": "Upholstery cover",
+      "also_called": "fabric; leather; cover",
+      "description": "Fabric or leather cover. Quantity in metres.",
+      "used_in": [
+        "Seating",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "721",
+      "family": "7 Seating & upholstery",
+      "name": "Dust cover",
+      "also_called": "bottom cloth; cambric",
+      "description": "Cloth under a seat or base.",
+      "used_in": [
+        "Seating",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "799",
+      "family": "7 Seating & upholstery",
+      "name": "Other seating part (describe)",
+      "also_called": "",
+      "description": "Seating part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "801",
+      "family": "8 Beds",
+      "name": "Headboard panel",
+      "also_called": "headboard",
+      "description": "Main panel of the headboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "802",
+      "family": "8 Beds",
+      "name": "Headboard frame",
+      "also_called": "headboard stile/rail",
+      "description": "Solid frame of the headboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "803",
+      "family": "8 Beds",
+      "name": "Headboard pad",
+      "also_called": "upholstered headboard; headboard cushion",
+      "description": "Upholstered pad fixed to the headboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "804",
+      "family": "8 Beds",
+      "name": "Footboard panel",
+      "also_called": "footboard",
+      "description": "Main panel of the footboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "805",
+      "family": "8 Beds",
+      "name": "Footboard frame",
+      "also_called": "footboard stile/rail",
+      "description": "Solid frame of the footboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "806",
+      "family": "8 Beds",
+      "name": "Bed side rail",
+      "also_called": "side rail; bed rail",
+      "description": "Long rails joining headboard and footboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "807",
+      "family": "8 Beds",
+      "name": "Bed end rail",
+      "also_called": "foot rail",
+      "description": "Rail at the foot end when there is no footboard.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "808",
+      "family": "8 Beds",
+      "name": "Bed center rail",
+      "also_called": "center beam; spine",
+      "description": "Rail running head to foot in the middle.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "809",
+      "family": "8 Beds",
+      "name": "Center support leg",
+      "also_called": "middle leg",
+      "description": "Leg under the center rail.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "810",
+      "family": "8 Beds",
+      "name": "Slat ledger",
+      "also_called": "slat support; ledger strip",
+      "description": "Strip on the side rail that carries the slats.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "811",
+      "family": "8 Beds",
+      "name": "Bed slat",
+      "also_called": "slat",
+      "description": "Wood slat made in-house.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "812",
+      "family": "8 Beds",
+      "name": "Bed base",
+      "also_called": "SLAT-BASE; metal frame with beechwood slats",
+      "description": "Bought-in bed base set; replaces slats.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "1 set per bed (queen USD 25, king USD 39, owner 13 Okt)",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "Existing (no number yet)"
+    },
+    {
+      "part_no": "813",
+      "family": "8 Beds",
+      "name": "Bed post",
+      "also_called": "corner post; poster post",
+      "description": "Tall corner post of a bed (four-poster, frame bed).",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "899",
+      "family": "8 Beds",
+      "name": "Other bed part (describe)",
+      "also_called": "",
+      "description": "Bed part not listed. Write the name in the BOM.",
+      "used_in": [
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "901",
+      "family": "9 Hardware & bought-in",
+      "name": "Drawer slide",
+      "also_called": "Drawer rail DTC; rel laci; D2",
+      "description": "Drawer slide, 1 set = 2 pcs.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "D2",
+      "standard_rule": "1 set per drawer, length = drawer box side",
+      "old_no_9okt": "",
+      "old_no_13okt": "⑯",
+      "status": "Existing"
+    },
+    {
+      "part_no": "902",
+      "family": "9 Hardware & bought-in",
+      "name": "Door hinge",
+      "also_called": "Door hinge DTC; soft close hinge; D1",
+      "description": "Concealed hinge.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "D1",
+      "standard_rule": "2 per door, 3 if door H > 900",
+      "old_no_9okt": "",
+      "old_no_13okt": "⑰",
+      "status": "Existing"
+    },
+    {
+      "part_no": "903",
+      "family": "9 Hardware & bought-in",
+      "name": "Handle",
+      "also_called": "pull; knob; tarikan",
+      "description": "Handle or knob.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Table",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "Entered manually (owner 13 Okt)",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "Existing (no number yet)"
+    },
+    {
+      "part_no": "904",
+      "family": "9 Hardware & bought-in",
+      "name": "Floor glide",
+      "also_called": "glide; kaki glide",
+      "description": "Glide under a leg.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "1 per leg",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "Existing (no number yet)"
+    },
+    {
+      "part_no": "905",
+      "family": "9 Hardware & bought-in",
+      "name": "Adjustable leg",
+      "also_called": "leveler; kitchen leg",
+      "description": "Adjustable plastic or metal leg under a cabinet.",
+      "used_in": [
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "906",
+      "family": "9 Hardware & bought-in",
+      "name": "Shelf pin",
+      "also_called": "shelf support",
+      "description": "Pin carrying an adjustable shelf.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "4 per adjustable shelf",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "907",
+      "family": "9 Hardware & bought-in",
+      "name": "KD fitting",
+      "also_called": "bed rail bracket; knock-down connector; cam lock",
+      "description": "Fitting that lets the piece come apart for shipping.",
+      "used_in": [
+        "Bed",
+        "Table",
+        "Seating",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "908",
+      "family": "9 Hardware & bought-in",
+      "name": "Lock",
+      "also_called": "cam lock (key)",
+      "description": "Key lock on a drawer or door.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "909",
+      "family": "9 Hardware & bought-in",
+      "name": "Catch",
+      "also_called": "push-to-open; magnet catch; touch latch",
+      "description": "Catch or push-to-open device.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "910",
+      "family": "9 Hardware & bought-in",
+      "name": "Flap stay",
+      "also_called": "lift mechanism; lid stay",
+      "description": "Stay or lift for a flap door or lid.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "911",
+      "family": "9 Hardware & bought-in",
+      "name": "Sliding door track",
+      "also_called": "sliding gear",
+      "description": "Track set for a sliding door.",
+      "used_in": [
+        "Casegoods",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "912",
+      "family": "9 Hardware & bought-in",
+      "name": "Castor",
+      "also_called": "wheel",
+      "description": "Wheel under a piece.",
+      "used_in": [
+        "Seating",
+        "Table",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "913",
+      "family": "9 Hardware & bought-in",
+      "name": "Lighting",
+      "also_called": "LED strip; cabinet light",
+      "description": "Light fitting in or on a piece.",
+      "used_in": [
+        "Casegoods",
+        "Kitchen",
+        "Wardrobe",
+        "Bed"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "914",
+      "family": "9 Hardware & bought-in",
+      "name": "Hanging rail",
+      "also_called": "wardrobe rod; clothes rail",
+      "description": "Rod for hanging clothes.",
+      "used_in": [
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "915",
+      "family": "9 Hardware & bought-in",
+      "name": "Cable grommet",
+      "also_called": "cable hole cover",
+      "description": "Cover for a cable hole.",
+      "used_in": [
+        "Table",
+        "Casegoods"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    },
+    {
+      "part_no": "999",
+      "family": "9 Hardware & bought-in",
+      "name": "Other hardware (describe)",
+      "also_called": "",
+      "description": "Hardware not listed. Screws, bolts, dowels and glue are not listed: they are covered by FASTENERS per m3 in the template.",
+      "used_in": [
+        "Casegoods",
+        "Table",
+        "Seating",
+        "Bed",
+        "Kitchen",
+        "Wardrobe"
+      ],
+      "default_mat_code": "",
+      "standard_rule": "",
+      "old_no_9okt": "",
+      "old_no_13okt": "",
+      "status": "New"
+    }
+  ],
+  "legacy_mappings": [
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "1",
+      "old_name": "BOTTOM STRETCHER FRONT / BACK",
+      "new_part_no": "102",
+      "standard_name": "Bottom stretcher front/back"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "2",
+      "old_name": "BOTTOM STRETCHER LEFT / RIGHT",
+      "new_part_no": "103",
+      "standard_name": "Bottom stretcher left/right"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "3",
+      "old_name": "LEG (VERTICAL)",
+      "new_part_no": "101",
+      "standard_name": "Leg"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "4",
+      "old_name": "SHELFING",
+      "new_part_no": "308",
+      "standard_name": "Shelf, fixed"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "5",
+      "old_name": "DIVIDER",
+      "new_part_no": "307",
+      "standard_name": "Divider"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "6",
+      "old_name": "FRONT DRAWER",
+      "new_part_no": "401",
+      "standard_name": "Drawer front"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "7",
+      "old_name": "INNER DRAWER",
+      "new_part_no": "403",
+      "standard_name": "Drawer box front"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "8",
+      "old_name": "SIDE DRAWER",
+      "new_part_no": "402",
+      "standard_name": "Drawer box side"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "9",
+      "old_name": "BACK DRAWER",
+      "new_part_no": "404",
+      "standard_name": "Drawer box back"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "10",
+      "old_name": "BOTTOM DRAWER",
+      "new_part_no": "405",
+      "standard_name": "Drawer base"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "11",
+      "old_name": "DOOR PANEL",
+      "new_part_no": "501",
+      "standard_name": "Door panel"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "12",
+      "old_name": "BACK PANEL",
+      "new_part_no": "302",
+      "standard_name": "Back panel"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "13",
+      "old_name": "SIDE PANEL",
+      "new_part_no": "301",
+      "standard_name": "Side panel"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "14",
+      "old_name": "FRONT RAIL",
+      "new_part_no": "203",
+      "standard_name": "Mid rail front"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "15",
+      "old_name": "SIDE RAIL",
+      "new_part_no": "205",
+      "standard_name": "Drawer runner rail left/right"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "16",
+      "old_name": "BACK RAIL",
+      "new_part_no": "204",
+      "standard_name": "Mid rail back"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "17",
+      "old_name": "VERTICAL SUPPORT",
+      "new_part_no": "209",
+      "standard_name": "Vertical support"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "18",
+      "old_name": "HORIZONTAL SUPPORT",
+      "new_part_no": "210",
+      "standard_name": "Horizontal support"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "19",
+      "old_name": "TOP STRETCHER",
+      "new_part_no": "208",
+      "standard_name": "Top stretcher"
+    },
+    {
+      "source": "PART LIST 9 Okt 2026 (daftar_part.json, branch claude/sistem-kode)",
+      "old_no": "20",
+      "old_name": "TOP PANEL",
+      "new_part_no": "601",
+      "standard_name": "Top panel"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "①",
+      "old_name": "Bottom stretcher F/B",
+      "new_part_no": "102",
+      "standard_name": "Bottom stretcher front/back"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "②",
+      "old_name": "Bottom stretcher S/S",
+      "new_part_no": "103",
+      "standard_name": "Bottom stretcher left/right"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "③",
+      "old_name": "Leg (vertical)",
+      "new_part_no": "101",
+      "standard_name": "Leg"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "④",
+      "old_name": "Drawer front",
+      "new_part_no": "401",
+      "standard_name": "Drawer front"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑤",
+      "old_name": "Drawer Side",
+      "new_part_no": "402",
+      "standard_name": "Drawer box side"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑥",
+      "old_name": "Apron rail front",
+      "new_part_no": "201",
+      "standard_name": "Top rail front/back"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑦",
+      "old_name": "Top panel",
+      "new_part_no": "601",
+      "standard_name": "Top panel"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑧",
+      "old_name": "Side panel",
+      "new_part_no": "301",
+      "standard_name": "Side panel"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑨",
+      "old_name": "Back panel",
+      "new_part_no": "302",
+      "standard_name": "Back panel"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑩",
+      "old_name": "Back frame (rail & stile)",
+      "new_part_no": "303",
+      "standard_name": "Back panel frame"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑪",
+      "old_name": "Drawer box front (inner)",
+      "new_part_no": "403",
+      "standard_name": "Drawer box front"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑫",
+      "old_name": "Drawer back",
+      "new_part_no": "404",
+      "standard_name": "Drawer box back"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑬",
+      "old_name": "Drawer bottom",
+      "new_part_no": "405",
+      "standard_name": "Drawer base"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑭",
+      "old_name": "Internal divider",
+      "new_part_no": "307",
+      "standard_name": "Divider"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑮",
+      "old_name": "Door",
+      "new_part_no": "501",
+      "standard_name": "Door panel"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑯",
+      "old_name": "Drawer rail DTC",
+      "new_part_no": "901",
+      "standard_name": "Drawer slide"
+    },
+    {
+      "source": "PART LIST + MATERIAL CODE.xlsx / PR #5 (13 Okt 2026)",
+      "old_no": "⑰",
+      "old_name": "Door hinge DTC",
+      "new_part_no": "902",
+      "standard_name": "Door hinge"
+    }
+  ]
+}

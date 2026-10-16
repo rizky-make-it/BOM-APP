@@ -21,7 +21,12 @@ def sort_by_part_number(item):
     label = getattr(item, 'label', str(item))
     m = re.search(r'\d+', label)
     if m:
-        return (0, int(m.group(0)), label)
+        num = int(m.group(0))
+        # Top panel (601 / 7 / 20) belongs at the head of panels
+        if num in (601, 7, 20):
+            return (0, 0, label)
+        # 300-series (carcass) comes before 400-series (drawers)
+        return (0, num, label)
     return (1, 999, label)
 
 def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_rates: dict = None) -> dict:
@@ -90,10 +95,10 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     ws["D4"] = header.drawing_link
 
     # Packing row 11
-    ws["E11"] = header.overall_l
-    ws["F11"] = header.overall_w
-    ws["G11"] = header.overall_h
-    ws["H11"] = 1
+    ws["D11"] = header.overall_l
+    ws["E11"] = header.overall_w
+    ws["F11"] = header.overall_h
+    ws["G11"] = 1
 
     # Header Array Formula cache
     cached_map[(item_code, "G1")] = header.overall_l
