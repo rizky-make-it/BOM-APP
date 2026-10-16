@@ -26,27 +26,38 @@ DEFAULT_RATES = {
     "TEAK_B": 28000000.0,
     "TEAK_C": 24000000.0,
     "TEAK_D": 20000000.0,
-    # Panels (Plywood per sheet)
-    "PLY-18-MSF": 442709.0,
-    "PLY-12-MSF": 362709.0,
-    "PLY-9-MSF": 295056.0,
-    "PLY-18-RAW": 295000.0,
-    "PLY-12-RAW": 215000.0,
-    "PLY-9-RAW": 172500.0,
-    "PLY-6-RAW": 115000.0,
-    "PLY-3-RAW": 75000.0,
-    # Special Drawer Box Panels (Meranti / Furniture Grade from Rules v2)
-    "PLY-12-MRD": 215000.0,
-    "PLY-6-MRD": 115000.0,
-    # MDF Panels (Rules v2)
-    "MDF-18-MDF": 590418.04,
-    "MDF-18-MSF": 442709.02,
-    "MDF-18-RAW": 295000.0,
-    # Hardware & Bought-In (Rules v2)
-    "DTC-SLIDE-14": 61396.2,
-    "DTC-SLIDE-16": 68000.0,
-    "DTC-SLIDE-10": 55000.0,
-    "DTC-HINGE": 25000.0,
+    # Panels (Plywood per sheet, Landed Kudus E2 - 16 Okt 2026)
+    "PLY-18-MSF": 540993.87,
+    "PLY-12-MSF": 428870.08,
+    "PLY-9-MSF": 370772.51,
+    "PLY-6-MSF": 299944.44,
+    "PLY-3-MSF": 245426.73,
+    "PLY-18-RAW": 393284.85,
+    "PLY-15-RAW": 342610.26,
+    "PLY-12-RAW": 281161.06,
+    "PLY-9-RAW": 223063.49,
+    "PLY-6-RAW": 152235.42,
+    "PLY-3-RAW": 97717.71,
+    # Special Drawer Box Panels (E2 Landed Kudus)
+    "PLY-12-MRD": 281161.06,
+    "PLY-6-MRD": 152235.42,
+    # MDF Panels (E2 Landed Kudus - 16 Okt 2026)
+    "MDF-18-MDF": 533505.54,
+    "MDF-18-MSF": 385796.52,
+    "MDF-18-RAW": 238087.50,
+    "MDF-15-RAW": 193906.25,
+    "MDF-12-RAW": 151525.00,
+    "MDF-9-RAW": 131768.42,
+    "MDF-6-RAW": 85337.93,
+    "MDF-3-RAW": 48288.18,
+    # Hardware & Bought-In (16 Okt 2026 Landed Rates)
+    "DTC-SLIDE-14": 49500.0,
+    "DTC-SLIDE-16": 49500.0,
+    "DTC-SLIDE-18": 49500.0,
+    "DTC-SLIDE-10": 49500.0,
+    "DTC-HINGE": 10800.0,
+    "HW-RAIL-DTC": 49500.0,
+    "HW-HINGE-DTC": 10800.0,
     "SLAT-BASE-QUEEN": 400000.0,  # USD 25 @ 16,000
     "SLAT-BASE-KING": 624000.0,   # USD 39 @ 16,000
     # Rates constants
