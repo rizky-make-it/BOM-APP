@@ -192,6 +192,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "D104")] = fx_val
 
         # 6. Solid Wood (Rows 18-42)
+        ws["U17"] = "COST USD\n(system)"
         for s_idx, (part, calc) in enumerate(zip(spec.solid_parts, cost_data["solid_rows"]), 18):
             ws[f"A{s_idx}"] = float(s_idx - 17)
             ws[f"B{s_idx}"] = part.material
@@ -205,6 +206,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"J{s_idx}"] = part.curved
             ws[f"K{s_idx}"] = part.tier_override
             ws[f"L{s_idx}"] = part.note
+            ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$172)"
 
             cached_map[(item_code, f"M{s_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{s_idx}")] = calc["face"]
@@ -212,13 +214,15 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             cached_map[(item_code, f"R{s_idx}")] = calc["check"]
             cached_map[(item_code, f"S{s_idx}")] = calc["rate"]
             cached_map[(item_code, f"T{s_idx}")] = calc["cost"]
+            cached_map[(item_code, f"U{s_idx}")] = round(calc["cost"] / fx_val, 2)
 
         for r in range(18 + len(spec.solid_parts), 43):
             ws[f"A{r}"] = float(r - 17)
-            for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]:
+            for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "U"]:
                 ws[f"{c_let}{r}"] = None
 
         # 7. Panels (Rows 46-60)
+        ws["U45"] = "COST USD\n(system)"
         for p_idx, (part, calc) in enumerate(zip(spec.panel_parts, cost_data["panel_rows"]), 46):
             ws[f"A{p_idx}"] = float(p_idx - 45)
             ws[f"B{p_idx}"] = part.panel_type
@@ -230,6 +234,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"H{p_idx}"] = part.qty
             ws[f"I{p_idx}"] = part.exposed_faces
             ws[f"L{p_idx}"] = part.note
+            ws[f"U{p_idx}"] = f"=IF(T{p_idx}=\"\",\"\",T{p_idx}/RATES!$C$172)"
 
             cached_map[(item_code, f"M{p_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{p_idx}")] = calc["face"]
@@ -239,10 +244,11 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             cached_map[(item_code, f"R{p_idx}")] = calc["check"]
             cached_map[(item_code, f"S{p_idx}")] = calc["rate"]
             cached_map[(item_code, f"T{p_idx}")] = calc["cost"]
+            cached_map[(item_code, f"U{p_idx}")] = round(calc["cost"] / fx_val, 2)
 
         for r in range(46 + len(spec.panel_parts), 61):
             ws[f"A{r}"] = float(r - 45)
-            for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "L"]:
+            for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "L", "U"]:
                 ws[f"{c_let}{r}"] = None
 
         # 8. Hardware (Rows 64-78)
@@ -257,14 +263,36 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"L{h_idx}"] = part.note
             ws[f"S{h_idx}"] = part.unit_price
             ws[f"T{h_idx}"] = f"=IF(OR(H{h_idx}=\"\",S{h_idx}=\"\"),\"\",H{h_idx}*S{h_idx})"
+            ws[f"U{h_idx}"] = f"=IF(T{h_idx}=\"\",\"\",T{h_idx}/RATES!$C$172)"
             cached_map[(item_code, f"T{h_idx}")] = calc["cost"]
+            cached_map[(item_code, f"U{h_idx}")] = round(calc["cost"] / fx_val, 2)
 
+        ws["U63"] = "LINE TOTAL USD"
         for r in range(64 + len(spec.hardware_parts), 79):
             ws[f"A{r}"] = float(r - 63)
-            for c_let in ["B", "C", "D", "E", "H", "I", "L", "S", "T"]:
+            for c_let in ["B", "C", "D", "E", "H", "I", "L", "S", "T", "U"]:
                 ws[f"{c_let}{r}"] = None
 
-        # 9. Summary Cache Block (D82-D102)
+        # 9. Summary Cache Block (D82-D102 + E87-E101 USD)
+        ws["E81"] = "COST USD (system)"
+        for r_sum in [87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101]:
+            ws[f"E{r_sum}"] = f"=D{r_sum}/RATES!$C$172"
+
+        cached_map[(item_code, "E87")] = round(cost_data["timber_cost"] / fx_val, 2)
+        cached_map[(item_code, "E88")] = round(cost_data["fasteners_cost"] / fx_val, 2)
+        cached_map[(item_code, "E89")] = round(cost_data["panels_cost"] / fx_val, 2)
+        cached_map[(item_code, "E90")] = round(cost_data["fin_mat_cost"] / fx_val, 2)
+        cached_map[(item_code, "E91")] = round(cost_data["sand_mat_cost"] / fx_val, 2)
+        cached_map[(item_code, "E92")] = round(cost_data["sand_lab_cost"] / fx_val, 2)
+        cached_map[(item_code, "E93")] = round(cost_data["fin_lab_cost"] / fx_val, 2)
+        cached_map[(item_code, "E94")] = round(cost_data["hardware_cost"] / fx_val, 2)
+        cached_map[(item_code, "E95")] = round(cost_data["pack_cost"] / fx_val, 2)
+        cached_map[(item_code, "E96")] = round(cost_data["direct_cost"] / fx_val, 2)
+        cached_map[(item_code, "E97")] = round(cost_data["misc_cost"] / fx_val, 2)
+        cached_map[(item_code, "E98")] = round(cost_data["overhead_cost"] / fx_val, 2)
+        cached_map[(item_code, "E99")] = round(cost_data["unit_cost"] / fx_val, 2)
+        cached_map[(item_code, "E101")] = round((cost_data["unit_cost"] * header.order_qty) / fx_val, 2)
+
         cached_map[(item_code, "D82")] = cost_data["solid_vol"]
         cached_map[(item_code, "D83")] = cost_data["panel_sheets"]
         cached_map[(item_code, "D84")] = cost_data["exposed_face_m2"]
