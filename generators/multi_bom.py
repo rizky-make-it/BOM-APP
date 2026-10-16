@@ -43,18 +43,18 @@ def sort_by_part_number(item):
     label = getattr(item, 'label', str(item))
     m = re.search(r'\d+', label)
     if m:
-        return (0, int(m.group(0)), label)
+        num = int(m.group(0))
+        if num in (601, 7, 20):
+            return (0, 0, label)
+        return (0, num, label)
     return (1, 999, label)
 
 def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
     
-    # Rates
+    # Rates from updated GOLDEN_MASTER
     custom_rates = get_workbook_rates()
-    custom_rates["PLY-18-MDF"] = 590418.04
-    custom_rates["PLY-12-RAW"] = 215000.0
-    custom_rates["PLY-6-RAW"] = 115000.0
 
     cached_map = {}
 
