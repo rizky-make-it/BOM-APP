@@ -52,9 +52,17 @@ def sort_by_part_number(item):
 def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
+
+    # Configure USD columns and FX banner on ITEMS
+    ws_items["AB4"] = "UNIT COST USD"
+    ws_items["AC4"] = "ORDER TOTAL USD"
+    ws_items["AD4"] = "EXCHANGE RATE"
+    ws_items["AB2"] = "KURS TERKINI (BCA e-Rate 16 Okt 2026):"
+    ws_items["AD2"] = "=RATES!$C$172"
     
     # Rates from updated GOLDEN_MASTER
     custom_rates = get_workbook_rates()
+    custom_rates["FX_USD"] = 18040.0
 
     cached_map = {}
 
@@ -135,8 +143,12 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         ws_items[f"Y{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D82\")+0,\"\")"
         ws_items[f"Z{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D84\")+0,\"\")"
         ws_items[f"AA{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D89\")+INDIRECT(\"'\"&$C{row_num}&\"'!D94\"),\"\")"
+        ws_items[f"AB{row_num}"] = f"=IF(Q{row_num}=\"\",\"\",Q{row_num}/RATES!$C$172)"
+        ws_items[f"AC{row_num}"] = f"=IF(R{row_num}=\"\",\"\",R{row_num}/RATES!$C$172)"
+        ws_items[f"AD{row_num}"] = "=RATES!$C$172"
 
         # Cache values for ITEMS
+        fx_val = float(custom_rates.get("FX_USD", 18040.0))
         cached_map[("ITEMS", f"J{row_num}")] = "costed"
         cached_map[("ITEMS", f"K{row_num}")] = cost_data["timber_cost"] + cost_data["fasteners_cost"]
         cached_map[("ITEMS", f"L{row_num}")] = cost_data["panels_cost"]
@@ -151,6 +163,9 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[("ITEMS", f"Y{row_num}")] = cost_data["solid_vol"]
         cached_map[("ITEMS", f"Z{row_num}")] = cost_data["exposed_face_m2"]
         cached_map[("ITEMS", f"AA{row_num}")] = cost_data["panels_cost"] + cost_data["hardware_cost"]
+        cached_map[("ITEMS", f"AB{row_num}")] = round(cost_data["unit_cost"] / fx_val, 2)
+        cached_map[("ITEMS", f"AC{row_num}")] = round((cost_data["unit_cost"] * header.order_qty) / fx_val, 2)
+        cached_map[("ITEMS", f"AD{row_num}")] = fx_val
 
         # 5. Populate Product Sheet Header
         ws["C1"] = item_code
@@ -160,6 +175,11 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         ws["F11"] = header.overall_h
         ws["G11"] = 1
 
+        ws["C103"] = "UNIT COST USD"
+        ws["D103"] = "=D99/RATES!$C$172"
+        ws["C104"] = "EXCHANGE RATE (IDR/USD)"
+        ws["D104"] = "=RATES!$C$172"
+
         cached_map[(item_code, "G1")] = header.overall_l
         cached_map[(item_code, "C2")] = header.item_name
         cached_map[(item_code, "G2")] = header.overall_w
@@ -168,6 +188,8 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "C4")] = header.order_qty
         cached_map[(item_code, "G4")] = header.drawing_link
         cached_map[(item_code, "C7")] = header.notes or f"Koleksi {header.collection} — {header.item_name}"
+        cached_map[(item_code, "D103")] = round(cost_data["unit_cost"] / fx_val, 2)
+        cached_map[(item_code, "D104")] = fx_val
 
         # 6. Solid Wood (Rows 18-42)
         for s_idx, (part, calc) in enumerate(zip(spec.solid_parts, cost_data["solid_rows"]), 18):
