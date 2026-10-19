@@ -89,11 +89,11 @@ def derive_drawer_box(
         note=f"Part 401 | W_front={w_front} x H_front={h_front}"
     )
 
-    # 2. Drawer Box Side (402) - Plywood 12 mm E2
+    # 2. Drawer Box Side (402) - Plywood 12 mm E0
     side = PanelPart(
         label=format_part_label(402, box_mat),
         component="Drawer box side",
-        panel_type="LND-PLY-E2-12",
+        panel_type="LND-PLY-E0-12",
         l=d_side,
         w=side_h,
         t=side_wall_thickness,
@@ -102,11 +102,11 @@ def derive_drawer_box(
         note=f"Part 402 | D={d_side}mm x (H-30={side_h}mm)"
     )
 
-    # 3. Drawer Box Front (403) - Plywood 12 mm E2
+    # 3. Drawer Box Front (403) - Plywood 12 mm E0
     inner_front = PanelPart(
         label=format_part_label(403, box_mat),
         component="Drawer box front",
-        panel_type="LND-PLY-E2-12",
+        panel_type="LND-PLY-E0-12",
         l=inner_front_w,
         w=inner_front_h,
         t=side_wall_thickness,
@@ -115,11 +115,11 @@ def derive_drawer_box(
         note=f"Part 403 | (W-64={inner_front_w}mm) x (H-30={inner_front_h}mm)"
     )
 
-    # 4. Drawer Box Back (404) - Plywood 12 mm E2
+    # 4. Drawer Box Back (404) - Plywood 12 mm E0
     back = PanelPart(
         label=format_part_label(404, box_mat),
         component="Drawer box back",
-        panel_type="LND-PLY-E2-12",
+        panel_type="LND-PLY-E0-12",
         l=inner_front_w,
         w=inner_front_h,
         t=side_wall_thickness,
@@ -132,7 +132,7 @@ def derive_drawer_box(
     box_front_back = PanelPart(
         label=format_part_label(403, box_mat),
         component="Drawer box front/back",
-        panel_type="LND-PLY-E2-12",
+        panel_type="LND-PLY-E0-12",
         l=inner_front_w,
         w=inner_front_h,
         t=side_wall_thickness,
@@ -141,11 +141,11 @@ def derive_drawer_box(
         note=f"Part 403/404 | (W-64={inner_front_w}mm) x (H-30={inner_front_h}mm)"
     )
 
-    # 5. Drawer Base (405) - Plywood 6 mm E2
+    # 5. Drawer Base (405) - Plywood 6 mm E0
     bottom = PanelPart(
         label=format_part_label(405, bottom_mat),
         component="Drawer base",
-        panel_type="LND-PLY-E2-6",
+        panel_type="LND-PLY-E0-6",
         l=bottom_w,
         w=bottom_d,
         t=6.0,
@@ -195,7 +195,7 @@ def derive_door(
     door_panel = PanelPart(
         label=format_part_label(501, door_mat),
         component="Door panel",
-        panel_type="LND-MDF-E2-18-MDF",
+        panel_type="LND-MDF-E0-18-MDF",
         l=door_w,
         w=door_h,
         t=18.0,
@@ -391,7 +391,7 @@ def derive_buffet_casegoods(
     parts.append(PanelPart(
         label=format_part_label(601, "C-18-1X"),
         component="Top panel",
-        panel_type="LND-PLY-E2-18-MSF",
+        panel_type="LND-PLY-E0-18-MSF",
         l=overall_l,
         w=overall_w,
         t=top_thickness,
@@ -404,7 +404,7 @@ def derive_buffet_casegoods(
     parts.append(PanelPart(
         label=format_part_label(301, "C-18-1X"),
         component="Side panel",
-        panel_type="LND-PLY-E2-18-MSF",
+        panel_type="LND-PLY-E0-18-MSF",
         l=w_clear,
         w=body_h,
         t=18.0,
@@ -417,7 +417,7 @@ def derive_buffet_casegoods(
     parts.append(PanelPart(
         label=format_part_label(302, "B-9-1X"),
         component="Back panel",
-        panel_type="LND-PLY-E2-9",
+        panel_type="LND-PLY-E0-9",
         l=l_clear,
         w=body_h,
         t=9.0,

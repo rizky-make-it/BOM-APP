@@ -96,7 +96,7 @@
   {
    "label": "PNL-01",
    "component": "Top panel MDF veneer 15",
-   "panel_type": "LND-MDF-E2-15-MSF",
+   "panel_type": "LND-MDF-E0-15-MSF",
    "l": 1400.0,
    "w": 350.0,
    "t": 15.0,
@@ -107,7 +107,7 @@
   {
    "label": "PNL-02",
    "component": "Side panel MDF veneer 12",
-   "panel_type": "LND-MDF-E2-12-MSF",
+   "panel_type": "LND-MDF-E0-12-MSF",
    "l": 705.0,
    "w": 330.0,
    "t": 12.0,
@@ -118,7 +118,7 @@
   {
    "label": "PNL-03",
    "component": "Back panel MDF 12",
-   "panel_type": "LND-MDF-E2-12",
+   "panel_type": "LND-MDF-E0-12",
    "l": 705.0,
    "w": 1460.0,
    "t": 12.0,
@@ -129,7 +129,7 @@
   {
    "label": "PNL-04",
    "component": "Drawer face MDF veneer 15",
-   "panel_type": "LND-MDF-E2-15-MSF",
+   "panel_type": "LND-MDF-E0-15-MSF",
    "l": 675.0,
    "w": 222.0,
    "t": 15.0,
@@ -140,7 +140,7 @@
   {
    "label": "PNL-05",
    "component": "Drawer box side",
-   "panel_type": "LND-PLY-E2-12",
+   "panel_type": "LND-PLY-E0-12",
    "l": 350.0,
    "w": 180.0,
    "t": 12.0,
@@ -151,7 +151,7 @@
   {
    "label": "PNL-06",
    "component": "Drawer box front/back",
-   "panel_type": "LND-PLY-E2-12",
+   "panel_type": "LND-PLY-E0-12",
    "l": 625.0,
    "w": 180.0,
    "t": 12.0,
@@ -162,7 +162,7 @@
   {
    "label": "PNL-08",
    "component": "Drawer bottom",
-   "panel_type": "LND-PLY-E2-6",
+   "panel_type": "LND-PLY-E0-6",
    "l": 637.0,
    "w": 340.0,
    "t": 6.0,

@@ -2,7 +2,7 @@
 Run from repo root:  python data/napier/build_specs.py   -> writes data/napier/lv433_*_spec.json + _order.json
 Construction (Napier standard seen on every casegood drawing): 60x60 corner legs, 35 mm top frame (50 wide) around a
 15 mm MDF-veneer panel, 12 mm MDF-veneer side panels, 20 mm rails, DTC 3-fold L300 slides, leveler feet.
-All panels use explicit E2 codes (LND-PLY-E2-* / LND-MDF-E2-*). Items that the drawings do not state are marked in notes.
+All panels use explicit E0 codes (LND-PLY-E0-* / LND-MDF-E0-*). Items that the drawings do not state are marked in notes.
 """
 import json, os
 
@@ -52,22 +52,22 @@ def casegood(it, W, D, H, leg_h, top_t=35):
     it.solid("Leg 60x60", leg_h, 60, 60, 4, tier="B", note="Kaki 60x60, tinggi di bawah top 35")
     it.solid("Top frame long", W, 50, top_t, 2, note="Frame top 50 x 35 keliling")
     it.solid("Top frame short", D - 100, 50, top_t, 2, note="Frame top sisi pendek")
-    it.panel("Top panel MDF veneer 15", "LND-MDF-E2-15-MSF", W - 100, D - 100, 15, 1, 1, "Panel top 15 mm dalam frame")
+    it.panel("Top panel MDF veneer 15", "LND-MDF-E0-15-MSF", W - 100, D - 100, 15, 1, 1, "Panel top 15 mm dalam frame")
 
 
 def drawers_box(it, n, box_w, box_d, box_h, face_w, face_h, label_slide="HW-RAIL-DTC"):
-    it.panel("Drawer face MDF veneer 15", "LND-MDF-E2-15-MSF", face_w, face_h, 15, n, 1, "Muka laci 15 mm")
-    it.panel("Drawer box side", "LND-PLY-E2-12", box_d, box_h, 12, 2 * n, 0, "Sisi kotak laci 12 mm")
-    it.panel("Drawer box front/back", "LND-PLY-E2-12", box_w - 24, box_h, 12, 2 * n, 0, "Depan/belakang kotak laci (lebar - 2x12)")
-    it.panel("Drawer bottom", "LND-PLY-E2-6", box_w - 12, box_d - 10, 6, n, 0, "Dasar laci 6 mm (tebal 5 di gambar, papan 6 terdekat)")
+    it.panel("Drawer face MDF veneer 15", "LND-MDF-E0-15-MSF", face_w, face_h, 15, n, 1, "Muka laci 15 mm")
+    it.panel("Drawer box side", "LND-PLY-E0-12", box_d, box_h, 12, 2 * n, 0, "Sisi kotak laci 12 mm")
+    it.panel("Drawer box front/back", "LND-PLY-E0-12", box_w - 24, box_h, 12, 2 * n, 0, "Depan/belakang kotak laci (lebar - 2x12)")
+    it.panel("Drawer bottom", "LND-PLY-E0-6", box_w - 12, box_d - 10, 6, n, 0, "Dasar laci 6 mm (tebal 5 di gambar, papan 6 terdekat)")
     it.hardware(label_slide, 'Rel laci DTC 3 tingkat L300 (lebar 42 mm)', n, "pair", RAIL_PAIR, "Gambar: ray trượt bi 3 tầng L300")
 
 
 # ----------------------------------------------------------------------------------------------- BEDSIDE
 b = Item("B41", "BEDSIDE 2 DRWS", "Bedroom", 550, 450, 550, "LV433.B41 - Bedside 2 Drws (1) Model (1).pdf")
 casegood(b, 550, 450, 550, 515)
-b.panel("Side panel MDF veneer 12", "LND-MDF-E2-12-MSF", 455, 330, 12, 2, 1, "Panel samping 330 x 455")
-b.panel("Back panel MDF 12", "LND-MDF-E2-12", 455, 430, 12, 1, 0, "Panel belakang 430 x 455 (tebal tidak tertulis, 12 diasumsikan)")
+b.panel("Side panel MDF veneer 12", "LND-MDF-E0-12-MSF", 455, 330, 12, 2, 1, "Panel samping 330 x 455")
+b.panel("Back panel MDF 12", "LND-MDF-E0-12", 455, 430, 12, 1, 0, "Panel belakang 430 x 455 (tebal tidak tertulis, 12 diasumsikan)")
 b.solid("Frame rail front/back", 430, 30, 20, 6, exposed="N", note="Rel 30x20 atas/tengah/bawah depan-belakang")
 b.solid("Frame rail side", 330, 30, 20, 4, exposed="N", note="Rel samping atas/bawah")
 drawers_box(b, 2, 404, 360, 160, 426, 209)
@@ -79,8 +79,8 @@ b.dump()
 # ----------------------------------------------------------------------------------------------- TALLBOY
 t = Item("B51", "TALLBOY 4 DRWS", "Bedroom", 950, 450, 1100, "LV433.B51 - Tallboy 4 Drws Model (1).pdf")
 casegood(t, 950, 450, 1100, 1065)
-t.panel("Side panel MDF veneer 12", "LND-MDF-E2-12-MSF", 1005, 330, 12, 2, 1, "Panel samping 330 x 1005")
-t.panel("Back panel MDF 12", "LND-MDF-E2-12", 1005, 830, 12, 1, 0, "Panel belakang 830 x 1005 (tebal diasumsikan)")
+t.panel("Side panel MDF veneer 12", "LND-MDF-E0-12-MSF", 1005, 330, 12, 2, 1, "Panel samping 330 x 1005")
+t.panel("Back panel MDF 12", "LND-MDF-E0-12", 1005, 830, 12, 1, 0, "Panel belakang 830 x 1005 (tebal diasumsikan)")
 t.solid("Frame rail front/back", 830, 30, 20, 6, exposed="N", note="Rel 30x20 atas, tengah, bawah")
 t.solid("Frame rail side", 330, 30, 20, 6, exposed="N", note="Rel samping")
 drawers_box(t, 4, 804, 350, 180, 826, 241)
@@ -92,8 +92,8 @@ t.dump()
 # ----------------------------------------------------------------------------------------------- DRESSER
 d = Item("B61", "DRESSER 6 DRWS", "Bedroom", 1500, 450, 800, "LV433.B61 - Dresser 6 Drws Model (1).pdf")
 casegood(d, 1500, 450, 800, 765)
-d.panel("Side panel MDF veneer 12", "LND-MDF-E2-12-MSF", 705, 330, 12, 2, 1, "Panel samping 330 x 705")
-d.panel("Back panel MDF 12", "LND-MDF-E2-12", 705, 1460, 12, 1, 0, "Panel belakang 1460 x 705 (tebal diasumsikan)")
+d.panel("Side panel MDF veneer 12", "LND-MDF-E0-12-MSF", 705, 330, 12, 2, 1, "Panel samping 330 x 705")
+d.panel("Back panel MDF 12", "LND-MDF-E0-12", 705, 1460, 12, 1, 0, "Panel belakang 1460 x 705 (tebal diasumsikan)")
 d.solid("Frame rail front/back", 1460, 30, 20, 8, exposed="N", note="Rel 30x20 atas, tengah x2, bawah, depan-belakang")
 d.solid("Frame rail side", 330, 30, 20, 4, exposed="N", note="Rel samping")
 d.solid("Centre divider", 705, 30, 20, 1, exposed="N", note="Sekat tengah 30 mm antar 2 kolom laci")
@@ -107,11 +107,11 @@ d.dump()
 def doors_unit(code, name, room, H, leg_h, body_h, door_h, drawing):
     u = Item(code, name, room, 1800, 450, H, drawing)
     casegood(u, 1800, 450, H, leg_h)
-    u.panel("Side panel MDF veneer 12", "LND-MDF-E2-12-MSF", body_h, 330, 12, 2, 1, f"Panel samping 330 x {body_h}")
-    u.panel("Back panel MDF 12", "LND-MDF-E2-12", body_h, 1760, 12, 1, 0, "Panel belakang 1760 (tebal diasumsikan)")
-    u.panel("Centre partition MDF veneer 18", "LND-MDF-E2-18-MSF", body_h, 405, 18, 1, 2, "Sekat tengah")
-    u.panel("Adjustable shelf MDF veneer 18", "LND-MDF-E2-18-MSF", 866, 340, 18, 2, 1, "Adj. shelf 866 (kedalaman 340 diasumsikan)")
-    u.panel("Door MDF veneer 18", "LND-MDF-E2-18-MDF", door_h, 409, 18, 4, 2, "4 pintu, 409 lebar")
+    u.panel("Side panel MDF veneer 12", "LND-MDF-E0-12-MSF", body_h, 330, 12, 2, 1, f"Panel samping 330 x {body_h}")
+    u.panel("Back panel MDF 12", "LND-MDF-E0-12", body_h, 1760, 12, 1, 0, "Panel belakang 1760 (tebal diasumsikan)")
+    u.panel("Centre partition MDF veneer 18", "LND-MDF-E0-18-MSF", body_h, 405, 18, 1, 2, "Sekat tengah")
+    u.panel("Adjustable shelf MDF veneer 18", "LND-MDF-E0-18-MSF", 866, 340, 18, 2, 1, "Adj. shelf 866 (kedalaman 340 diasumsikan)")
+    u.panel("Door MDF veneer 18", "LND-MDF-E0-18-MDF", door_h, 409, 18, 4, 2, "4 pintu, 409 lebar")
     u.solid("Frame rail front/back", 1680, 30, 20, 4, exposed="N", note="Rel 30x20 atas dan bawah depan-belakang")
     u.solid("Frame rail side", 330, 30, 20, 4, exposed="N", note="Rel samping")
     u.hardware("HW-HINGE-DTC", "Engsel bật soft close DTC, cup 35 mm 165 derajat", 8, "pcs", HINGE, "2 engsel per pintu")
@@ -130,7 +130,7 @@ def open_table(code, name, room, W, D, H, drawing, box_d):
     u.solid("Frame rail long", W - 120, 30, 20, 4, exposed="N", note="Rel 30x20 atas dan bawah (rangka rak)")
     u.solid("Frame rail short", D - 120, 30, 20, 4, exposed="N", note="Rel samping")
     u.solid("Drawer divider post", 155, 30, 20, 1, exposed="N", note="Sekat tengah antar 2 laci (30 mm)")
-    u.panel("Bottom shelf MDF veneer 15", "LND-MDF-E2-15-MSF", W - 120, D - 120, 15, 1, 1, "Rak bawah terbuka")
+    u.panel("Bottom shelf MDF veneer 15", "LND-MDF-E0-15-MSF", W - 120, D - 120, 15, 1, 1, "Rak bawah terbuka")
     drawers_box(u, 2, 549, box_d, 105, 535, 155)
     u.hardware("HNDL / TBD", "Handle (sesuai sampel)", 2, "pcs", 0.0, "Harga handle belum ada")
     u.hardware("I-00003", "Nylon leveler glides M8", 4, "pcs", LEVELER, "Leveler kaki")
@@ -156,7 +156,7 @@ m = Item("B71", "MIRROR", "Bedroom", 1000, 30, 1000, "LV433.B71 - Mirror Model (
 m.solid("Frame horizontal", 1000, 60, 30, 2, tier="B", note="Frame 60x30, miter 45")
 m.solid("Frame vertical", 1000, 60, 30, 2, tier="B", note="Frame 60x30, miter 45")
 m.solid("Mounting support", 730, 40, 25, 2, exposed="N", tier="C", note="Do do khung guong 730x40x25")
-m.panel("Backing MDF veneer 3", "LND-MDF-E2-3", 930, 930, 3, 1, 0, "Gambar: MDFV 4 mm, papan 3 mm terdekat")
+m.panel("Backing MDF veneer 3", "LND-MDF-E0-3", 930, 930, 3, 1, 0, "Gambar: MDFV 4 mm, papan 3 mm terdekat")
 m.hardware("I-00007", "Mirror 5 mm, beveled (930 x 930 mm)", 0.865, "m2", 180000.0, "Kaca 5 mm mai vat")
 m.hardware("INSERT-NUT", "Insert nut 6x15", 8, "pcs", 0.0, "Harga belum ada")
 m.h["notes"] = "Dari gambar LV433.B71. Backing 4 mm dihitung dengan papan 3 mm."
@@ -179,8 +179,8 @@ def bed(code, name, W, drawing, notes):
     u.solid("Centre leg", 255, 40, 40, 4, exposed="N", tier="C", note="Kaki tengah 255 tinggi")
     u.solid("Slat", 1845 if code == "B02" else 1545, 60, 30, 14, exposed="N", tier="C", note="14 slat (jarak 70)")
     u.solid("Hollow steel 30x60", 2070, 60, 30, 2, mat="METAL", exposed="N", tier="B", note="Hollow steel 30x60x2070, tebal 1.5")
-    u.panel("Headboard panel MDF 12 (upholstery)", "LND-MDF-E2-12", 1100, inner - 30, 12, 1, 0, "Panel upholstery headboard")
-    u.panel("Footboard panel MDF veneer 12", "LND-MDF-E2-12-MSF", 165, foot_in, 12, 1, 1, "Panel footboard 165 tinggi")
+    u.panel("Headboard panel MDF 12 (upholstery)", "LND-MDF-E0-12", 1100, inner - 30, 12, 1, 0, "Panel upholstery headboard")
+    u.panel("Footboard panel MDF veneer 12", "LND-MDF-E0-12-MSF", 165, foot_in, 12, 1, 1, "Panel footboard 165 tinggi")
     u.hardware("FABRIC-UPH", "Upholstery fabric", 3.5 if code == "B01" else 4.0, "m lari", 85000.0, "Kain headboard (harga dari koleksi Sienna)")
     u.hardware("FOAM-HIGH", "High density foam 40 mm", 1, "pcs", 45000.0, "Busa headboard")
     u.hardware("BED-BRACKET", "Heavy duty KD bed rail bracket", 4, "pcs", 18500.0, "Hardware ke kaki/bahu")

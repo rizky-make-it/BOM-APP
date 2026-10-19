@@ -48,9 +48,9 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 ### F. Material Panel: Plywood vs MDF (dikunci 19 Okt 2026)
 * **Kode gambar** `<Grup>-<Tebal>-<n>X`: grup **B = Plywood**, grup **C = MDF board**.
 * **n** = jumlah muka veneer: `0X` RAW, `1X` single face, `2X` double face.
-* **Grade board DIKUNCI E2** untuk semua plywood dan MDF (landed Kudus, `RATES!PANEL_GRADE`, `config.PANEL_GRADE`). E0 / CARB tidak boleh dipakai; generator memberi peringatan bila ada.
-* Rate code: Plywood `PLY-<T>-RAW|MSF|MDF|TSF|TDF`; MDF mentah `MDF-<T>-RAW`; MDF veneer `LND-MDF-E2-<T>-MSF`.
-* **Awas nama sama:** pada `PLY-18-MDF`, "MDF" = *Mindi Double Face* (plywood), **bukan** papan MDF. Papan MDF selalu berawalan `MDF-` atau `LND-MDF-`.
+* **Grade board DIKUNCI E0** untuk semua plywood dan MDF (landed Kudus, `RATES!PANEL_GRADE`, `config.PANEL_GRADE`). Keputusan meeting 19 Okt 2026, menggantikan kunci E2 sebelumnya. E2 / CARB tidak boleh dipakai; generator memberi peringatan bila ada.
+* Rate code: plywood `LND-PLY-E0-<T>` (raw) dan `LND-PLY-E0-<T>-MSF|MDF`; MDF `LND-MDF-E0-<T>` dan `LND-MDF-E0-<T>-MSF|MDF`. Kode lama (`PLY-18-MSF`) dan kode E2 otomatis diubah ke E0 oleh `to_e0()`.
+* **Awas nama sama:** pada `PLY-18-MDF`, "MDF" = *Mindi Double Face* (plywood), **bukan** papan MDF. Papan MDF selalu berawalan `LND-MDF-`.
 * Pengecekan otomatis: `core/panel_rules.py` memberi peringatan `[PANEL RULE WARNING]` bila tebal tidak cocok dengan rate code, atau label tidak cocok dengan rate code.
 
 ---
@@ -116,3 +116,10 @@ python cli.py collection "data/item1.json" "data/item2.json" -t "SIENNA COLLECTI
 # Memvalidasi formula dan open input checks pada file BOM Excel
 python cli.py verify "path/ke/bom.xlsx"
 ```
+
+
+### J. Catatan meeting 19 Okt 2026
+* **E0 untuk semua plywood dan MDF** (6, 9, 12 mm dan seterusnya). Menggantikan kunci E2.
+* **Material:** MDF dan plywood furniture grade (bukan marine). Veneer MDF: panel samping 1 muka, pintu 2 muka, laci 1 muka.
+* **Harga veneer** memakai perhitungan bagian I.
+* "Select cheapest price" (pilih harga termurah) belum dijelaskan maksudnya; lihat Pertanyaan Terbuka di vault.

@@ -59,7 +59,7 @@
     {
       "label": "9 / B-3-RAW",
       "component": "Back panel",
-      "panel_type": "LND-PLY-E2-3",
+      "panel_type": "LND-PLY-E0-3",
       "l": 920.0,
       "w": 920.0,
       "t": 3.0,

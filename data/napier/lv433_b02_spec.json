@@ -148,7 +148,7 @@
   {
    "label": "PNL-01",
    "component": "Headboard panel MDF 12 (upholstery)",
-   "panel_type": "LND-MDF-E2-12",
+   "panel_type": "LND-MDF-E0-12",
    "l": 1100.0,
    "w": 2270.0,
    "t": 12.0,
@@ -159,7 +159,7 @@
   {
    "label": "PNL-02",
    "component": "Footboard panel MDF veneer 12",
-   "panel_type": "LND-MDF-E2-12-MSF",
+   "panel_type": "LND-MDF-E0-12-MSF",
    "l": 165.0,
    "w": 1780.0,
    "t": 12.0,

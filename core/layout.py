@@ -23,7 +23,7 @@ def compact_item_sheet(ws, n_solid, n_panel, n_hw, n_pack=1):
     _hide(ws, PANEL_FIRST, PANEL_LAST, n_panel)
     _hide(ws, HW_FIRST, HW_LAST, n_hw)
     _hide(ws, PACK_FIRST, PACK_LAST, n_pack)
-    # PANEL TYPE codes like LND-PLY-E2-12-MDF need ~19 chars
+    # PANEL TYPE codes like LND-PLY-E0-12-MDF need ~19 chars
     if (ws.column_dimensions["B"].width or 0) < 20:
         ws.column_dimensions["B"].width = 20
 

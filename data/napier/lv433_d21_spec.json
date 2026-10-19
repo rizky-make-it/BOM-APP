@@ -83,7 +83,7 @@
   {
    "label": "PNL-01",
    "component": "Top panel MDF veneer 15",
-   "panel_type": "LND-MDF-E2-15-MSF",
+   "panel_type": "LND-MDF-E0-15-MSF",
    "l": 1700.0,
    "w": 350.0,
    "t": 15.0,
@@ -94,7 +94,7 @@
   {
    "label": "PNL-02",
    "component": "Side panel MDF veneer 12",
-   "panel_type": "LND-MDF-E2-12-MSF",
+   "panel_type": "LND-MDF-E0-12-MSF",
    "l": 705.0,
    "w": 330.0,
    "t": 12.0,
@@ -105,7 +105,7 @@
   {
    "label": "PNL-03",
    "component": "Back panel MDF 12",
-   "panel_type": "LND-MDF-E2-12",
+   "panel_type": "LND-MDF-E0-12",
    "l": 705.0,
    "w": 1760.0,
    "t": 12.0,
@@ -116,7 +116,7 @@
   {
    "label": "PNL-04",
    "component": "Centre partition MDF veneer 18",
-   "panel_type": "LND-MDF-E2-18-MSF",
+   "panel_type": "LND-MDF-E0-18-MSF",
    "l": 705.0,
    "w": 405.0,
    "t": 18.0,
@@ -127,7 +127,7 @@
   {
    "label": "PNL-05",
    "component": "Adjustable shelf MDF veneer 18",
-   "panel_type": "LND-MDF-E2-18-MSF",
+   "panel_type": "LND-MDF-E0-18-MSF",
    "l": 866.0,
    "w": 340.0,
    "t": 18.0,
@@ -138,7 +138,7 @@
   {
    "label": "PNL-06",
    "component": "Door MDF veneer 18",
-   "panel_type": "LND-MDF-E2-18-MDF",
+   "panel_type": "LND-MDF-E0-18-MDF",
    "l": 671.0,
    "w": 409.0,
    "t": 18.0,

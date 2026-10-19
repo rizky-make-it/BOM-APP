@@ -36,7 +36,7 @@ solid = [
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from core.rules_v2 import derive_drawer_box
-from core.panel_rules import to_e2
+from core.panel_rules import to_e0
 
 OPEN_W = N[25]                       # 430 opening between legs (#25)
 FRONT_W, FRONT_H = 426, N[30]        # drawer face from front view (#79, #30)
@@ -45,16 +45,16 @@ box = derive_drawer_box(FRONT_W, FRONT_H, 450, side_length=GLIDE, qty=2)
 
 
 def from_rule(part, note):
-    return (part.component, to_e2(part.panel_type), part.l, part.w, part.t, part.qty, part.exposed_faces, note)
+    return (part.component, to_e0(part.panel_type), part.l, part.w, part.t, part.qty, part.exposed_faces, note)
 
 
 panels = [
  # Part 601 Top panel  = C18 1X  (rule), size as drawn inside the 35 frame
- ("Top panel MDF veneer 18", "LND-MDF-E2-18-MSF", N[133], N[136], 18, 1, 1, "RULE 601 C18 1X (gambar tertulis 15 #142); ukuran 450 #133 x 370 #136"),
+ ("Top panel MDF veneer 18", "LND-MDF-E0-18-MSF", N[133], N[136], 18, 1, 1, "RULE 601 C18 1X (gambar tertulis 15 #142); ukuran 450 #133 x 370 #136"),
  # Part 301 Side panel = C18 1X  (rule)
- ("Side panel MDF veneer 18", "LND-MDF-E2-18-MSF", N[140], 330, 18, 2, 1, "RULE 301 C18 1X (gambar tertulis 20 #88); 455 #140 x 330"),
+ ("Side panel MDF veneer 18", "LND-MDF-E0-18-MSF", N[140], 330, 18, 2, 1, "RULE 301 C18 1X (gambar tertulis 20 #88); 455 #140 x 330"),
  # Part 302 Back panel = B9 1X (rule)
- ("Back panel plywood 9", "LND-PLY-E2-9-MSF", N[87], N[144], 9, 1, 1, "RULE 302 B9 1X (gambar tertulis 5 #129); 510 #87 x 395 #144"),
+ ("Back panel plywood 9", "LND-PLY-E0-9-MSF", N[87], N[144], 9, 1, 1, "RULE 302 B9 1X (gambar tertulis 5 #129); 510 #87 x 395 #144"),
  # Part 401 Drawer front = MDF 18 both faces (rules_v2 derive_drawer_box)
  from_rule(box["front"], "RULE drawer front MDF 18 2 muka (gambar tertulis 20); 426 x 209 dari tampak depan"),
  from_rule(box["side"], "RULE 402 B12 0X: L=slide 300, H=H_front-30"),

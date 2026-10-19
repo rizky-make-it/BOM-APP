@@ -57,7 +57,7 @@
   {
    "label": "PNL-01",
    "component": "Backing MDF veneer 3",
-   "panel_type": "LND-MDF-E2-3",
+   "panel_type": "LND-MDF-E0-3",
    "l": 930.0,
    "w": 930.0,
    "t": 3.0,

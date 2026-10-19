@@ -122,7 +122,7 @@
   {
    "label": "PNL-01",
    "component": "Top panel PLY-15 1F",
-   "panel_type": "LND-PLY-E2-15-MSF",
+   "panel_type": "LND-PLY-E0-15-MSF",
    "l": 860.0,
    "w": 860.0,
    "t": 15.0,
@@ -133,7 +133,7 @@
   {
    "label": "PNL-02",
    "component": "Shelf panel PLY-12 1F (stagger kiri/kanan)",
-   "panel_type": "LND-PLY-E2-12-MSF",
+   "panel_type": "LND-PLY-E0-12-MSF",
    "l": 860.0,
    "w": 420.0,
    "t": 12.0,

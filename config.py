@@ -8,9 +8,9 @@ APP_ROOT = Path(__file__).resolve().parent
 GOLDEN_MASTER_PATH = APP_ROOT / "data" / "GOLDEN_MASTER.xlsx"
 RULES_V2_PATH = APP_ROOT / "data" / "BOM_rules_and_part_schema_v2.xlsx"
 
-# PANEL RULE (locked 19 Oct 2026): ALL plywood and MDF use grade E2 (landed Kudus).
-# Do not add E0 / CARB prices to DEFAULT_RATES. See core/panel_rules.py and tests/test_panel_grade_e2.py.
-PANEL_GRADE = "E2"
+# PANEL RULE (meeting 19 Oct 2026): ALL plywood and MDF use grade E0 (landed Kudus). It replaced the earlier E2 lock.
+# Do not add E2 / CARB prices to the rates used by the engine. See core/panel_rules.py and tests/test_panel_grade_e2.py.
+PANEL_GRADE = "E0"
 
 # Standard sheet and timber limits
 SHEET_L = 2440.0  # mm
@@ -117,6 +117,22 @@ DEFAULT_RATES = {
 }
 
 
+# ---- E0 landed raw boards (from RATES, recalculated by LibreOffice, 19 Oct 2026) ----
+E0_RAW = {
+    "LND-MDF-E0-3": 53800.18,
+    "LND-MDF-E0-6": 99741.33,
+    "LND-MDF-E0-9": 155926,
+    "LND-MDF-E0-12": 204894.67,
+    "LND-MDF-E0-15": 256569.33,
+    "LND-MDF-E0-18": 306440,
+    "LND-PLY-E0-3": 100635.71,
+    "LND-PLY-E0-6": 157073.42,
+    "LND-PLY-E0-9": 230759.49,
+    "LND-PLY-E0-12": 287086.83,
+    "LND-PLY-E0-15": 348758.26,
+    "LND-PLY-E0-18": 399540.85,
+}
+
 # ---------------------------------------------------------------------------------------------
 # VENEER (locked 19 Oct 2026). Same formulas as the VENEER block in data/GOLDEN_MASTER.xlsx RATES.
 # Face veneer cost is built from log price, slicing yield and vendor fee, per thickness 0.6 / 1.0 / 1.2 mm.
@@ -149,27 +165,18 @@ def veneer_face(thickness_mm: float, v: dict = None) -> float:
 
 
 def _apply_veneer(rates: dict) -> None:
+    """Make E0 the ONLY panel family used by the engine: raw E0 boards + veneered E0 boards (0.6 mm default, -V10, -V12)."""
     import re as _re
-    face = {s: veneer_face(t) for s, t in THICKNESS_MM.items()}
-    for key in list(rates):
-        m = _re.fullmatch(r"(PLY-\d+|MDF-\d+|LND-PLY-E2-\d+|LND-MDF-E2-\d+)-(MSF|MDF)(-V10|-V12)?", key)
-        if not m:
-            continue
-        base_code, kind = m.group(1), m.group(2)
-        base = rates.get(base_code + "-RAW") if base_code.startswith(("PLY-", "MDF-")) else rates.get(base_code)
-        if base is None:
-            continue
-        n = 1 if kind == "MSF" else 2
-        rates[key] = round(base + n * face[""], 2)
-    # explicit 1.0 / 1.2 mm variants
-    for key in [k for k in rates if _re.fullmatch(r"LND-(PLY|MDF)-E2-\d+-(MSF|MDF)", k)]:
-        n = 1 if key.endswith("MSF") else 2
-        for suf, th in (("V10", 1.0), ("V12", 1.2)):
-            rates[f"{key}-{suf}"] = round(rates[key] + n * (veneer_face(th) - face[""]), 2)
-    # legacy PLY-x-MDF double face (not previously in the table)
-    for t in (3, 6, 9, 12, 15, 18):
-        if f"PLY-{t}-RAW" in rates:
-            rates.setdefault(f"PLY-{t}-MDF", round(rates[f"PLY-{t}-RAW"] + 2 * face[""], 2))
+    for k in [k for k in rates if _re.match(r"^(PLY-|MDF-|LND-PLY-|LND-MDF-)", k)]:
+        del rates[k]
+    rates.update(E0_RAW)
+    face06 = veneer_face(0.6)
+    for raw_code, price in E0_RAW.items():
+        for suf, n in (("MSF", 1), ("MDF", 2)):
+            code = f"{raw_code}-{suf}"
+            rates[code] = round(price + n * face06, 2)
+            for vs, th in (("V10", 1.0), ("V12", 1.2)):
+                rates[f"{code}-{vs}"] = round(price + n * veneer_face(th), 2)
 
 
 _apply_veneer(DEFAULT_RATES)

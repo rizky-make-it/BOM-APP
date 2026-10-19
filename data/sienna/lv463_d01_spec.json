@@ -57,7 +57,7 @@
   {
    "label": "PNL-01",
    "component": "Top Panel Layer 1 (Veneer Mindi)",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 2200.0,
    "w": 1000.0,
    "t": 18.0,
@@ -68,7 +68,7 @@
   {
    "label": "PNL-02",
    "component": "Top Panel Layer 2 (Substrate Core)",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 2200.0,
    "w": 1000.0,
    "t": 18.0,

@@ -57,7 +57,7 @@
   {
    "label": "PNL-01",
    "component": "Top panel",
-   "panel_type": "LND-PLY-E2-18-MDF",
+   "panel_type": "LND-PLY-E0-18-MDF",
    "l": 870.0,
    "w": 400.0,
    "t": 18.0,
@@ -68,7 +68,7 @@
   {
    "label": "PNL-02",
    "component": "Middle shelf",
-   "panel_type": "LND-PLY-E2-18-MDF",
+   "panel_type": "LND-PLY-E0-18-MDF",
    "l": 870.0,
    "w": 400.0,
    "t": 18.0,
@@ -79,7 +79,7 @@
   {
    "label": "PNL-03",
    "component": "Bottom panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 870.0,
    "w": 400.0,
    "t": 18.0,
@@ -90,7 +90,7 @@
   {
    "label": "PNL-04",
    "component": "Vertical divider/side",
-   "panel_type": "LND-PLY-E2-12-MDF",
+   "panel_type": "LND-PLY-E0-12-MDF",
    "l": 400.0,
    "w": 280.0,
    "t": 12.0,
@@ -101,7 +101,7 @@
   {
    "label": "PNL-05",
    "component": "Door",
-   "panel_type": "LND-PLY-E2-18-MDF",
+   "panel_type": "LND-PLY-E0-18-MDF",
    "l": 435.0,
    "w": 280.0,
    "t": 18.0,
@@ -112,7 +112,7 @@
   {
    "label": "PNL-06",
    "component": "Back panel",
-   "panel_type": "LND-PLY-E2-6-MSF",
+   "panel_type": "LND-PLY-E0-6-MSF",
    "l": 1760.0,
    "w": 280.0,
    "t": 6.0,

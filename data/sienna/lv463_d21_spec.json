@@ -96,7 +96,7 @@
   {
    "label": "PNL-01",
    "component": "Top panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 1800.0,
    "w": 450.0,
    "t": 18.0,
@@ -107,7 +107,7 @@
   {
    "label": "PNL-02",
    "component": "Side panel carcass",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 580.0,
    "w": 370.0,
    "t": 18.0,
@@ -118,7 +118,7 @@
   {
    "label": "PNL-03",
    "component": "Internal dividers",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 580.0,
    "w": 410.0,
    "t": 18.0,
@@ -129,7 +129,7 @@
   {
    "label": "PNL-04",
    "component": "Shelves",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 550.0,
    "w": 400.0,
    "t": 18.0,
@@ -140,7 +140,7 @@
   {
    "label": "PNL-05",
    "component": "Back panel",
-   "panel_type": "LND-PLY-E2-9-MSF",
+   "panel_type": "LND-PLY-E0-9-MSF",
    "l": 1720.0,
    "w": 580.0,
    "t": 9.0,
@@ -151,7 +151,7 @@
   {
    "label": "PNL-06",
    "component": "Drawer side box",
-   "panel_type": "LND-PLY-E2-12",
+   "panel_type": "LND-PLY-E0-12",
    "l": 350.0,
    "w": 110.0,
    "t": 12.0,
@@ -162,7 +162,7 @@
   {
    "label": "PNL-07",
    "component": "Drawer front/back box",
-   "panel_type": "LND-PLY-E2-12",
+   "panel_type": "LND-PLY-E0-12",
    "l": 486.0,
    "w": 110.0,
    "t": 12.0,
@@ -173,7 +173,7 @@
   {
    "label": "PNL-08",
    "component": "Drawer bottom base",
-   "panel_type": "LND-PLY-E2-6",
+   "panel_type": "LND-PLY-E0-6",
    "l": 496.0,
    "w": 343.0,
    "t": 6.0,

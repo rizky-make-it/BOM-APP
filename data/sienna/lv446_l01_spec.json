@@ -57,7 +57,7 @@
   {
    "label": "PNL-01",
    "component": "Top table panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 1200.0,
    "w": 700.0,
    "t": 18.0,
@@ -68,7 +68,7 @@
   {
    "label": "PNL-02",
    "component": "Bottom shelf panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 1110.0,
    "w": 610.0,
    "t": 18.0,

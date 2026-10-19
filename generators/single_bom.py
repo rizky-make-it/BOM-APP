@@ -40,11 +40,11 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
 
     # Compute all values
     try:
-        from core.panel_rules import to_e2
+        from core.panel_rules import to_e0
     except ImportError:
-        from bom_app.core.panel_rules import to_e2
+        from bom_app.core.panel_rules import to_e0
     for _p in spec.panel_parts:
-        _p.panel_type = to_e2(_p.panel_type)  # ALL panels use explicit E2 codes
+        _p.panel_type = to_e0(_p.panel_type)  # ALL panels use explicit E0 codes
     try:
         from core.curves import apply_to_spec
     except ImportError:

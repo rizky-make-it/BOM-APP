@@ -162,7 +162,7 @@
     {
       "label": "7 / B-18-1X",
       "component": "Top Cap Panel",
-      "panel_type": "LND-PLY-E2-18-MSF",
+      "panel_type": "LND-PLY-E0-18-MSF",
       "l": 1500,
       "w": 450,
       "t": 18,
@@ -173,7 +173,7 @@
     {
       "label": "8 / B-12-1X",
       "component": "Side End Panels (2x)",
-      "panel_type": "LND-PLY-E2-12-MSF",
+      "panel_type": "LND-PLY-E0-12-MSF",
       "l": 600,
       "w": 360,
       "t": 12,
@@ -184,7 +184,7 @@
     {
       "label": "9 / B-9-0X",
       "component": "Backing Panel (2x Split)",
-      "panel_type": "LND-PLY-E2-9",
+      "panel_type": "LND-PLY-E0-9",
       "l": 680,
       "w": 600,
       "t": 9,
@@ -195,7 +195,7 @@
     {
       "label": "5 / B-12-0X",
       "component": "Drawer Box Sides (12x)",
-      "panel_type": "LND-PLY-E2-12",
+      "panel_type": "LND-PLY-E0-12",
       "l": 350,
       "w": 180,
       "t": 12,
@@ -206,7 +206,7 @@
     {
       "label": "11 / B-12-0X",
       "component": "Drawer Inner Front (6x)",
-      "panel_type": "LND-PLY-E2-12",
+      "panel_type": "LND-PLY-E0-12",
       "l": 641,
       "w": 170,
       "t": 12,
@@ -217,7 +217,7 @@
     {
       "label": "11 / B-12-0X",
       "component": "Drawer Back (6x)",
-      "panel_type": "LND-PLY-E2-12",
+      "panel_type": "LND-PLY-E0-12",
       "l": 641,
       "w": 170,
       "t": 12,
@@ -228,7 +228,7 @@
     {
       "label": "12 / B-6-0X",
       "component": "Drawer Bottom Panels (6x)",
-      "panel_type": "LND-PLY-E2-6",
+      "panel_type": "LND-PLY-E0-6",
       "l": 651,
       "w": 343,
       "t": 6,
@@ -239,7 +239,7 @@
     {
       "label": "24 / B-9-0X",
       "component": "Side Slide Spacers (6x)",
-      "panel_type": "LND-PLY-E2-9",
+      "panel_type": "LND-PLY-E0-9",
       "l": 420,
       "w": 80,
       "t": 9,
@@ -250,7 +250,7 @@
     {
       "label": "24 / B-18-0X",
       "component": "Center Slide Spacers (3x)",
-      "panel_type": "LND-PLY-E2-18",
+      "panel_type": "LND-PLY-E0-18",
       "l": 405,
       "w": 80,
       "t": 18,
