@@ -236,8 +236,11 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
             ws[f"L{s_idx}"] = part.note
             ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$172)"
             if part.material == "METAL":
-                ws[f"S{s_idx}"] = (f'=IFERROR(INDEX(RATES!$C:$C,MATCH("HOLLOW-"&MIN(F{s_idx},G{s_idx})&"x"&MAX(F{s_idx},G{s_idx})&"x"&'
-                                   f'SUBSTITUTE(RATES!$C${HOLLOW_WALL_ROW}&"",",","."),RATES!$A:$A,0))*1000000/(F{s_idx}*G{s_idx}),"rate?")')
+                def _look(w):  # price per metre of HOLLOW-<a>x<b>x<wall>
+                    return (f'INDEX(RATES!$C:$C,MATCH("HOLLOW-"&MIN(F{s_idx},G{s_idx})&"x"&MAX(F{s_idx},G{s_idx})&"x"&{w},RATES!$A:$A,0))')
+                _wall = f'SUBSTITUTE(RATES!$C${HOLLOW_WALL_ROW}&"",",",".")'
+                _chain = f'IFERROR({_look(_wall)},IFERROR({_look(chr(34) + "1" + chr(34))},IFERROR({_look(chr(34) + "1.2" + chr(34))},{_look(chr(34) + "1.5" + chr(34))})))'
+                ws[f"S{s_idx}"] = f'=IFERROR({_chain}*1000000/(F{s_idx}*G{s_idx}),"rate?")'
 
             cached_map[(item_code, f"M{s_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{s_idx}")] = calc["face"]

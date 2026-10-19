@@ -130,7 +130,7 @@ python cli.py verify "path/ke/bom.xlsx"
 
 ### K. METAL = besi hollow (dikunci 19 Okt 2026)
 * Komponen bermaterial **METAL** = **besi hollow hitam**. Biaya = panjang (m) x jumlah x harga per meter dari daftar `HOLLOW-<a>x<b>x<tebal dinding>` di sheet RATES (harga batang 6 m / 6). Sisi dipasangkan dari lebar dan tebal komponen, urutan bebas (30x60 = 60x30).
-* **Tebal dinding tidak ada di gambar.** Satu pengaturan untuk semua: `RATES!HOLLOW_WALL`, saat ini **1,2 mm (CONFIRM)**. Ubah angka ini, semua biaya metal mengikuti.
+* **Tebal dinding tidak ada di gambar.** Satu pengaturan untuk semua: `RATES!HOLLOW_WALL`, saat ini **0,8 mm** (sementara, keputusan 19 Okt 2026). Ubah angka ini secara manual, semua biaya metal mengikuti. Bila penampang tidak ada pada dinding itu di daftar supplier (50x50 dan 40x60 mulai dari 1,0 mm), dipakai dinding berikutnya yang tersedia.
 * Penampang yang tidak ada di daftar dihitung Rp 0 dan barisnya berwarna oranye.
 * Sumber harga: `data/prices/besi_hollow_hitam_2026-10-19.json` (297 ukuran, smsperkasa.com). Baris `METAL_A..D` dan `metal_brass/steel` tidak dipakai lagi.
 * Brass (`MT BRASS`, mis. TV unit L31) saat ini ikut dihitung sebagai besi hollow; harga brass sungguhan belum ada.

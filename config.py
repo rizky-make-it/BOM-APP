@@ -195,7 +195,7 @@ def _load_hollow(rates: dict) -> None:
         m = re.search(r"Hollow (\d+) x (\d+) x ([\d.]+)mm x (\d+)M", x["ukuran"])
         a, b, t, bar = int(m[1]), int(m[2]), float(m[3]), int(m[4])
         rates[f"HOLLOW-{a}x{b}x{t:g}"] = int(re.sub(r"\D", "", x["harga"])) / bar
-    rates.setdefault("HOLLOW_WALL", 1.2)   # mm, not on drawings: CONFIRM (RATES!HOLLOW_WALL overrides)
+    rates.setdefault("HOLLOW_WALL", 0.8)   # mm, not on drawings: 0.8 for now (RATES!HOLLOW_WALL overrides)
 
 
 _load_hollow(DEFAULT_RATES)

@@ -2,8 +2,9 @@
 
 A METAL solid part is priced from the supplier list (RATES block "STEEL HOLLOW SECTION"):
     cost = length (m) x qty x price per metre of  HOLLOW-<a>x<b>x<wall>      (a <= b, the part's w and t)
-The wall thickness is NOT on the drawings -> one setting, RATES!HOLLOW_WALL (default 1.2 mm, CONFIRM).
-If the cross-section is not in the list, the price is 0 and the row turns orange.
+The wall thickness is NOT on the drawings -> one setting, RATES!HOLLOW_WALL (0.8 mm for now, change it by hand in RATES).
+If the supplier list has no such wall for that section (e.g. 50x50 and 40x60 start at 1.0 mm), the next thicker wall that IS listed is used.
+If the cross-section is not in the list at all, the price is 0 and the row turns orange.
 """
 
 def code(w: float, t: float, wall: float) -> str:
@@ -12,8 +13,14 @@ def code(w: float, t: float, wall: float) -> str:
 
 
 def price_per_m(rates: dict, w: float, t: float) -> float:
-    wall = rates.get("HOLLOW_WALL", 1.2)
-    return float(rates.get(code(w, t, wall), 0.0) or 0.0)
+    wall = float(rates.get("HOLLOW_WALL", 0.8))
+    a, b = sorted((float(w), float(t)))
+    prefix = f"HOLLOW-{a:g}x{b:g}x"
+    walls = sorted(float(k[len(prefix):]) for k in rates if k.startswith(prefix))
+    for x in walls:
+        if x >= wall - 1e-9:
+            return float(rates[code(w, t, x)] or 0.0)
+    return 0.0
 
 
 def equiv_rate_m3(rates: dict, w: float, t: float) -> float:
