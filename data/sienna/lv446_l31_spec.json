@@ -1,0 +1,146 @@
+{
+ "header": {
+  "item_code": "LV446-L31",
+  "item_name": "4 DOORS & SHELF TV UNIT",
+  "collection": "SIENNA / Living",
+  "overall_l": 1800.0,
+  "overall_w": 440.0,
+  "overall_h": 550.0,
+  "order_qty": 1,
+  "drawing_link": "LV446-L31.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "LV446-L31 dari gambar kerja: rangka MT BRASS 20x20, top/shelf PLY-18, sekat PLY-12, pintu PLY-18, back PLY-6. Jumlah rel & pilihan MSF/MDF shelf tengah dibaca dari gambar, mohon cek."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / M",
+   "component": "Brass post MT 20x20",
+   "l": 550.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 6,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang depan/belakang x kiri, tengah, kanan; tinggi penuh 550 (kaki 80)"
+  },
+  {
+   "label": "2 / M",
+   "component": "Brass rail width (front/back)",
+   "l": 870.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 12,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel 870 x 2 bay x 3 level (atas, tengah, bawah) x depan/belakang"
+  },
+  {
+   "label": "3 / M",
+   "component": "Brass rail depth",
+   "l": 400.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 9,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel kedalaman 400 x 3 rangka (kiri, tengah, kanan) x 3 level"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top panel",
+   "panel_type": "LND-PLY-E2-18-MDF",
+   "l": 870.0,
+   "w": 400.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 2,
+   "note": "Top PLY-18-MDF, 2 bay x 870 (sisi 1760 total)"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Middle shelf",
+   "panel_type": "LND-PLY-E2-18-MDF",
+   "l": 870.0,
+   "w": 400.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 2,
+   "note": "Gambar: tampak samping PLY-18-MDF, tampak depan PLY-18-MSF; dipakai MDF, cek"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Bottom panel",
+   "panel_type": "LND-PLY-E2-18-MSF",
+   "l": 870.0,
+   "w": 400.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Panel dasar PLY-18-MSF di atas kaki 80"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Vertical divider/side",
+   "panel_type": "LND-PLY-E2-12-MDF",
+   "l": 400.0,
+   "w": 280.0,
+   "t": 12.0,
+   "qty": 3,
+   "exposed_faces": 2,
+   "note": "Kiri, tengah, kanan; tinggi ruang pintu 280"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Door",
+   "panel_type": "LND-PLY-E2-18-MDF",
+   "l": 435.0,
+   "w": 280.0,
+   "t": 18.0,
+   "qty": 4,
+   "exposed_faces": 2,
+   "note": "4 pintu, 435 x 280"
+  },
+  {
+   "label": "PNL-06",
+   "component": "Back panel",
+   "panel_type": "LND-PLY-E2-6-MSF",
+   "l": 1760.0,
+   "w": 280.0,
+   "t": 6.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Back 1760 x ruang pintu 280, tebal 6"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-HNDL",
+   "description": "Metal Brass Pull Handle",
+   "vendor": "Vendor Logam",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 35000.0,
+   "note": "1 handle per pintu x 4 (harga sama dengan D21)"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "DTC-HINGE",
+   "description": "Engsel sendok DTC soft close",
+   "vendor": "Lokal",
+   "qty": 8.0,
+   "uom": "pcs",
+   "unit_price": 18500.0,
+   "note": "2 engsel x 4 pintu (harga sama dengan D21)"
+  }
+ ]
+}
