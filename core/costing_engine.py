@@ -3,7 +3,7 @@ Mathematical Costing Engine for Factory BOM Calculation.
 Calculates solid timber tier volumes, kerf panel nesting, finishing pool, and packaging.
 """
 
-from typing import Dict, Any, Tuple
+from typing import Dict, Any
 try:
     from ..config import DEFAULT_RATES, SHEET_L, SHEET_W, SHEET_KERF, CARTON_ADD
     from ..models.item import BOMSpecification

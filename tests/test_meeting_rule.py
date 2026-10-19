@@ -51,3 +51,13 @@ def test_top_untouched_and_idempotent():
 def test_odd_thickness_left_alone_and_flagged():
     p = apply_meeting_rule(_p("Side panel", 20, "LND-MDF-E0-18-MSF", 1))
     assert p.panel_type == "LND-MDF-E0-18-MSF" and "tidak ada di tabel" in p.note
+
+
+def test_label_warning_silenced_when_meeting_rule_applied():
+    from core.panel_rules import check_panel
+    # drawing label B-12-1X says plywood, but the meeting rule makes a side panel MDF veneer
+    p = PanelPart("/ B-12-1X", "SIDE PANEL", "LND-MDF-E0-12-MSF", 100, 100, 12, 1, 1)
+    assert any("implies" in m for m in check_panel(p))          # before the rule: conflict is reported
+    apply_meeting_rule(p)
+    assert p.panel_type == "LND-MDF-E0-12-MSF"
+    assert not any("implies" in m for m in check_panel(p))      # after: the meeting rule wins, no warning

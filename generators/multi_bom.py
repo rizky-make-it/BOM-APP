@@ -3,27 +3,24 @@ Multi-Item BOM Workbook Generator for Living Ikon standard.
 Generates 1 single workbook containing B41, B51, B61 with Front View images and ITEMS rollup.
 """
 
-import sys
 import os
-import json
 import re
 import shutil
 import subprocess
-from pathlib import Path
 from typing import List, Dict, Any
 
 import openpyxl
 from openpyxl.drawing.image import Image as XLImage
 
 try:
-    from bom_app.config import GOLDEN_MASTER_PATH, DEFAULT_RATES
-    from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
+    from bom_app.config import GOLDEN_MASTER_PATH
+    from bom_app.models.item import BOMSpecification
     from bom_app.core.costing_engine import calculate_bom_costing
     from bom_app.core.writer import enable_cached_writer, clear_active_cache
     from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
 except (ImportError, ModuleNotFoundError):
-    from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
-    from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
+    from config import GOLDEN_MASTER_PATH
+    from models.item import BOMSpecification
     from core.costing_engine import calculate_bom_costing
     from core.writer import enable_cached_writer, clear_active_cache
     from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
@@ -58,7 +55,7 @@ def sort_by_part_number(item):
 def header_code(spec):
     return spec.header.item_code
 
-def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict[str, Any] = None):
+def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
 
@@ -363,23 +360,6 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
 
     compact_items_sheet(ws_items, len(specs))
     highlight_missing_rates(wb["RATES"])
-
-    if gallery:
-        from openpyxl.styles import Font
-        gs = wb.create_sheet("GAMBAR KOLEKSI", index=wb.sheetnames.index("LISTS") + 1)
-        gs.sheet_view.showGridLines = False
-        gs["B2"] = gallery["title"]; gs["B2"].font = Font(bold=True, size=14)
-        gs["B3"] = gallery.get("subtitle", "")
-        for col, w in (("A", 4), ("B", 18), ("E", 4), ("G", 18)):
-            gs.column_dimensions[col].width = w
-        for k, (caption, path) in enumerate(gallery["items"]):
-            col = "B" if k % 2 == 0 else "G"
-            row = 5 + (k // 2) * 18
-            gs[f"{col}{row}"] = caption; gs[f"{col}{row}"].font = Font(bold=True)
-            if os.path.exists(path):
-                im = XLImage(path); asp = im.height / im.width
-                im.width = 330; im.height = int(330 * asp)
-                gs.add_image(im, f"{col}{row + 1}")
 
     strip_helper_sheets(wb)  # output has no TEMPLATE / LISTS / PART LIST REFERENCE / GAMBAR KOLEKSI
 

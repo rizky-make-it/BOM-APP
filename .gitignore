@@ -8,3 +8,8 @@ tmp/
 output/
 bom_out/
 data/lv232*
+
+# intermediate drawing renders (regenerate from the PDFs with data/napier/extract_vector.py)
+data/napier/png/
+data/napier/hi/
+data/napier/extract/*/*.png

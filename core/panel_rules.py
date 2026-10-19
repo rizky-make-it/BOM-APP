@@ -29,10 +29,6 @@ def to_e0(panel_type: str) -> str:
     return _to_explicit(pt)
 
 
-def to_e2(panel_type: str) -> str:  # backwards-compatible alias: the grade is now E0
-    return to_e0(panel_type)
-
-
 def _to_explicit(panel_type: str) -> str:
     """Legacy code -> explicit landed code (grade E0).
     PLY-18-RAW -> LND-PLY-E0-18 ; PLY-18-MSF -> LND-PLY-E0-18-MSF ; MDF-9-RAW -> LND-MDF-E0-9."""
@@ -73,7 +69,8 @@ def check_panel(part) -> list[str]:
     if pt and pt != to_e0(pt):
         out.append(f"{pt} is not an explicit E0 code, use {to_e0(pt)}")
     exp = rate_code_from_label(label)
-    if exp and to_e0(exp) != to_e0(pt):
+    meeting = MEETING_MARK in (g("note") or "")  # meeting rule (19 Oct 2026) overrides the drawing label
+    if exp and not meeting and to_e0(exp) != to_e0(pt):
         out.append(f"label {label.strip()} implies {exp}, spec uses {pt}")
     return out
 
@@ -139,8 +136,3 @@ def apply_meeting_rule(part):
     part.panel_type, part.exposed_faces = new, faces
     return part
 
-
-def apply_meeting_to_spec(spec):
-    for p in spec.panel_parts:
-        apply_meeting_rule(p)
-    return spec

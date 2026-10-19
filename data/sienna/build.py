@@ -18,11 +18,5 @@ for code in json.load(open("data/sienna/_order.json")):
     spec = BOMSpecification(ItemHeader(**d["header"]), [SolidPart(**x) for x in d["solid_parts"]],
                             [PanelPart(**x) for x in d["panel_parts"]], [HardwarePart(**x) for x in d["hardware_parts"]])
     specs.append({"spec": spec, "front_img_path": FRONT.get(code)})
-gallery = {"title": "SIENNA COLLECTION — SUITE GAMBAR & RENDER 3D",
-           "subtitle": "Koleksi Mebel Kayu Mindi Solid, Multiplek Veneer & Aksen Metal Brass",
-           "items": [("LV463-B42 — 2 DRAWERS & SHELF BEDSIDE (550 x 400 x 550 mm)", f"{IMG}/GAMBAR KOLEKSI_0.png"),
-                     ("LV463-B51 — 2 OVER 4 DRAWERS TALLBOY (900 x 450 x 1200 mm)", f"{IMG}/GAMBAR KOLEKSI_1.png"),
-                     ("LV463-B71 — MIRROR (1000 x 26 x 1000 mm)", f"{IMG}/GAMBAR KOLEKSI_2.png"),
-                     ("LV463-D01 — RECTANGULAR DINNING TABLE (2200 x 1000 x 760 mm)", f"{IMG}/GAMBAR KOLEKSI_3.png")]}
 out = f"SIENNA COLLECTION BOM {datetime.datetime.now():%Y%m%d-%H%M%S}.xlsx"
 build_multi_bom(specs, out)  # output has no TEMPLATE/LISTS/PART LIST REFERENCE/GAMBAR KOLEKSI

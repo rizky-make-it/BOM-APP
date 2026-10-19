@@ -11,7 +11,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DPI = 260
-TITLE_BLOCK_X = 600  # title block / frame text starts right of this on these sheets (skipped for tagging)
 
 
 def run(pdf, tag):

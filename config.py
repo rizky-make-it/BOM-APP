@@ -148,7 +148,6 @@ VENEER = {
     "glue_tape": 10_424.0,      # IDR/m2 (rate card glue_tape)
     "press_labour": 57_142.86,  # IDR per face (rate card ven_labour)
 }
-THICKNESS_MM = {"": 0.6, "V06": 0.6, "V10": 1.0, "V12": 1.2}
 
 
 def veneer_m2(thickness_mm: float, v: dict = None) -> float:

@@ -6,7 +6,6 @@ Everything else is listed for a human to check against the drawing.
   python data/napier/compare_reads.py data/napier/read/A.json data/napier/lv433_b41_spec.json
 """
 import json, sys
-from collections import defaultdict
 
 
 def load(path):

@@ -38,7 +38,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from core.rules_v2 import derive_drawer_box
 from core.panel_rules import to_e0
 
-OPEN_W = N[25]                       # 430 opening between legs (#25)
 FRONT_W, FRONT_H = 426, N[30]        # drawer face from front view (#79, #30)
 GLIDE = 300                          # drawing note: ray truot bi 3 tang L300; rule: largest standard slide <= clear depth 330
 box = derive_drawer_box(FRONT_W, FRONT_H, 450, side_length=GLIDE, qty=2)
