@@ -48,9 +48,19 @@ def main():
             open(idx, "w", encoding="utf-8", newline="\n").write(s2)
 
 
+def rebuild_graph():
+    """Refresh vault/10-Auto (knowledge graph) from the latest specs, rates and git history."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    r = subprocess.run([sys.executable, os.path.join(here, "build_vault_graph.py")], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", timeout=280)
+    tail = (r.stdout.strip().splitlines() or ["?"])
+    print("[post-commit] graph:", tail[0][:120] if r.returncode == 0 else "GAGAL " + (r.stderr.strip().splitlines() or ["?"])[-1][:120])
+
+
 if __name__ == "__main__":
     try:
         main()
+        rebuild_graph()
     except Exception as e:  # never block a commit
         print("[post-commit] error:", e)
     sys.exit(0)
