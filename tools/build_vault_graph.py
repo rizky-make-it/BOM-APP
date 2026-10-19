@@ -66,7 +66,10 @@ def put(path, text):
 
 
 def fm(tags, **kv):
+    wide = "item" in tags or "koleksi" in tags or "peta" in tags or "harga" in tags
     out = ["---", "tags: [" + ", ".join(tags) + "]", "auto: true"]
+    if wide:
+        out.append("cssClasses: [table-wide, row-alt]")
     out += [f"{k}: {v}" for k, v in kv.items()]
     return "\n".join(out + ["---", ""])
 
