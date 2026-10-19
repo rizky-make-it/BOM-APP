@@ -1,0 +1,272 @@
+{
+ "overall": {
+  "w": 950,
+  "d": 450,
+  "h": 1100
+ },
+ "components": [
+  {
+   "group": "solid",
+   "name": "Nóc tủ (Top panel)",
+   "l": 950,
+   "w": 450,
+   "t": 35,
+   "qty": 1,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 2 top view 950x450, Detail A thickness 35 (15+20), End Grain callout",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Chân / Đố góc (Corner posts)",
+   "l": 1065,
+   "w": 60,
+   "t": 60,
+   "qty": 4,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 side view length 1065; Detail B section 60x60 with R30; 4 corners",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Đố đáy trước (Bottom front rail)",
+   "l": 830,
+   "w": 60,
+   "t": 30,
+   "qty": 1,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "ASSUMED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 2 front view width 830, height 30; depth assumed matches leg depth 60",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Đố đáy sau (Bottom rear rail)",
+   "l": 830,
+   "w": 60,
+   "t": 30,
+   "qty": 1,
+   "material": "Solid Mindy",
+   "l_status": "DERIVED",
+   "w_status": "ASSUMED",
+   "t_status": "DERIVED",
+   "qty_status": "DERIVED",
+   "how": "Between rear legs 950-2*60=830, matches front rail",
+   "page": 3
+  },
+  {
+   "group": "solid",
+   "name": "Đố chia ngăn kéo (Drawer divider rails)",
+   "l": 830,
+   "w": 50,
+   "t": 30,
+   "qty": 3,
+   "material": "Solid Mindy",
+   "l_status": "DERIVED",
+   "w_status": "DERIVED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 3 section front width 950-2*60=830, thickness 30; page 3 side depth 50; 3 rails between 4 drawers",
+   "page": 3
+  },
+  {
+   "group": "solid",
+   "name": "Thành hộc kéo (Drawer box sides)",
+   "l": 350,
+   "w": 180,
+   "t": 12,
+   "qty": 8,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 3 section side length 350, height 180, thickness 12; 4 drawers * 2 sides = 8",
+   "page": 3
+  },
+  {
+   "group": "solid",
+   "name": "Đầu / Đuôi hộc kéo (Drawer box sub-front & back)",
+   "l": 780,
+   "w": 180,
+   "t": 12,
+   "qty": 8,
+   "material": "Solid Mindy",
+   "l_status": "DERIVED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 3 box width 804 - 2*12 = 780; height 180; thickness 12; 4 drawers * 2 = 8",
+   "page": 3
+  },
+  {
+   "group": "panel",
+   "name": "Vách hông (Side panels)",
+   "l": 1005,
+   "w": 330,
+   "t": 20,
+   "qty": 2,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 side view height 1005, width 330; Detail B thickness 20; 2 sides",
+   "page": 2
+  },
+  {
+   "group": "panel",
+   "name": "Hậu tủ (Back panel)",
+   "l": 1005,
+   "w": 850,
+   "t": 5,
+   "qty": 1,
+   "material": "MDF Veneer Mindy",
+   "l_status": "DERIVED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 3 section front width 850; Detail B thickness 5; height derived from side opening 1005",
+   "page": 3
+  },
+  {
+   "group": "panel",
+   "name": "Mặt hộc kéo (Drawer fronts)",
+   "l": 826,
+   "w": 241,
+   "t": 20,
+   "qty": 4,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 2 front view width 826, height 241; Detail B / Detail A thickness 20; 4 drawers",
+   "page": 2
+  },
+  {
+   "group": "panel",
+   "name": "Đáy hộc kéo (Drawer bottoms)",
+   "l": 790,
+   "w": 336,
+   "t": 5,
+   "qty": 4,
+   "material": "MDF Veneer Mindy",
+   "l_status": "DERIVED",
+   "w_status": "DERIVED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Internal width 780 + 2*5 groove = 790; depth (350-24) + 2*5 groove = 336; thickness 5 on page 3",
+   "page": 3
+  },
+  {
+   "group": "hardware",
+   "name": "Ray trượt bi 3 tầng (Ball bearing slides)",
+   "l": 300,
+   "w": 42,
+   "t": 13,
+   "qty": 4,
+   "material": "Steel",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "DERIVED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note: ray trượt bi 3 tầng L300mm bản rộng 42mm; thickness (830-804)/2=13mm; 4 pairs",
+   "page": 1
+  },
+  {
+   "group": "hardware",
+   "name": "Tay nắm (Handles)",
+   "l": 150,
+   "w": 15,
+   "t": 25,
+   "qty": 8,
+   "material": "Metal",
+   "l_status": "ASSUMED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note Tay nắm theo mẫu; Page 2 front view shows 2 handles per drawer * 4 drawers = 8 handles",
+   "page": 2
+  },
+  {
+   "group": "hardware",
+   "name": "Tăng đưa âm (Concealed levelers)",
+   "l": 30,
+   "w": 30,
+   "t": 15,
+   "qty": 4,
+   "material": "Steel / Plastic",
+   "l_status": "ASSUMED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note Gắn tăng đưa âm cho đế chân; Page 2 Leveler callout at leg bottoms; 4 legs",
+   "page": 2
+  },
+  {
+   "group": "metal",
+   "name": "Thanh U chống mo (Anti-warp U-channels)",
+   "l": 370,
+   "w": 15,
+   "t": 15,
+   "qty": 2,
+   "material": "Steel",
+   "l_status": "DERIVED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note Chạy rãnh chống mo dưới nóc tủ; Page 3 section side U chống mo length fits 370 dimension; Page 3 top section shows 2 routed channels",
+   "page": 3
+  }
+ ],
+ "checks": [
+  {
+   "what": "Overall Width Check",
+   "ok": true,
+   "detail": "Left post 60 + front opening 830 + right post 60 = 950mm; matches drawing header W950"
+  },
+  {
+   "what": "Overall Depth Check",
+   "ok": true,
+   "detail": "Front post 60 + side panel 330 + rear post 60 = 450mm; matches drawing header D450"
+  },
+  {
+   "what": "Overall Height Check",
+   "ok": true,
+   "detail": "Leg clearance 60 + side frame/body 1005 + top panel 35 = 1100mm; matches drawing header H1100"
+  },
+  {
+   "what": "Drawer Front Stack Height Check",
+   "ok": true,
+   "detail": "Bottom gap 2 + 4 drawer fronts (4*241=964) + intermediate gaps (2+2+3=7) + top gap 2 = 975mm; frame opening 1005 - bottom rail 30 = 975mm"
+  },
+  {
+   "what": "Drawer Box Slide Clearance Check",
+   "ok": true,
+   "detail": "Frame opening 830 - drawer box width 804 = 26mm total clearance (13mm per side for 42mm ball bearing slide)"
+  }
+ ],
+ "doubts": [
+  "Drawer box material not explicitly identified as Solid Mindy vs Plywood on drawing (assumed Solid Mindy per note 1).",
+  "Exact length of anti-warp U-channel not dimensioned explicitly; scaled/derived from 370mm top span.",
+  "Handle exact center-to-center hole spacing and length not printed (note specifies according to sample)."
+ ],
+ "_meta": {
+  "code": "LV433.B51",
+  "model": "ag/gemini-3.8-flash-high",
+  "seconds": 103.5,
+  "dpi": 170
+ }
+}
