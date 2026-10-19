@@ -196,9 +196,11 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
             ws[f"{c_let}{r}"] = None
 
     try:
-        from core.layout import compact_item_sheet, count_pack_rows
+        from core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
     except ImportError:
-        from bom_app.core.layout import compact_item_sheet, count_pack_rows
+        from bom_app.core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
+    highlight_missing_item_sheet(ws)
+    highlight_missing_rates(wb["RATES"])
     compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
 
     # 6. Cache Summary Block (Rows 82-102) in Column D

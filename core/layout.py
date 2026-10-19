@@ -35,3 +35,27 @@ def compact_items_sheet(ws, n_items):
 def count_pack_rows(spec):
     """Spec has no per-box data yet, so only the overall-size carton row (row 11) is shown."""
     return 1
+
+
+# ---------------------------------------------------------------- missing-price highlight
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import PatternFill, Font
+
+MISSING_FILL = PatternFill(start_color="FFC7A0", end_color="FFC7A0", fill_type="solid")  # orange
+MISSING_FONT = Font(color="9C2B00", bold=True)
+
+
+def _rule(ws, rng, formula):
+    ws.conditional_formatting.add(rng, FormulaRule(formula=[formula], fill=MISSING_FILL, font=MISSING_FONT, stopIfTrue=False))
+
+
+def highlight_missing_item_sheet(ws):
+    """Orange when a used line has no price yet (blank, 0 or 'rate?')."""
+    _rule(ws, "S18:T42", 'AND($E18<>"",OR(S18="",S18=0,S18="rate?"))')    # solid wood rate / cost
+    _rule(ws, "S46:T60", 'AND($E46<>"",OR(S46="",S46=0,S46="rate?"))')    # panels
+    _rule(ws, "S64:T78", 'AND($D64<>"",OR(S64="",S64=0))')                # hardware unit price / line total
+
+
+def highlight_missing_rates(ws):
+    """RATES: a code + description with an empty Value cell."""
+    _rule(ws, "C5:C400", 'AND($A5<>"",$A5<>"code",$B5<>"",$C5="")')

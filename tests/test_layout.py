@@ -24,3 +24,10 @@ def test_items_sheet():
     ws = openpyxl.Workbook().active
     compact_items_sheet(ws, 14)
     assert _vis(ws, 6, 53) == 14
+
+
+def test_missing_price_highlight_rules():
+    from core.layout import highlight_missing_item_sheet, highlight_missing_rates
+    ws = openpyxl.Workbook().active
+    highlight_missing_item_sheet(ws); highlight_missing_rates(ws)
+    assert {str(r.sqref) for r in ws.conditional_formatting} == {"S18:T42", "S46:T60", "S64:T78", "C5:C400"}

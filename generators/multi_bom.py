@@ -20,13 +20,13 @@ try:
     from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from bom_app.core.costing_engine import calculate_bom_costing
     from bom_app.core.writer import enable_cached_writer, clear_active_cache
-    from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows
+    from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
 except (ImportError, ModuleNotFoundError):
     from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from core.costing_engine import calculate_bom_costing
     from core.writer import enable_cached_writer, clear_active_cache
-    from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows
+    from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -289,6 +289,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
                 ws[f"{c_let}{r}"] = None
 
         # 8b. Hide unused rows: sheet follows the real component count
+        highlight_missing_item_sheet(ws)
         compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
 
         # 9. Summary Cache Block (D82-D102 + E87-E101 USD)
@@ -342,6 +343,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
         wb.remove(wb["LV453-B61"])
 
     compact_items_sheet(ws_items, len(specs))
+    highlight_missing_rates(wb["RATES"])
 
     if gallery:
         from openpyxl.styles import Font
