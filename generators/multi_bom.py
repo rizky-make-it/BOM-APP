@@ -20,11 +20,13 @@ try:
     from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from bom_app.core.costing_engine import calculate_bom_costing
     from bom_app.core.writer import enable_cached_writer, clear_active_cache
+    from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows
 except (ImportError, ModuleNotFoundError):
     from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from core.costing_engine import calculate_bom_costing
     from core.writer import enable_cached_writer, clear_active_cache
+    from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -286,6 +288,9 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
             for c_let in ["B", "C", "D", "E", "H", "I", "L", "S", "T", "U"]:
                 ws[f"{c_let}{r}"] = None
 
+        # 8b. Hide unused rows: sheet follows the real component count
+        compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
+
         # 9. Summary Cache Block (D82-D102 + E87-E101 USD)
         ws["E81"] = "COST USD (system)"
         for r_sum in [87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101]:
@@ -335,6 +340,8 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
     ]
     if "LV453-B61" in wb.sheetnames and "LV453-B61" not in spec_codes:
         wb.remove(wb["LV453-B61"])
+
+    compact_items_sheet(ws_items, len(specs))
 
     if gallery:
         from openpyxl.styles import Font

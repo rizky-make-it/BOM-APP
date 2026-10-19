@@ -195,6 +195,12 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
         for c_let in ["B", "C", "D", "E", "H", "I", "L", "S", "T"]:
             ws[f"{c_let}{r}"] = None
 
+    try:
+        from core.layout import compact_item_sheet, count_pack_rows
+    except ImportError:
+        from bom_app.core.layout import compact_item_sheet, count_pack_rows
+    compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
+
     # 6. Cache Summary Block (Rows 82-102) in Column D
     cached_map[(item_code, "D82")] = cost_data["solid_vol"]
     cached_map[(item_code, "D83")] = cost_data["panel_sheets"]
