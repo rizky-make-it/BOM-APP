@@ -137,7 +137,7 @@
     {
       "label": "20 / B-18-1X",
       "component": "Top Cap Panel (Veneer Mindi 1F)",
-      "panel_type": "PLY-18-MSF",
+      "panel_type": "LND-PLY-E2-18-MSF",
       "l": 950,
       "w": 450,
       "t": 18,
@@ -148,7 +148,7 @@
     {
       "label": "13 / B-9-1X",
       "component": "Dinding Samping (Left & Right)",
-      "panel_type": "PLY-9-MSF",
+      "panel_type": "LND-PLY-E2-9-MSF",
       "l": 930,
       "w": 360,
       "t": 9,
@@ -159,7 +159,7 @@
     {
       "label": "12 / B-9-0X",
       "component": "Dinding Belakang (Backing Panel)",
-      "panel_type": "PLY-9-RAW",
+      "panel_type": "LND-PLY-E2-9",
       "l": 930,
       "w": 860,
       "t": 9,
@@ -170,7 +170,7 @@
     {
       "label": "8 / B-12-0X",
       "component": "Kotak Laci Dinding Samping",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 350,
       "w": 170,
       "t": 12,
@@ -181,7 +181,7 @@
     {
       "label": "9 / B-12-0X",
       "component": "Kotak Laci Muka & Belakang",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 776,
       "w": 170,
       "t": 12,
@@ -192,7 +192,7 @@
     {
       "label": "10 / B-6-0X",
       "component": "Alas Dasar Laci (Drawer Bottom)",
-      "panel_type": "PLY-6-RAW",
+      "panel_type": "LND-PLY-E2-6",
       "l": 788,
       "w": 338,
       "t": 6,

@@ -70,7 +70,7 @@
   {
    "label": "PNL-01",
    "component": "Top",
-   "panel_type": "PLY-18-MDF",
+   "panel_type": "LND-PLY-E2-18-MDF",
    "l": 860.0,
    "w": 410.0,
    "t": 18.0,
@@ -81,7 +81,7 @@
   {
    "label": "PNL-02",
    "component": "Side panel",
-   "panel_type": "PLY-12-MDF",
+   "panel_type": "LND-PLY-E2-12-MDF",
    "l": 1080.0,
    "w": 410.0,
    "t": 12.0,
@@ -92,7 +92,7 @@
   {
    "label": "PNL-04",
    "component": "Back Panel",
-   "panel_type": "PLY-6-MSF",
+   "panel_type": "LND-PLY-E2-6-MSF",
    "l": 1080.0,
    "w": 860.0,
    "t": 6.0,
@@ -103,7 +103,7 @@
   {
    "label": "PNL-05",
    "component": "Side drawer",
-   "panel_type": "PLY-12-RAW",
+   "panel_type": "LND-PLY-E2-12",
    "l": 350.0,
    "w": 225.0,
    "t": 12.0,
@@ -114,7 +114,7 @@
   {
    "label": "PNL-06",
    "component": "Drawer box front/back",
-   "panel_type": "PLY-12-RAW",
+   "panel_type": "LND-PLY-E2-12",
    "l": 796.0,
    "w": 225.0,
    "t": 12.0,
@@ -125,7 +125,7 @@
   {
    "label": "PNL-07",
    "component": "Drawer base",
-   "panel_type": "PLY-6-RAW",
+   "panel_type": "LND-PLY-E2-6",
    "l": 796.0,
    "w": 343.0,
    "t": 6.0,
@@ -136,7 +136,7 @@
   {
    "label": "PNL-08",
    "component": "Drawer support",
-   "panel_type": "PLY-9-RAW",
+   "panel_type": "LND-PLY-E2-9",
    "l": 410.0,
    "w": 120.0,
    "t": 9.0,

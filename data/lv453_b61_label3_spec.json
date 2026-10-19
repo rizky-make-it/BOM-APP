@@ -123,7 +123,7 @@
     {
       "label": "4 / B-18-1X",
       "component": "top panel",
-      "panel_type": "PLY-18-MSF",
+      "panel_type": "LND-PLY-E2-18-MSF",
       "l": 1480,
       "w": 430,
       "t": 18,
@@ -134,7 +134,7 @@
     {
       "label": "5 / B-12-1X",
       "component": "side panel",
-      "panel_type": "PLY-12-MSF",
+      "panel_type": "LND-PLY-E2-12-MSF",
       "l": 600,
       "w": 360,
       "t": 12,
@@ -145,7 +145,7 @@
     {
       "label": "7 / B-18-1X",
       "component": "center panel",
-      "panel_type": "PLY-18-MSF",
+      "panel_type": "LND-PLY-E2-18-MSF",
       "l": 575,
       "w": 405,
       "t": 18,
@@ -156,7 +156,7 @@
     {
       "label": "12 / B-12-0X",
       "component": "drawer front back panel",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 641,
       "w": 170,
       "t": 12,
@@ -167,7 +167,7 @@
     {
       "label": "13 / B-9-0X",
       "component": "back penel",
-      "panel_type": "PLY-9-RAW",
+      "panel_type": "LND-PLY-E2-9",
       "l": 680,
       "w": 600,
       "t": 9,
@@ -178,7 +178,7 @@
     {
       "label": "15 / B-12-0X",
       "component": "drawer box side",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 350,
       "w": 180,
       "t": 12,
@@ -189,7 +189,7 @@
     {
       "label": "16 / B-12-0X",
       "component": "drqwer box front/back",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 641,
       "w": 170,
       "t": 12,
@@ -200,7 +200,7 @@
     {
       "label": "17 / B-6-0X",
       "component": "drawer base",
-      "panel_type": "PLY-6-RAW",
+      "panel_type": "LND-PLY-E2-6",
       "l": 651,
       "w": 343,
       "t": 6,

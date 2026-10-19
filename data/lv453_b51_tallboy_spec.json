@@ -120,7 +120,7 @@
     {
       "label": "7 / B-18-1X",
       "component": "Top",
-      "panel_type": "PLY-18-MSF",
+      "panel_type": "LND-PLY-E2-18-MSF",
       "l": 930.0,
       "w": 430.0,
       "t": 18.0,
@@ -131,7 +131,7 @@
     {
       "label": "8 / B-12-1X",
       "component": "Side panel",
-      "panel_type": "PLY-12-MSF",
+      "panel_type": "LND-PLY-E2-12-MSF",
       "l": 930.0,
       "w": 360.0,
       "t": 12.0,
@@ -142,7 +142,7 @@
     {
       "label": "9 / B-9-1X",
       "component": "Back panel",
-      "panel_type": "PLY-9-MSF",
+      "panel_type": "LND-PLY-E2-9-MSF",
       "l": 930.0,
       "w": 860.0,
       "t": 9.0,
@@ -153,7 +153,7 @@
     {
       "label": "4 / B-6-1X",
       "component": "Drawer front",
-      "panel_type": "PLY-6-MSF",
+      "panel_type": "LND-PLY-E2-6-MSF",
       "l": 800.0,
       "w": 170.0,
       "t": 6.0,
@@ -164,7 +164,7 @@
     {
       "label": "5 / B-12-0X",
       "component": "Drawer side",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 350.0,
       "w": 210.0,
       "t": 12.0,
@@ -175,7 +175,7 @@
     {
       "label": "11 / B-12-0X",
       "component": "Drawer inner front",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 796.0,
       "w": 200.0,
       "t": 12.0,
@@ -186,7 +186,7 @@
     {
       "label": "11 / B-12-0X",
       "component": "Drawer back",
-      "panel_type": "PLY-12-RAW",
+      "panel_type": "LND-PLY-E2-12",
       "l": 796.0,
       "w": 200.0,
       "t": 12.0,
@@ -197,7 +197,7 @@
     {
       "label": "12 / B-6-0X",
       "component": "Drawer bottom",
-      "panel_type": "PLY-6-RAW",
+      "panel_type": "LND-PLY-E2-6",
       "l": 806.0,
       "w": 343.0,
       "t": 6.0,

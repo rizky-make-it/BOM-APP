@@ -44,7 +44,7 @@
   {
    "label": "PNL-01",
    "component": "Top table panel insert",
-   "panel_type": "PLY-18-MSF",
+   "panel_type": "LND-PLY-E2-18-MSF",
    "l": 420.0,
    "w": 210.0,
    "t": 18.0,

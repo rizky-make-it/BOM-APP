@@ -39,6 +39,12 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     spec.hardware_parts.sort(key=sort_by_part_number)
 
     # Compute all values
+    try:
+        from core.panel_rules import to_e2
+    except ImportError:
+        from bom_app.core.panel_rules import to_e2
+    for _p in spec.panel_parts:
+        _p.panel_type = to_e2(_p.panel_type)  # ALL panels use explicit E2 codes
     cost_data = calculate_bom_costing(spec, custom_rates)
     header = spec.header
     item_code = header.item_code

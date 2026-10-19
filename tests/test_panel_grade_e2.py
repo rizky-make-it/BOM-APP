@@ -35,4 +35,24 @@ def test_no_other_grade_in_default_rates():
 
 def test_checker_rejects_e0():
     assert check_panel({"panel_type": "LND-PLY-E0-18", "t": 18, "label": ""})
-    assert not check_panel({"panel_type": "PLY-18-RAW", "t": 18, "label": ""})
+    assert not check_panel({"panel_type": "LND-PLY-E2-18", "t": 18, "label": ""})
+    assert check_panel({"panel_type": "PLY-18-RAW", "t": 18, "label": ""})  # legacy code flagged
+
+
+def test_to_e2_mapping():
+    from core.panel_rules import to_e2
+    assert to_e2("PLY-18-RAW") == "LND-PLY-E2-18"
+    assert to_e2("PLY-18-MSF") == "LND-PLY-E2-18-MSF"
+    assert to_e2("PLY-12-MDF") == "LND-PLY-E2-12-MDF"
+    assert to_e2("MDF-9-RAW") == "LND-MDF-E2-9"
+    assert to_e2("LND-PLY-E2-6") == "LND-PLY-E2-6"
+
+
+def test_all_spec_json_use_e2_codes():
+    import glob, json
+    root = os.path.join(os.path.dirname(__file__), "..", "data")
+    files = glob.glob(os.path.join(root, "**", "*_spec.json"), recursive=True)
+    assert files
+    for f in files:
+        for p in json.load(open(f, encoding="utf-8")).get("panel_parts", []):
+            assert p["panel_type"].startswith(("LND-PLY-E2-", "LND-MDF-E2-")), (f, p["panel_type"])

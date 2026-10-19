@@ -96,7 +96,7 @@
   {
    "label": "PNL-01",
    "component": "Seat base board",
-   "panel_type": "PLY-12-RAW",
+   "panel_type": "LND-PLY-E2-12",
    "l": 480.0,
    "w": 440.0,
    "t": 12.0,
