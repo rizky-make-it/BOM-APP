@@ -40,11 +40,12 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
 
     # Compute all values
     try:
-        from core.panel_rules import to_e0
+        from core.panel_rules import to_e0, apply_meeting_rule
     except ImportError:
-        from bom_app.core.panel_rules import to_e0
+        from bom_app.core.panel_rules import to_e0, apply_meeting_rule
     for _p in spec.panel_parts:
         _p.panel_type = to_e0(_p.panel_type)  # ALL panels use explicit E0 codes
+        apply_meeting_rule(_p)                  # plywood vs MDF-veneer by role (meeting 19 Oct 2026)
     try:
         from core.curves import apply_to_spec
     except ImportError:

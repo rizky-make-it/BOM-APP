@@ -108,16 +108,16 @@ def derive_drawer_box(
     """
     d_side = side_length or get_standard_glide_length(case_depth)
 
-    # 1. Drawer Front (AD / ④) - MDF 18 mm veneer both faces
+    # 1. Drawer Front (AD / ④) - MDF 18 mm veneer ONE face (meeting 19 Oct 2026)
     front = PanelPart(
         label="④ / AD",
         component="Drawer front",
-        panel_type="MDF-18-MDF",
+        panel_type="MDF-18-MSF",
         l=w_front,
         w=h_front,
         t=18.0,
         qty=qty,
-        exposed_faces=2,
+        exposed_faces=1,
         note="Role AD | W_front x H_front"
     )
 

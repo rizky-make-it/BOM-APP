@@ -76,3 +76,71 @@ def check_panel(part) -> list[str]:
     if exp and to_e0(exp) != to_e0(pt):
         out.append(f"label {label.strip()} implies {exp}, spec uses {pt}")
     return out
+
+
+# ---------------------------------------------------------------------------------------------
+# MEETING RULE (19 Oct 2026): which board family and how many veneer faces per panel role.
+#   Plywood E0 (furniture grade): drawer box parts (side, front/back, bottom, support), back panel, divider/partition.
+#   MDF veneer E0:               side panel = 1 face (MSF), door = 2 faces (MDF), drawer face = 1 face (MSF).
+#   Everything else (top, shelves, headboard ...) keeps the family it already has.
+# Thickness is never changed here (thickness follows RULES, see README G). Idempotent.
+# ---------------------------------------------------------------------------------------------
+MEETING_MARK = "[MEETING]"
+_THICK = (3, 6, 9, 12, 15, 18)
+_ROLE_PLY = re.compile(
+    r"drawer (box|base|bottom|support|side|inner)|drawer (front/back|side) box|side drawer|\bback panel\b|\bdividers?\b|partition",
+    re.I)
+_ROLE_SIDE = re.compile(r"\bside panel\b", re.I)
+_ROLE_DOOR = re.compile(r"\bdoor\b", re.I)
+_ROLE_FACE = re.compile(r"drawer (face|front)\b", re.I)
+
+
+def _code(family: str, t: float, faces: int) -> str | None:
+    ti = int(round(float(t)))
+    if ti not in _THICK or abs(ti - float(t)) > 0.5:
+        return None
+    base = f"LND-{family}-E0-{ti}"
+    return base if faces == 0 else f"{base}-{'MSF' if faces == 1 else 'MDF'}"
+
+
+def role_of(component: str) -> str | None:
+    c = component or ""
+    if _ROLE_PLY.search(c):
+        return "ply"
+    if _ROLE_DOOR.search(c):
+        return "door"
+    if _ROLE_FACE.search(c):
+        return "face"
+    if _ROLE_SIDE.search(c):
+        return "side"
+    return None
+
+
+def apply_meeting_rule(part):
+    """Mutates a PanelPart: board family and veneer faces per role. Returns the part."""
+    role = role_of(part.component)
+    if role is None or MEETING_MARK in (part.note or ""):
+        return part
+    if role == "ply":
+        faces = int(part.exposed_faces or 0)           # back panel / divider keep their face count; drawer parts stay raw
+        fam = "PLY"
+    elif role == "door":
+        fam, faces = "MDF", 2
+    else:                                              # drawer face and side panel: MDF, 1 face
+        fam, faces = "MDF", 1
+    new = _code(fam, part.t, faces)
+    if new is None:                                    # thickness not in the board table: leave it and flag
+        part.note = f"{MEETING_MARK} tebal {part.t:g} tidak ada di tabel papan, tipe tidak diubah. " + (part.note or "")
+        return part
+    if new != part.panel_type:
+        part.note = f"{MEETING_MARK} {part.panel_type} -> {new}. " + (part.note or "")
+    else:
+        part.note = f"{MEETING_MARK} sudah sesuai. " + (part.note or "")
+    part.panel_type, part.exposed_faces = new, faces
+    return part
+
+
+def apply_meeting_to_spec(spec):
+    for p in spec.panel_parts:
+        apply_meeting_rule(p)
+    return spec

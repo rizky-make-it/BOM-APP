@@ -96,11 +96,12 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
 
         # 0. Panel material rule check (B=plywood, C=MDF, grade E0)
         try:
-            from core.panel_rules import check_panel, to_e0
+            from core.panel_rules import check_panel, to_e0, apply_meeting_rule
         except ImportError:
-            from bom_app.core.panel_rules import check_panel, to_e0
+            from bom_app.core.panel_rules import check_panel, to_e0, apply_meeting_rule
         for _p in spec.panel_parts:
             _p.panel_type = to_e0(_p.panel_type)  # ALL panels use explicit E0 codes
+            apply_meeting_rule(_p)                  # plywood vs MDF-veneer by role (meeting 19 Oct 2026)
             for _msg in check_panel(_p):
                 print(f"[PANEL RULE WARNING] {header_code(spec)} {_p.component}: {_msg}")
 
