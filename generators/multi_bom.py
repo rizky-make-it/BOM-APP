@@ -52,7 +52,7 @@ def sort_by_part_number(item):
 def header_code(spec):
     return spec.header.item_code
 
-def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
+def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict[str, Any] = None):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
 
@@ -334,6 +334,23 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     ]
     if "LV453-B61" in wb.sheetnames and "LV453-B61" not in spec_codes:
         wb.remove(wb["LV453-B61"])
+
+    if gallery:
+        from openpyxl.styles import Font
+        gs = wb.create_sheet("GAMBAR KOLEKSI", index=wb.sheetnames.index("LISTS") + 1)
+        gs.sheet_view.showGridLines = False
+        gs["B2"] = gallery["title"]; gs["B2"].font = Font(bold=True, size=14)
+        gs["B3"] = gallery.get("subtitle", "")
+        for col, w in (("A", 4), ("B", 18), ("E", 4), ("G", 18)):
+            gs.column_dimensions[col].width = w
+        for k, (caption, path) in enumerate(gallery["items"]):
+            col = "B" if k % 2 == 0 else "G"
+            row = 5 + (k // 2) * 18
+            gs[f"{col}{row}"] = caption; gs[f"{col}{row}"].font = Font(bold=True)
+            if os.path.exists(path):
+                im = XLImage(path); asp = im.height / im.width
+                im.width = 330; im.height = int(330 * asp)
+                gs.add_image(im, f"{col}{row + 1}")
 
     raw_path = output_path.replace(".xlsx", "_raw.xlsx")
     enable_cached_writer(cached_map)
