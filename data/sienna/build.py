@@ -24,4 +24,4 @@ gallery = {"title": "SIENNA COLLECTION — SUITE GAMBAR & RENDER 3D",
                      ("LV463-B71 — MIRROR (1000 x 26 x 1000 mm)", f"{IMG}/GAMBAR KOLEKSI_2.png"),
                      ("LV463-D01 — RECTANGULAR DINNING TABLE (2200 x 1000 x 760 mm)", f"{IMG}/GAMBAR KOLEKSI_3.png")]}
 out = f"SIENNA COLLECTION BOM {datetime.datetime.now():%Y%m%d-%H%M%S}.xlsx"
-build_multi_bom(specs, out, gallery=gallery)
+build_multi_bom(specs, out)  # output has no TEMPLATE/LISTS/PART LIST REFERENCE/GAMBAR KOLEKSI

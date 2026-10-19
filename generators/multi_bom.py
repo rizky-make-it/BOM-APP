@@ -20,13 +20,13 @@ try:
     from bom_app.models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from bom_app.core.costing_engine import calculate_bom_costing
     from bom_app.core.writer import enable_cached_writer, clear_active_cache
-    from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
+    from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
 except (ImportError, ModuleNotFoundError):
     from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from models.item import BOMSpecification, ItemHeader, SolidPart, PanelPart, HardwarePart
     from core.costing_engine import calculate_bom_costing
     from core.writer import enable_cached_writer, clear_active_cache
-    from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
+    from core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
 
 SO_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -361,6 +361,8 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
                 im = XLImage(path); asp = im.height / im.width
                 im.width = 330; im.height = int(330 * asp)
                 gs.add_image(im, f"{col}{row + 1}")
+
+    strip_helper_sheets(wb)  # output has no TEMPLATE / LISTS / PART LIST REFERENCE / GAMBAR KOLEKSI
 
     raw_path = output_path.replace(".xlsx", "_raw.xlsx")
     enable_cached_writer(cached_map)

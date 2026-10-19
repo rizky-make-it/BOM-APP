@@ -196,9 +196,9 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
             ws[f"{c_let}{r}"] = None
 
     try:
-        from core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
+        from core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
     except ImportError:
-        from bom_app.core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates
+        from bom_app.core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
     highlight_missing_item_sheet(ws)
     highlight_missing_rates(wb["RATES"])
     compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
@@ -228,6 +228,7 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
 
     # Enable cached writer and save
     enable_cached_writer(cached_map)
+    strip_helper_sheets(wb)
     wb.save(output_path)
     clear_active_cache()
 

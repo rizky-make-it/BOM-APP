@@ -59,3 +59,60 @@ def highlight_missing_item_sheet(ws):
 def highlight_missing_rates(ws):
     """RATES: a code + description with an empty Value cell."""
     _rule(ws, "C5:C400", 'AND($A5<>"",$A5<>"code",$B5<>"",$C5="")')
+
+
+# ---------------------------------------------------------------- slim output (no helper sheets)
+import re as _re
+from copy import copy as _copy
+from openpyxl.worksheet.formula import ArrayFormula as _AF
+
+DROP_SHEETS = ("TEMPLATE", "LISTS", "PART LIST REFERENCE", "GAMBAR KOLEKSI")
+_NORM_LABEL = {  # LISTS row -> (RATES code, description, unit)
+    3: ("NORM_TIER_A_MIN_LEN", "Tier A minimum component length", "mm"),
+    4: ("NORM_TIER_D_MAX_VOL", "Tier D maximum component volume", "m³"),
+    5: ("NORM_TIER_D_MAX_LEN", "Tier D maximum component length", "mm"),
+    6: ("NORM_SHEET_L", "Board sheet length", "mm"),
+    7: ("NORM_SHEET_W", "Board sheet width", "mm"),
+    8: ("NORM_SHEET_KERF", "Saw kerf between nested panels", "mm"),
+    9: ("NORM_CARTON_ADD", "Carton allowance added to each overall size", "mm"),
+    10: ("NORM_NARROW_MAX_SECTION", "Narrow part: maximum section", "mm"),
+    11: ("NORM_NARROW_MAX_LEN", "Narrow part: maximum length", "mm"),
+}
+
+
+def strip_helper_sheets(wb):
+    """Remove TEMPLATE / LISTS / PART LIST REFERENCE / GAMBAR KOLEKSI from an OUTPUT workbook.
+    LISTS norms are moved into RATES (section NORMS) and every formula is re-pointed, so nothing breaks."""
+    if "LISTS" in wb.sheetnames and "RATES" in wb.sheetnames:
+        lists, rates = wb["LISTS"], wb["RATES"]
+        start = rates.max_row + 2
+        rates.cell(start, 1, "NORMS (moved from the old LISTS sheet). Blue = base figure, formulas on every item tab follow.")
+        ref_row = next((r for r in range(1, rates.max_row + 1) if str(rates.cell(r, 1).value or "").startswith("METAL (added")), None)
+        for c in range(1, 7):
+            if ref_row:
+                rates.cell(start, c)._style = _copy(rates.cell(ref_row, c)._style)
+        mapping = {}
+        for i, (lrow, (code, desc, unit)) in enumerate(_NORM_LABEL.items(), start + 1):
+            val = lists.cell(lrow, 6).value
+            rates.cell(i, 1, code); rates.cell(i, 2, desc); rates.cell(i, 3, val)
+            rates.cell(i, 4, unit); rates.cell(i, 5, "Norm (moved from old list, row %d)" % lrow)
+            for c in range(1, 6):
+                if ref_row:
+                    rates.cell(i, c)._style = _copy(rates.cell(ref_row + 1, c)._style)
+            rates.cell(i, 3).number_format = "General"
+            mapping[f"$F${lrow}"] = f"RATES!$C${i}"
+        pat = _re.compile(r"LISTS!(\$F\$\d+)")
+        for ws in wb:
+            for row in ws.iter_rows():
+                for c in row:
+                    v = c.value
+                    t = v.text if isinstance(v, _AF) else v
+                    if isinstance(t, str) and "LISTS!" in t:
+                        new = pat.sub(lambda m: mapping.get(m.group(1), m.group(0)), t)
+                        if isinstance(v, _AF):
+                            v.text = new
+                        else:
+                            c.value = new
+    for name in DROP_SHEETS:
+        if name in wb.sheetnames:
+            del wb[name]

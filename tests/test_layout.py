@@ -31,3 +31,18 @@ def test_missing_price_highlight_rules():
     ws = openpyxl.Workbook().active
     highlight_missing_item_sheet(ws); highlight_missing_rates(ws)
     assert {str(r.sqref) for r in ws.conditional_formatting} == {"S18:T42", "S46:T60", "S64:T78", "C5:C400"}
+
+
+def test_strip_helper_sheets_repoints_norms():
+    from core.layout import strip_helper_sheets
+    wb = openpyxl.Workbook()
+    wb.active.title = "RATES"
+    lists = wb.create_sheet("LISTS")
+    for r in range(3, 12):
+        lists.cell(r, 6, r * 10)
+    wb.create_sheet("TEMPLATE"); wb.create_sheet("PART LIST REFERENCE"); wb.create_sheet("GAMBAR KOLEKSI")
+    item = wb.create_sheet("LV-X")
+    item["A1"] = "=LISTS!$F$9*2"
+    strip_helper_sheets(wb)
+    assert wb.sheetnames == ["RATES", "LV-X"]
+    assert "LISTS" not in item["A1"].value and item["A1"].value.startswith("=RATES!$C$")
