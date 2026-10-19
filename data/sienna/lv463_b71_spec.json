@@ -57,7 +57,7 @@
   {
    "label": "PNL-01",
    "component": "Backing Panel Penutup Cermin",
-   "panel_type": "PLY-6-MDF",
+   "panel_type": "MDF-9-RAW",
    "l": 820.0,
    "w": 820.0,
    "t": 9.0,

@@ -136,7 +136,7 @@
   {
    "label": "PNL-08",
    "component": "Drawer support",
-   "panel_type": "PLY-9-RAW",
+   "panel_type": "PLY-6-RAW",
    "l": 360.0,
    "w": 80.0,
    "t": 6.0,
