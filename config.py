@@ -8,21 +8,25 @@ APP_ROOT = Path(__file__).resolve().parent
 GOLDEN_MASTER_PATH = APP_ROOT / "data" / "GOLDEN_MASTER.xlsx"
 RULES_V2_PATH = APP_ROOT / "data" / "BOM_rules_and_part_schema_v2.xlsx"
 
+# PANEL RULE (locked 19 Oct 2026): ALL plywood and MDF use grade E2 (landed Kudus).
+# Do not add E0 / CARB prices to DEFAULT_RATES. See core/panel_rules.py and tests/test_panel_grade_e2.py.
+PANEL_GRADE = "E2"
+
 # Standard sheet and timber limits
 SHEET_L = 2440.0  # mm
 SHEET_W = 1220.0  # mm
 SHEET_KERF = 5.0  # mm
 CARTON_ADD = 40.0  # mm
 
-# Standard Factory Rates (PLV BOM Rate Card Column D Active - 16 Okt 2026)
+# Standard Factory Rates (PLV BOM Rate Card, active column C - 16 Okt 2026)
 DEFAULT_RATES = {
-    # Solid Mindi Timber (Column D Active)
+    # Solid Mindi Timber (rate card col C)
     "MINDI_A": 18057965.09,
     "MINDI_AC": 21620953.31,
     "MINDI_B": 14818884.89,
     "MINDI_C": 13199344.79,
     "MINDI_D": 11579804.69,
-    # Solid Teak (Column D Active)
+    # Solid Teak (rate card col C)
     "TEAK_A": 27507965.09,
     "TEAK_AC": 34040953.31,
     "TEAK_B": 21568884.89,

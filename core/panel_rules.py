@@ -12,7 +12,8 @@ Face veneer. It is NOT MDF board. MDF board codes always start with 'MDF-' or 'L
 """
 import re
 
-PANEL_GRADE = "E2"
+PANEL_GRADE = "E2"  # LOCKED: plywood and MDF are always E2
+BANNED_GRADES = ("E0", "CARB")
 _RATE = re.compile(r"^PLY-(\d+)-(RAW|[MT][SD]F)$")
 _LABEL = re.compile(r"\b([BC])-?(\d+)-?([012])X\b", re.I)
 
@@ -35,6 +36,8 @@ def check_panel(part) -> list[str]:
     g = (lambda k: getattr(part, k, None) if not isinstance(part, dict) else part.get(k))
     pt, t, label = g("panel_type"), g("t"), g("label") or ""
     out = []
+    if any(f"-{g}-" in (pt or "") for g in BANNED_GRADES):
+        out.append(f"grade not allowed in {pt}: only {PANEL_GRADE}")
     m = _RATE.match(pt or "")
     if m and t is not None and abs(int(m.group(1)) - float(t)) > 0.5:
         out.append(f"thickness {t} mm but rate code {pt}")
