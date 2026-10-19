@@ -1,0 +1,206 @@
+{
+ "header": {
+  "item_code": "LV433-B61",
+  "item_name": "DRESSER 6 DRWS",
+  "collection": "NAPIER / Bedroom",
+  "overall_l": 1500.0,
+  "overall_w": 450.0,
+  "overall_h": 800.0,
+  "order_qty": 1,
+  "drawing_link": "LV433.B61 - Dresser 6 Drws Model (1).pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Dari gambar LV433.B61. Layout 2 kolom x 3 baris. Rel dan sekat diasumsikan."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Leg 60x60",
+   "l": 765.0,
+   "w": 60.0,
+   "t": 60.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Kaki 60x60, tinggi di bawah top 35"
+  },
+  {
+   "label": "2 / A",
+   "component": "Top frame long",
+   "l": 1500.0,
+   "w": 50.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Frame top 50 x 35 keliling"
+  },
+  {
+   "label": "3 / A",
+   "component": "Top frame short",
+   "l": 350.0,
+   "w": 50.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Frame top sisi pendek"
+  },
+  {
+   "label": "4 / A",
+   "component": "Frame rail front/back",
+   "l": 1460.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 8,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Rel 30x20 atas, tengah x2, bawah, depan-belakang"
+  },
+  {
+   "label": "5 / A",
+   "component": "Frame rail side",
+   "l": 330.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Rel samping"
+  },
+  {
+   "label": "6 / A",
+   "component": "Centre divider",
+   "l": 705.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Sekat tengah 30 mm antar 2 kolom laci"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top panel MDF veneer 15",
+   "panel_type": "LND-MDF-E2-15-MSF",
+   "l": 1400.0,
+   "w": 350.0,
+   "t": 15.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel top 15 mm dalam frame"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Side panel MDF veneer 12",
+   "panel_type": "LND-MDF-E2-12-MSF",
+   "l": 705.0,
+   "w": 330.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Panel samping 330 x 705"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Back panel MDF 12",
+   "panel_type": "LND-MDF-E2-12",
+   "l": 705.0,
+   "w": 1460.0,
+   "t": 12.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Panel belakang 1460 x 705 (tebal diasumsikan)"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Drawer face MDF veneer 15",
+   "panel_type": "LND-MDF-E2-15-MSF",
+   "l": 675.0,
+   "w": 222.0,
+   "t": 15.0,
+   "qty": 6,
+   "exposed_faces": 1,
+   "note": "Muka laci 15 mm"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Drawer box side",
+   "panel_type": "LND-PLY-E2-12",
+   "l": 350.0,
+   "w": 180.0,
+   "t": 12.0,
+   "qty": 12,
+   "exposed_faces": 0,
+   "note": "Sisi kotak laci 12 mm"
+  },
+  {
+   "label": "PNL-06",
+   "component": "Drawer box front/back",
+   "panel_type": "LND-PLY-E2-12",
+   "l": 625.0,
+   "w": 180.0,
+   "t": 12.0,
+   "qty": 12,
+   "exposed_faces": 0,
+   "note": "Depan/belakang kotak laci (lebar - 2x12)"
+  },
+  {
+   "label": "PNL-08",
+   "component": "Drawer bottom",
+   "panel_type": "LND-PLY-E2-6",
+   "l": 637.0,
+   "w": 340.0,
+   "t": 6.0,
+   "qty": 6,
+   "exposed_faces": 0,
+   "note": "Dasar laci 6 mm (tebal 5 di gambar, papan 6 terdekat)"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HW-RAIL-DTC",
+   "description": "Rel laci DTC 3 tingkat L300 (lebar 42 mm)",
+   "vendor": "Lokal",
+   "qty": 6.0,
+   "uom": "pair",
+   "unit_price": 49610.0,
+   "note": "Gambar: ray trượt bi 3 tầng L300"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HNDL / TBD",
+   "description": "Handle (sesuai sampel)",
+   "vendor": "Lokal",
+   "qty": 6.0,
+   "uom": "pcs",
+   "unit_price": 0.0,
+   "note": "Harga handle belum ada"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00003",
+   "description": "Nylon leveler glides M8",
+   "vendor": "Lokal",
+   "qty": 5.0,
+   "uom": "pcs",
+   "unit_price": 5000.0,
+   "note": "4 sudut + 1 tengah"
+  }
+ ]
+}

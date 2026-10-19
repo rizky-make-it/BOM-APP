@@ -1,0 +1,182 @@
+{
+ "header": {
+  "item_code": "LV433-L31",
+  "item_name": "TV UNIT 4 DOORS",
+  "collection": "NAPIER / Living",
+  "overall_l": 1800.0,
+  "overall_w": 450.0,
+  "overall_h": 550.0,
+  "order_qty": 1,
+  "drawing_link": "LV433.L31 - TV Unit 4 Drs. Model (1).pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Dari gambar LV433.L31. Kedalaman shelf, rel, dan tebal back diasumsikan."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Leg 60x60",
+   "l": 515.0,
+   "w": 60.0,
+   "t": 60.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Kaki 60x60, tinggi di bawah top 35"
+  },
+  {
+   "label": "2 / A",
+   "component": "Top frame long",
+   "l": 1800.0,
+   "w": 50.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Frame top 50 x 35 keliling"
+  },
+  {
+   "label": "3 / A",
+   "component": "Top frame short",
+   "l": 350.0,
+   "w": 50.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Frame top sisi pendek"
+  },
+  {
+   "label": "4 / A",
+   "component": "Frame rail front/back",
+   "l": 1680.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Rel 30x20 atas dan bawah depan-belakang"
+  },
+  {
+   "label": "5 / A",
+   "component": "Frame rail side",
+   "l": 330.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Rel samping"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top panel MDF veneer 15",
+   "panel_type": "LND-MDF-E2-15-MSF",
+   "l": 1700.0,
+   "w": 350.0,
+   "t": 15.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel top 15 mm dalam frame"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Side panel MDF veneer 12",
+   "panel_type": "LND-MDF-E2-12-MSF",
+   "l": 455.0,
+   "w": 330.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Panel samping 330 x 455"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Back panel MDF 12",
+   "panel_type": "LND-MDF-E2-12",
+   "l": 455.0,
+   "w": 1760.0,
+   "t": 12.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Panel belakang 1760 (tebal diasumsikan)"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Centre partition MDF veneer 18",
+   "panel_type": "LND-MDF-E2-18-MSF",
+   "l": 455.0,
+   "w": 405.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 2,
+   "note": "Sekat tengah"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Adjustable shelf MDF veneer 18",
+   "panel_type": "LND-MDF-E2-18-MSF",
+   "l": 866.0,
+   "w": 340.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Adj. shelf 866 (kedalaman 340 diasumsikan)"
+  },
+  {
+   "label": "PNL-06",
+   "component": "Door MDF veneer 18",
+   "panel_type": "LND-MDF-E2-18-MDF",
+   "l": 421.0,
+   "w": 409.0,
+   "t": 18.0,
+   "qty": 4,
+   "exposed_faces": 2,
+   "note": "4 pintu, 409 lebar"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HW-HINGE-DTC",
+   "description": "Engsel bật soft close DTC, cup 35 mm 165 derajat",
+   "vendor": "Lokal",
+   "qty": 8.0,
+   "uom": "pcs",
+   "unit_price": 10824.0,
+   "note": "2 engsel per pintu"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HNDL / TBD",
+   "description": "Handle (sesuai sampel)",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 0.0,
+   "note": "Harga handle belum ada"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00003",
+   "description": "Nylon leveler glides M8",
+   "vendor": "Lokal",
+   "qty": 5.0,
+   "uom": "pcs",
+   "unit_price": 5000.0,
+   "note": "4 sudut + 1 tengah"
+  }
+ ]
+}

@@ -56,3 +56,12 @@ def test_all_spec_json_use_e2_codes():
     for f in files:
         for p in json.load(open(f, encoding="utf-8")).get("panel_parts", []):
             assert p["panel_type"].startswith(("LND-PLY-E2-", "LND-MDF-E2-")), (f, p["panel_type"])
+
+
+def test_napier_specs_use_e2_codes():
+    import glob, json
+    files = glob.glob(os.path.join(os.path.dirname(__file__), "..", "data", "napier", "lv433_*_spec.json"))
+    assert len(files) == 11
+    for f in files:
+        for p in json.load(open(f, encoding="utf-8"))["panel_parts"]:
+            assert p["panel_type"].startswith(("LND-PLY-E2-", "LND-MDF-E2-")), (f, p["panel_type"])

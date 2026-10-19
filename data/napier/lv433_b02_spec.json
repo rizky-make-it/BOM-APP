@@ -1,0 +1,213 @@
+{
+ "header": {
+  "item_code": "LV433-B02",
+  "item_name": "KING BED WITH UPHOLSTERY",
+  "collection": "NAPIER / Bedroom",
+  "overall_l": 2130.0,
+  "overall_w": 2420.0,
+  "overall_h": 1200.0,
+  "order_qty": 1,
+  "drawing_link": "LV433.B02 - King Bed with Upholstery.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Dari gambar LV433.B02 (judul gambar tertulis Queen, ukuran W2420 = King). Asumsi sama dengan B01."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Headboard post",
+   "l": 1200.0,
+   "w": 60.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Tiang headboard 60x40"
+  },
+  {
+   "label": "2 / A",
+   "component": "Headboard top rail",
+   "l": 2300.0,
+   "w": 40.0,
+   "t": 35.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Rel atas 40x35"
+  },
+  {
+   "label": "3 / A",
+   "component": "Headboard bottom rail",
+   "l": 2300.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Rel bawah 40x30"
+  },
+  {
+   "label": "4 / A",
+   "component": "Footboard post",
+   "l": 450.0,
+   "w": 60.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang footboard"
+  },
+  {
+   "label": "5 / A",
+   "component": "Footboard top rail",
+   "l": 1780.0,
+   "w": 40.0,
+   "t": 35.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Rel atas footboard"
+  },
+  {
+   "label": "6 / A",
+   "component": "Footboard bottom rail",
+   "l": 1780.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Rel bawah footboard"
+  },
+  {
+   "label": "8 / A",
+   "component": "Side rail",
+   "l": 2050.0,
+   "w": 150.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Rel samping 2050x150x40"
+  },
+  {
+   "label": "9 / A",
+   "component": "Centre leg",
+   "l": 255.0,
+   "w": 40.0,
+   "t": 40.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "Kaki tengah 255 tinggi"
+  },
+  {
+   "label": "10 / A",
+   "component": "Slat",
+   "l": 1845.0,
+   "w": 60.0,
+   "t": 30.0,
+   "qty": 14,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "C",
+   "note": "14 slat (jarak 70)"
+  },
+  {
+   "label": "11 / A",
+   "component": "Hollow steel 30x60",
+   "l": 2070.0,
+   "w": 60.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Hollow steel 30x60x2070, tebal 1.5"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Headboard panel MDF 12 (upholstery)",
+   "panel_type": "LND-MDF-E2-12",
+   "l": 1100.0,
+   "w": 2270.0,
+   "t": 12.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Panel upholstery headboard"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Footboard panel MDF veneer 12",
+   "panel_type": "LND-MDF-E2-12-MSF",
+   "l": 165.0,
+   "w": 1780.0,
+   "t": 12.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel footboard 165 tinggi"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "FABRIC-UPH",
+   "description": "Upholstery fabric",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "m lari",
+   "unit_price": 85000.0,
+   "note": "Kain headboard (harga dari koleksi Sienna)"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "FOAM-HIGH",
+   "description": "High density foam 40 mm",
+   "vendor": "Lokal",
+   "qty": 1.0,
+   "uom": "pcs",
+   "unit_price": 45000.0,
+   "note": "Busa headboard"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "BED-BRACKET",
+   "description": "Heavy duty KD bed rail bracket",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 18500.0,
+   "note": "Hardware ke kaki/bahu"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00003",
+   "description": "Nylon glides / plastic nail 25 mm",
+   "vendor": "Lokal",
+   "qty": 8.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Paku plastik dasar kaki"
+  }
+ ]
+}
