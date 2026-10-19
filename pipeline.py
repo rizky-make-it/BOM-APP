@@ -122,7 +122,7 @@ def get_workbook_rates() -> Dict[str, float]:
     ws = wb["RATES"]
     for r in ws.iter_rows(values_only=True):
         if isinstance(r[0], str) and re.fullmatch(r'PLY-\d+-[A-Z]{3}', r[0]):
-            vals = [x for x in r[1:4] if isinstance(x, (int, float))]
+            vals = [x for x in r[2:3] if isinstance(x, (int, float))]
             if vals:
                 rates[r[0]] = float(vals[0])
     return rates
