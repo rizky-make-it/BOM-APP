@@ -49,6 +49,9 @@ def sort_by_part_number(item):
         return (0, num, label)
     return (1, 999, label)
 
+def header_code(spec):
+    return spec.header.item_code
+
 def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
@@ -86,6 +89,15 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         row_num = 6 + idx
         header = spec.header
         item_code = header.item_code
+
+        # 0. Panel material rule check (B=plywood, C=MDF, grade E2)
+        try:
+            from core.panel_rules import check_panel
+        except ImportError:
+            from bom_app.core.panel_rules import check_panel
+        for _p in spec.panel_parts:
+            for _msg in check_panel(_p):
+                print(f"[PANEL RULE WARNING] {header_code(spec)} {_p.component}: {_msg}")
 
         # 1. Cost calculation
         cost_data = calculate_bom_costing(spec, custom_rates)

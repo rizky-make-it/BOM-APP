@@ -45,6 +45,16 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 
 ---
 
+### F. Material Panel: Plywood vs MDF (dikunci 19 Okt 2026)
+* **Kode gambar** `<Grup>-<Tebal>-<n>X`: grup **B = Plywood**, grup **C = MDF board**.
+* **n** = jumlah muka veneer: `0X` RAW, `1X` single face, `2X` double face.
+* **Grade board: E2** untuk semua panel (landed Linyi, `RATES!PANEL_GRADE`).
+* Rate code: Plywood `PLY-<T>-RAW|MSF|MDF|TSF|TDF`; MDF mentah `MDF-<T>-RAW`; MDF veneer `LND-MDF-E2-<T>-MSF`.
+* **Awas nama sama:** pada `PLY-18-MDF`, "MDF" = *Mindi Double Face* (plywood), **bukan** papan MDF. Papan MDF selalu berawalan `MDF-` atau `LND-MDF-`.
+* Pengecekan otomatis: `core/panel_rules.py` memberi peringatan `[PANEL RULE WARNING]` bila tebal tidak cocok dengan rate code, atau label tidak cocok dengan rate code.
+
+---
+
 ## 2. Format Baku BOM Koleksi (Multi-Item Workbook)
 
 Untuk setiap batch gambar atau koleksi, format output dikunci:
