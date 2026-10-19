@@ -10,7 +10,8 @@ IMG = "data/sienna/img"
 FRONT = {c: f"{IMG}/{f}" for c, f in {
     "LV463-B42": "LV463-B42_0.png", "LV463-B51": "LV463-B51_0.png", "LV463-B71": "LV463-B71_0.png",
     "LV463-D01": "LV463-D01_0.png", "LV463-B61": "LV463-B61_0.png",
-    "LV463-B01": "LV463-B01_0.png", "LV463-B02": "LV463-B02_0.png"}.items()}
+    "LV463-B01": "LV463-B01_0.png", "LV463-B02": "LV463-B02_0.png",
+    "LV446-L02": "LV446-L02_0.png"}.items()}
 specs = []
 for code in json.load(open("data/sienna/_order.json")):
     d = json.load(open(f"data/sienna/{code.lower().replace('-', '_')}_spec.json", encoding="utf-8"))

@@ -10,80 +10,137 @@
   "drawing_link": "LV446-L02.pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Koleksi SIENNA — SQUARE COFFEE TABLE WITH SHELF"
+  "notes": "LV446-L02 dari gambar kerja: rangka MT-HOLLOW 20x20, top PLY-15 1F, 2 rak PLY-12 1F. Jumlah rel dan tiang tengah dibaca dari gambar, mohon cek. Glides dibawa dari data lama (tidak ada di gambar)."
  },
  "solid_parts": [
   {
-   "label": "1 / A",
-   "component": "Leg",
-   "l": 420.0,
-   "w": 45.0,
-   "t": 45.0,
+   "label": "1 / M",
+   "component": "Corner post MT-HOLLOW 20x20",
+   "l": 440.0,
+   "w": 20.0,
+   "t": 20.0,
    "qty": 4,
-   "material": "MINDI",
+   "material": "METAL",
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "Kaki meja bujur sangkar"
+   "note": "Tiang sudut, tinggi penuh 440"
   },
   {
-   "label": "2 / A",
-   "component": "Apron rail keliling",
-   "l": 810.0,
-   "w": 50.0,
-   "t": 25.0,
-   "qty": 4,
-   "material": "MINDI",
+   "label": "2 / M",
+   "component": "Middle post MT-HOLLOW 20x20",
+   "l": 400.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "Rel apron keliling 4 sisi"
+   "note": "Tiang tengah depan & belakang, antara rel atas dan bawah (440-20-20)"
+  },
+  {
+   "label": "3 / M",
+   "component": "Top rail front/back",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel atas lebar, 900-2x20"
+  },
+  {
+   "label": "4 / M",
+   "component": "Top rail left/right",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel atas sisi, 900-2x20"
+  },
+  {
+   "label": "5 / M",
+   "component": "Bottom rail front/back",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel bawah lebar"
+  },
+  {
+   "label": "6 / M",
+   "component": "Bottom rail left/right",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel bawah sisi"
+  },
+  {
+   "label": "8 / M",
+   "component": "Shelf rail depth",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel dudukan rak arah kedalaman (2 rak x 2 sisi)"
+  },
+  {
+   "label": "9 / M",
+   "component": "Shelf rail width",
+   "l": 420.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel dudukan rak arah lebar (2 rak x depan/belakang)"
   }
  ],
  "panel_parts": [
   {
    "label": "PNL-01",
-   "component": "Top table panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
-   "l": 900.0,
-   "w": 900.0,
-   "t": 18.0,
+   "component": "Top panel PLY-15 1F",
+   "panel_type": "LND-PLY-E2-15-MSF",
+   "l": 860.0,
+   "w": 860.0,
+   "t": 15.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "Top table bujur sangkar"
+   "note": "Top masuk dalam rangka 20, 900-2x20"
   },
   {
    "label": "PNL-02",
-   "component": "Bottom shelf panel",
-   "panel_type": "LND-PLY-E2-18-MSF",
-   "l": 810.0,
-   "w": 810.0,
-   "t": 18.0,
-   "qty": 1,
+   "component": "Shelf panel PLY-12 1F (stagger kiri/kanan)",
+   "panel_type": "LND-PLY-E2-12-MSF",
+   "l": 860.0,
+   "w": 420.0,
+   "t": 12.0,
+   "qty": 2,
    "exposed_faces": 1,
-   "note": "Ambalan bawah terbuka"
+   "note": "Rak kiri naik 150, rak kanan naik 270 dari bawah"
   }
  ],
- "hardware_parts": [
-  {
-   "item_master_code": "HARDWARE",
-   "label": "MT-HOLLOW-20",
-   "description": "Metal hollow 20x20mm frame base",
-   "vendor": "Vendor Logam",
-   "qty": 1.0,
-   "uom": "set",
-   "unit_price": 195000.0,
-   "note": "Rangka besi hollow 20x20"
-  },
-  {
-   "item_master_code": "HARDWARE",
-   "label": "GLIDES / 25MM",
-   "description": "Nylon glides 25 mm",
-   "vendor": "Lokal",
-   "qty": 4.0,
-   "uom": "pcs",
-   "unit_price": 3500.0,
-   "note": "Alas kaki buffer"
-  }
- ]
+ "hardware_parts": []
 }
