@@ -1,0 +1,91 @@
+{
+ "header": {
+  "item_code": "LV463-B71",
+  "item_name": "MIRROR",
+  "collection": "SIENNA / Bedroom",
+  "overall_l": 1000.0,
+  "overall_w": 26.0,
+  "overall_h": 1000.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-B71-MIRROR.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — MIRROR"
+ },
+ "solid_parts": [
+  {
+   "label": "P-01",
+   "component": "Frame",
+   "l": 1000.0,
+   "w": 80.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-02",
+   "component": "List outer",
+   "l": 1000.0,
+   "w": 26.0,
+   "t": 10.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-03",
+   "component": "List inner",
+   "l": 800.0,
+   "w": 26.0,
+   "t": 10.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Backing Panel Penutup Cermin",
+   "panel_type": "PLY-6-MDF",
+   "l": 820.0,
+   "w": 820.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": ""
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00007",
+   "description": "Mirror 5 mm, cut to size (800 x 800 mm)",
+   "vendor": "Vendor Kaca",
+   "qty": 0.64,
+   "uom": "m2",
+   "unit_price": 180000.0,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00002",
+   "description": "Plat siku / bracket gantungan SST",
+   "vendor": "Lokal",
+   "qty": 2.0,
+   "uom": "pcs",
+   "unit_price": 15000.0,
+   "note": ""
+  }
+ ]
+}

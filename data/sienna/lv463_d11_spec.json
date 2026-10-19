@@ -1,0 +1,140 @@
+{
+ "header": {
+  "item_code": "LV463-D11",
+  "item_name": "DINING CHAIR",
+  "collection": "SIENNA / Dining",
+  "overall_l": 560.0,
+  "overall_w": 520.0,
+  "overall_h": 820.0,
+  "order_qty": 1,
+  "drawing_link": "DINNING CHR SEINNA.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — DINING CHAIR"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Back leg / upright",
+   "l": 820.0,
+   "w": 60.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Kaki belakang melengkung"
+  },
+  {
+   "label": "2 / A",
+   "component": "Front leg",
+   "l": 440.0,
+   "w": 45.0,
+   "t": 45.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Kaki depan solid"
+  },
+  {
+   "label": "3 / A",
+   "component": "Seat side rails",
+   "l": 420.0,
+   "w": 55.0,
+   "t": 25.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron samping jok"
+  },
+  {
+   "label": "4 / A",
+   "component": "Seat front rail",
+   "l": 460.0,
+   "w": 55.0,
+   "t": 25.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron depan"
+  },
+  {
+   "label": "5 / A",
+   "component": "Seat back rail",
+   "l": 400.0,
+   "w": 55.0,
+   "t": 25.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron belakang"
+  },
+  {
+   "label": "6 / A",
+   "component": "Backrest top crest rail",
+   "l": 480.0,
+   "w": 80.0,
+   "t": 30.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Sandaran atas kayu solid"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Seat base board",
+   "panel_type": "PLY-12-RAW",
+   "l": 480.0,
+   "w": 440.0,
+   "t": 12.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Triplek dasar jok"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "FABRIC-UPH",
+   "description": "Upholstery Fabric Sienna",
+   "vendor": "Vendor Kain",
+   "qty": 0.7,
+   "uom": "m lari",
+   "unit_price": 85000.0,
+   "note": "Kain jok kursi"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "FOAM-HIGH",
+   "description": "High Density Foam 40mm",
+   "vendor": "Vendor Busa",
+   "qty": 1.0,
+   "uom": "pcs",
+   "unit_price": 45000.0,
+   "note": "Busa dudukan jok"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 20MM",
+   "description": "Nylon chair glides 20 mm",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 2500.0,
+   "note": "Alas kaki kursi"
+  }
+ ]
+}

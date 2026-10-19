@@ -1,0 +1,237 @@
+{
+ "header": {
+  "item_code": "LV463-D21",
+  "item_name": "3 DRAWERS 4 DOORS BUFFET",
+  "collection": "SIENNA / Dining",
+  "overall_l": 1800.0,
+  "overall_w": 450.0,
+  "overall_h": 820.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-D21.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — 3 DRAWERS 4 DOORS BUFFET"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Bottom support rails",
+   "l": 1720.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron bawah bodi"
+  },
+  {
+   "label": "2 / A",
+   "component": "Side apron rails",
+   "l": 370.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron samping bawah"
+  },
+  {
+   "label": "3 / A",
+   "component": "Leg / post support",
+   "l": 780.0,
+   "w": 40.0,
+   "t": 40.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang kaki bodi utama"
+  },
+  {
+   "label": "4 / A",
+   "component": "Door frames outer",
+   "l": 550.0,
+   "w": 410.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "4 Daun pintu solid"
+  },
+  {
+   "label": "5 / A",
+   "component": "Drawer front trim rails",
+   "l": 550.0,
+   "w": 40.0,
+   "t": 20.0,
+   "qty": 6,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Lis muka laci solid"
+  },
+  {
+   "label": "6 / A",
+   "component": "Drawer front trim stiles",
+   "l": 140.0,
+   "w": 40.0,
+   "t": 20.0,
+   "qty": 6,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Lis muka laci tegak"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1800.0,
+   "w": 450.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Top panel veneer Mindi"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Side panel carcass",
+   "panel_type": "PLY-18-MSF",
+   "l": 580.0,
+   "w": 370.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Panel samping bodi"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Internal dividers",
+   "panel_type": "PLY-18-MSF",
+   "l": 580.0,
+   "w": 410.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 2,
+   "note": "Partisi vertikal"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Shelves",
+   "panel_type": "PLY-18-MSF",
+   "l": 550.0,
+   "w": 400.0,
+   "t": 18.0,
+   "qty": 4,
+   "exposed_faces": 2,
+   "note": "Ambalan ruang pintu"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Back panel",
+   "panel_type": "PLY-9-MSF",
+   "l": 1720.0,
+   "w": 580.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel belakang kabinet"
+  },
+  {
+   "label": "PNL-06",
+   "component": "Drawer side box",
+   "panel_type": "PLY-12-RAW",
+   "l": 350.0,
+   "w": 110.0,
+   "t": 12.0,
+   "qty": 6,
+   "exposed_faces": 0,
+   "note": "Kotak laci samping (H-30=110)"
+  },
+  {
+   "label": "PNL-07",
+   "component": "Drawer front/back box",
+   "panel_type": "PLY-12-RAW",
+   "l": 486.0,
+   "w": 110.0,
+   "t": 12.0,
+   "qty": 6,
+   "exposed_faces": 0,
+   "note": "Kotak laci depan/blk (W-64=486)"
+  },
+  {
+   "label": "PNL-08",
+   "component": "Drawer bottom base",
+   "panel_type": "PLY-6-RAW",
+   "l": 496.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 3,
+   "exposed_faces": 0,
+   "note": "Dasar laci (W-54, D-7)"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-BASE",
+   "description": "Metal Brass Base Frame Buffet 1800",
+   "vendor": "Vendor Logam",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 385000.0,
+   "note": "Rangka kaki metal brass"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-HNDL",
+   "description": "Metal Brass Pull Handle",
+   "vendor": "Vendor Logam",
+   "qty": 7.0,
+   "uom": "pcs",
+   "unit_price": 35000.0,
+   "note": "3 laci + 4 pintu = 7 handle"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "DTC-SLIDE-14",
+   "description": "Rel laci DTC soft close 14\" (350 mm)",
+   "vendor": "Sukey / DTC",
+   "qty": 3.0,
+   "uom": "set",
+   "unit_price": 61396.2,
+   "note": "Rel laci DTC 3 set"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "DTC-HINGE",
+   "description": "Engsel sendok DTC soft close",
+   "vendor": "Lokal",
+   "qty": 8.0,
+   "uom": "pcs",
+   "unit_price": 18500.0,
+   "note": "2 engsel x 4 pintu = 8 pcs"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 25MM",
+   "description": "Nylon glides 25 mm",
+   "vendor": "Lokal",
+   "qty": 6.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Alas kaki buffer"
+  }
+ ]
+}

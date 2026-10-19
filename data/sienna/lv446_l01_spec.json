@@ -1,0 +1,102 @@
+{
+ "header": {
+  "item_code": "LV446-L01",
+  "item_name": "RECTANGLE COFFEE TABLE WITH SHELF",
+  "collection": "SIENNA / Living",
+  "overall_l": 1200.0,
+  "overall_w": 700.0,
+  "overall_h": 440.0,
+  "order_qty": 1,
+  "drawing_link": "SIENNA LV446-L01.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — RECTANGLE COFFEE TABLE WITH SHELF"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Leg",
+   "l": 420.0,
+   "w": 45.0,
+   "t": 45.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Kaki meja kopi solid Mindi"
+  },
+  {
+   "label": "2 / A",
+   "component": "Apron long rail",
+   "l": 1110.0,
+   "w": 50.0,
+   "t": 25.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron memanjang"
+  },
+  {
+   "label": "3 / A",
+   "component": "Apron short rail",
+   "l": 610.0,
+   "w": 50.0,
+   "t": 25.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron samping"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top table panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1200.0,
+   "w": 700.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Top table veneer Mindi"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Bottom shelf panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1110.0,
+   "w": 610.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Ambalan bawah terbuka"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-ACC",
+   "description": "Metal Brass Accent Legs / Ferrules",
+   "vendor": "Vendor Logam",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 35000.0,
+   "note": "Sepatu metal brass ujung kaki"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 25MM",
+   "description": "Nylon glides 25 mm",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Alas kaki glides"
+  }
+ ]
+}

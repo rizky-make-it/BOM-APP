@@ -1,0 +1,168 @@
+{
+ "header": {
+  "item_code": "LV463-L21",
+  "item_name": "1 DRAWER & SHELF CONSOLE TABLE",
+  "collection": "SIENNA / Living",
+  "overall_l": 1400.0,
+  "overall_w": 400.0,
+  "overall_h": 760.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-L21  CONSOLE.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — 1 DRAWER & SHELF CONSOLE TABLE"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Leg",
+   "l": 740.0,
+   "w": 40.0,
+   "t": 40.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang kaki meja konsol"
+  },
+  {
+   "label": "2 / A",
+   "component": "Apron rails front/back",
+   "l": 1320.0,
+   "w": 60.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron memanjang"
+  },
+  {
+   "label": "3 / A",
+   "component": "Apron rails side",
+   "l": 320.0,
+   "w": 60.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel apron samping"
+  },
+  {
+   "label": "4 / A",
+   "component": "Drawer front trim",
+   "l": 600.0,
+   "w": 130.0,
+   "t": 20.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Muka laci luar solid"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1400.0,
+   "w": 400.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Top table panel"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Bottom open shelf",
+   "panel_type": "PLY-18-MSF",
+   "l": 1320.0,
+   "w": 320.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Ambalan bawah terbuka"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Drawer box sides",
+   "panel_type": "PLY-12-RAW",
+   "l": 300.0,
+   "w": 100.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 0,
+   "note": "Dinding samping laci"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Drawer box front/back",
+   "panel_type": "PLY-12-RAW",
+   "l": 536.0,
+   "w": 100.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 0,
+   "note": "Sub front & belakang (W-64)"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Drawer base",
+   "panel_type": "PLY-6-RAW",
+   "l": 546.0,
+   "w": 293.0,
+   "t": 6.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Dasar laci (W-54, D-7)"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-BASE",
+   "description": "Metal Brass Frame Console Accent",
+   "vendor": "Vendor Logam",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 245000.0,
+   "note": "Metal brass trim frame"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-HNDL",
+   "description": "Metal Brass Pull Handle",
+   "vendor": "Vendor Logam",
+   "qty": 1.0,
+   "uom": "pcs",
+   "unit_price": 35000.0,
+   "note": "1 handle laci konsol"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "DTC-SLIDE-12",
+   "description": "Rel laci DTC soft close 12\" (300 mm)",
+   "vendor": "Sukey / DTC",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 58500.0,
+   "note": "1 set rel DTC"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 25MM",
+   "description": "Nylon glides 25 mm",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Alas kaki buffer"
+  }
+ ]
+}

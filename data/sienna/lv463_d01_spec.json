@@ -1,0 +1,122 @@
+{
+ "header": {
+  "item_code": "LV463-D01",
+  "item_name": "RECTANGULAR DINING TABLE",
+  "collection": "SIENNA / Dining",
+  "overall_l": 2200.0,
+  "overall_w": 1000.0,
+  "overall_h": 760.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-D01-RECTANGULAR DINNING TABLE.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "Y",
+  "notes": "Koleksi SIENNA — RECTANGULAR DINING TABLE"
+ },
+ "solid_parts": [
+  {
+   "label": "P-01",
+   "component": "Solid Wood Edge Banding Panjang",
+   "l": 2200.0,
+   "w": 36.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-02",
+   "component": "Solid Wood Edge Banding Lebar",
+   "l": 960.0,
+   "w": 36.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-03",
+   "component": "Under-table Mounting Cleats",
+   "l": 900.0,
+   "w": 50.0,
+   "t": 25.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top Panel Layer 1 (Veneer Mindi)",
+   "panel_type": "PLY-18-MSF",
+   "l": 2200.0,
+   "w": 1000.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": ""
+  },
+  {
+   "label": "PNL-02",
+   "component": "Top Panel Layer 2 (Substrate Core)",
+   "panel_type": "PLY-18-MSF",
+   "l": 2200.0,
+   "w": 1000.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": ""
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-LEGS",
+   "description": "Metal Brass U-Frame Pedestal Legs (2 units)",
+   "vendor": "Vendor Logam",
+   "qty": 2.0,
+   "uom": "pcs",
+   "unit_price": 450000.0,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-BEAM",
+   "description": "Metal Brass Center Stretcher Beam 1180mm",
+   "vendor": "Vendor Logam",
+   "qty": 1.0,
+   "uom": "pcs",
+   "unit_price": 220000.0,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00001",
+   "description": "Baut JCBC SST + Nanasan set",
+   "vendor": "Lokal",
+   "qty": 16.0,
+   "uom": "pcs",
+   "unit_price": 4500.0,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00003",
+   "description": "Nylon leveler glides M8",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 5000.0,
+   "note": ""
+  }
+ ]
+}

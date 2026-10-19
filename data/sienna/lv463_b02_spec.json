@@ -1,0 +1,177 @@
+{
+ "header": {
+  "item_code": "LV463-B02",
+  "item_name": "6' KING BED",
+  "collection": "SIENNA / Bedroom",
+  "overall_l": 2125.0,
+  "overall_w": 1930.0,
+  "overall_h": 1200.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-B02 KING BED.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — 6' KING BED"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Stretcher headboard",
+   "l": 1930.0,
+   "w": 60.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel atas headboard"
+  },
+  {
+   "label": "2 / A",
+   "component": "Bottom stretcher headboard/footboard",
+   "l": 1850.0,
+   "w": 200.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Rel bawah headboard"
+  },
+  {
+   "label": "3 / A",
+   "component": "Leg headboard",
+   "l": 390.0,
+   "w": 80.0,
+   "t": 80.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang headboard"
+  },
+  {
+   "label": "4 / A",
+   "component": "Leg footboard",
+   "l": 400.0,
+   "w": 50.0,
+   "t": 50.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang kaki footboard"
+  },
+  {
+   "label": "5 / A",
+   "component": "Side rail",
+   "l": 2125.0,
+   "w": 200.0,
+   "t": 35.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Side rail kasur Queen"
+  },
+  {
+   "label": "6 / A",
+   "component": "Slat side ledger cleat",
+   "l": 2125.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "N",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Ledger penopang slat"
+  },
+  {
+   "label": "6 / A",
+   "component": "Slat headboard ledger cleat",
+   "l": 1850.0,
+   "w": 40.0,
+   "t": 30.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Tiang pembagi headboard"
+  },
+  {
+   "label": "1 / A",
+   "component": "Stretcher footboard",
+   "l": 1908.0,
+   "w": 50.0,
+   "t": 25.0,
+   "qty": 3,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Headboard inlay panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1930.0,
+   "w": 810.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel headboard King veneer"
+  },
+  {
+   "label": "PNL-02",
+   "component": "Footboard panel",
+   "panel_type": "PLY-18-MSF",
+   "l": 1930.0,
+   "w": 200.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Panel footboard King"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "BED-BRACKET",
+   "description": "Heavy Duty KD Bed Rail Bracket",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "set",
+   "unit_price": 35000.0,
+   "note": "Braket ranjang"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "SLAT-BASE-K",
+   "description": "Bed Slat Base Metal Frame King",
+   "vendor": "Vendor",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 565000.0,
+   "note": "Rangka besi kasur King"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 25MM",
+   "description": "Nylon glides 25 mm",
+   "vendor": "Lokal",
+   "qty": 6.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Alas kaki 6 titik"
+  }
+ ]
+}

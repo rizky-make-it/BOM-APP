@@ -1,0 +1,180 @@
+{
+ "header": {
+  "item_code": "LV463-B51",
+  "item_name": "2 OVER 4 DRAWERS TALLBOY",
+  "collection": "SIENNA / Bedroom",
+  "overall_l": 900.0,
+  "overall_w": 450.0,
+  "overall_h": 1200.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-B51- 2 OVER 4 DRAWERS TALLBOY.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — 2 OVER 4 DRAWERS TALLBOY"
+ },
+ "solid_parts": [
+  {
+   "label": "P-01",
+   "component": "Leg",
+   "l": 1200.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-02",
+   "component": "Drawer front",
+   "l": 860.0,
+   "w": 255.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-03",
+   "component": "Front/back strecher",
+   "l": 860.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 7,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "P-04",
+   "component": "Side strecher",
+   "l": 410.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 6,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top",
+   "panel_type": "PLY-18-MDF",
+   "l": 860.0,
+   "w": 410.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": ""
+  },
+  {
+   "label": "PNL-02",
+   "component": "Side panel",
+   "panel_type": "PLY-12-MDF",
+   "l": 1080.0,
+   "w": 410.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": ""
+  },
+  {
+   "label": "PNL-04",
+   "component": "Back Panel",
+   "panel_type": "PLY-6-MSF",
+   "l": 1080.0,
+   "w": 860.0,
+   "t": 6.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": ""
+  },
+  {
+   "label": "PNL-05",
+   "component": "Side drawer",
+   "panel_type": "PLY-12-RAW",
+   "l": 350.0,
+   "w": 225.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": ""
+  },
+  {
+   "label": "PNL-06",
+   "component": "Drawer box front/back",
+   "panel_type": "PLY-12-RAW",
+   "l": 796.0,
+   "w": 225.0,
+   "t": 12.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": ""
+  },
+  {
+   "label": "PNL-07",
+   "component": "Drawer base",
+   "panel_type": "PLY-6-RAW",
+   "l": 796.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": ""
+  },
+  {
+   "label": "PNL-08",
+   "component": "Drawer support",
+   "panel_type": "PLY-9-RAW",
+   "l": 410.0,
+   "w": 120.0,
+   "t": 9.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": ""
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-BRASS-HNDL",
+   "description": "Metal Brass Pull Handle",
+   "vendor": "Vendor Logam",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 6000.0,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "DTC-SLIDE-14",
+   "description": "Rel laci DTC soft close 14\" (356 mm)",
+   "vendor": "Sukey / DTC",
+   "qty": 4.0,
+   "uom": "set",
+   "unit_price": 61396.2,
+   "note": ""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00003",
+   "description": "Nylon glides 25 mm",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": ""
+  }
+ ]
+}

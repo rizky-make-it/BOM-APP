@@ -1,0 +1,254 @@
+{
+ "header": {
+  "item_code": "LV463-B61",
+  "item_name": "3 OVER 4 DRAWERS DRESSER",
+  "collection": "SIENNA / Bedroom",
+  "overall_l": 1500.0,
+  "overall_w": 450.0,
+  "overall_h": 800.0,
+  "order_qty": 1,
+  "drawing_link": "LV463-B61-3 OVER 4 DRAWERS DRESSER.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — 3 OVER 4 DRAWERS DRESSER"
+ },
+ "solid_parts": [
+  {
+   "label": "",
+   "component": "STRETCHER FRONT / BACK",
+   "l": 1460.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 8,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Part 1 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "STRETCHER LEFT / RIGHT",
+   "l": 410.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 7,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 2 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "LEG ",
+   "l": 800.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 3 / Code A | Solid wood 45x45"
+  },
+  {
+   "label": "",
+   "component": "DIVIDER SUPPORT",
+   "l": 410.0,
+   "w": 40.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 18 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "FRONT ",
+   "l": 473.0,
+   "w": 130.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 6 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "FRONT ",
+   "l": 720.0,
+   "w": 255.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 6 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "VERTICAL FRONT RAIL",
+   "l": 255.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "Part 14/16 / Code A | Solid wood"
+  },
+  {
+   "label": "",
+   "component": "VERTICAL FRONT RAIL",
+   "l": 130.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "METAL",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Part 15 / Code A | Solid wood"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "/ B-18-1X",
+   "component": "TOP PANEL",
+   "panel_type": "PLY-18-MSF",
+   "l": 1460.0,
+   "w": 410.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Part 20 / Code B-18-1X | Plywood 18mm MSF"
+  },
+  {
+   "label": "/ B-12-1X",
+   "component": "SIDE PANEL",
+   "panel_type": "PLY-12-MSF",
+   "l": 680.0,
+   "w": 410.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "Part 13 / Code B-12-1X | Plywood 12mm MSF"
+  },
+  {
+   "label": "/ B-9-0X",
+   "component": "BACK PANEL",
+   "panel_type": "PLY-9-RAW",
+   "l": 1460.0,
+   "w": 680.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "Part 12 / Code B-9-0X | Plywood 9mm RAW"
+  },
+  {
+   "label": "/ B-12-0X",
+   "component": "SIDE DRAWER",
+   "panel_type": "PLY-12-RAW",
+   "l": 350.0,
+   "w": 225.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "Part 8 / Code B-12-0X | Plywood 12mm RAW"
+  },
+  {
+   "label": "/ B-12-0X",
+   "component": "SIDE DRAWER",
+   "panel_type": "PLY-12-RAW",
+   "l": 350.0,
+   "w": 120.0,
+   "t": 12.0,
+   "qty": 6,
+   "exposed_faces": 0,
+   "note": "Part 8 / Code B-12-0X | Plywood 12mm RAW"
+  },
+  {
+   "label": "/ B-12-0X",
+   "component": "DRAWER BOX FRONT/BACK",
+   "panel_type": "PLY-12-RAW",
+   "l": 656.0,
+   "w": 225.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "Part 7 / Code B-6-1X | Plywood 6mm RAW"
+  },
+  {
+   "label": "/ B-12-0X",
+   "component": "DRAWER BOX FRONT/BACK",
+   "panel_type": "PLY-12-RAW",
+   "l": 409.0,
+   "w": 120.0,
+   "t": 12.0,
+   "qty": 6,
+   "exposed_faces": 0,
+   "note": "Part 7 / Code B-6-1X | Plywood 6mm RAW"
+  },
+  {
+   "label": "/ B-6-0X",
+   "component": "DRAWER BASE",
+   "panel_type": "PLY-6-RAW",
+   "l": 666.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": "Part 18 / Code B-9-0X | Plywood 9mm RAW"
+  },
+  {
+   "label": "/ B-6-0X",
+   "component": "DRAWER BASE",
+   "panel_type": "PLY-6-RAW",
+   "l": 419.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 3,
+   "exposed_faces": 0,
+   "note": "Part 18 / Code B-18-0X | Plywood 18mm RAW"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "D2 / DTC-14",
+   "description": "DRAWER RAIL DTC 14\" (356 MM)",
+   "vendor": "Sukey / DTC",
+   "qty": 7.0,
+   "uom": "set",
+   "unit_price": 61396.2,
+   "note": "Part D2 / Code D2 | DTC Soft Close 14\""
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HNDL / 128MM",
+   "description": "HANDLE BAR SOLID BRASS 128 MM",
+   "vendor": "Lokal",
+   "qty": 7.0,
+   "uom": "pcs",
+   "unit_price": 6000.0,
+   "note": "Brass Pull 128mm (7x)"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 25MM",
+   "description": "NYLON GLIDES 25 MM",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 3500.0,
+   "note": "Alas Kaki 25mm (4x)"
+  }
+ ]
+}

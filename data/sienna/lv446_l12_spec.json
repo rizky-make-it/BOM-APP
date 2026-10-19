@@ -1,0 +1,78 @@
+{
+ "header": {
+  "item_code": "LV446-L12",
+  "item_name": "SOFA TABLE",
+  "collection": "SIENNA / Living",
+  "overall_l": 460.0,
+  "overall_w": 250.0,
+  "overall_h": 500.0,
+  "order_qty": 1,
+  "drawing_link": "LV446-L12 SOFA TABLE.pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Koleksi SIENNA — SOFA TABLE"
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Top solid frame / trim",
+   "l": 460.0,
+   "w": 40.0,
+   "t": 25.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Lis samping top"
+  },
+  {
+   "label": "2 / A",
+   "component": "Top solid front/back trim",
+   "l": 250.0,
+   "w": 40.0,
+   "t": 25.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Lis ujung top"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-01",
+   "component": "Top table panel insert",
+   "panel_type": "PLY-18-MSF",
+   "l": 420.0,
+   "w": 210.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "Top inlay veneer Mindi"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "MT-HOLLOW-20",
+   "description": "Metal C-shape hollow frame 20x20mm",
+   "vendor": "Vendor Logam",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 165000.0,
+   "note": "Rangka metal C-shape sofa"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "GLIDES / 20MM",
+   "description": "Nylon glides 20 mm",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 2500.0,
+   "note": "Alas glides pelindung lantai"
+  }
+ ]
+}
