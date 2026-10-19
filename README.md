@@ -126,3 +126,11 @@ python cli.py verify "path/ke/bom.xlsx"
 * Diterapkan otomatis oleh `apply_meeting_rule()` di `core/panel_rules.py` (idempoten, ketebalan tidak diubah, tebal di luar tabel papan hanya diberi tanda). `derive_drawer_box` kini memberi muka laci MDF 18 satu muka.
 * **Harga veneer** memakai perhitungan bagian I.
 * "Select cheapest price" (pilih harga termurah) belum dijelaskan maksudnya; lihat Pertanyaan Terbuka di vault.
+
+
+### K. METAL = besi hollow (dikunci 19 Okt 2026)
+* Komponen bermaterial **METAL** = **besi hollow hitam**. Biaya = panjang (m) x jumlah x harga per meter dari daftar `HOLLOW-<a>x<b>x<tebal dinding>` di sheet RATES (harga batang 6 m / 6). Sisi dipasangkan dari lebar dan tebal komponen, urutan bebas (30x60 = 60x30).
+* **Tebal dinding tidak ada di gambar.** Satu pengaturan untuk semua: `RATES!HOLLOW_WALL`, saat ini **1,2 mm (CONFIRM)**. Ubah angka ini, semua biaya metal mengikuti.
+* Penampang yang tidak ada di daftar dihitung Rp 0 dan barisnya berwarna oranye.
+* Sumber harga: `data/prices/besi_hollow_hitam_2026-10-19.json` (297 ukuran, smsperkasa.com). Baris `METAL_A..D` dan `metal_brass/steel` tidak dipakai lagi.
+* Brass (`MT BRASS`, mis. TV unit L31) saat ini ikut dihitung sebagai besi hollow; harga brass sungguhan belum ada.

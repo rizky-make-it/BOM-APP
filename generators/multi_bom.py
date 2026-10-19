@@ -41,6 +41,8 @@ def get_workbook_rates() -> Dict[str, float]:
                 rates[r[0]] = float(vals[0])
         elif r[0] == "CURVE_ALLOW" and isinstance(r[2], (int, float)):
             rates["CURVE_ALLOW"] = float(r[2])
+        elif r[0] == "HOLLOW_WALL" and isinstance(r[2], (int, float)):
+            rates["HOLLOW_WALL"] = float(r[2])
     return rates
 
 def sort_by_part_number(item):
@@ -68,6 +70,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
     ws_items["AD2"] = "=RATES!$C$172"
     
     # Rates from updated GOLDEN_MASTER
+    HOLLOW_WALL_ROW = next(i for i in range(1, wb["RATES"].max_row + 1) if wb["RATES"].cell(i, 1).value == "HOLLOW_WALL")
     custom_rates = get_workbook_rates()
     custom_rates["FX_USD"] = 18040.0
 
@@ -232,6 +235,9 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
             ws[f"K{s_idx}"] = part.tier_override
             ws[f"L{s_idx}"] = part.note
             ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$172)"
+            if part.material == "METAL":
+                ws[f"S{s_idx}"] = (f'=IFERROR(INDEX(RATES!$C:$C,MATCH("HOLLOW-"&MIN(F{s_idx},G{s_idx})&"x"&MAX(F{s_idx},G{s_idx})&"x"&'
+                                   f'SUBSTITUTE(RATES!$C${HOLLOW_WALL_ROW}&"",",","."),RATES!$A:$A,0))*1000000/(F{s_idx}*G{s_idx}),"rate?")')
 
             cached_map[(item_code, f"M{s_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{s_idx}")] = calc["face"]

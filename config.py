@@ -180,3 +180,22 @@ def _apply_veneer(rates: dict) -> None:
 
 
 _apply_veneer(DEFAULT_RATES)
+
+
+# ---------------------------------------------------------------------------------------------
+# HOLLOW STEEL (METAL) prices: IDR per metre = price of the 6 m bar / 6, from data/prices/besi_hollow_hitam_*.json.
+# Same figures as the RATES block "STEEL HOLLOW SECTION"; tests/test_hollow_prices.py ties the two together.
+# ---------------------------------------------------------------------------------------------
+def _load_hollow(rates: dict) -> None:
+    import glob, json, re
+    files = sorted(glob.glob(str(APP_ROOT / "data" / "prices" / "besi_hollow_hitam_*.json")))
+    if not files:
+        return
+    for x in json.load(open(files[-1], encoding="utf-8")):
+        m = re.search(r"Hollow (\d+) x (\d+) x ([\d.]+)mm x (\d+)M", x["ukuran"])
+        a, b, t, bar = int(m[1]), int(m[2]), float(m[3]), int(m[4])
+        rates[f"HOLLOW-{a}x{b}x{t:g}"] = int(re.sub(r"\D", "", x["harga"])) / bar
+    rates.setdefault("HOLLOW_WALL", 1.2)   # mm, not on drawings: CONFIRM (RATES!HOLLOW_WALL overrides)
+
+
+_load_hollow(DEFAULT_RATES)

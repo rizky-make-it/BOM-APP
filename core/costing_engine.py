@@ -27,7 +27,11 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         tier = part.tier_override
         rate_key = f"{part.material}_{tier.replace('-CURVED', 'C')}"  # A-CURVED -> AC
         if part.material == "METAL":
-            rate = rates.get(rate_key) or 0.0  # metal rate card still blank -> cost 0 until priced
+            try:
+                from .hollow import equiv_rate_m3
+            except (ImportError, ValueError):
+                from core.hollow import equiv_rate_m3
+            rate = equiv_rate_m3(rates, part.w, part.t)  # hollow steel: length x price per metre (0 if size not in list)
         else:
             rate = rates.get(rate_key, rates.get("MINDI_B", 16465427.66))
         cost = v * rate
