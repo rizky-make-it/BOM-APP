@@ -1,0 +1,277 @@
+{
+ "overall": {
+  "w": 550,
+  "d": 450,
+  "h": 550
+ },
+ "components": [
+  {
+   "group": "panel",
+   "name": "Top panel (Mặt nóc)",
+   "l": 550,
+   "w": 450,
+   "t": 35,
+   "qty": 1,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 top view 550x450; front view thickness 35",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Corner post / leg (Chân tủ)",
+   "l": 515,
+   "w": 60,
+   "t": 60,
+   "qty": 4,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 side view H515 (550-35); Detail B 60x60; 4 corners",
+   "page": 2
+  },
+  {
+   "group": "panel",
+   "name": "Side panel (Ván hông)",
+   "l": 455,
+   "w": 330,
+   "t": 20,
+   "qty": 2,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 side view 455x330; page 3 section cut T=20; 2 sides",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Front bottom rail (Đố đáy trước)",
+   "l": 430,
+   "w": 30,
+   "t": 20,
+   "qty": 1,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 2 front view 430x30; page 3 side section T=20",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Rear bottom rail (Đố đáy sau)",
+   "l": 430,
+   "w": 30,
+   "t": 20,
+   "qty": 1,
+   "material": "Solid Mindy",
+   "l_status": "DERIVED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 3 side section 30x20; length between rear posts 550-2*60=430",
+   "page": 3
+  },
+  {
+   "group": "panel",
+   "name": "Back panel (Ván hậu)",
+   "l": 510,
+   "w": 395,
+   "t": 5,
+   "qty": 1,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 3 plan view W=510; side section H=395; T=5",
+   "page": 3
+  },
+  {
+   "group": "panel",
+   "name": "Drawer front (Mặt hộc kéo)",
+   "l": 426,
+   "w": 209,
+   "t": 20,
+   "qty": 2,
+   "material": "MDF Veneer Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "STATED",
+   "how": "Page 2 front view 426x209; Detail B & page 3 side section T=20; 2 drawers",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Drawer box side (Thành hộc kéo)",
+   "l": 360,
+   "w": 160,
+   "t": 12,
+   "qty": 4,
+   "material": "Solid Mindy",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Page 3 plan view L=360; front/side section H=160; T=12; 2 per drawer",
+   "page": 3
+  },
+  {
+   "group": "solid",
+   "name": "Drawer box sub-front / back (Đầu/hậu hộc kéo)",
+   "l": 380,
+   "w": 160,
+   "t": 12,
+   "qty": 4,
+   "material": "Solid Mindy",
+   "l_status": "DERIVED",
+   "w_status": "STATED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Formula: 404 - 2*12 = 380; H=160; T=12; 2 per drawer * 2 drawers",
+   "page": 3
+  },
+  {
+   "group": "panel",
+   "name": "Drawer bottom (Đáy hộc kéo)",
+   "l": 390,
+   "w": 346,
+   "t": 5,
+   "qty": 2,
+   "material": "PLY",
+   "l_status": "DERIVED",
+   "w_status": "DERIVED",
+   "t_status": "STATED",
+   "qty_status": "DERIVED",
+   "how": "Formula: (404-2*12)+2*5=390; (360-2*12)+2*5=346; T=5 from page 3 section",
+   "page": 3
+  },
+  {
+   "group": "metal",
+   "name": "Anti-warp U-channel (U chống mo)",
+   "l": 370,
+   "w": 15,
+   "t": 15,
+   "qty": 2,
+   "material": "Metal",
+   "l_status": "STATED",
+   "w_status": "ASSUMED",
+   "t_status": "STATED",
+   "qty_status": "ASSUMED",
+   "how": "Page 3 side section labeled 370 under top; depth 15; qty assumed 2",
+   "page": 3
+  },
+  {
+   "group": "hardware",
+   "name": "Drawer slide 3-fold L300 W42 (Ray trượt bi 3 tầng)",
+   "l": 300,
+   "w": 42,
+   "t": 13,
+   "qty": 2,
+   "material": "Metal",
+   "l_status": "STATED",
+   "w_status": "STATED",
+   "t_status": "DERIVED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note: 'ray trượt bi 3 tầng L300mm bản rộng 42mm'; T=13 from (430-404)/2; 1 pair per drawer",
+   "page": 1
+  },
+  {
+   "group": "hardware",
+   "name": "Handle (Tay nắm theo mẫu)",
+   "l": 213,
+   "w": 0,
+   "t": 0,
+   "qty": 2,
+   "material": "Metal",
+   "l_status": "DERIVED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "STATED",
+   "how": "Page 1 note; page 2 front view hole centers 213; 1 per drawer",
+   "page": 2
+  },
+  {
+   "group": "hardware",
+   "name": "Leveler (Tăng đơ chân)",
+   "l": 0,
+   "w": 0,
+   "t": 0,
+   "qty": 4,
+   "material": "Metal",
+   "l_status": "ASSUMED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "DERIVED",
+   "how": "Page 1 note: 'Đế chân gắn leveler'; page 2 shows leveler on 4 legs",
+   "page": 2
+  },
+  {
+   "group": "solid",
+   "name": "Corner block (Góc ke)",
+   "l": 50,
+   "w": 50,
+   "t": 20,
+   "qty": 4,
+   "material": "Solid Mindy",
+   "l_status": "ASSUMED",
+   "w_status": "ASSUMED",
+   "t_status": "ASSUMED",
+   "qty_status": "ASSUMED",
+   "how": "Page 3 front section callout 'Corner' at bottom base",
+   "page": 3
+  }
+ ],
+ "checks": [
+  {
+   "what": "Overall Width",
+   "ok": true,
+   "detail": "60 (left leg) + 430 (opening) + 60 (right leg) = 550"
+  },
+  {
+   "what": "Drawer Front Width Fit",
+   "ok": true,
+   "detail": "2 (gap) + 426 (drawer front) + 2 (gap) = 430 opening"
+  },
+  {
+   "what": "Drawer Box Slide Clearance",
+   "ok": true,
+   "detail": "13 (left slide) + 404 (box width) + 13 (right slide) = 430 opening"
+  },
+  {
+   "what": "Overall Depth",
+   "ok": true,
+   "detail": "60 (front leg) + 330 (side opening) + 60 (rear leg) = 450"
+  },
+  {
+   "what": "Overall Height",
+   "ok": true,
+   "detail": "35 (top) + 2 (gap) + 209 (drawer 1) + 3 (gap) + 209 (drawer 2) + 2 (gap) + 30 (bottom rail) + 60 (foot) = 550"
+  },
+  {
+   "what": "Side Height Match",
+   "ok": true,
+   "detail": "35 (top) + 455 (side panel) + 60 (foot) = 550"
+  }
+ ],
+ "doubts": [
+  "Back panel groove depth not explicitly dimensioned; overall cut size derived from 510 opening and 395 inside height",
+  "Anti-warp U-channel exact quantity not stated in text; 2 assumed based on plan view hidden lines",
+  "Corner block exact length/width dimensions not dimensioned"
+ ],
+ "_meta": {
+  "code": "LV433.B41",
+  "model": "ag/gemini-3.8-flash-high",
+  "seconds": 77.3,
+  "dpi": 170
+ }
+}
