@@ -62,12 +62,10 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 
 ---
 
-### H. Bagian Lengkung / Sudut Membulat (dikunci 19 Okt 2026)
-* Callout `R30`, `R38`, `R40` di gambar = radius sudut (mm). Dipasang di spec sebagai `radius` dan `corners` pada bagian kayu solid.
-* Setiap bagian solid dengan radius > 0: **tier otomatis `A-CURVED`** (tarif `MINDI_AC` / `TEAK_AC`, yield 4,6 di rate card).
-* **Blank = ukuran jadi + busur + toleransi.** Busur = jumlah sudut x (pi/2) x R, ditambahkan ke panjang. Toleransi = `RATES!CURVE_ALLOW` (mm), ditambahkan ke panjang dan lebar.
-* `CURVE_ALLOW` **masih kosong** (menunggu angka pabrik, sel oranye); sementara dihitung 0.
-* Bagian METAL hanya diberi penanda (tidak ada tier). Aturan idempoten: `core/curves.py`.
+### H. Sudut Membulat vs Kayu Lengkung (dikunci 19 Okt 2026, direvisi)
+* **R30 / R38 / R40 di gambar = profil router** pada papan lurus. **Tidak mengubah tier, ukuran, atau biaya.** Hanya dicatat di note baris (`[PROFIL]`).
+* **Kayu yang memang dilengkungkan** (`curved = "Y"`, mis. rel lengkung kepala bed): tier **A-CURVED**, blank = ukuran jadi + busur + `RATES!CURVE_ALLOW`. `CURVE_ALLOW` masih kosong (oranye).
+* Aturan idempoten: `core/curves.py`.
 
 ---
 

@@ -1,7 +1,11 @@
-"""Rounded-corner (curve) rule, locked 19 Oct 2026.
+"""Curve rule, locked 19 Oct 2026 (revised same day).
 
-Drawing callout  R30 / R38 / R40  = corner radius in mm.
-For every SOLID part with radius > 0:
+TWO DIFFERENT THINGS:
+  * ROUTER PROFILE / rounded corner (drawing callout R30, R38, R40 on a straight part): made by the router on a normal
+    straight board. NO tier change, NO blank change, NO extra cost. Only noted on the row.
+  * TRUE CURVED WOOD (curved="Y" set on the part: bent/shaped member such as a curved headboard rail): rules below.
+
+For every SOLID part with curved == "Y" (and radius > 0):
   1. tier      -> A-CURVED  (rate MINDI_AC / TEAK_AC, yield 4.6 in the rate card)
   2. blank     -> finished size + ARC + TOLERANCE
         arc       = corners x (pi/2 x R)            added to the LENGTH
@@ -23,6 +27,10 @@ def apply_curve_rule(part, allow: float = 0.0):
     """Mutates and returns a SolidPart. METAL parts only get the marker (metal has no tier rates)."""
     r = float(getattr(part, "radius", 0) or 0)
     if r <= 0 or MARK in (part.note or ""):
+        return part
+    if getattr(part, "curved", "N") != "Y":  # router profile only: note, no cost impact
+        if "[PROFIL]" not in (part.note or ""):
+            part.note = f"[PROFIL] R{r:g} hasil router, tidak mengubah tier/ukuran. " + (part.note or "")
         return part
     arc = arc_length(r, int(getattr(part, "corners", 1) or 1))
     fin_l, fin_w = part.l, part.w

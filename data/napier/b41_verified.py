@@ -21,8 +21,7 @@ assert N[132] + N[133] + N[134] == N[8], "top 50+450+50"
 assert N[88] + N[87] + N[90] == N[8], "inner 20+510+20"
 
 MT = "MINDI"
-# Rounded corners printed on the drawing (R30 legs, R40 top frame outer corners). Which part carries which R is read from the
-# top/front view; confirm on the drawing. Rule: core/curves.py (A-CURVED + arc + tolerance).
+# R30 / R40 on the drawing are ROUTER PROFILES on straight boards: noted only, no cost impact (core/curves.py).
 RADIUS = {"Leg 60x60": 30, "Top frame front": 40, "Top frame rear": 40}
 CORNERS = {"Leg 60x60": 1, "Top frame front": 2, "Top frame rear": 2}
 solid = [
