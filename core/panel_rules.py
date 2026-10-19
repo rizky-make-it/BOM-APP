@@ -77,7 +77,8 @@ def check_panel(part) -> list[str]:
 
 # ---------------------------------------------------------------------------------------------
 # MEETING RULE (19 Oct 2026): which board family and how many veneer faces per panel role.
-#   Plywood E0 (furniture grade): drawer box parts (side, front/back, bottom, support), back panel, divider/partition.
+#   Plywood E0 (furniture grade): drawer box parts (side, front/back, bottom, support), back panel (keeps its faces),
+#   divider/partition = PLAIN (no veneer, Rizky 19 Oct 2026).
 #   MDF veneer E0:               side panel = 1 face (MSF), door = 2 faces (MDF), drawer face = 1 face (MSF).
 #   Everything else (top, shelves, headboard ...) keeps the family it already has.
 # Thickness is never changed here (thickness follows RULES, see README G). Idempotent.
@@ -85,8 +86,10 @@ def check_panel(part) -> list[str]:
 MEETING_MARK = "[MEETING]"
 _THICK = (3, 6, 9, 12, 15, 18)
 _ROLE_PLY = re.compile(
-    r"drawer (box|base|bottom|support|side|inner)|drawer (front/back|side) box|side drawer|\bback panel\b|\bdividers?\b|partition",
+    r"drawer (box|base|bottom|support|side|inner)|drawer (front/back|side) box|side drawer|\bback panel\b",
     re.I)
+_ROLE_DRAWER_ANY = re.compile(r"drawer", re.I)
+_ROLE_DIVIDER = re.compile(r"\bdividers?\b|partition", re.I)
 _ROLE_SIDE = re.compile(r"\bside panel\b", re.I)
 _ROLE_DOOR = re.compile(r"\bdoor\b", re.I)
 _ROLE_FACE = re.compile(r"drawer (face|front)\b", re.I)
@@ -102,6 +105,8 @@ def _code(family: str, t: float, faces: int) -> str | None:
 
 def role_of(component: str) -> str | None:
     c = component or ""
+    if _ROLE_DIVIDER.search(c) and not _ROLE_DRAWER_ANY.search(c):
+        return "divider"
     if _ROLE_PLY.search(c):
         return "ply"
     if _ROLE_DOOR.search(c):
@@ -119,8 +124,10 @@ def apply_meeting_rule(part):
     if role is None or MEETING_MARK in (part.note or ""):
         return part
     if role == "ply":
-        faces = int(part.exposed_faces or 0)           # back panel / divider keep their face count; drawer parts stay raw
+        faces = int(part.exposed_faces or 0)           # back panel keeps its face count; drawer parts stay raw
         fam = "PLY"
+    elif role == "divider":
+        fam, faces = "PLY", 0                          # divider / partition: plywood E0, plain (no veneer)
     elif role == "door":
         fam, faces = "MDF", 2
     else:                                              # drawer face and side panel: MDF, 1 face

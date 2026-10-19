@@ -10,7 +10,7 @@ def _p(comp, t, ptype="LND-PLY-E0-12", faces=0):
 
 def test_roles():
     assert role_of("Drawer box side") == "ply" and role_of("Drawer bottom") == "ply"
-    assert role_of("Back panel") == "ply" and role_of("Internal dividers") == "ply"
+    assert role_of("Back panel") == "ply" and role_of("Internal dividers") == "divider"
     assert role_of("Door MDF veneer 18") == "door" and role_of("Drawer face") == "face"
     assert role_of("Side panel") == "side" and role_of("Top panel") is None
 
@@ -61,3 +61,16 @@ def test_label_warning_silenced_when_meeting_rule_applied():
     apply_meeting_rule(p)
     assert p.panel_type == "LND-MDF-E0-12-MSF"
     assert not any("implies" in m for m in check_panel(p))      # after: the meeting rule wins, no warning
+
+
+def test_divider_is_plain_plywood():
+    for name, t in (("Centre partition MDF veneer 18", 18), ("Internal dividers", 18), ("Vertical divider/side", 12)):
+        p = PanelPart("/ X", name, f"LND-MDF-E0-{t}-MSF", 100, 100, t, 1, 2)
+        apply_meeting_rule(p)
+        assert p.panel_type == f"LND-PLY-E0-{t}", (name, p.panel_type)
+        assert p.exposed_faces == 0
+
+
+def test_drawer_divider_post_not_treated_as_divider_panel():
+    from core.panel_rules import role_of
+    assert role_of("Drawer divider post") != "divider"
