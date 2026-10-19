@@ -29,17 +29,37 @@ solid = [
  ("Top frame side", N[136], N[135], N[117], 2, "Y", "B", "370 #136, lebar 50 #135, tebal 35"),
  ("Bottom rail", N[25], N[163], 20, 2, "N", "C", "bukaan 430 #25, tinggi 30 #163, tebal 20 #88; qty 2 (depan+belakang) = ASUMSI jumlah"),
 ]
+# ---- RULES (Part Master v3 + factory rules v2.3) decide thickness and drawer-box sizes; the drawing decides overall layout.
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from core.rules_v2 import derive_drawer_box
+from core.panel_rules import to_e2
+
+OPEN_W = N[25]                       # 430 opening between legs (#25)
+FRONT_W, FRONT_H = 426, N[30]        # drawer face from front view (#79, #30)
+GLIDE = 300                          # drawing note: ray truot bi 3 tang L300; rule: largest standard slide <= clear depth 330
+box = derive_drawer_box(FRONT_W, FRONT_H, 450, side_length=GLIDE, qty=2)
+
+
+def from_rule(part, note):
+    return (part.component, to_e2(part.panel_type), part.l, part.w, part.t, part.qty, part.exposed_faces, note)
+
+
 panels = [
- ("Top panel MDF veneer 15", "LND-MDF-E2-15-MSF", N[133], N[136], N[142], 1, 1, "S: 450 #133 (antar frame kiri-kanan), 370 #136 (depan-belakang), tebal 15 #142"),
- ("Side panel MDF veneer 20", "LND-MDF-E2-18-MSF", N[140], 330, 18, 2, 1, "S: 455 #140, kedalaman 330, tebal TERTULIS 20 (#88/#90), papan terdekat di rate card 18"),
- ("Drawer face MDF veneer 20", "LND-MDF-E2-18-MSF", 426, N[30], 18, 2, 1, "S: 426 (#79), 209 #30/#32, tebal TERTULIS 20, papan terdekat 18"),
- ("Back panel MDF 5", "LND-MDF-E2-6", N[87], N[144], 5, 1, 0, "S: 510 #87, 395 #144, tebal 5 #129 (papan 6 terdekat); bahan MDF = ASUMSI dari catatan gambar (MDF veneer Mindy)"),
- ("Drawer box side", "LND-PLY-E2-12", N[86], N[157], N[97], 4, 0, "S: 360 #86, 160 #157, tebal 12 #97"),
- ("Drawer box front/back", "LND-PLY-E2-12", N[89] - 2 * N[158], N[157], N[158], 4, 0, "D: 404-2x12=380 (#89,#158), tinggi 160"),
- ("Drawer bottom", "LND-PLY-E2-6", N[89] - 2 * N[158] + 2 * 5, N[86] - 2 * N[158] + 2 * 5, 5, 2, 0, "D: dado 5 #159; 5 mm -> papan 6"),
+ # Part 601 Top panel  = C18 1X  (rule), size as drawn inside the 35 frame
+ ("Top panel MDF veneer 18", "LND-MDF-E2-18-MSF", N[133], N[136], 18, 1, 1, "RULE 601 C18 1X (gambar tertulis 15 #142); ukuran 450 #133 x 370 #136"),
+ # Part 301 Side panel = C18 1X  (rule)
+ ("Side panel MDF veneer 18", "LND-MDF-E2-18-MSF", N[140], 330, 18, 2, 1, "RULE 301 C18 1X (gambar tertulis 20 #88); 455 #140 x 330"),
+ # Part 302 Back panel = B9 1X (rule)
+ ("Back panel plywood 9", "LND-PLY-E2-9-MSF", N[87], N[144], 9, 1, 1, "RULE 302 B9 1X (gambar tertulis 5 #129); 510 #87 x 395 #144"),
+ # Part 401 Drawer front = MDF 18 both faces (rules_v2 derive_drawer_box)
+ from_rule(box["front"], "RULE drawer front MDF 18 2 muka (gambar tertulis 20); 426 x 209 dari tampak depan"),
+ from_rule(box["side"], "RULE 402 B12 0X: L=slide 300, H=H_front-30"),
+ from_rule(box["box_front_back"], "RULE 403/404 B12 0X: W=W_front-64, H=H_front-30 (gambar: kotak 404 lebar)"),
+ from_rule(box["bottom"], "RULE 405 B6 0X: (W-54) x (L-7)"),
 ]
 hardware = [
- ("HW-RAIL-DTC", "Rel laci DTC 3 tingkat L300, lebar 42", 2, "pair", 49610.0, "gambar: ray trượt bi 3 tầng L300 bản rộng 42"),
+ ("HW-RAIL-DTC", "Rel laci DTC 3 tingkat L300, lebar 42", 2, "pair", 49610.0, "gambar: L300; rule slide fit"),
  ("I-00003", "Leveler kaki", 4, "pcs", 5000.0, "gambar: leveler di 4 kaki"),
  ("HNDL / TBD", "Handle (sesuai sampel)", 2, "pcs", 0.0, "gambar: Tay nắm theo mẫu, harga belum ada"),
 ]
@@ -47,7 +67,7 @@ hardware = [
 spec = dict(
  header=dict(item_code="LV433-B41", item_name="BEDSIDE 2 DRWS", collection="NAPIER / Bedroom", overall_l=550.0, overall_w=450.0, overall_h=550.0,
              order_qty=1, drawing_link="LV433.B41 - Bedside 2 Drws (1) Model (1).pdf", finish_recipe="NC NATURAL", flatpack_yn="N",
-             notes="Dibaca dari angka vektor bertanda #id; semua rantai ukur lolos. Status: verified-by-checks, menunggu persetujuan manusia."),
+             notes="Layout dari angka vektor bertanda #id (rantai ukur lolos). Ketebalan panel dan kotak laci mengikuti RULES Part Master v3 / v2.3, bukan angka tebal di gambar. Menunggu persetujuan manusia."),
  solid_parts=[dict(label=f"{i} / A", component=c, l=float(l), w=float(w), t=float(t), qty=q, material=MT, exposed=e, curved="N", tier_override=tr, note=n)
               for i, (c, l, w, t, q, e, tr, n) in enumerate(solid, 1)],
  panel_parts=[dict(label=f"PNL-{i:02d}", component=c, panel_type=pt, l=float(l), w=float(w), t=float(t), qty=q, exposed_faces=f, note=n)

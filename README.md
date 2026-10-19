@@ -55,6 +55,13 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 
 ---
 
+### G. Prioritas sumber angka saat membaca gambar (dikunci 19 Okt 2026)
+* **Ketebalan panel dan ukuran kotak laci mengikuti RULES** (Part Master v3 dan Factory Rules v2.3), **bukan** angka tebal yang tertulis di gambar. Contoh: top dan samping `C18 1X`, belakang `B9 1X`, muka laci MDF 18, kotak laci plywood 12 (H-30, W-64), dasar laci 6 (W-54, D-7).
+* **Gambar menentukan tata letak:** ukuran luar, lebar bukaan, tinggi muka laci, penampang kaki dan rangka.
+* Selisih antara gambar dan rule dicatat di kolom note tiap baris, supaya bisa ditinjau manusia.
+
+---
+
 ## 2. Format Baku BOM Koleksi (Multi-Item Workbook)
 
 Untuk setiap batch gambar atau koleksi, format output dikunci:

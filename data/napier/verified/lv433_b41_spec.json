@@ -10,7 +10,7 @@
   "drawing_link": "LV433.B41 - Bedside 2 Drws (1) Model (1).pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Dibaca dari angka vektor bertanda #id; semua rantai ukur lolos. Status: verified-by-checks, menunggu persetujuan manusia."
+  "notes": "Layout dari angka vektor bertanda #id (rantai ukur lolos). Ketebalan panel dan kotak laci mengikuti RULES Part Master v3 / v2.3, bukan angka tebal di gambar. Menunggu persetujuan manusia."
  },
  "solid_parts": [
   {
@@ -82,80 +82,80 @@
  "panel_parts": [
   {
    "label": "PNL-01",
-   "component": "Top panel MDF veneer 15",
-   "panel_type": "LND-MDF-E2-15-MSF",
+   "component": "Top panel MDF veneer 18",
+   "panel_type": "LND-MDF-E2-18-MSF",
    "l": 450.0,
    "w": 370.0,
-   "t": 15.0,
+   "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "S: 450 #133 (antar frame kiri-kanan), 370 #136 (depan-belakang), tebal 15 #142"
+   "note": "RULE 601 C18 1X (gambar tertulis 15 #142); ukuran 450 #133 x 370 #136"
   },
   {
    "label": "PNL-02",
-   "component": "Side panel MDF veneer 20",
+   "component": "Side panel MDF veneer 18",
    "panel_type": "LND-MDF-E2-18-MSF",
    "l": 455.0,
    "w": 330.0,
    "t": 18.0,
    "qty": 2,
    "exposed_faces": 1,
-   "note": "S: 455 #140, kedalaman 330, tebal TERTULIS 20 (#88/#90), papan terdekat di rate card 18"
+   "note": "RULE 301 C18 1X (gambar tertulis 20 #88); 455 #140 x 330"
   },
   {
    "label": "PNL-03",
-   "component": "Drawer face MDF veneer 20",
-   "panel_type": "LND-MDF-E2-18-MSF",
+   "component": "Back panel plywood 9",
+   "panel_type": "LND-PLY-E2-9-MSF",
+   "l": 510.0,
+   "w": 395.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "RULE 302 B9 1X (gambar tertulis 5 #129); 510 #87 x 395 #144"
+  },
+  {
+   "label": "PNL-04",
+   "component": "Drawer front",
+   "panel_type": "LND-MDF-E2-18-MDF",
    "l": 426.0,
    "w": 209.0,
    "t": 18.0,
    "qty": 2,
-   "exposed_faces": 1,
-   "note": "S: 426 (#79), 209 #30/#32, tebal TERTULIS 20, papan terdekat 18"
-  },
-  {
-   "label": "PNL-04",
-   "component": "Back panel MDF 5",
-   "panel_type": "LND-MDF-E2-6",
-   "l": 510.0,
-   "w": 395.0,
-   "t": 5.0,
-   "qty": 1,
-   "exposed_faces": 0,
-   "note": "S: 510 #87, 395 #144, tebal 5 #129 (papan 6 terdekat); bahan MDF = ASUMSI dari catatan gambar (MDF veneer Mindy)"
+   "exposed_faces": 2,
+   "note": "RULE drawer front MDF 18 2 muka (gambar tertulis 20); 426 x 209 dari tampak depan"
   },
   {
    "label": "PNL-05",
-   "component": "Drawer box side",
+   "component": "Drawer side",
    "panel_type": "LND-PLY-E2-12",
-   "l": 360.0,
-   "w": 160.0,
+   "l": 300.0,
+   "w": 179.0,
    "t": 12.0,
    "qty": 4,
    "exposed_faces": 0,
-   "note": "S: 360 #86, 160 #157, tebal 12 #97"
+   "note": "RULE 402 B12 0X: L=slide 300, H=H_front-30"
   },
   {
    "label": "PNL-06",
    "component": "Drawer box front/back",
    "panel_type": "LND-PLY-E2-12",
-   "l": 380.0,
-   "w": 160.0,
+   "l": 362.0,
+   "w": 179.0,
    "t": 12.0,
    "qty": 4,
    "exposed_faces": 0,
-   "note": "D: 404-2x12=380 (#89,#158), tinggi 160"
+   "note": "RULE 403/404 B12 0X: W=W_front-64, H=H_front-30 (gambar: kotak 404 lebar)"
   },
   {
    "label": "PNL-07",
    "component": "Drawer bottom",
    "panel_type": "LND-PLY-E2-6",
-   "l": 390.0,
-   "w": 346.0,
-   "t": 5.0,
+   "l": 372.0,
+   "w": 293.0,
+   "t": 6.0,
    "qty": 2,
    "exposed_faces": 0,
-   "note": "D: dado 5 #159; 5 mm -> papan 6"
+   "note": "RULE 405 B6 0X: (W-54) x (L-7)"
   }
  ],
  "hardware_parts": [
@@ -167,7 +167,7 @@
    "qty": 2.0,
    "uom": "pair",
    "unit_price": 49610.0,
-   "note": "gambar: ray trượt bi 3 tầng L300 bản rộng 42"
+   "note": "gambar: L300; rule slide fit"
   },
   {
    "item_master_code": "HARDWARE",
