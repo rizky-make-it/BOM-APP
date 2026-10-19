@@ -39,6 +39,8 @@ def get_workbook_rates() -> Dict[str, float]:
             vals = [x for x in r[2:3] if isinstance(x, (int, float))]
             if vals:
                 rates[r[0]] = float(vals[0])
+        elif r[0] == "CURVE_ALLOW" and isinstance(r[2], (int, float)):
+            rates["CURVE_ALLOW"] = float(r[2])
     return rates
 
 def sort_by_part_number(item):
@@ -101,6 +103,13 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, gallery: Dict
             _p.panel_type = to_e2(_p.panel_type)  # ALL panels use explicit E2 codes
             for _msg in check_panel(_p):
                 print(f"[PANEL RULE WARNING] {header_code(spec)} {_p.component}: {_msg}")
+
+        # 0b. Curve rule: rounded corners -> A-CURVED tier, blank = arc + tolerance
+        try:
+            from core.curves import apply_to_spec
+        except ImportError:
+            from bom_app.core.curves import apply_to_spec
+        apply_to_spec(spec, custom_rates.get("CURVE_ALLOW", 0.0))
 
         # 1. Cost calculation
         cost_data = calculate_bom_costing(spec, custom_rates)

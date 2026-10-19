@@ -45,6 +45,11 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
         from bom_app.core.panel_rules import to_e2
     for _p in spec.panel_parts:
         _p.panel_type = to_e2(_p.panel_type)  # ALL panels use explicit E2 codes
+    try:
+        from core.curves import apply_to_spec
+    except ImportError:
+        from bom_app.core.curves import apply_to_spec
+    apply_to_spec(spec, (custom_rates or {}).get("CURVE_ALLOW", 0.0))
     cost_data = calculate_bom_costing(spec, custom_rates)
     header = spec.header
     item_code = header.item_code

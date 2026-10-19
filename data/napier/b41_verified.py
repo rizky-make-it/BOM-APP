@@ -21,6 +21,10 @@ assert N[132] + N[133] + N[134] == N[8], "top 50+450+50"
 assert N[88] + N[87] + N[90] == N[8], "inner 20+510+20"
 
 MT = "MINDI"
+# Rounded corners printed on the drawing (R30 legs, R40 top frame outer corners). Which part carries which R is read from the
+# top/front view; confirm on the drawing. Rule: core/curves.py (A-CURVED + arc + tolerance).
+RADIUS = {"Leg 60x60": 30, "Top frame front": 40, "Top frame rear": 40}
+CORNERS = {"Leg 60x60": 1, "Top frame front": 2, "Top frame rear": 2}
 solid = [
  # label, component, l, w, t, qty, exposed, tier, source note
  ("Leg 60x60", N[116], 60, 60, 4, "Y", "B", "tinggi #116=515, penampang 60 #24/#26"),
@@ -68,7 +72,8 @@ spec = dict(
  header=dict(item_code="LV433-B41", item_name="BEDSIDE 2 DRWS", collection="NAPIER / Bedroom", overall_l=550.0, overall_w=450.0, overall_h=550.0,
              order_qty=1, drawing_link="LV433.B41 - Bedside 2 Drws (1) Model (1).pdf", finish_recipe="NC NATURAL", flatpack_yn="N",
              notes="Layout dari angka vektor bertanda #id (rantai ukur lolos). Ketebalan panel dan kotak laci mengikuti RULES Part Master v3 / v2.3, bukan angka tebal di gambar. Menunggu persetujuan manusia."),
- solid_parts=[dict(label=f"{i} / A", component=c, l=float(l), w=float(w), t=float(t), qty=q, material=MT, exposed=e, curved="N", tier_override=tr, note=n)
+ solid_parts=[dict(label=f"{i} / A", component=c, l=float(l), w=float(w), t=float(t), qty=q, material=MT, exposed=e, curved="N", tier_override=tr, note=n,
+                   radius=float(RADIUS.get(c, 0)), corners=CORNERS.get(c, 1))
               for i, (c, l, w, t, q, e, tr, n) in enumerate(solid, 1)],
  panel_parts=[dict(label=f"PNL-{i:02d}", component=c, panel_type=pt, l=float(l), w=float(w), t=float(t), qty=q, exposed_faces=f, note=n)
               for i, (c, pt, l, w, t, q, f, n) in enumerate(panels, 1)],

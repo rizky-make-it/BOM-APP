@@ -24,7 +24,9 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "tinggi #116=515, penampang 60 #24/#26"
+   "note": "tinggi #116=515, penampang 60 #24/#26",
+   "radius": 30.0,
+   "corners": 1
   },
   {
    "label": "2 / A",
@@ -37,7 +39,9 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "A",
-   "note": "550 #8, lebar 50 #132, tebal 35 #117"
+   "note": "550 #8, lebar 50 #132, tebal 35 #117",
+   "radius": 40.0,
+   "corners": 2
   },
   {
    "label": "3 / A",
@@ -50,7 +54,9 @@
    "exposed": "N",
    "curved": "N",
    "tier_override": "B",
-   "note": "550 #8, lebar 30 #137 (rantai 50+370+30=450), tebal 35"
+   "note": "550 #8, lebar 30 #137 (rantai 50+370+30=450), tebal 35",
+   "radius": 40.0,
+   "corners": 2
   },
   {
    "label": "4 / A",
@@ -63,7 +69,9 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "370 #136, lebar 50 #135, tebal 35"
+   "note": "370 #136, lebar 50 #135, tebal 35",
+   "radius": 0.0,
+   "corners": 1
   },
   {
    "label": "5 / A",
@@ -76,7 +84,9 @@
    "exposed": "N",
    "curved": "N",
    "tier_override": "C",
-   "note": "bukaan 430 #25, tinggi 30 #163, tebal 20 #88; qty 2 (depan+belakang) = ASUMSI jumlah"
+   "note": "bukaan 430 #25, tinggi 30 #163, tebal 20 #88; qty 2 (depan+belakang) = ASUMSI jumlah",
+   "radius": 0.0,
+   "corners": 1
   }
  ],
  "panel_parts": [

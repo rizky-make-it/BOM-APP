@@ -62,6 +62,15 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 
 ---
 
+### H. Bagian Lengkung / Sudut Membulat (dikunci 19 Okt 2026)
+* Callout `R30`, `R38`, `R40` di gambar = radius sudut (mm). Dipasang di spec sebagai `radius` dan `corners` pada bagian kayu solid.
+* Setiap bagian solid dengan radius > 0: **tier otomatis `A-CURVED`** (tarif `MINDI_AC` / `TEAK_AC`, yield 4,6 di rate card).
+* **Blank = ukuran jadi + busur + toleransi.** Busur = jumlah sudut x (pi/2) x R, ditambahkan ke panjang. Toleransi = `RATES!CURVE_ALLOW` (mm), ditambahkan ke panjang dan lebar.
+* `CURVE_ALLOW` **masih kosong** (menunggu angka pabrik, sel oranye); sementara dihitung 0.
+* Bagian METAL hanya diberi penanda (tidak ada tier). Aturan idempoten: `core/curves.py`.
+
+---
+
 ## 2. Format Baku BOM Koleksi (Multi-Item Workbook)
 
 Untuk setiap batch gambar atau koleksi, format output dikunci:

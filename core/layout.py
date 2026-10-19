@@ -58,7 +58,7 @@ def highlight_missing_item_sheet(ws):
 
 def highlight_missing_rates(ws):
     """RATES: a code + description with an empty Value cell."""
-    _rule(ws, "C5:C400", 'AND($A5<>"",$A5<>"code",$B5<>"",$C5="")')
+    _rule(ws, "C5:C400", 'AND($A5<>"",$A5<>"code",$B5<>"",$C5="")')  # incl. CURVE_ALLOW and METAL rows
 
 
 # ---------------------------------------------------------------- slim output (no helper sheets)

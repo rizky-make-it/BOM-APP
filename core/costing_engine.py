@@ -25,7 +25,7 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         v = (part.l * part.w * part.t / 1e9) * part.qty
         f = (part.l * part.w / 1e6) * part.qty if part.exposed == 'Y' else 0.0
         tier = part.tier_override
-        rate_key = f"{part.material}_{tier}"
+        rate_key = f"{part.material}_{tier.replace('-CURVED', 'C')}"  # A-CURVED -> AC
         if part.material == "METAL":
             rate = rates.get(rate_key) or 0.0  # metal rate card still blank -> cost 0 until priced
         else:

@@ -32,8 +32,10 @@ class SolidPart:
     material: str = "MINDI"
     exposed: str = "Y"   # Y / N
     curved: str = "N"    # Y / N
-    tier_override: str = "B" # A, B, C, D
+    tier_override: str = "B" # A, B, C, D, A-CURVED
     note: str = ""
+    radius: float = 0.0   # corner radius mm (R30, R40 ...); 0 = no rounding
+    corners: int = 1      # number of rounded corners on this part
 
 @dataclass
 class PanelPart:
