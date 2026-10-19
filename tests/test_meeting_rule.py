@@ -63,12 +63,12 @@ def test_label_warning_silenced_when_meeting_rule_applied():
     assert not any("implies" in m for m in check_panel(p))      # after: the meeting rule wins, no warning
 
 
-def test_divider_is_plain_plywood():
-    for name, t in (("Centre partition MDF veneer 18", 18), ("Internal dividers", 18), ("Vertical divider/side", 12)):
-        p = PanelPart("/ X", name, f"LND-MDF-E0-{t}-MSF", 100, 100, t, 1, 2)
+def test_divider_veneer_only_on_visible_faces():
+    for faces, suffix in ((0, ""), (1, "-MSF"), (2, "-MDF")):
+        p = PanelPart("/ X", "Internal dividers", "LND-MDF-E0-18-MSF", 100, 100, 18, 1, faces)
         apply_meeting_rule(p)
-        assert p.panel_type == f"LND-PLY-E0-{t}", (name, p.panel_type)
-        assert p.exposed_faces == 0
+        assert p.panel_type == "LND-PLY-E0-18" + suffix, (faces, p.panel_type)
+        assert p.exposed_faces == faces
 
 
 def test_drawer_divider_post_not_treated_as_divider_panel():

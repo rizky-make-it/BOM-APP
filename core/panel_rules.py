@@ -78,7 +78,7 @@ def check_panel(part) -> list[str]:
 # ---------------------------------------------------------------------------------------------
 # MEETING RULE (19 Oct 2026): which board family and how many veneer faces per panel role.
 #   Plywood E0 (furniture grade): drawer box parts (side, front/back, bottom, support), back panel (keeps its faces),
-#   divider/partition = PLAIN (no veneer, Rizky 19 Oct 2026).
+#   divider/partition = plywood with veneer ONLY on the faces that are visible (0/1/2 = exposed_faces), Rizky 19 Oct 2026.
 #   MDF veneer E0:               side panel = 1 face (MSF), door = 2 faces (MDF), drawer face = 1 face (MSF).
 #   Everything else (top, shelves, headboard ...) keeps the family it already has.
 # Thickness is never changed here (thickness follows RULES, see README G). Idempotent.
@@ -127,7 +127,8 @@ def apply_meeting_rule(part):
         faces = int(part.exposed_faces or 0)           # back panel keeps its face count; drawer parts stay raw
         fam = "PLY"
     elif role == "divider":
-        fam, faces = "PLY", 0                          # divider / partition: plywood E0, plain (no veneer)
+        fam = "PLY"                                    # divider / partition: plywood E0, veneer only on VISIBLE faces
+        faces = max(0, min(2, int(part.exposed_faces or 0)))  # exposed_faces = number of visible faces (0 plain, 1 MSF, 2 MDF)
     elif role == "door":
         fam, faces = "MDF", 2
     else:                                              # drawer face and side panel: MDF, 1 face

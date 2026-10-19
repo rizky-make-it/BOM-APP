@@ -122,7 +122,7 @@ python cli.py verify "path/ke/bom.xlsx"
 * **E0 untuk semua plywood dan MDF** (6, 9, 12 mm dan seterusnya). Menggantikan kunci E2.
 * **Material:** MDF dan plywood furniture grade (bukan marine).
 * **Plywood E0:** kotak laci (sisi, depan/belakang, dasar, support), panel belakang.
-* **Sekat / divider / partition: plywood E0 POLOS, tanpa veneer** (keputusan Rizky 19 Okt 2026). "Drawer divider post" (kayu solid) tidak termasuk.
+* **Sekat / divider / partition: plywood E0, veneer HANYA di muka yang terlihat** (0 muka = polos, 1 = MSF, 2 = MDF; jumlahnya = `exposed_faces` di spec; keputusan Rizky 19 Okt 2026). "Drawer divider post" (kayu solid) tidak termasuk.
 * **MDF veneer E0:** panel samping 1 muka (MSF), pintu 2 muka (MDF), muka laci 1 muka (MSF). Atas, rak, headboard dan lainnya tetap seperti spec.
 * Diterapkan otomatis oleh `apply_meeting_rule()` di `core/panel_rules.py` (idempoten, ketebalan tidak diubah, tebal di luar tabel papan hanya diberi tanda). `derive_drawer_box` kini memberi muka laci MDF 18 satu muka.
 * **Harga veneer** memakai perhitungan bagian I.
