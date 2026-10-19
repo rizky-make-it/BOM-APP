@@ -14,12 +14,12 @@ import re
 
 PANEL_GRADE = "E2"  # LOCKED: plywood and MDF are always E2
 BANNED_GRADES = ("E0", "CARB")
-_RATE = re.compile(r"^(?:PLY|LND-PLY-E2|LND-MDF-E2|MDF)-(\d+)(?:-(?:RAW|[MT][SD]F))?$")
+_RATE = re.compile(r"^(?:PLY|LND-PLY-E2|LND-MDF-E2|MDF)-(\d+)(?:-(?:RAW|[MT][SD]F))?(?:-V\d\d)?$")
 _LABEL = re.compile(r"\b([BC])-?(\d+)-?([012])X\b", re.I)
 
 
-_LEGACY_PLY = re.compile(r"^PLY-(\d+)-(RAW|[MT][SD]F)$")
-_LEGACY_MDF = re.compile(r"^MDF-(\d+)-(RAW|MSF|MDF)$")
+_LEGACY_PLY = re.compile(r"^PLY-(\d+)-(RAW|[MT][SD]F)(-V\d\d)?$")
+_LEGACY_MDF = re.compile(r"^MDF-(\d+)-(RAW|MSF|MDF)(-V\d\d)?$")
 
 
 def to_e2(panel_type: str) -> str:
@@ -27,12 +27,12 @@ def to_e2(panel_type: str) -> str:
     PLY-18-RAW -> LND-PLY-E2-18 ; PLY-18-MSF -> LND-PLY-E2-18-MSF ; MDF-9-RAW -> LND-MDF-E2-9."""
     m = _LEGACY_PLY.match(panel_type or "")
     if m:
-        t, s = m.groups()
-        return f"LND-PLY-E2-{t}" if s == "RAW" else f"LND-PLY-E2-{t}-{s}"
+        t, s, v = m.groups()
+        return f"LND-PLY-E2-{t}" if s == "RAW" else f"LND-PLY-E2-{t}-{s}{v or ''}"
     m = _LEGACY_MDF.match(panel_type or "")
     if m:
-        t, s = m.groups()
-        return f"LND-MDF-E2-{t}" if s == "RAW" else f"LND-MDF-E2-{t}-{s}"
+        t, s, v = m.groups()
+        return f"LND-MDF-E2-{t}" if s == "RAW" else f"LND-MDF-E2-{t}-{s}{v or ''}"
     return panel_type
 
 

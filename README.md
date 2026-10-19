@@ -69,6 +69,18 @@ Dihitung otomatis dari ukuran muka laci (**$W_{\text{front}} \times H_{\text{fro
 
 ---
 
+### I. Veneer (dikunci 19 Okt 2026)
+* Harga veneer dihitung dari harga log, yield slicing, dan ongkos vendor, bukan satu angka tetap.
+* **Rumus:** harga kayu per m2 = harga log x tebal / yield efektif; yield efektif = yield slicing x lebar trim / lebar flitch (30% x 150/160 = 28,125%). Ditambah ongkos slicing Rp 12.000 per m2 veneer jadi.
+* **Tiga ketebalan:** 0,6 / 1,0 / 1,2 mm = Rp 18.827 / 23.378 / 25.653 per m2 (cocok dengan pasar 0,6 mm 18-20 ribu).
+* **Per muka papan** (lembar 2440x1220) = (veneer per m2 + lem/lakban Rp 10.424) x luas lembar + tenaga press Rp 57.143: 0,6 mm Rp 144.216; 1,0 mm Rp 157.764; 1,2 mm Rp 164.538.
+* **Standar = 0,6 mm.** Kode `-MSF` / `-MDF` memakai 0,6 mm. Tambah `-V10` atau `-V12` di belakang kode untuk 1,0 atau 1,2 mm (contoh `LND-PLY-E2-18-MSF-V10`).
+* Blok VENEER di sheet RATES (sel biru bisa diedit) dan `config.VENEER` memakai rumus yang sama; `tests/test_veneer.py` memastikan keduanya cocok lewat hitung ulang LibreOffice.
+* Belum pasti (CONFIRM): harga log Rp 3,2 jt (card lama 3 jt), ongkos slicing dihitung per m2 jadi, susut log ke flitch, susut pressing, veneer penyeimbang di papan 1X. Teak belum diubah (masih model lama).
+* Kode panel yang tidak ada di tabel harga sekarang menimbulkan error, tidak lagi diam-diam memakai Rp 215.000.
+
+---
+
 ## 2. Format Baku BOM Koleksi (Multi-Item Workbook)
 
 Untuk setiap batch gambar atau koleksi, format output dikunci:

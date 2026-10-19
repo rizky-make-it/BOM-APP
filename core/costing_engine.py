@@ -60,7 +60,9 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
             int(SHEET_L / (part.w + SHEET_KERF)) * int(SHEET_W / (part.l + SHEET_KERF))
         )
         sheets = part.qty / yield_cut if yield_cut > 0 else 1.0
-        rate = rates.get(part.panel_type, 215000.0)
+        if part.panel_type not in rates:
+            raise KeyError(f"No price for panel type {part.panel_type!r} in the rate table. Add it to RATES / config instead of guessing.")
+        rate = rates[part.panel_type]
 
         # Waste markup threshold logic from RATES!C97 (50%) and RATES!C98 (15%)
         used_area = part.qty * part.l * part.w
