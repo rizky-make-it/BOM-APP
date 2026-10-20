@@ -38,21 +38,31 @@ def line(x1, z1, x2, z2, layer="BOM-BALLOON"):
 
 R_B = 18.0; H_T = 14.0           # balloon radius / text height in drawing units (mm, views are 1:1 in model)
 n_bal = 0
+# Balloon placement without stacking: anchors sorted by height; balloons on two vertical rails (left of the section
+# column x=25560 and right x=26690), each rail a ladder with >= 2.2*R_B spacing, nearest rail by anchor x.
+anchors = []
 for i, row in enumerate(st, 1):
-    for (x, z, fw, fh) in row["faces"][:1]:
-        cx, cz = x + fw / 2, z + fh / 2
-        # balloon offset: up-right of the face, farther for thin faces
-        left = cx < 26100
-        bx = cx - (max(fw / 2, 20) + 45) if left else cx + (max(fw / 2, 20) + 45)
-        bz = cz + (max(fh / 2, 20) + 45) if fh >= fw else cz
-        if fh < 12:  # edge-on panels: leader straight up/down, alternate to avoid stacking
-            bz = cz + 45 + (hash((x, z)) % 3) * 16
+    x, z, fw, fh = row["faces"][0]
+    anchors.append((i, x + fw / 2, z + fh / 2))
+COL_X0, COL_X1 = 25645, 26600
+RAIL = {"L": COL_X0 - 175, "R": COL_X1 + 175}
+STEP = R_B * 2.4
+for side in ("L", "R"):
+    pick = [a_ for a_ in anchors if (a_[1] < (COL_X0 + COL_X1) / 2) == (side == "L")]
+    pick.sort(key=lambda a_: a_[2])
+    placed = []
+    for (i, cx, cz) in pick:
+        bz = cz
+        if placed and bz < placed[-1] + STEP:
+            bz = placed[-1] + STEP
+        placed.append(bz)
+        bx = RAIL[side]
         d = math.hypot(bx - cx, bz - cz) or 1
         ex, ez = bx - (bx - cx) / d * R_B, bz - (bz - cz) / d * R_B
         L += [line(cx, cz, ex, ez), circle(cx, cz, 3), circle(bx, bz, R_B), text(bx, bz, i, H_T, "BOM-BALLOON", True)]
         n_bal += 1
 # part table to the right of the drawing (x > 26700), top at z 4100
-tx, tz = 26800, 4250; rh = 50; cw = [50, 290, 150, 50, 290]; tw = sum(cw)
+tx, tz = 26900, 4250; rh = 50; cw = [50, 290, 150, 50, 290]; tw = sum(cw)
 hdr = ["NO", "LABEL (gambar)", "UKURAN (mm)", "QTY", "PERAN (tebakan, perlu cek)"]
 rows_n = len(st) + 2
 def tl(x1, z1, x2, z2): return line(x1, z1, x2, z2, "BOM-TABLE")
@@ -72,7 +82,7 @@ for i, row in enumerate(st, 1):
         L += [text(xx + 8, tz - (i + 2) * rh + 14, v, 13)]; xx += c
 L += [text(tx, tz - (rows_n + 1) * rh + 10, "UKURAN = bidang berlabel di potongan (STATED).", 13), text(tx, tz - (rows_n + 1) * rh - 12, "PERAN = tebakan (DERIVED), wajib dicek drafter.", 13)]
 # plot MODEL space, front view (UCS X 90 + PLAN), window around the tallboy drawing + table, fit to A3 landscape
-x1, z1, x2, z2 = 25450, 100, 27650, 4400   # tallboy sections + table, stops before the next drawing
+x1, z1, x2, z2 = 25330, 100, 27770, 4420   # tallboy sections + table, stops before the next drawing
 L += ["_.TILEMODE", "1", "_.VPOINT", "0,-1,0", "_.UCS", "_V",
       "_.-PLOT", "_Y", "Model", "DWG To PDF.pc3", C.PAPER_A3, "_M", "_P", "_N", "_W", f"{x1},{z1}", f"{x2},{z2}", "_F", "_C",
       "_Y", ".", "_Y", "_A", out_pdf.replace(chr(92), "/"), "_N", "_Y",
