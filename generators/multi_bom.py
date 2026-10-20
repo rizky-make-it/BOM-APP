@@ -67,7 +67,6 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     ws_items["AD2"] = "=RATES!$C$172"
     
     # Rates from updated GOLDEN_MASTER
-    HOLLOW_WALL_ROW = next(i for i in range(1, wb["RATES"].max_row + 1) if wb["RATES"].cell(i, 1).value == "HOLLOW_WALL")
     custom_rates = get_workbook_rates()
     custom_rates["FX_USD"] = 18040.0
 
@@ -155,7 +154,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
 
         # Populate ITEMS formulas for row_num
         ws_items[f"J{row_num}"] = f"=IF($C{row_num}=\"\",\"\",IF(ISERROR(INDIRECT(\"'\"&$C{row_num}&\"'!C1\")),\"no tab yet\",IF(N(Y{row_num})+N(AA{row_num})=0,\"tab empty\",IF(N(T{row_num})>0,\"check inputs\",\"costed\"))))"
-        ws_items[f"K{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D87\")+INDIRECT(\"'\"&$C{row_num}&\"'!D88\"),\"\"))"
+        ws_items[f"K{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D87\")+INDIRECT(\"'\"&$C{row_num}&\"'!D88\")+INDIRECT(\"'\"&$C{row_num}&\"'!D80\"),\"\"))"
         ws_items[f"L{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D89\"),\"\"))"
         ws_items[f"M{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(SUM(INDIRECT(\"'\"&$C{row_num}&\"'!D90:D93\")),\"\"))"
         ws_items[f"N{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D94\"),\"\"))"
@@ -175,7 +174,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         # Cache values for ITEMS
         fx_val = float(custom_rates.get("FX_USD", 18040.0))
         cached_map[("ITEMS", f"J{row_num}")] = "costed"
-        cached_map[("ITEMS", f"K{row_num}")] = cost_data["timber_cost"] + cost_data["fasteners_cost"]
+        cached_map[("ITEMS", f"K{row_num}")] = cost_data["timber_cost"] + cost_data["fasteners_cost"] + cost_data["metal_cost"]
         cached_map[("ITEMS", f"L{row_num}")] = cost_data["panels_cost"]
         cached_map[("ITEMS", f"M{row_num}")] = cost_data["finishing_total"]
         cached_map[("ITEMS", f"N{row_num}")] = cost_data["hardware_cost"]
@@ -216,9 +215,17 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "D103")] = round(cost_data["unit_cost"] / fx_val, 2)
         cached_map[(item_code, "D104")] = fx_val
 
-        # 6. Solid Wood (Rows 18-42)
+        # 6. Solid Wood (Rows 18-32) and METAL hollow (Rows 35-42, priced per metre)
+        try:
+            from core.hollow import is_metal
+        except ImportError:
+            from bom_app.core.hollow import is_metal
+        wood_parts = [p for p in spec.solid_parts if not is_metal(p.material)]
+        metal_parts = [p for p in spec.solid_parts if is_metal(p.material)]
+        if len(wood_parts) > 15 or len(metal_parts) > 8:
+            raise ValueError(f"{item_code}: {len(wood_parts)} wood parts (max 15) / {len(metal_parts)} metal parts (max 8) do not fit the sheet")
         ws["U17"] = "COST USD\n(system)"
-        for s_idx, (part, calc) in enumerate(zip(spec.solid_parts, cost_data["solid_rows"]), 18):
+        for s_idx, (part, calc) in enumerate(zip(wood_parts, cost_data["solid_rows"]), 18):
             ws[f"A{s_idx}"] = float(s_idx - 17)
             ws[f"B{s_idx}"] = part.material
             ws[f"C{s_idx}"] = part.label
@@ -232,13 +239,6 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"K{s_idx}"] = part.tier_override
             ws[f"L{s_idx}"] = part.note
             ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$172)"
-            if part.material == "METAL":
-                def _look(w):  # price per metre of HOLLOW-<a>x<b>x<wall>
-                    return (f'INDEX(RATES!$C:$C,MATCH("HOLLOW-"&MIN(F{s_idx},G{s_idx})&"x"&MAX(F{s_idx},G{s_idx})&"x"&{w},RATES!$A:$A,0))')
-                _wall = f'SUBSTITUTE(RATES!$C${HOLLOW_WALL_ROW}&"",",",".")'
-                _chain = f'IFERROR({_look(_wall)},IFERROR({_look(chr(34) + "1" + chr(34))},IFERROR({_look(chr(34) + "1.2" + chr(34))},{_look(chr(34) + "1.5" + chr(34))})))'
-                ws[f"S{s_idx}"] = f'=IFERROR({_chain}*1000000/(F{s_idx}*G{s_idx}),"rate?")'
-
             cached_map[(item_code, f"M{s_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{s_idx}")] = calc["face"]
             cached_map[(item_code, f"O{s_idx}")] = calc["tier"]
@@ -247,9 +247,32 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             cached_map[(item_code, f"T{s_idx}")] = calc["cost"]
             cached_map[(item_code, f"U{s_idx}")] = round(calc["cost"] / fx_val, 2)
 
-        for r in range(18 + len(spec.solid_parts), 43):
+        for r in range(18 + len(wood_parts), 33):
             ws[f"A{r}"] = float(r - 17)
             for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "U"]:
+                ws[f"{c_let}{r}"] = None
+
+        for m_idx, (part, calc) in enumerate(zip(metal_parts, cost_data["metal_rows"]), 35):
+            ws[f"A{m_idx}"] = float(m_idx - 34)
+            ws[f"B{m_idx}"] = part.material            # "METAL" or an explicit hollow code
+            ws[f"C{m_idx}"] = part.label
+            ws[f"D{m_idx}"] = part.component
+            ws[f"E{m_idx}"] = part.l
+            ws[f"F{m_idx}"] = part.w
+            ws[f"G{m_idx}"] = part.t
+            ws[f"H{m_idx}"] = part.qty
+            ws[f"I{m_idx}"] = part.exposed
+            ws[f"L{m_idx}"] = part.note
+            cached_map[(item_code, f"M{m_idx}")] = calc["length_m"]
+            cached_map[(item_code, f"N{m_idx}")] = calc["face"]
+            cached_map[(item_code, f"O{m_idx}")] = calc["code"] or "not in list"
+            cached_map[(item_code, f"R{m_idx}")] = calc["check"]
+            cached_map[(item_code, f"S{m_idx}")] = calc["rate"]
+            cached_map[(item_code, f"T{m_idx}")] = calc["cost"]
+            cached_map[(item_code, f"U{m_idx}")] = round(calc["cost"] / fx_val, 2)
+        for r in range(35 + len(metal_parts), 43):
+            ws[f"A{r}"] = float(r - 34)
+            for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "L"]:
                 ws[f"{c_let}{r}"] = None
 
         # 7. Panels (Rows 46-60)
@@ -306,11 +329,11 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
 
         # 8b. Hide unused rows: sheet follows the real component count
         highlight_missing_item_sheet(ws)
-        compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
+        compact_item_sheet(ws, len(wood_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec), n_metal=len(metal_parts))
 
         # 9. Summary Cache Block (D82-D102 + E87-E101 USD)
         ws["E81"] = "COST USD (system)"
-        for r_sum in [87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101]:
+        for r_sum in [80, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101]:
             ws[f"E{r_sum}"] = f"=D{r_sum}/RATES!$C$172"
 
         cached_map[(item_code, "E87")] = round(cost_data["timber_cost"] / fx_val, 2)
@@ -333,6 +356,8 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "D84")] = cost_data["exposed_face_m2"]
         cached_map[(item_code, "D85")] = 1
         cached_map[(item_code, "D86")] = cost_data["carton_m3"]
+        cached_map[(item_code, "D80")] = cost_data["metal_cost"]
+        cached_map[(item_code, "E80")] = round(cost_data["metal_cost"] / fx_val, 2)
         cached_map[(item_code, "D87")] = cost_data["timber_cost"]
         cached_map[(item_code, "D88")] = cost_data["fasteners_cost"]
         cached_map[(item_code, "D89")] = cost_data["panels_cost"]

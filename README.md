@@ -129,9 +129,10 @@ python cli.py verify "path/ke/bom.xlsx"
 * "Select cheapest price" (pilih harga termurah) belum dijelaskan maksudnya; lihat Pertanyaan Terbuka di vault.
 
 
-### K. METAL = besi hollow (dikunci 19 Okt 2026)
-* Komponen bermaterial **METAL** = **besi hollow hitam**. Biaya = panjang (m) x jumlah x harga per meter dari daftar `HOLLOW-<a>x<b>x<tebal dinding>` di sheet RATES (harga batang 6 m / 6). Sisi dipasangkan dari lebar dan tebal komponen, urutan bebas (30x60 = 60x30).
-* **Tebal dinding tidak ada di gambar.** Satu pengaturan untuk semua: `RATES!HOLLOW_WALL`, saat ini **0,8 mm** (sementara, keputusan 19 Okt 2026). Ubah angka ini secara manual, semua biaya metal mengikuti. Bila penampang tidak ada pada dinding itu di daftar supplier (50x50 dan 40x60 mulai dari 1,0 mm), dipakai dinding berikutnya yang tersedia.
-* Penampang yang tidak ada di daftar dihitung Rp 0 dan barisnya berwarna oranye.
-* Sumber harga: `data/prices/besi_hollow_hitam_2026-10-19.json` (297 ukuran, smsperkasa.com). Baris `METAL_A..D` dan `metal_brass/steel` tidak dipakai lagi.
-* Brass (`MT BRASS`, mis. TV unit L31) saat ini ikut dihitung sebagai besi hollow; harga brass sungguhan belum ada.
+### K. METAL = besi hollow, dihitung PER METER di section sendiri (dikunci 19 Okt 2026, section terpisah 20 Okt 2026)
+* Komponen metal punya **section sendiri** di tiap sheet item (judul baris 33, header 34, baris 35-42), terpisah dari SOLID WOOD (baris 18-32). Kolom: MATERIAL / HOLLOW CODE, L, W, T, QTY, EXPOSED, **LENGTH m**, **CODE USED**, CHECK, **RATE IDR/m**, COST. Biaya = panjang (m) x jumlah x harga per meter. Tidak ada lagi tampilan Rp/m3.
+* Kode hollow dipilih di kolom MATERIAL: tulis `HOLLOW-20x20x1.2` (atau `20x20x1.2`) dan penampang + tebal dinding mengikuti kode itu. Tulis `METAL` polos = penampang dari W x T dengan dinding `RATES!HOLLOW_WALL` (0,8 mm; bila tidak ada di daftar dipakai dinding berikutnya). Kode yang tidak ada di daftar: CODE USED = "not in list", CHECK = "hollow code?", baris oranye.
+* Harga per meter = harga batang supplier / 6 m, dari daftar `HOLLOW-<a>x<b>x<tebal>` di RATES (`data/prices/besi_hollow_hitam_2026-10-19.json`, 297 ukuran). Ganti daftar harga = semua BOM ikut.
+* Summary: baris 80 "METAL (hollow, per m)" masuk DIRECT COST dan kolom TIMBER + FASTENERS di ITEMS. **FASTENERS hanya dari m3 kayu solid**; besi tidak lagi ikut dihitung sebagai kayu (dulu ikut, sehingga HPP item bermetal turun sedikit: L02 -Rp 6.910, B02 -Rp 21.853).
+* Section METAL disembunyikan otomatis bila item tidak punya bagian metal. Batas: 15 bagian kayu + 8 bagian metal per item.
+* Brass (`MT BRASS`, mis. TV unit L31) masih dihitung sebagai besi hollow; harga brass sungguhan belum ada.

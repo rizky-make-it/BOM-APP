@@ -15,25 +15,38 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
     rates = {**DEFAULT_RATES, **(custom_rates or {})}
     header = spec.header
 
-    # 1. Solid Wood
+    # 1. Solid Wood (+ METAL hollow priced per metre, reported separately)
+    try:
+        from .hollow import is_metal, price_per_m, resolve_code
+    except (ImportError, ValueError):
+        from core.hollow import is_metal, price_per_m, resolve_code
     tot_solid_vol = 0.0
     tot_solid_face = 0.0
     tot_timber_cost = 0.0
+    tot_metal_cost = 0.0
+    tot_metal_m = 0.0
     solid_calc_rows = []
+    metal_calc_rows = []
 
-    for idx, part in enumerate(spec.solid_parts, 18):
+    wood_row, metal_row = 18, 34
+    for part in spec.solid_parts:
         v = (part.l * part.w * part.t / 1e9) * part.qty
         f = (part.l * part.w / 1e6) * part.qty if part.exposed == 'Y' else 0.0
+        if is_metal(part.material):
+            length_m = part.l / 1000.0 * part.qty
+            rate = price_per_m(rates, part.w, part.t, part.material)      # IDR per metre
+            cost = length_m * rate
+            tot_metal_cost += cost
+            tot_metal_m += length_m
+            tot_solid_face += f
+            metal_calc_rows.append({"row": metal_row, "code": resolve_code(rates, part.material, part.w, part.t),
+                                    "length_m": length_m, "face": (part.l * part.w / 1e6) * part.qty,
+                                    "rate": rate, "cost": cost, "check": "OK" if rate else "hollow code?"})
+            metal_row += 1
+            continue
         tier = part.tier_override
         rate_key = f"{part.material}_{tier.replace('-CURVED', 'C')}"  # A-CURVED -> AC
-        if part.material == "METAL":
-            try:
-                from .hollow import equiv_rate_m3
-            except (ImportError, ValueError):
-                from core.hollow import equiv_rate_m3
-            rate = equiv_rate_m3(rates, part.w, part.t)  # hollow steel: length x price per metre (0 if size not in list)
-        else:
-            rate = rates.get(rate_key, rates.get("MINDI_B", 16465427.66))
+        rate = rates.get(rate_key, rates.get("MINDI_B", 16465427.66))
         cost = v * rate
 
         tot_solid_vol += v
@@ -41,7 +54,7 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         tot_timber_cost += cost
 
         solid_calc_rows.append({
-            "row": idx,
+            "row": wood_row,
             "vol": v,
             "face": (part.l * part.w / 1e6) * part.qty,
             "tier": tier,
@@ -49,6 +62,7 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
             "cost": cost,
             "check": "OK"
         })
+        wood_row += 1
 
     # 2. Panels
     tot_panel_sheets = 0.0
@@ -136,6 +150,7 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
     # 6. Roll-up
     direct_cost = (
         tot_timber_cost +
+        tot_metal_cost +
         fasteners_cost +
         tot_panel_cost +
         tot_finishing_cost +
@@ -153,6 +168,8 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         "carton_m3": box_m3,
         "carton_m2": box_m2,
         "timber_cost": tot_timber_cost,
+        "metal_cost": tot_metal_cost,
+        "metal_m": tot_metal_m,
         "fasteners_cost": fasteners_cost,
         "panels_cost": tot_panel_cost,
         "fin_mat_cost": fin_mat_cost,
@@ -168,6 +185,7 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         "unit_cost": unit_cost,
         "open_checks": 0,
         "solid_rows": solid_calc_rows,
+        "metal_rows": metal_calc_rows,
         "panel_rows": panel_calc_rows,
         "hw_rows": hw_calc_rows
     }

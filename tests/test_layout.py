@@ -30,7 +30,7 @@ def test_missing_price_highlight_rules():
     from core.layout import highlight_missing_item_sheet, highlight_missing_rates
     ws = openpyxl.Workbook().active
     highlight_missing_item_sheet(ws); highlight_missing_rates(ws)
-    assert {str(r.sqref) for r in ws.conditional_formatting} == {"S18:T42", "S46:T60", "S64:T78", "C5:C400"}
+    assert {str(r.sqref) for r in ws.conditional_formatting} == {"S18:T32", "S35:T42", "O35:O42", "S46:T60", "S64:T78", "C5:C400"}
 
 
 def test_strip_helper_sheets_repoints_norms():

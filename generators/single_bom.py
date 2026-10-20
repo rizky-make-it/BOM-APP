@@ -122,8 +122,14 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     cached_map[(item_code, "G5")] = header.spec_link
     cached_map[(item_code, "C7")] = header.notes or f"Koleksi {header.collection} — {header.item_name}"
 
-    # 3. Populate Solid Wood components (Rows 18-42)
-    for idx, (part, calc) in enumerate(zip(spec.solid_parts, cost_data["solid_rows"]), 18):
+    # 3. Solid Wood (Rows 18-32) and METAL hollow per metre (Rows 35-42)
+    try:
+        from core.hollow import is_metal
+    except ImportError:
+        from bom_app.core.hollow import is_metal
+    wood_parts = [p for p in spec.solid_parts if not is_metal(p.material)]
+    metal_parts = [p for p in spec.solid_parts if is_metal(p.material)]
+    for idx, (part, calc) in enumerate(zip(wood_parts, cost_data["solid_rows"]), 18):
         ws[f"A{idx}"] = float(idx - 17)
         ws[f"B{idx}"] = part.material
         ws[f"C{idx}"] = part.label
@@ -136,19 +142,36 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
         ws[f"J{idx}"] = part.curved
         ws[f"K{idx}"] = part.tier_override
         ws[f"L{idx}"] = part.note
-
         cached_map[(item_code, f"M{idx}")] = calc["vol"]
         cached_map[(item_code, f"N{idx}")] = calc["face"]
         cached_map[(item_code, f"O{idx}")] = calc["tier"]
         cached_map[(item_code, f"R{idx}")] = calc["check"]
         cached_map[(item_code, f"S{idx}")] = calc["rate"]
         cached_map[(item_code, f"T{idx}")] = calc["cost"]
-
-    # Clear unused solid wood rows
-    start_clear_solid = 18 + len(spec.solid_parts)
-    for r in range(start_clear_solid, 43):
+    for r in range(18 + len(wood_parts), 33):
         ws[f"A{r}"] = float(r - 17)
         for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]:
+            ws[f"{c_let}{r}"] = None
+    for idx, (part, calc) in enumerate(zip(metal_parts, cost_data["metal_rows"]), 35):
+        ws[f"A{idx}"] = float(idx - 34)
+        ws[f"B{idx}"] = part.material
+        ws[f"C{idx}"] = part.label
+        ws[f"D{idx}"] = part.component
+        ws[f"E{idx}"] = part.l
+        ws[f"F{idx}"] = part.w
+        ws[f"G{idx}"] = part.t
+        ws[f"H{idx}"] = part.qty
+        ws[f"I{idx}"] = part.exposed
+        ws[f"L{idx}"] = part.note
+        cached_map[(item_code, f"M{idx}")] = calc["length_m"]
+        cached_map[(item_code, f"N{idx}")] = calc["face"]
+        cached_map[(item_code, f"O{idx}")] = calc["code"] or "not in list"
+        cached_map[(item_code, f"R{idx}")] = calc["check"]
+        cached_map[(item_code, f"S{idx}")] = calc["rate"]
+        cached_map[(item_code, f"T{idx}")] = calc["cost"]
+    for r in range(35 + len(metal_parts), 43):
+        ws[f"A{r}"] = float(r - 34)
+        for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "L"]:
             ws[f"{c_let}{r}"] = None
 
     # 4. Populate Panels components (Rows 46-60)
@@ -206,7 +229,7 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
         from bom_app.core.layout import compact_item_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
     highlight_missing_item_sheet(ws)
     highlight_missing_rates(wb["RATES"])
-    compact_item_sheet(ws, len(spec.solid_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec))
+    compact_item_sheet(ws, len(wood_parts), len(spec.panel_parts), len(spec.hardware_parts), count_pack_rows(spec), n_metal=len(metal_parts))
 
     # 6. Cache Summary Block (Rows 82-102) in Column D
     cached_map[(item_code, "D82")] = cost_data["solid_vol"]
@@ -214,6 +237,7 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     cached_map[(item_code, "D84")] = cost_data["exposed_face_m2"]
     cached_map[(item_code, "D85")] = 1
     cached_map[(item_code, "D86")] = cost_data["carton_m3"]
+    cached_map[(item_code, "D80")] = cost_data["metal_cost"]
     cached_map[(item_code, "D87")] = cost_data["timber_cost"]
     cached_map[(item_code, "D88")] = cost_data["fasteners_cost"]
     cached_map[(item_code, "D89")] = cost_data["panels_cost"]

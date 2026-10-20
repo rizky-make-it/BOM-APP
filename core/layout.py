@@ -4,7 +4,8 @@ Formulas in hidden rows are kept (they stay blank), so totals and re-use of the 
 To add a component later: unhide the rows (select rows around it > Unhide) and type in the first hidden row.
 """
 
-SOLID_FIRST, SOLID_LAST = 18, 42
+SOLID_FIRST, SOLID_LAST = 18, 32
+METAL_FIRST, METAL_LAST = 35, 42
 PANEL_FIRST, PANEL_LAST = 46, 60
 HW_FIRST, HW_LAST = 64, 78
 PACK_FIRST, PACK_LAST = 11, 14
@@ -18,8 +19,13 @@ def _hide(ws, first, last, used):
         ws.row_dimensions[r].hidden = r >= first + keep
 
 
-def compact_item_sheet(ws, n_solid, n_panel, n_hw, n_pack=1):
+def compact_item_sheet(ws, n_solid, n_panel, n_hw, n_pack=1, n_metal=0):
     _hide(ws, SOLID_FIRST, SOLID_LAST, n_solid)
+    # METAL section (title row 33, header 34): hidden entirely when the item has no metal part
+    for r in (33, 34):
+        ws.row_dimensions[r].hidden = n_metal == 0
+    for r in range(METAL_FIRST, METAL_LAST + 1):
+        ws.row_dimensions[r].hidden = n_metal == 0 or r >= METAL_FIRST + max(n_metal, 1)
     _hide(ws, PANEL_FIRST, PANEL_LAST, n_panel)
     _hide(ws, HW_FIRST, HW_LAST, n_hw)
     _hide(ws, PACK_FIRST, PACK_LAST, n_pack)
@@ -51,7 +57,9 @@ def _rule(ws, rng, formula):
 
 def highlight_missing_item_sheet(ws):
     """Orange when a used line has no price yet (blank, 0 or 'rate?')."""
-    _rule(ws, "S18:T42", 'AND($E18<>"",OR(S18="",S18=0,S18="rate?"))')    # solid wood rate / cost
+    _rule(ws, "S18:T32", 'AND($E18<>"",OR(S18="",S18=0,S18="rate?"))')    # solid wood rate / cost
+    _rule(ws, "S35:T42", 'AND($E35<>"",OR(S35="",S35=0,S35="rate?"))')    # metal IDR/m / cost
+    _rule(ws, "O35:O42", 'AND($E35<>"",O35="not in list")')              # hollow code not priced
     _rule(ws, "S46:T60", 'AND($E46<>"",OR(S46="",S46=0,S46="rate?"))')    # panels
     _rule(ws, "S64:T78", 'AND($D64<>"",OR(S64="",S64=0))')                # hardware unit price / line total
 
