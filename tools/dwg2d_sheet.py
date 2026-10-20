@@ -52,7 +52,7 @@ for i, row in enumerate(st, 1):
         L += [line(cx, cz, ex, ez), circle(cx, cz, 3), circle(bx, bz, R_B), text(bx, bz, i, H_T, "BOM-BALLOON", True)]
         n_bal += 1
 # part table to the right of the drawing (x > 26700), top at z 4100
-tx, tz = 26800, 4250; rh = 50; cw = [70, 400, 190, 70, 560]; tw = sum(cw)
+tx, tz = 26800, 4250; rh = 50; cw = [50, 290, 150, 50, 290]; tw = sum(cw)
 hdr = ["NO", "LABEL (gambar)", "UKURAN (mm)", "QTY", "PERAN (tebakan, perlu cek)"]
 rows_n = len(st) + 2
 def tl(x1, z1, x2, z2): return line(x1, z1, x2, z2, "BOM-TABLE")
@@ -61,20 +61,20 @@ L += [tl(tx, tz - rh * k, tx + tw, tz - rh * k) for k in range(1, rows_n)]
 xx = tx
 for c in cw[:-1]:
     xx += c; L += [tl(xx, tz - rh, xx, tz - rh * rows_n)]
-L += [text(tx + 12, tz - rh + 14, "PART LIST (dari gambar 2D drafter: label + ukuran STATED)", 20)]
+L += [text(tx + 8, tz - rh + 14, "PART LIST (label + ukuran dari gambar 2D)", 16)]
 xx = tx
 for c, h in zip(cw, hdr):
-    L += [text(xx + 10, tz - 2 * rh + 14, h, 17)]; xx += c
+    L += [text(xx + 8, tz - 2 * rh + 14, h, 13)]; xx += c
 for i, row in enumerate(st, 1):
-    vals = [str(i), row["label"], f"{row['long']} x {row['short']}", str(row["n"]), row["role"][:44]]
+    vals = [str(i), row["label"][:22], f"{row['long']} x {row['short']}", str(row["n"]), row["role"][:26]]
     xx = tx
     for c, v in zip(cw, vals):
-        L += [text(xx + 10, tz - (i + 2) * rh + 14, v, 17)]; xx += c
-L += [text(tx, tz - (rows_n + 1) * rh + 10, "UKURAN = ukuran bidang yang dilabeli drafter di tampak/potongan (STATED). PERAN = tebakan dari label+ukuran (DERIVED). Kotak laci: rumus pabrik.", 15)]
+        L += [text(xx + 8, tz - (i + 2) * rh + 14, v, 13)]; xx += c
+L += [text(tx, tz - (rows_n + 1) * rh + 10, "UKURAN = bidang berlabel di potongan (STATED).", 13), text(tx, tz - (rows_n + 1) * rh - 12, "PERAN = tebakan (DERIVED), wajib dicek drafter.", 13)]
 # plot MODEL space, front view (UCS X 90 + PLAN), window around the tallboy drawing + table, fit to A3 landscape
-x1, z1, x2, z2 = 25400, 300, 28300, 4300
+x1, z1, x2, z2 = 25450, 100, 27650, 4400   # tallboy sections + table, stops before the next drawing
 L += ["_.TILEMODE", "1", "_.VPOINT", "0,-1,0", "_.UCS", "_V",
-      "_.-PLOT", "_Y", "Model", "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", f"{x1},{z1}", f"{x2},{z2}", "_F", "_C",
+      "_.-PLOT", "_Y", "Model", "DWG To PDF.pc3", C.PAPER_A3, "_M", "_P", "_N", "_W", f"{x1},{z1}", f"{x2},{z2}", "_F", "_C",
       "_Y", ".", "_Y", "_A", out_pdf.replace(chr(92), "/"), "_N", "_Y",
       "_.UCS", "_W", "_.SAVEAS", "2018", out_dwg.replace(chr(92), "/")]
 ok, log, why = C.run(src, L, timeout=240, workdir=w)
