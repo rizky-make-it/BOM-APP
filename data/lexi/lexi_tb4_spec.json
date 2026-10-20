@@ -1,0 +1,199 @@
+{
+ "header": {
+  "item_code": "LEXI-TB4",
+  "item_name": "4 DRAWER TALLBOY",
+  "collection": "LEXI / Bedroom",
+  "overall_l": 950.0,
+  "overall_w": 450.0,
+  "overall_h": 1100.0,
+  "order_qty": 1,
+  "drawing_link": "lexi 3.dwg (layout '4 dw tallboy'; model SECTION A/B/C x 25645-26600)",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Item code LEXI-TB4 dan koleksi LEXI sementara (tidak ada di gambar): CONFIRM. Tinggi 1100 = kaki 1060 + top 20 + ... : CONFIRM."
+ },
+ "solid_parts": [
+  {
+   "label": "3 / A",
+   "component": "LEG",
+   "l": 1060.0,
+   "w": 40.0,
+   "t": 40.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "A",
+   "note": "STATED: solid wood mindi 40x40, L 1060 (satu tiang terbaca 1040: kaki 1040 vs 1060, dipakai 1060)"
+  },
+  {
+   "label": "15 / A",
+   "component": "SIDE RAIL",
+   "l": 392.0,
+   "w": 40.0,
+   "t": 40.0,
+   "qty": 6,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "STATED: 392 x 40 x 40 x6 (rel samping antar kaki, 3 per sisi)"
+  },
+  {
+   "label": "14 / A",
+   "component": "FRONT RAIL",
+   "l": 870.0,
+   "w": 40.0,
+   "t": 20.0,
+   "qty": 5,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "DERIVED: rel depan antar laci = bukaan 870 (STATED) x 40 x 20; 5 rel untuk 4 laci (jumlah rel depan 5 dan penampang 40x20)"
+  },
+  {
+   "label": "16 / A",
+   "component": "BACK RAIL",
+   "l": 370.0,
+   "w": 40.0,
+   "t": 25.0,
+   "qty": 3,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "STATED: 370 x 40 x 25 x3 (penampang 40x25 terbaca di potongan)"
+  },
+  {
+   "label": "1 / A",
+   "component": "BOTTOM STRETCHER FRONT / BACK",
+   "l": 870.0,
+   "w": 20.0,
+   "t": 40.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "STATED: 870 x 20 di bawah laci terbawah"
+  },
+  {
+   "label": "6 / A",
+   "component": "FRONT DRAWER (solid)",
+   "l": 870.0,
+   "w": 295.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "STATED: muka laci solid wood mindi 870 x 295; tebal 20 tebal muka laci solid 20 (gambar tidak tegas). RULES untuk muka laci MDF tidak dipakai karena gambar menyatakan SOLID WOOD"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "20 / C-18-1X",
+   "component": "TOP PANEL",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 950.0,
+   "w": 450.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "STATED 950 x 450 x 20 veneer mindi 1F; RULES: MDF veneer E0 18 mm 1 muka (tebal gambar 20 diabaikan)"
+  },
+  {
+   "label": "13 / C-18-1X",
+   "component": "SIDE PANEL",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 1020.0,
+   "w": 370.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "STATED tebal 20 veneer 1F, kedalaman 745? (dua angka: 745 dan 450): side panel dipakai (1060-40) x (450-80)=370 lebar antar kaki; angka 745 di gambar belum dipahami; RULES: MDF veneer E0 18 1 muka"
+  },
+  {
+   "label": "12 / B-9-1X",
+   "component": "BACK PANEL",
+   "panel_type": "LND-PLY-E0-9-MSF",
+   "l": 870.0,
+   "w": 1020.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "STATED 9 mm veneer 1F; lebar = bukaan 870 (DERIVED), tinggi 1020 (DERIVED, antar rel atas-bawah); RULES: ply E0 9 veneer 1 muka"
+  },
+  {
+   "label": "8 / B-12-0X",
+   "component": "SIDE DRAWER",
+   "panel_type": "PLY-12-RAW",
+   "l": 350.0,
+   "w": 320.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "DERIVED derive_drawer_box(870 x 350, case 450): Rumus Pabrik Paten: D (350.0mm) x (H - 30mm=320.0mm) | gambar: dinding laci ply 12 h 109 (L 816 / 326), dasar ply 6 (824 / 335), kedalaman 415-421"
+  },
+  {
+   "label": "7 / B-12-0X",
+   "component": "DRAWER BOX FRONT/BACK",
+   "panel_type": "PLY-12-RAW",
+   "l": 806.0,
+   "w": 320.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "DERIVED derive_drawer_box(870 x 350, case 450): Rumus Pabrik Paten: (W-64=806.0mm) x (H-30=320.0mm) | gambar: dinding laci ply 12 h 109 (L 816 / 326), dasar ply 6 (824 / 335), kedalaman 415-421"
+  },
+  {
+   "label": "10 / B-6-0X",
+   "component": "DRAWER BASE",
+   "panel_type": "PLY-6-RAW",
+   "l": 816.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": "DERIVED derive_drawer_box(870 x 350, case 450): Role M | Dado 5mm: (W-54=816.0mm) x (D - 7=343.0mm) | gambar: dinding laci ply 12 h 109 (L 816 / 326), dasar ply 6 (824 / 335), kedalaman 415-421"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "D2 / DTC-14",
+   "description": "DRAWER RAIL DTC 14\" (356 MM) soft close",
+   "vendor": "Sukey / DTC",
+   "qty": 4.0,
+   "uom": "set",
+   "unit_price": 61396.2,
+   "note": "DERIVED: 4 laci x 1 set; panjang rel 14\" dari glide standar kedalaman 450 (rel laci 14 inch); harga dari item Sienna B61"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HNDL",
+   "description": "Handle laci",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pcs",
+   "unit_price": 0.0,
+   "note": "handle tidak terlihat di gambar: qty 4, harga kosong"
+  }
+ ],
+ "_provenance": {
+  "source": "lexi 3.dwg (drafter 2D)",
+  "method": "tools/dwg2d_labels.py + dwg2d_statement.py -> this builder",
+  "stated_rows": 22,
+  "assumed": [
+   "Item code LEXI-TB4 dan koleksi LEXI sementara (tidak ada di gambar): CONFIRM. Tinggi 1100 = kaki 1060 + top 20 + ... : CONFIRM.",
+   "kaki 1040 vs 1060, dipakai 1060",
+   "jumlah rel depan 5 dan penampang 40x20",
+   "tebal muka laci solid 20 (gambar tidak tegas)",
+   "side panel dipakai (1060-40) x (450-80)=370 lebar antar kaki; angka 745 di gambar belum dipahami",
+   "rel laci 14 inch",
+   "handle tidak terlihat di gambar: qty 4, harga kosong"
+  ]
+ }
+}
