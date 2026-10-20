@@ -74,12 +74,9 @@ def script(out_dwt):
     x0, y0, x1, y1 = FRAME
     L += ["_.PLINE", f"{x0},{y0}", f"{x1},{y0}", f"{x1},{y1}", f"{x0},{y1}", "_C"]
     L += ["_.-INSERT", "TB_TALA", f"{x0},{y0}", "1", "1", "0"] + ["-"] * 12
-    # viewports (named by XDATA-free trick: we store the name in the layer? no: order is fixed FRONT, SIDE, TOP, ISO; filler finds by center)
-    L += ["_.-LAYER", "_S", "SHEET-VPORT", ""]
-    for nm, (cx, cy, w, h) in VP.items():
-        L += ["_.-VPORTS", f"{cx - w/2},{cy - h/2}", f"{cx + w/2},{cy + h/2}"]
-        L += ['(setq d (entget (entlast))) (entmod (subst (cons 68 0) (assoc 68 d) d))']   # off; the filler turns it on
-        L += ["_.-LAYER", "_S", "SHEET-TEXT", "", "_.-TEXT", "_J", "_C", f"{cx},{cy - h/2 - 6}", "3.2", "0", {"FRONT": "TAMPAK DEPAN", "SIDE": "TAMPAK SAMPING", "TOP": "TAMPAK ATAS", "ISO": "3D VIEW"}[nm], "_.-LAYER", "_S", "SHEET-VPORT", ""]
+    # no fixed viewports: accoreconsole cannot aim paper-space viewports, the filler draws projections itself
+    L += ["_.-LINETYPE", "_L", "HIDDEN", "acadiso.lin", "", "LTSCALE", "1", "PSLTSCALE", "1"]
+    L += ["_.-LAYER", "_M", "PART-HIDDEN", "_C", "8", "PART-HIDDEN", "_L", "HIDDEN", "PART-HIDDEN", ""]
     L += ["_.-LAYER", "_S", "0", "", "_.PSPACE"]
     L += ["_.SAVEAS", "_T", out_dwt.replace("\\", "/"), "_M", "Tala shop drawing template A3"]
     return L
