@@ -155,6 +155,17 @@ def main():
         if thin:
             f = thin[0]; it.update(x=f[0], z=f[1], w=f[2], h=f[3], edge=True)
     used = set()
+    def pos_name(A):
+        """part_no from thickness + where the labelled face sits in its view (0 = undecided)"""
+        t = A["t"]; v = views[A["vi"]]; vw = v["x1"] - v["x0"]; vh = v["z1"] - v["z0"]
+        spans_w = A["w"] >= 0.8 * vw; full_h = A["h"] >= 0.8 * vh; standing = A["h"] > A["w"]
+        if t <= 6: return 405                                          # drawer base
+        if t == 12 and A["code"].endswith("0X"): return 402 if standing else 404   # drawer box side (standing) / front-back
+        if t == 12 and A["code"].endswith("1X"): return 308 if spans_w else 310    # shelf / fixed horizontal panel
+        if t == 9: return 302 if (standing and full_h) or spans_w else 401          # back panel / drawer front (9 mm veneer)
+        if t >= 18: return 601 if spans_w and A["z"] + A["h"] >= v["z1"] - 30 else (308 if spans_w else 401)
+        return 0
+
     for i, A in enumerate(items):
         if i in used or A["edge"] is False: continue
         for j, B in enumerate(items):
@@ -163,7 +174,7 @@ def main():
                 la, lb = max(A["w"], A["h"]), max(B["w"], B["h"])
                 if A["h"] > A["w"]:                       # vertical edges: the two spacings give L & W? use their lengths as height
                     continue
-                comps.append(dict(no=0, name="?", l=max(la, lb), w=min(la, lb), t=A["t"], qty=1, code=A["code"], status="STATED",
+                comps.append(dict(no=pos_name(A), name="?", l=max(la, lb), w=min(la, lb), t=A["t"], qty=1, code=A["code"], status="STATED",
                                   note=f"tepi {la} di tampak {A['vi']} + tepi {lb} di tampak {B['vi']} pada baris tinggi yang sama", src="pair"))
                 used.update((i, j)); break
     # vertical edges (panels standing): pair copies in one view = same part, count; height = h; length from matching horizontal edge in another view at same z-row
@@ -173,19 +184,20 @@ def main():
         # width from a horizontal edge of same code & z-row in any view
         horiz = [B for j, B in enumerate(items) if B["edge"] and B["code"] == A["code"] and B["w"] > B["h"] and abs(B["z"] - A["z"]) <= A["h"] + 10]
         Wd = max((B["w"] for B in horiz), default=0)
-        comps.append(dict(no=0, name="?", l=max(A["h"], Wd), w=min(A["h"], Wd), t=A["t"], qty=len(twins), code=A["code"], status="STATED" if Wd else "CHECK",
+        comps.append(dict(no=pos_name(A), name="?", l=max(A["h"], Wd), w=min(A["h"], Wd), t=A["t"], qty=len(twins), code=A["code"], status="STATED" if Wd else "CHECK",
                           note=f"panel tegak tinggi {A['h']}, {len(twins)} buah pada baris tinggi yang sama" + (f"; lebar {Wd} dari tepi datar" if Wd else "; lebar belum terbaca"), src="pair"))
         used.update(twins)
     for i, A in enumerate(items):
         if i in used: continue
         used.add(i)
         if A["edge"]:
-            comps.append(dict(no=0, name="?", l=max(A["w"], A["h"]), w=0, t=A["t"], qty=1, code=A["code"], status="CHECK", note=f"hanya tepi {max(A['w'], A['h'])} x t{A['t']} (tampak {A['vi']})", src="label"))
+            comps.append(dict(no=pos_name(A), name="?", l=max(A["w"], A["h"]), w=0, t=A["t"], qty=1, code=A["code"], status="CHECK", note=f"hanya tepi {max(A['w'], A['h'])} x t{A['t']} (tampak {A['vi']})", src="label"))
         else:
-            comps.append(dict(no=0, name="?", l=max(A["w"], A["h"]), w=min(A["w"], A["h"]), t=A["t"], qty=1, code=A["code"], status="STATED", note=f"bidang berlabel {A['w']} x {A['h']}", src="label"))
+            comps.append(dict(no=pos_name(A), name="?", l=max(A["w"], A["h"]), w=min(A["w"], A["h"]), t=A["t"], qty=1, code=A["code"], status="STATED", note=f"bidang berlabel {A['w']} x {A['h']}", src="label"))
     # names by part-list rule (thickness + shape); 0 = needs a human
     for c in comps:
-        if c["no"]: continue
+        if c["no"]:
+            c["name"] = PARTS.get(c["no"], c["name"]); continue
         t, L_, W_ = c["t"], c["l"], c["w"]
         if t <= 6 and W_: c["no"] = 405
         elif t == 12 and c["code"].endswith("0X") and W_ and W_ <= 250: c["no"] = 402 if L_ >= 400 else 404
@@ -235,8 +247,10 @@ def main():
         except Exception: continue
         if tip is None: continue
         try:
-            lp = e.context.leaders[0].last_leader_point; land = (lp.x, lp.z); th = float(e.context.char_height) * float(e.dxf.scale or 1)
+            ld0 = e.context.leaders[0]; lp = ld0.last_leader_point; th = float(e.context.char_height) * float(e.dxf.scale or 1)
             ins = e.context.mtext.insert; tx_dir = 1 if ins.x >= lp.x else -1
+            dl = float(ld0.dogleg_length) if ld0.has_dogleg_vector else 0.0
+            land = (lp.x + tx_dir * dl, lp.z)          # end of the dogleg = where the drafter's text sat
         except Exception:
             land, th, tx_dir = (tip.x, tip.z), 15.0, 1
         pt = (tip.x, tip.z)
@@ -256,7 +270,7 @@ def main():
     w_ = tempfile.mkdtemp(prefix="cmp_"); src = os.path.join(w_, "src.dwg"); shutil.copy(a.dwg, src)
     L = ["FILEDIA", "0", "CMDECHO", "0", "EXPERT", "5", "_.-LAYER", "_M", "BOM-NO", "_C", "5", "BOM-NO", "", "(setq okn 0 failn 0)"]
     def kn_box(x, z, n, h, dirx):
-        side = 2.2 * h; cx = x + dirx * (side / 2 + 0.3 * h); cz = z
+        side = 2.2 * h; cx = x + dirx * (side / 2); cz = z
         x0, x1, z0, z1 = cx - side / 2, cx + side / 2, cz - side / 2, cz + side / 2
         ex = "(cons 210 (list 0.0 -1.0 0.0))"
         box = f'(entmake (list (cons 0 "LWPOLYLINE") (cons 100 "AcDbEntity") (cons 8 "BOM-NO") (cons 100 "AcDbPolyline") (cons 90 4) (cons 70 1) (cons 43 {0.08 * h:.2f}) (cons 10 (list {x0:.2f} {z0:.2f})) (cons 10 (list {x1:.2f} {z0:.2f})) (cons 10 (list {x1:.2f} {z1:.2f})) (cons 10 (list {x0:.2f} {z1:.2f})) {ex}))'
@@ -286,7 +300,7 @@ def main():
         L += ["_.-LAYOUT", "_N", TL, f'(setvar "CTAB" "{TL}")', "_.PSPACE"]
         kk = 1.0
         tx, ty = 15.0, 258.0
-        rh = 7.0; cw = [20, 84, 40, 12, 30, 24, 180]; tw = sum(cw); rn = len(comps) + 2; by = ty - rh * rn
+        rh = 7.0; cw = [16, 84, 40, 12, 34, 24, 180]; tw = sum(cw); rn = len(comps) + 2; by = ty - rh * rn
         def pl(x1, y1, x2, y2): return f'(entmake (list (cons 0 "LINE") (cons 8 "BOM-NO") (cons 10 (list {x1:.3f} {y1:.3f} 0)) (cons 11 (list {x2:.3f} {y2:.3f} 0))))'
         def pt(x, y, s_, h=3.2): return f'(entmake (list (cons 0 "TEXT") (cons 8 "BOM-NO") (cons 10 (list {x:.3f} {y:.3f} 0)) (cons 40 {h:.3f}) (cons 1 "{str(s_).replace(chr(34), chr(39))}")))'
         # sheet frame + title block (architect style): frame 10 mm margin, title strip at the bottom
