@@ -1,18 +1,19 @@
-"""Visible faces of a divider / partition (Rizky, 20 Oct 2026: "yang terlihat veneer, yang tidak terlihat polos").
+"""Exposed faces of a divider / partition (Rizky, 20 Oct 2026).
 
-Input is the 3D position of every part as an axis-aligned box (from the DWG/STEP reader). Output = how many of the
-divider's two large faces are VISIBLE; that number goes into PanelPart.exposed_faces (0 plain, 1 MSF, 2 MDF).
+RULE: a face is EXPOSED if a person's hand can touch it while the furniture is in use. Doors and drawers are
+opened/pulled in use, so they never hide what is behind them (they are `movable` and ignored as obstacles).
+Not exposed: a face glued against another fixed part, or a cavity closed on every side by fixed parts.
 
-Logic, per face (sampled on a 5 x 5 grid; a face counts as visible when >= 50 % of the samples are visible):
-  1. Cast a ray from the sample point straight out of the face.
-       - hits nothing                      -> VISIBLE (open to the room)
-       - hits a part at <= 1.5 mm          -> HIDDEN  (glued against another part)
-  2. Otherwise the point looks into a bay (gap) of depth d. The bay is VISIBLE only if it is open somewhere: a ray from
-     the middle of the bay, sent sideways (4 directions), escapes without hitting a part. A bay closed on all sides
-     (by side panels, back, top, bottom, a closed door or a drawer front) is HIDDEN.
-Closed doors and drawer fronts are just parts in the way, so they hide what is behind them. This is an ASSUMPTION
-(a bay behind a closed door counts as hidden); change DOOR_HIDES_BAY handling by removing door boxes from `others`.
+Input is every part as an axis-aligned box (from the DWG/STEP reader). Output = how many of the divider's two large
+faces are exposed (0 plain, 1 MSF, 2 MDF) -> PanelPart.exposed_faces.
+
+Per face (5 x 5 sample grid; the face counts as exposed when >= 50 % of the samples are reachable):
+  1. Ray straight out of the face: hits nothing                  -> reachable
+  2. hits a fixed part at <= 1.5 mm (glued)                      -> not reachable
+  3. otherwise the point looks into a gap: reachable only if the gap is open somewhere (a sideways ray from the
+     middle of the gap escapes through fixed parts) = a hand can get in.
 """
+import re
 from dataclasses import dataclass
 from typing import Dict, Iterable, List, Sequence, Tuple
 
@@ -27,9 +28,11 @@ class Box:
     name: str
     lo: Tuple[float, float, float]
     hi: Tuple[float, float, float]
+    movable: bool = False     # door / drawer: opened in use, so it never hides anything
+
 
     def size(self) -> Tuple[float, float, float]:
-        return tuple(h - l for l, h in zip(self.lo, self.hi))
+        return (self.hi[0] - self.lo[0], self.hi[1] - self.lo[1], self.hi[2] - self.lo[2])
 
 
 def _hit(origin: Sequence[float], axis: int, sign: int, boxes: Iterable[Box], eps: float = 0.01):
@@ -51,8 +54,17 @@ def _hit(origin: Sequence[float], axis: int, sign: int, boxes: Iterable[Box], ep
     return best
 
 
+MOVABLE_NAME = re.compile(r"\b(door|drawer)\b", re.I)
+
+
+def is_movable(name: str) -> bool:
+    """Door and drawer parts (front, box, sides) are opened in use."""
+    return bool(MOVABLE_NAME.search(name or ""))
+
+
 def face_visibility(divider: Box, others: Sequence[Box]) -> Dict[str, object]:
-    """Share (0..1) of each large face that is visible. `others` must not contain the divider itself."""
+    """Share (0..1) of each large face a hand can reach. Movable parts (doors, drawers) are ignored as obstacles."""
+    others = [b for b in others if not (b.movable or is_movable(b.name))]
     sz = divider.size()
     n = min(AXES, key=lambda k: sz[k])                 # thin axis = face normal
     u, v = [k for k in AXES if k != n]
@@ -83,4 +95,4 @@ def face_visibility(divider: Box, others: Sequence[Box]) -> Dict[str, object]:
 def visible_face_count(divider: Box, others: Sequence[Box]) -> int:
     """0, 1 or 2: number of large faces that are visible. Goes into PanelPart.exposed_faces."""
     r = face_visibility(divider, [b for b in others if b is not divider and b.name != divider.name])
-    return int(r["share_plus"] >= VISIBLE_SHARE) + int(r["share_minus"] >= VISIBLE_SHARE)
+    return int(float(r["share_plus"]) >= VISIBLE_SHARE) + int(float(r["share_minus"]) >= VISIBLE_SHARE)

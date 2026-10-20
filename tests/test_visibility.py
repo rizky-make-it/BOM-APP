@@ -25,8 +25,14 @@ def test_open_unit_divider_is_visible_on_both_faces():
     assert visible_face_count(d, parts) == 2
 
 
-def test_closed_doors_hide_the_divider():
-    d, parts = unit(with_doors=True)
+def test_doors_open_in_use_so_divider_stays_exposed():
+    d, parts = unit(with_doors=True)          # doors named "door L/R" are movable
+    assert visible_face_count(d, parts) == 2
+
+
+def test_fixed_fascia_in_front_hides_the_divider():
+    d, parts = unit()
+    parts.append(B("fixed fascia", 20, 980, -18, 0, 20, 680))     # not a door, cannot be opened
     assert visible_face_count(d, parts) == 0
 
 
@@ -40,8 +46,7 @@ def test_face_glued_to_another_panel_is_hidden():
 
 def test_one_bay_closed_other_open():
     d, parts = unit()
-    parts.append(B("door only left", 20, 490, -18, 0, 20, 680))
-    # left bay: front closed by the door, but open? sides/top/bottom/back are closed -> hidden; right bay open
+    parts.append(B("fixed fascia left", 20, 490, -18, 0, 20, 680))   # closes the left bay for good
     assert visible_face_count(d, parts) == 1
 
 
