@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import acad_core as C
 import dwg2d_read as D2
 
-R_B, H_T = 22.0, 17.0
+R_B, H_T = 24.0, 18.0
 
 
 def ocs(x, z):
@@ -48,7 +48,7 @@ def main():
     PADX, PADZ = 260, 220
     rail_l, rail_r = x0 - 150, x1 + 150
     L = ["FILEDIA", "0", "CMDECHO", "0", "EXPERT", "5",
-         "_.-LAYER", "_M", "BOM-BALLOON", "_C", "1", "BOM-BALLOON", "", "_.-LAYER", "_M", "BOM-TABLE", "_C", "7", "BOM-TABLE", ""]
+         "_.-LAYER", "_M", "BOM-BALLOON", "_C", "5", "BOM-BALLOON", "", "_.-LAYER", "_LW", "0.5", "BOM-BALLOON", "", "_.-LAYER", "_M", "BOM-TABLE", "_C", "7", "BOM-TABLE", ""]
     # balloons: one per face. Faces are clustered into VIEWS (gap > 120 mm in x or z); each view gets its own
     # left/right rails so leaders stay short and never cross another view.
     anchors = []
@@ -74,20 +74,40 @@ def main():
                     views.pop(j_); merged = True; break
             if merged: break
     balloons = []
+    dim_pts = res.get("dim_pts", [])
     for v in views:
+        # rails sit OUTSIDE the drafter's dimensions of this view
+        inview = [p for p in dim_pts if v["x0"] - 260 <= p[0] <= v["x1"] + 260 and v["z0"] - 160 <= p[1] <= v["z1"] + 160]
+        dx0 = min([p[0] for p in inview] + [v["x0"]]); dx1 = max([p[0] for p in inview] + [v["x1"]])
+        # never let a rail reach into a neighbouring view
+        others = [o for o in views if o is not v]
+        left_lim = max([o["x1"] + 60 for o in others if o["x1"] < v["x0"] and not (o["z1"] < v["z0"] or o["z0"] > v["z1"])] + [-1e9])
+        right_lim = min([o["x0"] - 60 for o in others if o["x0"] > v["x1"] and not (o["z1"] < v["z0"] or o["z0"] > v["z1"])] + [1e9])
+        dx0 = max(dx0, left_lim + 70); dx1 = min(dx1, right_lim - 70)
+        dx1 = max(dx1, v["x1"] + 60); dx0 = min(dx0, v["x0"] - 60)
         vm = (v["x0"] + v["x1"]) / 2
-        for side, rail in (("L", v["x0"] - 150), ("R", v["x1"] + 150)):
-            pick = sorted([t for t in v["a"] if (t[1] < vm) == (side == "L")], key=lambda t: t[2])
+        # ONE balloon per part number per view: pick the face nearest the rail side it will go to
+        per_no = {}
+        for t in v["a"]:
+            side = "L" if t[1] < vm else "R"
+            key = (t[0], side)
+            if key not in per_no or (side == "L" and t[3] < per_no[key][3]) or (side == "R" and t[5] > per_no[key][5]):
+                per_no[key] = t
+        for side, rail in (("L", dx0 - 60), ("R", dx1 + 60)):
+            pick = sorted([t for (no, sd), t in per_no.items() if sd == side], key=lambda t: t[2])
             last = None
-            for (i, cx, cz, *_r) in pick:
-                bz = cz if last is None or cz >= last + R_B * 2.6 else last + R_B * 2.6
+            for (i, cx, cz, fx0, fz0, fx1, fz1) in pick:
+                ax_ = fx0 if side == "L" else fx1          # anchor on the face edge facing the rail: no crossing
+                az_ = cz
+                bz = az_ if last is None or az_ >= last + R_B * 2.8 else last + R_B * 2.8
                 last = bz
-                d = math.hypot(rail - cx, bz - cz) or 1
-                ex, ez = rail - (rail - cx) / d * R_B, bz - (bz - cz) / d * R_B
-                L += [line(cx, cz, ex, ez, "BOM-BALLOON"), circle(cx, cz, 2.5, "BOM-BALLOON"), circle(rail, bz, R_B, "BOM-BALLOON"), text(rail, bz, i, H_T, "BOM-BALLOON", True)]
-                balloons.append(dict(no=i, anchor=[round(cx), round(cz)], balloon=[round(rail), round(bz)]))
-    rail_r = max(v["x1"] for v in views) + 150
-    x0 = min(v["x0"] for v in views) - 150; x1 = rail_r; z0 = min(v["z0"] for v in views); z1 = max(v["z1"] for v in views)
+                d = math.hypot(rail - ax_, bz - az_) or 1
+                ex, ez = rail - (rail - ax_) / d * R_B, bz - (bz - az_) / d * R_B
+                L += [line(ax_, az_, ex, ez, "BOM-BALLOON"), circle(ax_, az_, 2.5, "BOM-BALLOON"), circle(rail, bz, R_B, "BOM-BALLOON"), text(rail, bz, i, H_T, "BOM-BALLOON", True)]
+                balloons.append(dict(no=i, anchor=[round(ax_), round(az_)], balloon=[round(rail), round(bz)]))
+        v["rail_l"], v["rail_r"] = dx0 - 60, dx1 + 60
+    rail_r = max(v["rail_r"] for v in views)
+    x0 = min(v["rail_l"] for v in views); x1 = rail_r; z0 = min(v["z0"] for v in views); z1 = max(v["z1"] for v in views)
     print("views:", len(views))
     # table right of the right rail
     tx, tz = rail_r + 80, z1 + 60

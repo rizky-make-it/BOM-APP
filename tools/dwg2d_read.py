@@ -56,13 +56,16 @@ def read(dwg, plane=(0, -1, 0)):
             continue
         b = f.bounds; w, h = b[2] - b[0], b[3] - b[1]
         rows.append(dict(label=txt, w=round(w), h=round(h), x=round(b[0]), z=round(b[1]), how=how))
-    dims = collections.Counter()
+    dims = collections.Counter(); dim_pts = []
     for e in m:
         if e.dxftype() == "DIMENSION":
             try:
                 v = e.get_measurement(); dims[round(v) if isinstance(v, (int, float)) else str(v)] += 1
+                for attr in ("defpoint", "defpoint2", "defpoint3", "text_midpoint"):
+                    if e.dxf.hasattr(attr):
+                        w = e.ocs().to_wcs(getattr(e.dxf, attr)); dim_pts.append((w.x, w.z))
             except Exception: pass
-    return dict(n_segments=len(segs), n_faces=len(faces), n_labels=len(labels), rows=rows, dims=dict(dims))
+    return dict(n_segments=len(segs), n_faces=len(faces), n_labels=len(labels), rows=rows, dims=dict(dims), dim_pts=dim_pts)
 
 
 def statement(rows):
