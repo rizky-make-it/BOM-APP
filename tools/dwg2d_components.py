@@ -297,10 +297,12 @@ def main():
         s1 = sheets[0]; k = 1.0 if (s1["x1"] - s1["x0"]) > 100 else 1 / 25.4
         # ---- table page: own layout in mm (A3 landscape 420 x 297)
         TL = "BOM-TABLE"
-        L += ["_.-LAYOUT", "_N", TL, f'(setvar "CTAB" "{TL}")', "_.PSPACE"]
+        L += ["_.-LAYOUT", "_N", TL, f'(setvar "CTAB" "{TL}")', "_.PSPACE",
+              # the new layout comes with a default model viewport whose border plots as a stray rectangle: erase it
+              '(progn (setq ss (ssget "_X" (list (cons 0 "VIEWPORT") (cons 410 "' + TL + '")))) (if ss (progn (setq i 0) (while (< i (sslength ss)) (setq en (ssname ss i)) (if (/= (cdr (assoc 69 (entget en))) 1) (entdel en)) (setq i (1+ i))))))']
         kk = 1.0
         tx, ty = 15.0, 258.0
-        rh = 7.0; cw = [16, 84, 40, 12, 34, 24, 180]; tw = sum(cw); rn = len(comps) + 2; by = ty - rh * rn
+        rh = 7.0; cw = [16, 84, 40, 12, 34, 24, 180]; tw = sum(cw); rn = len(comps) + 1; by = ty - rh * rn
         def pl(x1, y1, x2, y2): return f'(entmake (list (cons 0 "LINE") (cons 8 "BOM-NO") (cons 10 (list {x1:.3f} {y1:.3f} 0)) (cons 11 (list {x2:.3f} {y2:.3f} 0))))'
         def pt(x, y, s_, h=3.2): return f'(entmake (list (cons 0 "TEXT") (cons 8 "BOM-NO") (cons 10 (list {x:.3f} {y:.3f} 0)) (cons 40 {h:.3f}) (cons 1 "{str(s_).replace(chr(34), chr(39))}")))'
         # sheet frame + title block (architect style): frame 10 mm margin, title strip at the bottom
@@ -317,16 +319,17 @@ def main():
         L += [pl(tx, ty, tx + tw, ty), pl(tx + tw, ty, tx + tw, by), pl(tx + tw, by, tx, by), pl(tx, by, tx, ty)] + [pl(tx, ty - rh * i, tx + tw, ty - rh * i) for i in range(1, rn)]
         xx = tx
         for c in cw[:-1]:
-            xx += c; L += [pl(xx, ty - rh, xx, by)]
-        L += [pt(tx + 2, ty - rh + 2, "Tag keynote (angka berbingkai) di gambar = baris tabel ini. PART NO = Part Master v3 BOM-APP (3 digit). BAHAN = kode tabel bahan pabrik.", 3.0)]
+            xx += c; L += [pl(xx, ty, xx, by)]
+        # explanatory line lives ABOVE the table (outside the grid), never inside a row
+        L += [pt(tx, ty + 2.5, "Tag keynote (angka berbingkai) di gambar = baris tabel ini.  PART NO = Part Master v3 BOM-APP (3 digit).  BAHAN = kode tabel bahan pabrik.", 2.8)]
         xx = tx
         for c, h in zip(cw, ["TAG", "PART NO  NAMA (Part Master v3)", "L x W x T", "QTY", "BAHAN", "STATUS", "CATATAN"]):
-            L += [pt(xx + 2, ty - 2 * rh + 2, h, 3.2)]; xx += c
+            L += [pt(xx + 2, ty - rh + 2, h, 3.2)]; xx += c
         for i, c in enumerate(comps):
             size = f"{c['l']} x {c['w']} x {c['t']}" if c["w"] else f"L {c['l']} x ? x {c['t']}"
             xx = tx
-            for cwid, v in zip(cw, [f"{c['row']}", f"{c['no'] or '?'}  {c['name']}", size, c["qty"], c["code"], c["status"], c["note"][:80]]):
-                L += [pt(xx + 2, ty - (i + 3) * rh + 2, v, 3.2 if cwid > 20 else 3.2)]; xx += cwid
+            for cwid, v in zip(cw, [f"{c['row']}", f"{c['no'] or '?'}  {c['name']}", size, c["qty"], c["code"], c["status"], c["note"][:68]]):
+                L += [pt(xx + 2, ty - (i + 2) * rh + 2, v, 3.2)]; xx += cwid
         L += [pt(tx, by - 7, "STATED = ukuran dari bidang berlabel drafter.  DERIVED = dihitung dari geometri tampak.  CHECK = belum pasti, perlu konfirmasi drafter.", 3.0),
               pt(tx, by - 13, "Dimensi di gambar: " + ", ".join(f"{d_}" + (f" x{v}" if v > 1 else "") for d_, v in sorted(dims.items())), 3.0),
               pt(tx, by - 19, f"Nomor part = Part Master v{_PM['version']} ({_PM['updated']}). Standar label drafter: docs/STANDAR-GAMBAR-BOM.md.", 3.0)]
@@ -335,11 +338,26 @@ def main():
         L += ["_.-PLOT", "_Y", TL, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", "0,0", "420,297", "1:1", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_t.replace(chr(92), "/"), "_N", "_Y"]
         L += [f'(setvar "CTAB" "{lay}")', "_.PSPACE"]
         pdfs.append(pdf_t)
+        # drafter's own sheet frames (closed 4-point polylines in paper space that enclose viewports) = exact plot windows
+        frames = []
+        for e in ly:
+            if e.dxftype() == "LWPOLYLINE" and e.closed and len(e) == 4:
+                xs_ = [p_[0] for p_ in e.get_points("xy")]; ys_ = [p_[1] for p_ in e.get_points("xy")]
+                fr = (min(xs_), min(ys_), max(xs_), max(ys_))
+                if any(v[0] >= fr[0] - 0.01 and v[2] <= fr[2] + 0.01 and v[1] >= fr[1] - 0.01 and v[3] <= fr[3] + 0.01 for v in vps):
+                    frames.append(fr)
+        frames.sort()
+        if len(frames) == len(sheets):
+            for sh, fr in zip(sheets, frames):
+                sh["win"] = fr
         for si, sh in enumerate(sheets, 1):
             pdf_i = out_pdf.replace(".pdf", f"_p{si}.pdf")
             if os.path.exists(pdf_i): os.remove(pdf_i)
-            top = sh["y1"] + 2.6 * 25.4 * k
-            wx0, wy0 = sh["x0"] - 8 * k, sh["y0"] - 12 * k; wx1, wy1 = sh["x1"] + 8 * k, top
+            if "win" in sh:
+                wx0, wy0, wx1, wy1 = sh["win"]          # plot exactly the drafter's frame -> fills the page, nothing stray
+            else:
+                top = sh["y1"] + 2.6 * 25.4 * k
+                wx0, wy0 = sh["x0"] - 8 * k, sh["y0"] - 12 * k; wx1, wy1 = sh["x1"] + 8 * k, top
             L += ["_.-PLOT", "_Y", lay, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", f"{wx0:.3f},{wy0:.3f}", f"{wx1:.3f},{wy1:.3f}", "_F", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_i.replace(chr(92), "/"), "_N", "_Y"]
             pdfs.append(pdf_i)
     L += ["_.SAVEAS", "2018", out_dwg.replace("\\", "/")]
