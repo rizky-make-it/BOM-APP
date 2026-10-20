@@ -1,5 +1,5 @@
 # STANDAR GAMBAR KERJA UNTUK BOM — TALA LIVING
-Versi 1.0 · 20 Oktober 2026 · berlaku untuk semua DWG yang akan dibaca BOM-APP
+Versi 1.1 · 20 Oktober 2026 · penomoran = Part Master v3 · berlaku untuk semua DWG yang akan dibaca BOM-APP
 
 Prinsip: gambar dibaca seperti gambar arsitek. **Di gambar hanya tag kode (keynote)**; semua data komponen ada di **lembar keynote / schedule** yang dibuat otomatis oleh BOM-APP. Drafter cukup melabeli tiap komponen dengan benar satu kali.
 
@@ -19,12 +19,12 @@ Satu MULTILEADER per komponen per tampak, teks dalam satu baris dengan format te
 
 ```
 NAMA KOMPONEN | L x W x T | KODE BAHAN
-SIDE DRAWER | 450 x 170 x 12 | B-12-0X
-LEG | 450 x 20 x 20 | MT-20x20x0.8
-TOP PANEL | 550 x 550 x 18 | B-18-1X
+402 DRAWER BOX SIDE | 450 x 170 x 12 | B-12-0X
+101 LEG | 450 x 20 x 20 | MT-20x20x0.8
+601 TOP PANEL | 550 x 550 x 18 | B-18-1X
 ```
 
-- **NAMA** diambil dari PART LIST pabrik (1–20): Bottom stretcher F/B, Bottom stretcher L/R, Leg, Shelfing, Divider, Front drawer, Inner drawer, Side drawer, Back drawer, Bottom drawer, Door panel, Back panel, Side panel, Front rail, Side rail, Back rail, Vertical support, Horizontal support, Top stretcher, Top panel. Komponen di luar daftar: tulis nama jelas + tanda `*`.
+- **NAMA** diambil dari **Part Master v3 BOM-APP** (`data/part_master_v3.json`, 126 part, 9 keluarga: 1xx kaki & dasar, 2xx rangka & rel, 3xx panel kotak, 4xx laci, 5xx pintu, 6xx top, 7xx dudukan, 8xx tempat tidur, 9xx hardware). Tulis nomornya di depan nama: `402 DRAWER BOX SIDE`. Nama lama 9 Okt (Side drawer, Shelfing, Front rail) dikenali sebagai alias. Di luar daftar: pakai `x99 Other ... (describe)`.
 - **L x W x T** = ukuran jadi, mm; L sisi terpanjang. Untuk hollow: panjang x sisi x sisi.
 - **KODE BAHAN** dari tabel pabrik: `A` solid, `A1` solid laminated, `B-<tebal>-<0X/1X/2X>` plywood, `C-<tebal>-<0X/1X/2X>` MDF (0X/1X/2X = muka veneer), `MT-<a>x<b>x<dinding>` hollow besi, `D1` engsel soft close, `D2` rel laci, `HW-<nama>` hardware lain.
 - Komponen yang sama (ukuran & bahan sama) diberi label **sekali per tampak**; jumlah dihitung BOM-APP dari geometri dan potongan, bukan dari jumlah label.
@@ -38,7 +38,7 @@ TOP PANEL | 550 x 550 x 18 | B-18-1X
 
 ## 5. Yang dibuat BOM-APP dari gambar yang sesuai standar
 1. Setiap label diganti **tag keynote** `[n]` (kotak) di tempat yang sama, panah drafter tetap.
-2. Lembar `-03` keynote & schedule: KEYNOTE | NO PART LIST | NAMA | L x W x T | QTY | BAHAN | STATUS | CATATAN, plus kop.
+2. Lembar `-03` keynote & schedule: TAG | PART NO (v3) | NAMA | L x W x T | QTY | BAHAN | STATUS | CATATAN, plus kop.
 3. JSON untuk aplikasi BOM, lalu spec BOM-APP → HPP.
 Status: `STATED` (tertulis di gambar), `DERIVED` (dihitung dari geometri), `CHECK` (perlu konfirmasi drafter). Target gambar sesuai standar: 100% STATED, 0 CHECK, < 10 detik per DWG.
 
@@ -46,5 +46,5 @@ Status: `STATED` (tertulis di gambar), `DERIVED` (dihitung dari geometri), `CHEC
 - [ ] Tiap komponen punya label `NAMA | L x W x T | KODE` dan terlihat utuh di satu tampak.
 - [ ] Dimensi keseluruhan W × D × H ada di kop dan di tampak.
 - [ ] Potongan memperlihatkan semua tebal panel dan kotak laci.
-- [ ] Nama komponen sesuai PART LIST; kode bahan sesuai tabel pabrik.
+- [ ] Nomor/nama komponen sesuai Part Master v3; kode bahan sesuai tabel pabrik.
 - [ ] Tidak ada label bahan saja.

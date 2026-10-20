@@ -21,9 +21,14 @@ from ezdxf.math import Vec3
 from shapely.geometry import LineString, Point
 from shapely.ops import unary_union, polygonize
 
-PARTS = {1: "BOTTOM STRETCHER F/B", 2: "BOTTOM STRETCHER L/R", 3: "LEG", 4: "SHELFING", 5: "DIVIDER", 6: "FRONT DRAWER", 7: "INNER DRAWER",
-         8: "SIDE DRAWER", 9: "BACK DRAWER", 10: "BOTTOM DRAWER", 11: "DOOR PANEL", 12: "BACK PANEL", 13: "SIDE PANEL", 14: "FRONT RAIL",
-         15: "SIDE RAIL", 16: "BACK RAIL", 17: "VERTICAL SUPPORT", 18: "HORIZONTAL SUPPORT", 19: "TOP STRETCHER", 20: "TOP PANEL"}
+# Part numbering = Part Master v3 (data/part_master_v3.json, the latest part list in BOM-APP): 3-digit part_no + name.
+_PM = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "part_master_v3.json"), encoding="utf-8"))
+PARTS = {int(p["part_no"]): p["name"].upper() for p in _PM["parts"]}
+PART_DEFAULT_CODE = {int(p["part_no"]): p["default_mat_code"] for p in _PM["parts"]}
+ALIAS = {}
+for p in _PM["parts"]:
+    for nm in [p["name"]] + [x.strip() for x in p.get("also_called", "").split(";") if x.strip()]:
+        ALIAS[" ".join(nm.upper().split())] = int(p["part_no"])
 
 
 def material(label):
@@ -114,7 +119,7 @@ def main():
     H = max([k for k in dims if 200 <= k <= 2500], default=0)
     if plan:
         pv = plan[0]; span_x = pv["x1"] - pv["x0"]; span_z = pv["z1"] - pv["z0"]
-        comps.append(dict(no=3, name=PARTS[3], l=H, w=mb, t=ma, qty=4, code=f"MT-{ma}x{mb}", status="DERIVED",
+        comps.append(dict(no=101, name=PARTS[101], l=H, w=mb, t=ma, qty=4, code=f"MT-{ma}x{mb}", status="DERIVED",
                           note=f"4 penampang hollow di sudut potongan denah {span_x}x{span_z}; tinggi = dimensi {H}", src="section"))
         # rings: each elevation section row (pair of squares at the same z, spanning the frame) = one ring of 4 bars
         rows_z = collections.Counter()
@@ -126,9 +131,9 @@ def main():
         # same ring appears in front AND side section -> count distinct z rows (any view)
         rings = len({zz for (_, zz) in rows_z})
         if rings:
-            comps.append(dict(no=14, name="FRAME RAIL (front/back)", l=span_x - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
+            comps.append(dict(no=201, name=PARTS[201], l=span_x - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
                               note=f"{rings} tingkat rangka (baris penampang di potongan) x 2; panjang = bentang {span_x} - 2 kaki", src="section"))
-            comps.append(dict(no=15, name="FRAME RAIL (left/right)", l=span_z - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
+            comps.append(dict(no=202, name=PARTS[202], l=span_z - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
                               note=f"{rings} tingkat x 2; panjang = bentang {span_z} - 2 kaki", src="section"))
     # ---- panels: labelled faces. Face view (both dims > t) -> L x W. Edge views are paired ACROSS views:
     #      same code, same t, same z-row (section height) and same visible height -> one component, L from one view, W from the other.
@@ -182,12 +187,12 @@ def main():
     for c in comps:
         if c["no"]: continue
         t, L_, W_ = c["t"], c["l"], c["w"]
-        if t <= 6 and W_: c["no"] = 10
-        elif t == 12 and c["code"].endswith("0X") and W_ and W_ <= 250: c["no"] = 8 if L_ >= 400 else 9
-        elif t == 9 and W_ and W_ >= 150: c["no"] = 12
-        elif t >= 18 and W_ and W_ >= 300: c["no"] = 20
-        elif t >= 12 and c["code"].endswith("1X") and not W_: c["no"] = 4
-        elif t >= 18 and W_ and W_ < 300: c["no"] = 6
+        if t <= 6 and W_: c["no"] = 405
+        elif t == 12 and c["code"].endswith("0X") and W_ and W_ <= 250: c["no"] = 402 if L_ >= 400 else 404
+        elif t == 9 and W_ and W_ >= 150: c["no"] = 302
+        elif t >= 18 and W_ and W_ >= 300: c["no"] = 601
+        elif t >= 12 and c["code"].endswith("1X") and not W_: c["no"] = 308
+        elif t >= 18 and W_ and W_ < 300: c["no"] = 401
         c["name"] = PARTS.get(c["no"], "?")
         if not c["no"]: c["status"] = "CHECK"
     # merge identical rows
@@ -201,7 +206,7 @@ def main():
     for (x, z, w, h), label in lab.items():
         kind, t, code, chk = material(label)
         if kind == "hw" and not any(c["code"] == code for c in comps):
-            comps.append(dict(no=0, name="HANDLE", l=max(w, h), w=0, t=0, qty=1, code=code, status="CHECK", note=chk + "; panjang dari bidang label", src="label"))
+            comps.append(dict(no=903, name=PARTS[903], l=max(w, h), w=0, t=0, qty=1, code=code, status="CHECK", note=chk + "; panjang dari bidang label", src="label"))
     comps.sort(key=lambda c: (c["no"] == 0, c["no"], -c["l"]))
     for i, c in enumerate(comps, 1):
         c["row"] = i
@@ -299,9 +304,9 @@ def main():
         xx = tx
         for c in cw[:-1]:
             xx += c; L += [pl(xx, ty - rh, xx, by)]
-        L += [pt(tx + 2, ty - rh + 2, "Tag keynote (angka berbingkai) di gambar = baris tabel ini. NO = nomor PART LIST pabrik. BAHAN = kode tabel bahan pabrik.", 3.0)]
+        L += [pt(tx + 2, ty - rh + 2, "Tag keynote (angka berbingkai) di gambar = baris tabel ini. PART NO = Part Master v3 BOM-APP (3 digit). BAHAN = kode tabel bahan pabrik.", 3.0)]
         xx = tx
-        for c, h in zip(cw, ["TAG", "NO  NAMA KOMPONEN", "L x W x T", "QTY", "BAHAN", "STATUS", "CATATAN"]):
+        for c, h in zip(cw, ["TAG", "PART NO  NAMA (Part Master v3)", "L x W x T", "QTY", "BAHAN", "STATUS", "CATATAN"]):
             L += [pt(xx + 2, ty - 2 * rh + 2, h, 3.2)]; xx += c
         for i, c in enumerate(comps):
             size = f"{c['l']} x {c['w']} x {c['t']}" if c["w"] else f"L {c['l']} x ? x {c['t']}"
@@ -310,7 +315,7 @@ def main():
                 L += [pt(xx + 2, ty - (i + 3) * rh + 2, v, 3.2 if cwid > 20 else 3.2)]; xx += cwid
         L += [pt(tx, by - 7, "STATED = ukuran dari bidang berlabel drafter.  DERIVED = dihitung dari geometri tampak.  CHECK = belum pasti, perlu konfirmasi drafter.", 3.0),
               pt(tx, by - 13, "Dimensi di gambar: " + ", ".join(f"{d_}" + (f" x{v}" if v > 1 else "") for d_, v in sorted(dims.items())), 3.0),
-              pt(tx, by - 19, "Standar label drafter: docs/STANDAR-GAMBAR-BOM.md  (NAMA | L x W x T | KODE BAHAN per komponen).", 3.0)]
+              pt(tx, by - 19, f"Nomor part = Part Master v{_PM['version']} ({_PM['updated']}). Standar label drafter: docs/STANDAR-GAMBAR-BOM.md.", 3.0)]
         pdf_t = out_pdf.replace(".pdf", "_p0.pdf")
         if os.path.exists(pdf_t): os.remove(pdf_t)
         L += ["_.-PLOT", "_Y", TL, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", "0,0", "420,297", "1:1", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_t.replace(chr(92), "/"), "_N", "_Y"]
@@ -337,7 +342,7 @@ def main():
     pref = next((l.strip() for l in log.splitlines() if l.startswith("PREFIX_OK")), "?")
     good, det = C.pdf_has_content(out_pdf)
     js = dict(item=a.item, name=a.name, source_dwg=os.path.abspath(a.dwg), generated=datetime.datetime.now().isoformat(timespec="seconds"),
-              part_list="factory PART LIST 1-20 + material codes A/B/C/D", components=comps, labels_rewritten=len(edits), labels_unmatched=unmatched,
+              part_list=f"Part Master v{_PM['version']} ({_PM['updated']}, {_PM['total_parts']} parts) + factory material codes", components=comps, labels_rewritten=len(edits), labels_unmatched=unmatched,
               drawing_dimensions_mm=dims, views=len(views), faces=len(faces), seconds=round(time.time() - t0, 1))
     json.dump(js, open(os.path.join(a.out, base + ".json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     open(os.path.join(a.out, base + ".log"), "w", encoding="utf-8").write(log)
