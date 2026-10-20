@@ -8,16 +8,16 @@ read(dwg) -> dict with
   layouts    : [{"name","paper":[w,h],"units":n,"viewports":[[x0,y0,x1,y1],...],"frames":[[x0,y0,x1,y1],...]}]
 Usage: python tools/acad_read.py <dwg> [--out json]
 """
-import json, os, sys, tempfile, time
+import json, os, re, sys, tempfile, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import acad_core as C
 
 LISP = r'''
 (defun j-num (v) (if (numberp v) (rtos v 2 4) "0"))
 (defun j-pt (p) (strcat "[" (j-num (car p)) "," (j-num (cadr p)) "," (j-num (if (caddr p) (caddr p) 0.0)) "]"))
-(defun j-str (s / out i c) (setq out "" i 1)
-  (while (<= i (strlen s)) (setq c (substr s i 1))
-    (cond ((= c "\"") (setq out (strcat out "\\\""))) ((= c "\\") (setq out (strcat out "\\\\"))) ((< (ascii c) 32) (setq out (strcat out " "))) (t (setq out (strcat out c))))
+(defun j-str (s / out i c k) (setq out "" i 1)
+  (while (<= i (strlen s)) (setq c (substr s i 1) k (ascii c))
+    (cond ((= k 34) (setq out (strcat out (chr 92) (chr 34)))) ((= k 92) (setq out (strcat out (chr 92) (chr 92)))) ((< k 32) (setq out (strcat out " "))) (t (setq out (strcat out c))))
     (setq i (1+ i))) out)
 (defun wcs (p ext) (trans p ext 0))
 (defun dump-line (e d) (strcat "[" (j-pt (cdr (assoc 10 d))) "," (j-pt (cdr (assoc 11 d))) ",\"" (j-str (cdr (assoc 8 d))) "\"]"))
@@ -54,6 +54,16 @@ LISP = r'''
   (ss-each (ssget "_X" '((0 . "DIMENSION") (410 . "Model"))) (lambda (e) (write-line (strcat (if first "" ",") (dump-dim e (entget e))) *jf*) (setq first nil)))
   (write-line "],\"leaders\":[" *jf*) (setq first T)
   (ss-each (ssget "_X" '((0 . "MULTILEADER") (410 . "Model"))) (lambda (e) (write-line (strcat (if first "" ",") (dump-mleader e (entget e))) *jf*) (setq first nil)))
+  ;; model-space LEADER + nearest MTEXT/TEXT (third drafter style): arrow point is already in model space
+  (write-line "],\"model_leaders\":[" *jf*) (setq first T)
+  (setq txtss (ssget "_X" '((0 . "MTEXT,TEXT") (410 . "Model"))) lss (ssget "_X" '((0 . "LEADER") (410 . "Model"))))
+  (if (and lss txtss)
+    (ss-each lss (lambda (e / d pts tip tail best bd j dt dd)
+      (setq d (entget e) pts '())
+      (foreach a d (if (= (car a) 10) (setq pts (append pts (list (cdr a))))))
+      (setq tip (car pts) tail (last pts) best nil bd 1e9 j 0)
+      (while (< j (sslength txtss)) (setq dt (entget (ssname txtss j)) dd (distance (cdr (assoc 10 dt)) tail)) (if (< dd bd) (setq bd dd best dt)) (setq j (1+ j)))
+      (write-line (strcat (if first "" ",") "{\"handle\":\"" (cdr (assoc 5 d)) "\",\"text\":\"" (if best (j-str (cdr (assoc 1 best))) "") "\",\"text_handle\":\"" (if best (cdr (assoc 5 best)) "") "\",\"text_dist\":" (j-num bd) ",\"tip\":" (j-pt tip) ",\"tail\":" (j-pt tail) ",\"th\":" (j-num (if best (cdr (assoc 40 best)) 0.0)) "}") *jf*) (setq first nil))))
   ;; paper-space LEADER + nearest MTEXT (second drafter style): arrow mapped into model space through its viewport
   (write-line "],\"paper_leaders\":[" *jf*) (setq first T)
   (setq ldict (cdr (assoc -1 (dictsearch (namedobjdict) "ACAD_LAYOUT"))) lnames '())
@@ -102,7 +112,11 @@ def read(dwg, timeout=120):
     ok, log, why = C.run(dwg, ["FILEDIA", "0", "CMDECHO", "0", f'(load "{lsp.replace(chr(92), "/")}")', f'(dump-all "{out.replace(chr(92), "/")}")'], timeout=timeout, workdir=w)
     if "DUMP_OK" not in log or not os.path.exists(out):
         raise RuntimeError("AutoCAD dump failed: " + "\n".join([l for l in log.splitlines() if l.strip()][-8:]))
-    data = json.load(open(out, encoding="utf-8", errors="replace"))
+    raw = open(out, encoding="utf-8", errors="replace").read()
+    # AutoCAD writes non-ASCII characters as \U+XXXX; a lone backslash is invalid JSON -> decode them to real characters
+    raw = re.sub(r"(?<!\\)\\U\+([0-9A-Fa-f]{4})", lambda m: chr(int(m.group(1), 16)), raw)
+    raw = re.sub(r"(?<!\\)\\M\+([0-9A-Fa-f]{5})", "?", raw)
+    data = json.loads(raw)
     data["_source"] = os.path.abspath(dwg); data["_reader"] = "AutoCAD accoreconsole (entget)"; data["_seconds"] = round(time.time() - t0, 1)
     return data
 

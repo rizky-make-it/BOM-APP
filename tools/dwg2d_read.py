@@ -23,25 +23,46 @@ def plain_mtext(t):
 
 def read(dwg):
     d = acad_read.read(dwg)
+    # drawing plane: drafter style 1 draws 2D views in XZ (y == 0); styles 2/3 draw flat in XY (z == 0). Pick the plane
+    # that holds more line vertices; P maps a 3D point to (u, v) in that plane.
+    n_xz = sum(1 for l in d["lines"] if abs(l[0][1]) < 1e-3 and abs(l[1][1]) < 1e-3)
+    n_xy = sum(1 for l in d["lines"] if abs(l[0][2]) < 1e-3 and abs(l[1][2]) < 1e-3)
+    plane = "XZ" if n_xz >= n_xy else "XY"
+    P = (lambda p: (p[0], p[2])) if plane == "XZ" else (lambda p: (p[0], p[1]))
+    off = 1 if plane == "XZ" else 2                      # index of the coordinate that must be ~0
     segs = []
     for l in d["lines"]:
-        (x1, y1, z1), (x2, y2, z2) = l[0], l[1]
-        if abs(y1) < 1e-3 and abs(y2) < 1e-3 and ((x1 - x2) ** 2 + (z1 - z2) ** 2) > 0.25:
-            segs.append(LineString([(x1, z1), (x2, z2)]))
+        a, b = l[0], l[1]
+        if abs(a[off]) < 1e-3 and abs(b[off]) < 1e-3:
+            ua, ub = P(a), P(b)
+            if (ua[0] - ub[0]) ** 2 + (ua[1] - ub[1]) ** 2 > 0.25:
+                segs.append(LineString([ua, ub]))
     for pl in d["polylines"]:
-        P = pl["pts"] + ([pl["pts"][0]] if pl["closed"] and pl["pts"] else [])
-        if any(abs(p[1]) > 1e-3 for p in P):
+        Pts = pl["pts"] + ([pl["pts"][0]] if pl["closed"] and pl["pts"] else [])
+        if any(abs(p[off]) > 1e-3 for p in Pts):
             continue
-        for a, b in zip(P, P[1:]):
-            if (a[0] - b[0]) ** 2 + (a[2] - b[2]) ** 2 > 0.25:
-                segs.append(LineString([(a[0], a[2]), (b[0], b[2])]))
+        for a, b in zip(Pts, Pts[1:]):
+            ua, ub = P(a), P(b)
+            if (ua[0] - ub[0]) ** 2 + (ua[1] - ub[1]) ** 2 > 0.25:
+                segs.append(LineString([ua, ub]))
     polys = [f for f in polygonize(unary_union(segs)) if f.area > 30]
     faces = [(round(b[0]), round(b[1]), round(b[2] - b[0]), round(b[3] - b[1])) for b in (f.bounds for f in polys)]
+    # labels from all three drafter styles, normalised to: handle, text, tip (3D), landing, dogleg, dir, th, style
     leaders = [dict(handle=m["handle"], text=plain_mtext(m["text"]), raw=m["text"], tip=m["tip"], landing=m["landing"], textpos=m["textpos"],
-                    dogleg=m["dogleg"], dir=m["dir"], th=m["th"], layer=m["layer"]) for m in d["leaders"]]
+                    dogleg=m["dogleg"], dir=m["dir"], th=m["th"], layer=m["layer"], style="mleader") for m in d["leaders"]]
+    for m in d.get("model_leaders", []):
+        if not m["text"]:
+            continue
+        leaders.append(dict(handle=m["handle"], text=plain_mtext(m["text"]), raw=m["text"], tip=m["tip"], landing=m["tail"], textpos=m["tail"],
+                            dogleg=0.0, dir=[1 if m["tail"][0] >= m["tip"][0] else -1, 0, 0], th=m["th"] or 15.0, layer="", style="leader+text", text_handle=m["text_handle"]))
+    for m in d.get("paper_leaders", []):
+        if not m["text"] or m["viewport"] == 0:
+            continue
+        leaders.append(dict(handle=m["handle"], text=plain_mtext(m["text"]), raw=m["text"], tip=m["tip_model"], landing=m["tip_model"], textpos=m["tip_model"],
+                            dogleg=0.0, dir=[1, 0, 0], th=0.0, layer="", style="paper", text_handle=m["text_handle"], layout=m["layout"], tip_paper=m["tip_paper"], tail_paper=m["tail_paper"]))
     rows = []
     for m in leaders:
-        pt = Point(m["tip"][0], m["tip"][2])
+        pt = Point(*P(m["tip"]))
         inside = [f for f in polys if f.contains(pt)]
         if inside:
             f = min(inside, key=lambda f: f.area); how = "inside"
@@ -58,10 +79,10 @@ def read(dwg):
             dims[round(v)] += 1
         for k in ("def1", "def2", "textpos"):
             p = x.get(k)
-            if p and abs(p[1]) < 1e-3:
-                dim_pts.append((p[0], p[2]))
+            if p and abs(p[off]) < 1e-3:
+                dim_pts.append(P(p))
     return dict(n_segments=len(segs), n_faces=len(faces), n_labels=len(leaders), rows=rows, dims=dict(dims), dim_pts=dim_pts,
-                faces=faces, leaders=leaders, layouts=d["layouts"], seconds=d["_seconds"], reader=d["_reader"])
+                faces=faces, leaders=leaders, layouts=d["layouts"], seconds=d["_seconds"], reader=d["_reader"], plane=plane)
 
 
 def statement(rows):
