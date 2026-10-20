@@ -1,0 +1,21 @@
+{
+ "_doc": "Drafter label / factory code -> BOM-APP rate-card code. Panels: thickness follows RULES in core/construction.py, this map only gives the family and veneer faces. Keys are matched on the normalised factory code produced by tools/dwg2d_components.material().",
+ "panel": {
+  "B": {"family": "LND-PLY-E0", "note": "plywood furniture grade E0"},
+  "C": {"family": "LND-MDF-E0", "note": "MDF E0"}
+ },
+ "veneer_suffix": {"0X": "", "1X": "-MSF", "2X": "-MDF"},
+ "solid": {
+  "A": {"material": "MINDI", "note": "solid wood mindi"},
+  "A1": {"material": "MINDI", "note": "solid wood laminated mindi"}
+ },
+ "metal": {
+  "_rule": "MT-AxB -> HOLLOW-AxBxWALL with WALL = RATES!HOLLOW_WALL (0.8 default); code goes in MATERIAL column",
+  "wall_default": "0.8"
+ },
+ "hardware": {
+  "HW-HANDLE": {"description": "Handle", "vendor": "Lokal", "uom": "pcs", "unit_price": 0.0, "note": "harga handle belum ada"},
+  "D2": {"description": "DRAWER RAIL DTC (set)", "vendor": "Sukey / DTC", "uom": "set", "unit_price": 61396.2, "note": "harga dari item Sienna B61"},
+  "D1": {"description": "SOFT CLOSE HINGE DTC", "vendor": "Sukey / DTC", "uom": "pcs", "unit_price": 0.0, "note": "harga belum ada"}
+ }
+}

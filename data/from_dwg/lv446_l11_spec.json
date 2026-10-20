@@ -1,0 +1,189 @@
+{
+ "header": {
+  "item_code": "LV446-L11",
+  "item_name": "1 DRAWER & SHELF TABLE",
+  "collection": "LEXI",
+  "overall_l": 550.0,
+  "overall_w": 550.0,
+  "overall_h": 550.0,
+  "order_qty": 1,
+  "drawing_link": "l11.dwg",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Spec dibangun otomatis dari DWG drafter (2026-10-20); ukuran keseluruhan 550.0x550.0x550.0 DERIVED dari dimensi gambar: CONFIRM."
+ },
+ "solid_parts": [
+  {
+   "label": "101 / MT-20x20",
+   "component": "LEG",
+   "l": 550.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 4,
+   "material": "HOLLOW-20x20x0.8",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[DERIVED] tag 1: batang tegak 550 terlihat 2x di satu tampak; x2 untuk pasangan depan/b; hollow 20x20 dinding 0.8 (HOLLOW_WALL)"
+  },
+  {
+   "label": "201 / MT-20x20",
+   "component": "TOP RAIL FRONT/BACK",
+   "l": 510.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 8,
+   "material": "HOLLOW-20x20x0.8",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[DERIVED] tag 2: rail rangka 510: terlihat 4x di satu tampak; x2 untuk pasangan sisi; hollow 20x20 dinding 0.8 (HOLLOW_WALL)"
+  },
+  {
+   "label": "210 / MT-20x20",
+   "component": "HORIZONTAL SUPPORT",
+   "l": 130.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 8,
+   "material": "HOLLOW-20x20x0.8",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[DERIVED] tag 3: batang pendek 130: terlihat 4x; x2; hollow 20x20 dinding 0.8 (HOLLOW_WALL)"
+  },
+  {
+   "label": "210 / MT-20x20",
+   "component": "HORIZONTAL SUPPORT",
+   "l": 128.0,
+   "w": 20.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "HOLLOW-20x20x0.8",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[DERIVED] tag 4: batang pendek 128: terlihat 1x; x2; hollow 20x20 dinding 0.8 (HOLLOW_WALL)"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "402 / B-12-0X",
+   "component": "Drawer side",
+   "panel_type": "LND-PLY-E0-12",
+   "l": 450.0,
+   "w": 180.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 0,
+   "note": "[DERIVED] kotak laci dari rumus pabrik: derive_drawer_box(510 x 210, D 550): Rumus Pabrik Paten: D (450.0mm) x (H - 30mm=180.0mm); plywood E0 12 mm, 0 muka veneer"
+  },
+  {
+   "label": "404 / B-12-0X",
+   "component": "Drawer box front/back",
+   "panel_type": "LND-PLY-E0-12",
+   "l": 446.0,
+   "w": 180.0,
+   "t": 12.0,
+   "qty": 2,
+   "exposed_faces": 0,
+   "note": "[DERIVED] kotak laci dari rumus pabrik: derive_drawer_box(510 x 210, D 550): Rumus Pabrik Paten: (W-64=446.0mm) x (H-30=180.0mm); plywood E0 12 mm, 0 muka veneer"
+  },
+  {
+   "label": "405 / B-6-0X",
+   "component": "Drawer bottom",
+   "panel_type": "LND-PLY-E0-6",
+   "l": 456.0,
+   "w": 443.0,
+   "t": 6.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "[DERIVED] kotak laci dari rumus pabrik: derive_drawer_box(510 x 210, D 550): Role M | Dado 5mm: (W-54=456.0mm) x (D - 7=443.0mm); plywood E0 6 mm, 0 muka veneer"
+  },
+  {
+   "label": "401 / C-18-1X",
+   "component": "DRAWER FRONT",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 510.0,
+   "w": 210.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "[DERIVED] muka laci = bukaan 510 x 210 (dari bidang laci di gambar); RULES 18 mm; MDF E0 18 mm, 1 muka veneer"
+  },
+  {
+   "label": "302 / B-9-1X",
+   "component": "BACK PANEL",
+   "panel_type": "LND-PLY-E0-9-MSF",
+   "l": 510.0,
+   "w": 510.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "[STATED] tag 5: tepi 510 di tampak 2 + tepi 510 di tampak 6 pada baris tinggi yang sam; RULES 9 mm; plywood E0 9 mm, 1 muka veneer"
+  },
+  {
+   "label": "308 / B-12-1X",
+   "component": "SHELF, FIXED",
+   "panel_type": "LND-PLY-E0-18-MSF",
+   "l": 510.0,
+   "w": 510.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "[STATED] tag 6: tepi 510 di tampak 2 + tepi 510 di tampak 6 pada baris tinggi yang sam; RULES 18 mm (gambar 12 mm, RULES menang); plywood E0 18 mm, 1 muka veneer"
+  },
+  {
+   "label": "308 / B-18-1X",
+   "component": "SHELF, FIXED",
+   "panel_type": "LND-PLY-E0-18-MSF",
+   "l": 510.0,
+   "w": 510.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "[CHECK] tag 7: hanya tepi 510 x t18 (tampak 1); lebar 510: bentang 550 - 2 x 20 (di antara rangka); RULES 18 mm; plywood E0 18 mm, 1 muka veneer"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "903 / HW-HANDLE",
+   "description": "Handle",
+   "vendor": "Lokal",
+   "qty": 1.0,
+   "uom": "pcs",
+   "unit_price": 0.0,
+   "note": "[CHECK] tag 15: hardware, bukan kode A-D; panjang dari bidang label; harga handle belum ada"
+  },
+  {
+   "item_master_code": "HARDWARE",
+   "label": "901 / D2",
+   "description": "DRAWER RAIL DTC (set) 450 mm",
+   "vendor": "Sukey / DTC",
+   "qty": 1.0,
+   "uom": "set",
+   "unit_price": 61396.2,
+   "note": "[DERIVED] 1 laci x 1 set; rel laci standar untuk kedalaman 550; harga dari item Sienna B61"
+  }
+ ],
+ "_provenance": {
+  "source": "C:\\Users\\Admin\\AppData\\Local\\Temp\\l11.dwg",
+  "components_json": "C:\\Users\\Admin\\Desktop\\BOM-APP\\data\\from_dwg\\LV446-L11_components.json",
+  "part_list": "Part Master v3.0 (2026-10-16, 126 parts) + factory material codes",
+  "check_rows": [
+   7,
+   8,
+   9,
+   12,
+   13,
+   15
+  ],
+  "derived_rows": [
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+}
