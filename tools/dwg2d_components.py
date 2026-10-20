@@ -229,6 +229,11 @@ def main():
                 if tip: break
         except Exception: continue
         if tip is None: continue
+        try:
+            lp = e.context.leaders[0].last_leader_point; land = (lp.x, lp.z); th = float(e.context.char_height) * float(e.dxf.scale or 1)
+            ins = e.context.mtext.insert; tx_dir = 1 if ins.x >= lp.x else -1
+        except Exception:
+            land, th, tx_dir = (tip.x, tip.z), 15.0, 1
         pt = (tip.x, tip.z)
         inside = [f for f in faces if f[0] <= pt[0] <= f[0] + f[2] and f[1] <= pt[1] <= f[1] + f[3]]
         f = min(inside, key=lambda f: f[2] * f[3]) if inside else min(faces, key=lambda f: math.hypot(max(f[0] - pt[0], 0, pt[0] - f[0] - f[2]), max(f[1] - pt[1], 0, pt[1] - f[1] - f[3])))
@@ -236,8 +241,8 @@ def main():
         if c is None:
             unmatched.append(txt); continue
 
-        new = f"[{c['row']}]"          # drawing shows the row code only; full data on the table page
-        edits.append((e.dxf.handle.upper(), new))
+
+        edits.append((e.dxf.handle.upper(), c["row"], land, th, tx_dir))
     base = f"{a.item}_components"; out_pdf = os.path.join(a.out, base + ".pdf"); out_dwg = os.path.join(a.out, base + ".dwg")
     for f_ in (out_pdf, out_dwg):
         if os.path.exists(f_):
@@ -245,9 +250,17 @@ def main():
             except OSError: pass
     w_ = tempfile.mkdtemp(prefix="cmp_"); src = os.path.join(w_, "src.dwg"); shutil.copy(a.dwg, src)
     L = ["FILEDIA", "0", "CMDECHO", "0", "EXPERT", "5", "_.-LAYER", "_M", "BOM-NO", "_C", "5", "BOM-NO", "", "(setq okn 0 failn 0)"]
-    for hnd, new in edits:
+    def kn_box(x, z, n, h, dirx):
+        side = 2.2 * h; cx = x + dirx * (side / 2 + 0.3 * h); cz = z
+        x0, x1, z0, z1 = cx - side / 2, cx + side / 2, cz - side / 2, cz + side / 2
+        ex = "(cons 210 (list 0.0 -1.0 0.0))"
+        box = f'(entmake (list (cons 0 "LWPOLYLINE") (cons 100 "AcDbEntity") (cons 8 "BOM-NO") (cons 100 "AcDbPolyline") (cons 90 4) (cons 70 1) (cons 43 {0.08 * h:.2f}) (cons 10 (list {x0:.2f} {z0:.2f})) (cons 10 (list {x1:.2f} {z0:.2f})) (cons 10 (list {x1:.2f} {z1:.2f})) (cons 10 (list {x0:.2f} {z1:.2f})) {ex}))'
+        txt = f'(entmake (list (cons 0 "TEXT") (cons 8 "BOM-NO") (cons 10 (list {cx:.2f} {cz:.2f} 0.0)) (cons 40 {1.25 * h:.2f}) (cons 1 "{n}") (cons 72 1) (cons 73 2) (cons 11 (list {cx:.2f} {cz:.2f} 0.0)) {ex}))'
+        return [box, txt]
+    for hnd, n, land, th, dirx in edits:
         L += [f'(setq e (handent "{hnd}"))',
-              f'(if e (progn (setq d (entget e)) (setq a304 (assoc 304 d)) (if a304 (if (entmod (subst (cons 304 "{new}") a304 d)) (setq okn (1+ okn)) (setq failn (1+ failn))) (setq failn (1+ failn)))) (setq failn (1+ failn)))']
+              f'(if e (progn (setq d (entget e)) (setq a304 (assoc 304 d)) (if a304 (if (entmod (subst (cons 304 " ") a304 d)) (setq okn (1+ okn)) (setq failn (1+ failn))) (setq failn (1+ failn)))) (setq failn (1+ failn)))']
+        L += kn_box(land[0], land[1], n, th, dirx)
     L += ['(princ (strcat "\\nPREFIX_OK=" (itoa okn) " FAIL=" (itoa failn)))', "_.REGENALL"]
     # table on sheet 1 of the drafter layout (same placement logic as dwg2d_number_labels)
     layouts = [l.name for l in d.layouts if l.name != "Model"]; lay = layouts[0] if layouts else ""
@@ -267,30 +280,40 @@ def main():
         TL = "BOM-TABLE"
         L += ["_.-LAYOUT", "_N", TL, f'(setvar "CTAB" "{TL}")', "_.PSPACE"]
         kk = 1.0
-        tx, ty = 15.0, 268.0
-        rh = 7.0; cw = [14, 72, 46, 14, 30, 24, 190]; tw = sum(cw); rn = len(comps) + 2; by = ty - rh * rn
+        tx, ty = 15.0, 258.0
+        rh = 7.0; cw = [20, 84, 40, 12, 30, 24, 180]; tw = sum(cw); rn = len(comps) + 2; by = ty - rh * rn
         def pl(x1, y1, x2, y2): return f'(entmake (list (cons 0 "LINE") (cons 8 "BOM-NO") (cons 10 (list {x1:.3f} {y1:.3f} 0)) (cons 11 (list {x2:.3f} {y2:.3f} 0))))'
         def pt(x, y, s_, h=3.2): return f'(entmake (list (cons 0 "TEXT") (cons 8 "BOM-NO") (cons 10 (list {x:.3f} {y:.3f} 0)) (cons 40 {h:.3f}) (cons 1 "{str(s_).replace(chr(34), chr(39))}")))'
-        L += [pt(tx, ty + 8, f"{a.item}  {a.name}  -  DAFTAR KOMPONEN (dari gambar 2D drafter)", 5.0)]
+        # sheet frame + title block (architect style): frame 10 mm margin, title strip at the bottom
+        L += [pl(10, 10, 410, 10), pl(410, 10, 410, 287), pl(410, 287, 10, 287), pl(10, 287, 10, 10), pl(10, 32, 410, 32)]
+        for xk in (120, 230, 300, 360):
+            L += [pl(xk, 10, xk, 32)]
+        nsheet = len(sheets) + 1
+        L += [pt(13, 27, "TALA LIVING", 4.0), pt(13, 20, "Keynote & Schedule Komponen", 3.0), pt(13, 14, "Sumber: gambar 2D drafter + BOM-APP", 2.4),
+              pt(123, 27, "ITEM", 2.4), pt(123, 20, f"{a.item}", 4.0), pt(123, 14, f"{a.name}"[:40], 3.0),
+              pt(233, 27, "DRAWN", 2.4), pt(233, 20, "BOM-APP (auto)", 3.0), pt(233, 14, f"{datetime.date.today():%d %b %Y}", 3.0),
+              pt(303, 27, "STATUS", 2.4), pt(303, 20, f"{sum(1 for c in comps if c['status'] != 'CHECK')}/{len(comps)} pasti", 3.0), pt(303, 14, f"{sum(1 for c in comps if c['status'] == 'CHECK')} CHECK", 3.0),
+              pt(363, 27, "SHEET", 2.4), pt(363, 18, f"{a.item}-{nsheet:02d}", 4.2), pt(363, 12.5, f"{nsheet} / {nsheet}", 2.4)]
+        L += [pt(tx, ty + 8, f"KEYNOTE & SCHEDULE KOMPONEN  -  {a.item} {a.name}", 5.0)]
         L += [pl(tx, ty, tx + tw, ty), pl(tx + tw, ty, tx + tw, by), pl(tx + tw, by, tx, by), pl(tx, by, tx, ty)] + [pl(tx, ty - rh * i, tx + tw, ty - rh * i) for i in range(1, rn)]
         xx = tx
         for c in cw[:-1]:
-            xx += c; L += [pl(xx, ty, xx, by)]
-        L += [pt(tx + 2, ty - rh + 2, "Kode [n] di gambar = baris n tabel ini. NO = nomor PART LIST pabrik. KODE = tabel bahan pabrik.", 3.0)]
+            xx += c; L += [pl(xx, ty - rh, xx, by)]
+        L += [pt(tx + 2, ty - rh + 2, "Tag keynote (angka berbingkai) di gambar = baris tabel ini. NO = nomor PART LIST pabrik. BAHAN = kode tabel bahan pabrik.", 3.0)]
         xx = tx
-        for c, h in zip(cw, ["KODE", "NAMA KOMPONEN (PART LIST)", "L x W x T (mm)", "QTY", "BAHAN", "STATUS", "CATATAN"]):
-            L += [pt(xx + 2, ty - 2 * rh + 2, h, 3.4)]; xx += c
+        for c, h in zip(cw, ["TAG", "NO  NAMA KOMPONEN", "L x W x T", "QTY", "BAHAN", "STATUS", "CATATAN"]):
+            L += [pt(xx + 2, ty - 2 * rh + 2, h, 3.2)]; xx += c
         for i, c in enumerate(comps):
             size = f"{c['l']} x {c['w']} x {c['t']}" if c["w"] else f"L {c['l']} x ? x {c['t']}"
             xx = tx
-            for cwid, v in zip(cw, [f"[{c['row']}]", f"{c['no'] or '?'}  {c['name']}", size, c["qty"], c["code"], c["status"], c["note"][:95]]):
+            for cwid, v in zip(cw, [f"{c['row']}", f"{c['no'] or '?'}  {c['name']}", size, c["qty"], c["code"], c["status"], c["note"][:80]]):
                 L += [pt(xx + 2, ty - (i + 3) * rh + 2, v, 3.2 if cwid > 20 else 3.2)]; xx += cwid
         L += [pt(tx, by - 7, "STATED = ukuran dari bidang berlabel drafter.  DERIVED = dihitung dari geometri tampak.  CHECK = belum pasti, perlu konfirmasi drafter.", 3.0),
               pt(tx, by - 13, "Dimensi di gambar: " + ", ".join(f"{d_}" + (f" x{v}" if v > 1 else "") for d_, v in sorted(dims.items())), 3.0),
-              pt(tx, by - 19, f"BOM-APP {datetime.date.today():%d %b %Y}  |  sumber: {os.path.basename(a.dwg)}  |  JSON pendamping untuk aplikasi.", 3.0)]
+              pt(tx, by - 19, "Standar label drafter: docs/STANDAR-GAMBAR-BOM.md  (NAMA | L x W x T | KODE BAHAN per komponen).", 3.0)]
         pdf_t = out_pdf.replace(".pdf", "_p0.pdf")
         if os.path.exists(pdf_t): os.remove(pdf_t)
-        L += ["_.-PLOT", "_Y", TL, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", "0,0", "420,297", "_F", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_t.replace(chr(92), "/"), "_N", "_Y"]
+        L += ["_.-PLOT", "_Y", TL, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", "0,0", "420,297", "1:1", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_t.replace(chr(92), "/"), "_N", "_Y"]
         L += [f'(setvar "CTAB" "{lay}")', "_.PSPACE"]
         pdfs.append(pdf_t)
         for si, sh in enumerate(sheets, 1):
