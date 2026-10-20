@@ -129,7 +129,7 @@
   {
    "label": "8 / B-12-0X",
    "component": "SIDE DRAWER",
-   "panel_type": "PLY-12-RAW",
+   "panel_type": "LND-PLY-E0-12",
    "l": 350.0,
    "w": 320.0,
    "t": 12.0,
@@ -140,7 +140,7 @@
   {
    "label": "7 / B-12-0X",
    "component": "DRAWER BOX FRONT/BACK",
-   "panel_type": "PLY-12-RAW",
+   "panel_type": "LND-PLY-E0-12",
    "l": 806.0,
    "w": 320.0,
    "t": 12.0,
@@ -151,7 +151,7 @@
   {
    "label": "10 / B-6-0X",
    "component": "DRAWER BASE",
-   "panel_type": "PLY-6-RAW",
+   "panel_type": "LND-PLY-E0-6",
    "l": 816.0,
    "w": 343.0,
    "t": 6.0,

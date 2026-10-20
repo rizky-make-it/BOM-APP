@@ -14,6 +14,7 @@ drawer front MDF 18 two... (meeting: drawer front MDF 1 face), drawer box via de
 import json, os, sys
 sys.path.insert(0, r"C:/Users/Admin/Desktop/BOM-APP"); os.chdir(r"C:/Users/Admin/Desktop/BOM-APP")
 from core.rules_v2 import derive_drawer_box
+from core.panel_rules import to_e0
 from dataclasses import asdict
 
 # ---- STATED facts from the drafter's 2D drawing (tallboy 4 laci, lexi 3.dwg, SECTION A/B/C + views)
@@ -62,7 +63,7 @@ box = derive_drawer_box(w_front=DRAWER_W, h_front=DRAWER_H, case_depth=D_OVERALL
 box_parts = []
 # Same convention as the Sienna specs: 3 rows per drawer set = side (x2/drawer), box front/back (x2/drawer), base (x1/drawer)
 for key, comp, label in (("side", "SIDE DRAWER", "8 / B-12-0X"), ("box_front_back", "DRAWER BOX FRONT/BACK", "7 / B-12-0X"), ("bottom", "DRAWER BASE", "10 / B-6-0X")):
-    d = asdict(box[key]); d["component"] = comp; d["label"] = label
+    d = asdict(box[key]); d["component"] = comp; d["label"] = label; d["panel_type"] = to_e0(d["panel_type"])   # specs hold E0 codes only
     d["note"] = "DERIVED derive_drawer_box(870 x 350, case 450): " + d["note"] + " | gambar: dinding laci ply 12 h 109 (L 816 / 326), dasar ply 6 (824 / 335), kedalaman 415-421"
     box_parts.append(d)
 panels += box_parts
