@@ -14,10 +14,7 @@ as last line), part table on sheet 1, all sheets in one PDF.
 import argparse, collections, datetime, json, math, os, re, shutil, sys, tempfile, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import acad_core as C
-import dwg_reader as R
 import dwg2d_read as D2
-import ezdxf
-from ezdxf.math import Vec3
 from shapely.geometry import LineString, Point
 from shapely.ops import unary_union, polygonize
 
@@ -53,22 +50,9 @@ def material(label):
 
 
 def read_all(dwg):
-    """all XZ faces (labelled or not) + labels + dims"""
+    """all XZ faces (labelled or not) + labels + dims, read by AutoCAD (tools/acad_read via dwg2d_read)"""
     res = D2.read(dwg)
-    dxf = os.path.join(tempfile.mkdtemp(), "l.dxf"); R.dwg_to_dxf(dwg, dxf)
-    d = ezdxf.readfile(dxf); m = d.modelspace(); segs = []
-    for e in m:
-        if e.dxftype() in ("LINE", "LWPOLYLINE"):
-            ex = tuple(round(v) for v in e.dxf.extrusion) if e.dxf.hasattr("extrusion") else (0, 0, 1)
-            if ex != (0, -1, 0):
-                continue
-            ocs = e.ocs()
-            P = [e.dxf.start, e.dxf.end] if e.dxftype() == "LINE" else [ocs.to_wcs(Vec3(p[0], p[1], e.dxf.elevation)) for p in e.get_points("xy")] + ([ocs.to_wcs(Vec3(e.get_points("xy")[0][0], e.get_points("xy")[0][1], e.dxf.elevation))] if e.closed else [])
-            for a, b in zip(P, P[1:]):
-                if a.distance(b) > 0.5:
-                    segs.append(LineString([(a.x, a.z), (b.x, b.z)]))
-    faces = [f.bounds for f in polygonize(unary_union(segs)) if f.area > 30]
-    return res, [(round(b[0]), round(b[1]), round(b[2] - b[0]), round(b[3] - b[1])) for b in faces]
+    return res, list(res["faces"])
 
 
 def cluster_views(faces, gap=120):
@@ -110,31 +94,53 @@ def main():
         if r["how"] != "inside" and float(r["how"].split()[-1]) > 40:
             continue
         lab[(r["x"], r["z"], r["w"], r["h"])] = r["label"]
-    # ---- metal frame from hollow cross-sections (drafter draws sections, bars are not faces)
+    # ---- metal frame: hollow bars are drawn as thin rectangles (one side == section) in the elevation views,
+    #      and as small squares (section) in the plan/section views. Count bars per view, take the max across views.
     ma, mb = sorted(int(v) for v in a.metal.lower().split("x"))
     comps = []
-    sq = [(x, z, w, h, v) for v in views for (x, z, w, h) in v["f"] if near(w, ma, 3) and near(h, ma, 3)]
-    # plan section = view with >= 4 squares forming a rectangle -> legs count & frame span
-    plan = [v for v in views if sum(1 for (x, z, w, h) in v["f"] if near(w, ma, 3) and near(h, ma, 3)) >= 4 and abs((v["x1"] - v["x0"]) - (v["z1"] - v["z0"])) < 0.35 * (v["x1"] - v["x0"])]
-    H = max([k for k in dims if 200 <= k <= 2500], default=0)
-    if plan:
-        pv = plan[0]; span_x = pv["x1"] - pv["x0"]; span_z = pv["z1"] - pv["z0"]
-        comps.append(dict(no=101, name=PARTS[101], l=H, w=mb, t=ma, qty=4, code=f"MT-{ma}x{mb}", status="DERIVED",
-                          note=f"4 penampang hollow di sudut potongan denah {span_x}x{span_z}; tinggi = dimensi {H}", src="section"))
-        # rings: each elevation section row (pair of squares at the same z, spanning the frame) = one ring of 4 bars
-        rows_z = collections.Counter()
-        for v in views:
-            if v is pv: continue
-            zs = collections.Counter(round(z / 5) * 5 for (x, z, w, h) in v["f"] if near(w, ma, 3) and near(h, ma, 3))
-            for zz, n in zs.items():
-                if n >= 2: rows_z[(round((v["z0"]) / 50), zz)] += 1
-        # same ring appears in front AND side section -> count distinct z rows (any view)
-        rings = len({zz for (_, zz) in rows_z})
-        if rings:
-            comps.append(dict(no=201, name=PARTS[201], l=span_x - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
-                              note=f"{rings} tingkat rangka (baris penampang di potongan) x 2; panjang = bentang {span_x} - 2 kaki", src="section"))
-            comps.append(dict(no=202, name=PARTS[202], l=span_z - 2 * mb, w=mb, t=ma, qty=2 * rings, code=f"MT-{ma}x{mb}", status="DERIVED",
-                              note=f"{rings} tingkat x 2; panjang = bentang {span_z} - 2 kaki", src="section"))
+    def is_sq(w, h): return near(w, ma, 3) and near(h, ma, 3)
+    def is_bar(w, h): return (near(w, ma, 3) or near(w, mb, 3)) != (near(h, ma, 3) or near(h, mb, 3)) and max(w, h) > 60
+    # a face is a metal bar only if it is thin AND no panel label points at it (ply 20 edges look the same)
+    panel_faces_set = {f for f, lb in lab.items() if not material(lb)[0] == "metal"}
+    # plan views (seen from above): a square-ish view with 4 section squares at its corners -> its "vertical" bars are rails, not legs
+    def is_plan(v):
+        sqs = [(x, z, w, h) for (x, z, w, h) in v["f"] if is_sq(w, h)]
+        return len(sqs) >= 4 and abs((v["x1"] - v["x0"]) - (v["z1"] - v["z0"])) < 0.35 * max(v["x1"] - v["x0"], 1)
+    per_view = []
+    for v in views:
+        vert = collections.Counter(); horz = collections.Counter(); plan_v = is_plan(v)
+        for (x, z, w, h) in v["f"]:
+            if not is_bar(w, h) or (x, z, w, h) in panel_faces_set: continue
+            if plan_v: horz[max(w, h)] += 1                 # seen from above: every bar is a rail
+            elif h > w: vert[h] += 1
+            else: horz[w] += 1
+        if vert or horz: per_view.append(dict(v=v, vert=vert, horz=horz, plan=plan_v))
+    # legs: tallest vertical bar; count = max seen in one view x 2 (front+back pair hidden behind each other)
+    legs_h = collections.Counter()
+    for pv_ in per_view:
+        if pv_["plan"]: continue
+        for h, n in pv_["vert"].items(): legs_h[h] = max(legs_h[h], n)
+    if legs_h:
+        hL = max(legs_h); nL = legs_h[hL]
+        comps.append(dict(no=101, name=PARTS[101], l=hL, w=mb, t=ma, qty=nL * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
+                          note=f"batang tegak {hL} terlihat {nL}x di satu tampak; x2 untuk pasangan depan/belakang", src="geometry"))
+    # horizontal bars: group by length, qty = max count in one view x 2 (front+back / left+right pairs)
+    horz_all = collections.Counter()
+    for pv_ in per_view:
+        for w, n in pv_["horz"].items(): horz_all[w] = max(horz_all[w], n)
+    Lmax = max(horz_all, default=0)
+    for w, n in sorted(horz_all.items(), key=lambda t: -t[0]):
+        if near(w, Lmax, 8):
+            comps.append(dict(no=201, name=PARTS[201] + " / " + PARTS[202], l=w, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
+                              note=f"rail rangka {w}: terlihat {n}x di satu tampak; x2 untuk pasangan sisi", src="geometry"))
+        else:
+            comps.append(dict(no=210, name=PARTS[210], l=w, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
+                              note=f"batang pendek {w} (rangka laci/rak): terlihat {n}x; x2", src="geometry"))
+    # shorter vertical bars (not legs) = vertical supports
+    for h, n in legs_h.items():
+        if legs_h and h < max(legs_h) - 5:
+            comps.append(dict(no=209, name=PARTS[209], l=h, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED", note=f"batang tegak pendek {h} terlihat {n}x di tampak; x2", src="geometry"))
+
     # ---- panels: labelled faces. Face view (both dims > t) -> L x W. Edge views are paired ACROSS views:
     #      same code, same t, same z-row (section height) and same visible height -> one component, L from one view, W from the other.
     def face_label(f):
@@ -233,35 +239,22 @@ def main():
             if h > w: return next((c for c in cand if c["no"] in (3, 17)), cand[0])
             return next((c for c in cand if near(c["l"], w, 8)), cand[0])
         return min(cand, key=lambda c: min(abs(c["l"] - max(w, h)), abs(c["w"] - max(w, h)), abs(c["l"] - min(w, h))))
-    # label handles
-    dxf = os.path.join(tempfile.mkdtemp(), "h.dxf"); R.dwg_to_dxf(a.dwg, dxf); d = ezdxf.readfile(dxf)
+    # label handles: straight from AutoCAD (res["leaders"])
     edits = []; unmatched = []
-    for e in d.modelspace():
-        if e.dxftype() != "MULTILEADER": continue
-        try:
-            txt = " ".join(ezdxf.tools.text.plain_mtext(e.context.mtext.default_content).split()); tip = None
-            for ld in e.context.leaders:
-                for ln in ld.lines:
-                    if ln.vertices: tip = ln.vertices[0]; break
-                if tip: break
-        except Exception: continue
-        if tip is None: continue
-        try:
-            ld0 = e.context.leaders[0]; lp = ld0.last_leader_point; th = float(e.context.char_height) * float(e.dxf.scale or 1)
-            ins = e.context.mtext.insert; tx_dir = 1 if ins.x >= lp.x else -1
-            dl = float(ld0.dogleg_length) if ld0.has_dogleg_vector else 0.0
-            land = (lp.x + tx_dir * dl, lp.z)          # end of the dogleg = where the drafter's text sat
-        except Exception:
-            land, th, tx_dir = (tip.x, tip.z), 15.0, 1
-        pt = (tip.x, tip.z)
+    for m in res["leaders"]:
+        txt = m["text"]; tip = m["tip"]
+        th = float(m["th"] or 15.0)
+        lp = m["landing"]; dirx = 1 if float(m["dir"][0]) >= 0 else -1
+        dl = float(m["dogleg"] or 0.0)
+        land = (lp[0] + dirx * dl, lp[2])            # end of the dogleg = where the drafter's text sat
+        tx_dir = dirx
+        pt = (tip[0], tip[2])
         inside = [f for f in faces if f[0] <= pt[0] <= f[0] + f[2] and f[1] <= pt[1] <= f[1] + f[3]]
         f = min(inside, key=lambda f: f[2] * f[3]) if inside else min(faces, key=lambda f: math.hypot(max(f[0] - pt[0], 0, pt[0] - f[0] - f[2]), max(f[1] - pt[1], 0, pt[1] - f[1] - f[3])))
         c = comp_for_label(txt, *f)
         if c is None:
             unmatched.append(txt); continue
-
-
-        edits.append((e.dxf.handle.upper(), c["row"], land, th, tx_dir))
+        edits.append((m["handle"].upper(), c["row"], land, th, tx_dir))
     base = f"{a.item}_components"; out_pdf = os.path.join(a.out, base + ".pdf"); out_dwg = os.path.join(a.out, base + ".dwg")
     for f_ in (out_pdf, out_dwg):
         if os.path.exists(f_):
@@ -282,11 +275,13 @@ def main():
         L += kn_box(land[0], land[1], n, th, dirx)
     L += ['(princ (strcat "\\nPREFIX_OK=" (itoa okn) " FAIL=" (itoa failn)))', "_.REGENALL"]
     # table on sheet 1 of the drafter layout (same placement logic as dwg2d_number_labels)
-    layouts = [l.name for l in d.layouts if l.name != "Model"]; lay = layouts[0] if layouts else ""
+    # layouts/viewports/frames straight from AutoCAD (res["layouts"]): first layout that has viewports
+    lay_objs = [l for l in res["layouts"] if l["viewports"]]
+    lay = lay_objs[0]["name"] if lay_objs else ""
     pdfs = []
     if lay:
-        ly = d.layouts.get(lay)
-        vps = [(e.dxf.center.x - e.dxf.width / 2, e.dxf.center.y - e.dxf.height / 2, e.dxf.center.x + e.dxf.width / 2, e.dxf.center.y + e.dxf.height / 2) for e in ly if e.dxftype() == "VIEWPORT" and e.dxf.id != 1]
+        ly = lay_objs[0]
+        vps = [tuple(v) for v in ly["viewports"]]
         vps = [v for v in vps if (v[2] - v[0]) < 0.6 * max(x[2] for x in vps)]
         srt = sorted(vps, key=lambda v: v[0]); widest = max(v[2] - v[0] for v in srt); sheets = []
         for v in srt:
@@ -340,12 +335,9 @@ def main():
         pdfs.append(pdf_t)
         # drafter's own sheet frames (closed 4-point polylines in paper space that enclose viewports) = exact plot windows
         frames = []
-        for e in ly:
-            if e.dxftype() == "LWPOLYLINE" and e.closed and len(e) == 4:
-                xs_ = [p_[0] for p_ in e.get_points("xy")]; ys_ = [p_[1] for p_ in e.get_points("xy")]
-                fr = (min(xs_), min(ys_), max(xs_), max(ys_))
-                if any(v[0] >= fr[0] - 0.01 and v[2] <= fr[2] + 0.01 and v[1] >= fr[1] - 0.01 and v[3] <= fr[3] + 0.01 for v in vps):
-                    frames.append(fr)
+        for fr in [tuple(f) for f in ly["frames"]]:
+            if any(v[0] >= fr[0] - 0.01 and v[2] <= fr[2] + 0.01 and v[1] >= fr[1] - 0.01 and v[3] <= fr[3] + 0.01 for v in vps):
+                frames.append(fr)
         frames.sort()
         if len(frames) == len(sheets):
             for sh, fr in zip(sheets, frames):
