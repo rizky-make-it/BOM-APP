@@ -94,52 +94,61 @@ def main():
         if r["how"] != "inside" and float(r["how"].split()[-1]) > 40:
             continue
         lab[(r["x"], r["z"], r["w"], r["h"])] = r["label"]
-    # ---- metal frame: hollow bars are drawn as thin rectangles (one side == section) in the elevation views,
-    #      and as small squares (section) in the plan/section views. Count bars per view, take the max across views.
-    ma, mb = sorted(int(v) for v in a.metal.lower().split("x"))
+    # ---- metal frame: one pass per hollow section found in the drafter's labels (MT-SQUARE 20X20, MT-HOLLOW 80X40 ...).
+    #      Bars = thin rectangles with one side == a or b of the section; squares/rects a x b = cross-sections.
     comps = []
-    def is_sq(w, h): return near(w, ma, 3) and near(h, ma, 3)
-    def is_bar(w, h): return (near(w, ma, 3) or near(w, mb, 3)) != (near(h, ma, 3) or near(h, mb, 3)) and max(w, h) > 60
-    # a face is a metal bar only if it is thin AND no panel label points at it (ply 20 edges look the same)
-    panel_faces_set = {f for f, lb in lab.items() if not material(lb)[0] == "metal"}
-    # plan views (seen from above): a square-ish view with 4 section squares at its corners -> its "vertical" bars are rails, not legs
-    def is_plan(v):
-        sqs = [(x, z, w, h) for (x, z, w, h) in v["f"] if is_sq(w, h)]
-        return len(sqs) >= 4 and abs((v["x1"] - v["x0"]) - (v["z1"] - v["z0"])) < 0.35 * max(v["x1"] - v["x0"], 1)
-    per_view = []
-    for v in views:
-        vert = collections.Counter(); horz = collections.Counter(); plan_v = is_plan(v)
-        for (x, z, w, h) in v["f"]:
-            if not is_bar(w, h) or (x, z, w, h) in panel_faces_set: continue
-            if plan_v: horz[max(w, h)] += 1                 # seen from above: every bar is a rail
-            elif h > w: vert[h] += 1
-            else: horz[w] += 1
-        if vert or horz: per_view.append(dict(v=v, vert=vert, horz=horz, plan=plan_v))
-    # legs: tallest vertical bar; count = max seen in one view x 2 (front+back pair hidden behind each other)
-    legs_h = collections.Counter()
-    for pv_ in per_view:
-        if pv_["plan"]: continue
-        for h, n in pv_["vert"].items(): legs_h[h] = max(legs_h[h], n)
-    if legs_h:
-        hL = max(legs_h); nL = legs_h[hL]
-        comps.append(dict(no=101, name=PARTS[101], l=hL, w=mb, t=ma, qty=nL * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
-                          note=f"batang tegak {hL} terlihat {nL}x di satu tampak; x2 untuk pasangan depan/belakang", src="geometry"))
-    # horizontal bars: group by length, qty = max count in one view x 2 (front+back / left+right pairs)
-    horz_all = collections.Counter()
-    for pv_ in per_view:
-        for w, n in pv_["horz"].items(): horz_all[w] = max(horz_all[w], n)
-    Lmax = max(horz_all, default=0)
-    for w, n in sorted(horz_all.items(), key=lambda t: -t[0]):
-        if near(w, Lmax, 8):
-            comps.append(dict(no=201, name=PARTS[201] + " / " + PARTS[202], l=w, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
-                              note=f"rail rangka {w}: terlihat {n}x di satu tampak; x2 untuk pasangan sisi", src="geometry"))
-        else:
-            comps.append(dict(no=210, name=PARTS[210], l=w, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED",
-                              note=f"batang pendek {w} (rangka laci/rak): terlihat {n}x; x2", src="geometry"))
-    # shorter vertical bars (not legs) = vertical supports
-    for h, n in legs_h.items():
-        if legs_h and h < max(legs_h) - 5:
-            comps.append(dict(no=209, name=PARTS[209], l=h, w=mb, t=ma, qty=n * 2, code=f"MT-{ma}x{mb}", status="DERIVED", note=f"batang tegak pendek {h} terlihat {n}x di tampak; x2", src="geometry"))
+    metal_sections = sorted({tuple(sorted((material(lb)[1], int(material(lb)[2].split("x")[1])))) for lb in lab.values() if material(lb)[0] == "metal"})
+    if not metal_sections:
+        metal_sections = [tuple(sorted(int(v) for v in a.metal.lower().split("x")))]
+    panel_faces_set = {f for f, lb in lab.items() if material(lb)[0] != "metal"}
+    # which labelled metal faces belong to which section (for the bar test we also accept unlabelled faces)
+    metal_face_sec = {f: tuple(sorted((material(lb)[1], int(material(lb)[2].split("x")[1])))) for f, lb in lab.items() if material(lb)[0] == "metal"}
+    for (ma, mb) in metal_sections:
+        def is_sec(w, h): return (near(w, ma, 3) and near(h, mb, 3)) or (near(w, mb, 3) and near(h, ma, 3))
+        def is_bar(w, h): return ((near(w, ma, 3) or near(w, mb, 3)) != (near(h, ma, 3) or near(h, mb, 3))) and max(w, h) > 60
+        def is_plan(v):
+            return sum(1 for (x, z, w, h) in v["f"] if is_sec(w, h)) >= 4 and abs((v["x1"] - v["x0"]) - (v["z1"] - v["z0"])) < 0.35 * max(v["x1"] - v["x0"], 1)
+        per_view = []
+        for v in views:
+            vert = collections.Counter(); horz = collections.Counter(); plan_v = is_plan(v)
+            for (x, z, w, h) in v["f"]:
+                f_ = (x, z, w, h)
+                if f_ in panel_faces_set or not is_bar(w, h): continue
+                if f_ in metal_face_sec and metal_face_sec[f_] != (ma, mb): continue
+                if len(metal_sections) > 1 and f_ not in metal_face_sec:
+                    # unlabelled bar: assign to the section whose thin side matches best
+                    thin = min(w, h)
+                    if not (near(thin, ma, 3) or near(thin, mb, 3)): continue
+                    if any(near(thin, o, 3) for s_ in metal_sections if s_ != (ma, mb) for o in s_) and not near(thin, ma, 1): continue
+                if plan_v: horz[max(w, h)] += 1
+                elif h > w: vert[h] += 1
+                else: horz[w] += 1
+            if vert or horz: per_view.append(dict(v=v, vert=vert, horz=horz, plan=plan_v))
+        legs_h = collections.Counter()
+        for pv_ in per_view:
+            if pv_["plan"]: continue
+            for h, n in pv_["vert"].items(): legs_h[h] = max(legs_h[h], n)
+        code = f"MT-{ma}x{mb}"
+        if legs_h:
+            hL = max(legs_h); nL = legs_h[hL]
+            comps.append(dict(no=101, name=PARTS[101], l=hL, w=mb, t=ma, qty=nL * 2, code=code, status="DERIVED",
+                              note=f"batang tegak {hL} terlihat {nL}x di satu tampak; x2 untuk pasangan depan/belakang", src="geometry"))
+            for h, n in legs_h.items():
+                if h < hL - 5:
+                    comps.append(dict(no=209, name=PARTS[209], l=h, w=mb, t=ma, qty=n * 2, code=code, status="DERIVED", note=f"batang tegak pendek {h} terlihat {n}x; x2", src="geometry"))
+        horz_all = collections.Counter()
+        for pv_ in per_view:
+            for w, n in pv_["horz"].items(): horz_all[w] = max(horz_all[w], n)
+        Lmax = max(horz_all, default=0)
+        for w, n in sorted(horz_all.items(), key=lambda t: -t[0]):
+            if near(w, Lmax, 8):
+                comps.append(dict(no=201, name=PARTS[201] + " / " + PARTS[202], l=w, w=mb, t=ma, qty=n * 2, code=code, status="DERIVED",
+                                  note=f"rail rangka {w}: terlihat {n}x di satu tampak; x2 untuk pasangan sisi", src="geometry"))
+            else:
+                comps.append(dict(no=210, name=PARTS[210], l=w, w=mb, t=ma, qty=n * 2, code=code, status="DERIVED",
+                                  note=f"batang pendek {w}: terlihat {n}x; x2", src="geometry"))
+    ma, mb = metal_sections[0]
+
 
     # ---- panels: labelled faces. Face view (both dims > t) -> L x W. Edge views are paired ACROSS views:
     #      same code, same t, same z-row (section height) and same visible height -> one component, L from one view, W from the other.
@@ -162,14 +171,23 @@ def main():
             f = thin[0]; it.update(x=f[0], z=f[1], w=f[2], h=f[3], edge=True)
     used = set()
     def pos_name(A):
-        """part_no from thickness + where the labelled face sits in its view (0 = undecided)"""
+        """part_no from material kind + thickness + where the labelled face sits in its view (0 = undecided)"""
         t = A["t"]; v = views[A["vi"]]; vw = v["x1"] - v["x0"]; vh = v["z1"] - v["z0"]
         spans_w = A["w"] >= 0.8 * vw; full_h = A["h"] >= 0.8 * vh; standing = A["h"] > A["w"]
+        if A["code"] in ("A", "A1"):                                   # solid wood: section drives the name
+            long_, short_ = max(A["w"], A["h"]), min(A["w"], A["h"])
+            if standing and full_h: return 101                         # leg / post
+            if long_ >= 0.8 * vw and short_ >= 100: return 806 if vw > 1500 else 201   # bed side rail / top rail
+            if long_ >= 0.8 * vw: return 201                            # rail along the view
+            if short_ <= 50 and long_ >= 150: return 210               # cross bar / support
+            return 199
         if t <= 6: return 405                                          # drawer base
         if t == 12 and A["code"].endswith("0X"): return 402 if standing else 404   # drawer box side (standing) / front-back
         if t == 12 and A["code"].endswith("1X"): return 308 if spans_w else 310    # shelf / fixed horizontal panel
         if t == 9: return 302 if (standing and full_h) or spans_w else 401          # back panel / drawer front (9 mm veneer)
-        if t >= 18: return 601 if spans_w and A["z"] + A["h"] >= v["z1"] - 30 else (308 if spans_w else 401)
+        if t >= 15 and standing and (full_h or A["h"] >= 600): return 801 if vw > 1500 else 301   # headboard / side panel
+        if t >= 15 and vw > 1500: return 804 if A["h"] >= 150 else 310                           # bed: footboard panel / deck
+        if t >= 15: return 601 if spans_w and A["z"] + A["h"] >= v["z1"] - 30 else (308 if spans_w else 401)
         return 0
 
     for i, A in enumerate(items):
@@ -350,7 +368,7 @@ def main():
             else:
                 top = sh["y1"] + 2.6 * 25.4 * k
                 wx0, wy0 = sh["x0"] - 8 * k, sh["y0"] - 12 * k; wx1, wy1 = sh["x1"] + 8 * k, top
-            L += ["_.-PLOT", "_Y", lay, "DWG To PDF.pc3", C.PAPER_A3, "_M", "_L", "_N", "_W", f"{wx0:.3f},{wy0:.3f}", f"{wx1:.3f},{wy1:.3f}", "_F", "_C", "_Y", ".", "_Y", "_N", "_N", "_N", pdf_i.replace(chr(92), "/"), "_N", "_Y"]
+            L += [f'(command "_.-PLOT" "_Y" "{lay}" "DWG To PDF.pc3" "{C.PAPER_A3}" "_M" "_L" "_N" "_W" "{wx0:.3f},{wy0:.3f}" "{wx1:.3f},{wy1:.3f}" "_F" "_C" "_Y" "." "_Y" "_N" "_N" "_N" "{pdf_i.replace(chr(92), "/")}" "_N" "_Y")']
             pdfs.append(pdf_i)
     L += ["_.SAVEAS", "2018", out_dwg.replace("\\", "/")]
     ok, log, why = C.run(src, L, timeout=180, workdir=w_)
