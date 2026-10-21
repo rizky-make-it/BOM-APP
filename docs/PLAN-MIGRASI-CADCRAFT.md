@@ -25,7 +25,7 @@ acad_core (jalankan/plot), acad_read (dump entget), dwg2d_read, dwg2d_components
 
 ## HASIL PENGUKURAN (21 Okt 2026, tools/cc_read.py + tools/cc_compare.py, 18 DWG: Skyline, Sienna x5, lexi 2/3, STANDARD x10)
 - LINE 4389/4389 identik (100%); DIMENSION 1306/1309 (99,8%; 3 beda di Skyline); MULTILEADER teks 341/341 dan ujung panah 341/341 (100%, Sienna+Lexi).
-- Kecepatan: CADCraft 4,4 detik total vs AutoCAD 21,7 detik (sekitar 5x lebih cepat); tanpa lisensi, tanpa proses accoreconsole yang bisa macet (ErrorStatus=76 terjadi pada AutoCAD saat DWG dibuka bersama file yang sedang terbuka).
+- Kecepatan: CADCraft 4,4 detik total vs AutoCAD 21,7 detik (sekitar 5x lebih cepat); tanpa lisensi, tanpa proses accoreconsole yang bisa macet (catatan lama tentang ErrorStatus=76 SALAH: itu bug skrip saya, lihat docs/BENCH-READER.md).
 - KEKURANGAN CADCraft: (1) LWPOLYLINE keluar dalam koordinat OCS tanpa normal ekstrusi -> polyline pada bidang XZ (gaya Sienna/Lexi) tidak bisa diubah ke WCS: cocok 99/1831 saja; (2) 3DSOLID jadi Proxy tanpa geometri; (3) 3-4 record DWG tidak terbaca (tipe 535/519); (4) tulis DWG R2000.
 - KEKURANGAN cc_read (belum selesai, bukan CADCraft): entitas LEADER + MTEXT gaya STANDARD belum dipasangkan (data ada: CAB-01 6 Leader + 31 MText).
 - Kesimpulan: untuk membaca garis/dimensi/label, CADCraft MCP setara dan lebih cepat; untuk bidang XZ (polyline) dan solid, AutoCAD masih unggul. Migrasi penuh BELUM bisa.
@@ -52,3 +52,6 @@ Skyline (bidang XY, tanpa leader drafter) dan LV446-L11 (bidang XZ, 31 leader dr
 - CADCraft / Skyline (XY): 15 tag (garis + kotak + angka) 45 perintah 0 error, tersimpan, terbaca di render PNG. Cetak lembar drafter tidak setara (viewport diabaikan).
 - CADCraft / L11 (XZ): GAGAL tiga hal. (1) Teks MULTILEADER drafter tidak bisa dikosongkan: `properties.set text` melapor changed:1 tetapi teks tetap, `textedit` error. (2) `line`/`text` membuang koordinat Z (garis 0,0,0-100,0,50 tersimpan 0,0,0-100,0,0), jadi tag tidak bisa ditaruh pada bidang XZ. (3) `3dpoly` menerima Z sehingga kotak dan garis bisa digambar di XZ, tetapi angka (TEXT) tidak bisa diletakkan pada bidang itu.
 - Kesimpulan: pelabelan gambar bidang XZ dengan leader drafter (Sienna, Lexi) = hanya AutoCAD. Pelabelan gambar bidang XY (Skyline) = keduanya bisa; CADCraft lebih cepat dan bisa dicek lewat render, tetapi cetak lembar tetap AutoCAD.
+
+
+## UJI LANJUTAN 21 Okt: lihat docs/BENCH-READER.md (kunci jawaban sintetis, stabilitas, 44 DWG nyata, tulis-baca ulang). Rekomendasi: AutoCAD pembaca utama + CADCraft pembaca kedua; BUKAN migrasi penuh.
