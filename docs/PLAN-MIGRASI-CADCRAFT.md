@@ -29,3 +29,7 @@ acad_core (jalankan/plot), acad_read (dump entget), dwg2d_read, dwg2d_components
 - KEKURANGAN CADCraft: (1) LWPOLYLINE keluar dalam koordinat OCS tanpa normal ekstrusi -> polyline pada bidang XZ (gaya Sienna/Lexi) tidak bisa diubah ke WCS: cocok 99/1831 saja; (2) 3DSOLID jadi Proxy tanpa geometri; (3) 3-4 record DWG tidak terbaca (tipe 535/519); (4) tulis DWG R2000.
 - KEKURANGAN cc_read (belum selesai, bukan CADCraft): entitas LEADER + MTEXT gaya STANDARD belum dipasangkan (data ada: CAB-01 6 Leader + 31 MText).
 - Kesimpulan: untuk membaca garis/dimensi/label, CADCraft MCP setara dan lebih cepat; untuk bidang XZ (polyline) dan solid, AutoCAD masih unggul. Migrasi penuh BELUM bisa.
+
+## KOREKSI (21 Okt 2026, setelah Rizky: "kamu tidak memberi kesempatan untuk CADCraft")
+- Klaim "polyline XZ tidak bisa" TERLALU KERAS. `query_entities` memang tanpa normal, tetapi bila diasumsikan normal (0,-1,0) (bidang XZ gaya Sienna/Lexi, sama dengan entmake kita), 126 dari 151 polyline L11 cocok persis dengan AutoCAD (83%). 25 sisanya tidak cocok (bidang lain / elevasi; belum diselidiki). Jalur lewat `convert -> DXF` tetap kehilangan normal (selalu 0,0,1).
+- BELUM DIUJI sama sekali (jangan dianggap gagal): jalur tulis `command_line/script/execute` (tag, kosongkan teks leader), layout + plot PDF, ekspor STEP/solid, pasangan LEADER+MTEXT gaya STANDARD.
