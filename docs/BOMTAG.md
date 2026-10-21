@@ -1,4 +1,4 @@
-# BOMTAG - melabel komponen di AutoCAD (panduan drafter)
+# BOMTAG v2 - melabel komponen di AutoCAD (panduan drafter)
 
 Tiga perintah AutoCAD yang membuat label (tag nomor berkotak) dan data BOM sekaligus. Ukuran dan nomor part tidak perlu diketik ulang ke tabel di mana pun.
 
@@ -8,7 +8,8 @@ Tiga perintah AutoCAD yang membuat label (tag nomor berkotak) dan data BOM sekal
 3. Bila Part Master berubah, bangun ulang filenya: `python tools/build_bomtag.py`.
 
 ## Pakai
-**BOMTAG** - ulangi untuk tiap komponen:
+**BOMTAG** - ulangi untuk tiap komponen. v2: semua isian DISARANKAN OTOMATIS; tekan Enter bila benar, ketik bila ingin mengganti.
+Saran berasal dari (urut): label drafter yang ujung panahnya jatuh di titik klik (LEADER+MTEXT atau MULTILEADER), nama dan alias Part Master v3 (306 kata kunci), kode bahan default Part Master (tebal ikut kode), dan bidang terukur (disorot merah sebelum diterima). Bila tidak ada label atau Part Master tidak punya default, kolom itu kosong dan WAJIB diisi (tidak ada tebakan diam-diam; tebal kayu solid tidak ditebak dari lebar).
 1. Klik di dalam komponen (di tampak apa pun, bidang gambar apa pun). Panjang x lebar terukur otomatis dari bidang yang diklik.
 2. Ketik nomor part (3 digit, Part Master v3). Ketik `?` untuk melihat daftar 126 part.
 3. Ketik kode bahan (A, A1, B-18-1X, C-18-1X, MT-20x20 ...). Enter = pakai yang terakhir.
