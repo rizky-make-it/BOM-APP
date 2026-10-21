@@ -1,0 +1,130 @@
+{
+ "header": {
+  "item_code": "SKYLINE-DOOR",
+  "item_name": "SKYLINE CABINET - 2 DOORS",
+  "collection": "SKYLINE",
+  "overall_l": 980.0,
+  "overall_w": 23.0,
+  "overall_h": 2110.0,
+  "order_qty": 1,
+  "drawing_link": "SKYLINE CABINET.dwg",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "2 pintu @ 489 x 2110 x 23 (DWG: 2 pintu 489 + 489 = 980; daftar potong PDF). Badan lemari (1000x2200, kaki 80) TIDAK dihitung. Hardware diisi Rizky nanti."
+ },
+ "solid_parts": [
+  {
+   "label": "A / A",
+   "component": "Door stile",
+   "l": 2110.0,
+   "w": 43.0,
+   "t": 23.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter A: 2110x43x23, 2/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  },
+  {
+   "label": "B / A",
+   "component": "Door top/bottom rail",
+   "l": 445.0,
+   "w": 43.0,
+   "t": 23.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter B: 445x43x23, 2/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  },
+  {
+   "label": "C / A",
+   "component": "Door centre stile",
+   "l": 2064.0,
+   "w": 89.0,
+   "t": 23.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter C: 2064x89x23, 1/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  },
+  {
+   "label": "D / A",
+   "component": "Door mid rail",
+   "l": 198.0,
+   "w": 89.0,
+   "t": 23.0,
+   "qty": 12,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter D: 198x89x23, 6/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  },
+  {
+   "label": "E / A",
+   "component": "Panel bevel strip short",
+   "l": 158.0,
+   "w": 40.0,
+   "t": 8.0,
+   "qty": 32,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter E: 158x40x8, 16/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  },
+  {
+   "label": "F / A",
+   "component": "Panel bevel strip long",
+   "l": 439.0,
+   "w": 40.0,
+   "t": 8.0,
+   "qty": 32,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "[STATED] daftar potong drafter F: 439x40x8, 16/pintu x 2 pintu; bahan SOLID WOOD [ASSUMED] jenis MINDI"
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "G / PLY",
+   "component": "Door panel plywood",
+   "panel_type": "LND-PLY-E0-6-MSF",
+   "l": 449.0,
+   "w": 158.0,
+   "t": 6.0,
+   "qty": 8,
+   "exposed_faces": 1,
+   "note": "[STATED] G: 449x158x7 PLYWOOD, 4/pintu x 2; [ASSUMED] 7 mm tidak ada di rate card -> E0-6 (terdekat), 1 muka veneer (muka depan pintu)"
+  },
+  {
+   "label": "H / PLY",
+   "component": "Door panel plywood (wide)",
+   "panel_type": "LND-PLY-E0-6-MSF",
+   "l": 459.0,
+   "w": 158.0,
+   "t": 6.0,
+   "qty": 8,
+   "exposed_faces": 1,
+   "note": "[STATED] H: 459x158x7 PLYWOOD, 4/pintu x 2; [ASSUMED] 7 mm tidak ada di rate card -> E0-6 (terdekat), 1 muka veneer (muka depan pintu)"
+  }
+ ],
+ "hardware_parts": [],
+ "_provenance": {
+  "stated": "ukuran A-H dan qty/pintu dari PDF drafter; 2 pintu dari Rizky",
+  "assumed": [
+   "solid wood = MINDI",
+   "7 mm plywood -> E0-6",
+   "exposed_faces 1",
+   "finish NC NATURAL",
+   "tebal tidak dipaksa RULES: daftar drafter dipakai apa adanya untuk kayu"
+  ]
+ }
+}
