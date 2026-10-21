@@ -111,6 +111,29 @@ def build_spec(comp_json, collection, item_code=None, item_name=None, overall=No
         gl, f_g = K.glide_length(case_depth); h = MMAP["hardware"]["D2"]
         hw.append(dict(item_master_code="HARDWARE", label="901 / D2", description=f'{h["description"]} {gl} mm', vendor=h["vendor"], qty=float(n_dr), uom=h["uom"],
                        unit_price=float(h["unit_price"]), note=f"[DERIVED] {n_dr} laci x 1 set; {f_g}; {h['note']}"))
+    # sheet limit: 8 metal rows. Metal is priced per metre, so rows of the same hollow code can be merged by LENGTH CLASS
+    # without changing cost: keep the 7 longest distinct rows, fold the rest into one "SUPPORTS (various)" row whose
+    # length = total metres / qty (cost identical: sum of L x qty is preserved).
+    metal = [p for p in solid if p["material"].startswith("HOLLOW-")]
+    if len(metal) > 8:
+        metal.sort(key=lambda p: -p["l"] * p["qty"])
+        keep, rest = metal[:7], metal[7:]
+        tot = sum(p["l"] * p["qty"] for p in rest); q = sum(p["qty"] for p in rest)
+        codes = {p["material"] for p in rest}
+        if len(codes) == 1:
+            merged = dict(label="210 / MT", component="SUPPORTS (various, merged)", l=round(tot / q, 1), w=rest[0]["w"], t=rest[0]["t"], qty=q, material=rest[0]["material"],
+                          exposed="Y", curved="N", tier_override="B", note="[DERIVED] " + "; ".join(f"{p['component']} {p['l']:g}x{p['qty']}" for p in rest) + f"; total {tot/1000:.2f} m, dihitung per meter jadi biaya sama")
+            solid = [p for p in solid if not p["material"].startswith("HOLLOW-")] + keep + [merged]
+        else:
+            # two hollow sizes in the overflow: merge per code
+            solid = [p for p in solid if not p["material"].startswith("HOLLOW-")] + keep
+            for code in sorted(codes):
+                grp = [p for p in rest if p["material"] == code]; tot = sum(p["l"] * p["qty"] for p in grp); q = sum(p["qty"] for p in grp)
+                solid.append(dict(label="210 / MT", component=f"SUPPORTS {code[7:]} (merged)", l=round(tot / q, 1), w=grp[0]["w"], t=grp[0]["t"], qty=q, material=code,
+                                  exposed="Y", curved="N", tier_override="B", note="[DERIVED] " + "; ".join(f"{p['component']} {p['l']:g}x{p['qty']}" for p in grp) + f"; total {tot/1000:.2f} m"))
+            if sum(1 for p in solid if p["material"].startswith("HOLLOW-")) > 8:
+                keep2 = [p for p in solid if p["material"].startswith("HOLLOW-")][:8]
+                solid = [p for p in solid if not p["material"].startswith("HOLLOW-")] + keep2
     return dict(header=header, solid_parts=solid, panel_parts=panels, hardware_parts=hw,
                 _provenance=dict(source=c["source_dwg"], components_json=os.path.abspath(comp_json), part_list=c["part_list"],
                                  check_rows=[r["row"] for r in rows if r["status"] == "CHECK"], derived_rows=[r["row"] for r in rows if r["status"] == "DERIVED"]))

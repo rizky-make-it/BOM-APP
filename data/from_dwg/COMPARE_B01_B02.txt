@@ -1,0 +1,32 @@
+
+=== LV463-B01  (lama = BOM Sienna 19 Okt dari PDF; baru = dibaca dari DWG)
+bagian             lama         baru      selisih
+timber        1,014,649    1,572,143     +557,494
+metal           153,103      197,067      +43,964
+panels          685,134      333,051     -352,083
+hardware        639,000            0     -639,000
+finishing       429,126      383,597      -45,529
+pack            893,840    1,457,864     +564,024
+unit          4,607,271    4,804,800     +197,529
+-- kayu lama: Bottom stretcher headboard/footboard 1550x200x35 x2; Leg headboard 350x80x80 x2; Side rail 2125x200x35 x2; Slat side ledger cleat 2125x40x30 x2; Slat headboard ledger cleat 1550x40x30 x4
+-- kayu baru: OTHER BASE PART (DESCRIBE) 350x80x80 x1; OTHER BASE PART (DESCRIBE) 320x80x80 x1; TOP RAIL FRONT/BACK 2125x40x40 x1; HORIZONTAL SUPPORT 200x35x35 x2; BED SIDE RAIL 2125x130x130 x1; BED SIDE RAIL 1550x200x200 x1
+-- metal lama: Stretcher headboard 1632 x2 HOLLOW-40x60x1; Stretcher footboard 1550 x3 HOLLOW-25x50x0.8; Leg footboard 400 x2 HOLLOW-50x50x1
+-- metal baru: LEG 817 x2 HOLLOW-25x50x0.8; LEG 850 x4 not in list; TOP RAIL FRONT/BACK 1610 x6 HOLLOW-25x50x0.8; TOP RAIL FRONT/BACK 1632 x2 not in list; TOP RAIL FRONT/BACK 1630 x2 not in list; VERTICAL SUPPORT 400 x4 HOLLOW-25x50x0.8; VERTICAL SUPPORT 800 x2 not in list; SUPPORTS 25x50x0.8 (merged) 150.8 x10 HOLLOW-25x50x0.8
+-- panel lama: Headboard inlay panel 1630x770x18 x1 PNL-01; Footboard panel 1630x200x18 x1 PNL-02
+-- panel baru: HEADBOARD PANEL 770x770x18 x1 801 / B-15-1X; FOOTBOARD PANEL 434x271x18 x1 804 / B-15-1X; FOOTBOARD PANEL 1632x200x18 x1 804 / B-15-1X
+
+=== LV463-B02  (lama = BOM Sienna 19 Okt dari PDF; baru = dibaca dari DWG)
+bagian             lama         baru      selisih
+timber        1,105,815    1,749,970     +644,155
+metal           180,921       53,934     -126,987
+panels          685,134      342,567     -342,567
+hardware        726,000            0     -726,000
+finishing       500,067      416,194      -83,873
+pack          1,015,829    1,615,224     +599,395
+unit          5,087,850    5,096,859       +9,009
+-- kayu lama: Bottom stretcher headboard/footboard 1850x200x35 x2; Leg headboard 390x80x80 x2; Side rail 2125x200x35 x2; Slat side ledger cleat 2125x40x30 x2; Slat headboard ledger cleat 1850x40x30 x4
+-- kayu baru: OTHER BASE PART (DESCRIBE) 350x80x80 x1; OTHER BASE PART (DESCRIBE) 320x80x80 x1; TOP RAIL FRONT/BACK 2125x40x40 x1; HORIZONTAL SUPPORT 200x35x35 x2; BED SIDE RAIL 2125x130x130 x1; BED SIDE RAIL 1850x200x200 x1
+-- metal lama: Stretcher headboard 1930 x2 HOLLOW-40x60x1; Stretcher footboard 1908 x3 HOLLOW-25x50x0.8; Leg footboard 400 x2 HOLLOW-50x50x1
+-- metal baru: LEG 817 x2 HOLLOW-25x50x0.8; LEG 850 x4 not in list; TOP RAIL FRONT/BACK 1932 x2 not in list; TOP RAIL FRONT/BACK 1930 x2 not in list; VERTICAL SUPPORT 810 x4 not in list; VERTICAL SUPPORT 390 x4 not in list; SUPPORTS 25x50x0.8 (merged) 192.3 x12 HOLLOW-25x50x0.8; HORIZONTAL SUPPORT 1850 x2 not in list
+-- panel lama: Headboard inlay panel 1930x810x18 x1 PNL-01; Footboard panel 1930x200x18 x1 PNL-02
+-- panel baru: HEADBOARD PANEL 770x770x18 x1 801 / B-15-1X; FOOTBOARD PANEL 416x392x18 x1 804 / B-15-1X; FOOTBOARD PANEL 1932x200x18 x1 804 / B-15-1X
