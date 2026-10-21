@@ -33,3 +33,8 @@ acad_core (jalankan/plot), acad_read (dump entget), dwg2d_read, dwg2d_components
 ## KOREKSI (21 Okt 2026, setelah Rizky: "kamu tidak memberi kesempatan untuk CADCraft")
 - Klaim "polyline XZ tidak bisa" TERLALU KERAS. `query_entities` memang tanpa normal, tetapi bila diasumsikan normal (0,-1,0) (bidang XZ gaya Sienna/Lexi, sama dengan entmake kita), 126 dari 151 polyline L11 cocok persis dengan AutoCAD (83%). 25 sisanya tidak cocok (bidang lain / elevasi; belum diselidiki). Jalur lewat `convert -> DXF` tetap kehilangan normal (selalu 0,0,1).
 - BELUM DIUJI sama sekali (jangan dianggap gagal): jalur tulis `command_line/script/execute` (tag, kosongkan teks leader), layout + plot PDF, ekspor STEP/solid, pasangan LEADER+MTEXT gaya STANDARD.
+
+## UJI JALUR TULIS CADCraft (21 Okt 2026, Skyline) - MCP terdaftar di Hermes (`hermes mcp add cadcraft`, 12 tool, aktif di sesi baru)
+- TULIS: `execute` line / rectang / text (justify MC) menaruh 15 tag (garis + kotak + angka) = 45 perintah, 0 error, ~0 detik; `save` ke DWG baru jalan; kotak dan angka terbaca jelas di render PNG (`cadcraft-cli convert --window`). Penempatan koordinat tag masih kasar (tag 2 menembus pintu, 5/6 menempel dimensi): masalah posisi saya, bukan alat.
+- PLOT layout: `execute plot {layout, paper, fit}` menghasilkan PDF A3 per layout (2 lembar, 96-130 KB). TETAPI isi lembar CABINET (2) TIDAK sama dengan plot AutoCAD: potongan terpotong di tepi kanan dan blok DETAIL tumpang tindih, sedangkan AutoCAD mencetak lembar depan+perspektif utuh. Belum diselidiki (kemungkinan viewport/clip layout tidak dihormati CADCraft). Jadi untuk cetak lembar drafter AutoCAD masih lebih benar.
+- BELUM: kosongkan teks MULTILEADER drafter (`mleaderedit`), solid via STEP, leader+MText gaya STANDARD.
