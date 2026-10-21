@@ -396,7 +396,7 @@ def main():
     pref = next((l.strip() for l in log.splitlines() if l.startswith("PREFIX_OK")), "?")
     good, det = C.pdf_has_content(out_pdf)
     js = dict(item=a.item, name=a.name, source_dwg=os.path.abspath(a.dwg), generated=datetime.datetime.now().isoformat(timespec="seconds"),
-              part_list=f"Part Master v{_PM['version']} ({_PM['updated']}, {_PM['total_parts']} parts) + factory material codes", components=comps, labels_rewritten=len(edits), labels_unmatched=unmatched,
+              part_list=f"Part Master v{_PM['version']} ({_PM['updated']}, {_PM['total_parts']} parts) + factory material codes", components=comps, tags=[dict(handle=e_[0], row=e_[1], x=e_[2][0], z=e_[2][1], h=e_[3], dir=e_[4]) for e_ in edits], labels_rewritten=len(edits), labels_unmatched=unmatched,
               drawing_dimensions_mm=dims, views=len(views), faces=len(faces), seconds=round(time.time() - t0, 1))
     json.dump(js, open(os.path.join(a.out, base + ".json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     open(os.path.join(a.out, base + ".log"), "w", encoding="utf-8").write(log)

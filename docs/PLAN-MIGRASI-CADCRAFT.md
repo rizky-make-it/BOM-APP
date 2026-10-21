@@ -44,3 +44,11 @@ acad_core (jalankan/plot), acad_read (dump entget), dwg2d_read, dwg2d_components
 - CADCraft (`execute plot {layout, paper, fit}`): isi viewport TIDAK dipotong dan skalanya salah: satu potongan tampil raksasa, DETAIL A/B/C tumpang tindih, tampak lain terpotong di tepi. Cetak viewport (pusat tampilan, skala, clip) tidak dihormati untuk DWG ini. Parameter `fit`, `lineweights`, `scale` tidak mengubahnya.
 - Akibat: plot lembar drafter TETAP AutoCAD. Sisa pekerjaan CADCraft (baca, tulis tag, render PNG per jendela model space) tidak terpengaruh. Lembar schedule baru yang kita gambar sendiri (tanpa viewport drafter) kemungkinan bisa dicetak CADCraft: belum diuji.
 - Pilihan bila tetap ingin 100% CADCraft: laporkan ke pengembang (storytold/cadcraft) bersama Skyline.dwg, atau cetak lewat render PNG jendela model space per tampak lalu susun sendiri (kehilangan skala drafter).
+
+## UJI PELABELAN TERPISAH (21 Okt 2026): AutoCAD vs CADCraft, dua gambar
+Skyline (bidang XY, tanpa leader drafter) dan LV446-L11 (bidang XZ, 31 leader drafter).
+- AutoCAD / L11: `dwg2d_components` 31 dari 31 leader ditulis ulang jadi tag kotak, 0 tidak cocok, 15 komponen (6 CHECK), PDF A3 utuh. JSON kini memuat `tags` (handle, row, posisi).
+- AutoCAD / Skyline: 13 komponen via `--manual`; hanya tampak depan bertag (6), lembar potongan belum tercetak; posisi tag kasar.
+- CADCraft / Skyline (XY): 15 tag (garis + kotak + angka) 45 perintah 0 error, tersimpan, terbaca di render PNG. Cetak lembar drafter tidak setara (viewport diabaikan).
+- CADCraft / L11 (XZ): GAGAL tiga hal. (1) Teks MULTILEADER drafter tidak bisa dikosongkan: `properties.set text` melapor changed:1 tetapi teks tetap, `textedit` error. (2) `line`/`text` membuang koordinat Z (garis 0,0,0-100,0,50 tersimpan 0,0,0-100,0,0), jadi tag tidak bisa ditaruh pada bidang XZ. (3) `3dpoly` menerima Z sehingga kotak dan garis bisa digambar di XZ, tetapi angka (TEXT) tidak bisa diletakkan pada bidang itu.
+- Kesimpulan: pelabelan gambar bidang XZ dengan leader drafter (Sienna, Lexi) = hanya AutoCAD. Pelabelan gambar bidang XY (Skyline) = keduanya bisa; CADCraft lebih cepat dan bisa dicek lewat render, tetapi cetak lembar tetap AutoCAD.
