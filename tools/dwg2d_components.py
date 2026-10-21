@@ -84,7 +84,7 @@ def main():
     t0 = time.time()
     ap = argparse.ArgumentParser(); ap.add_argument("dwg"); ap.add_argument("--item", required=True); ap.add_argument("--name", default="")
     ap.add_argument("--out", required=True); ap.add_argument("--metal", default="20x20")
-    ap.add_argument("--manual", help="JSON {comps:[...], tags:[{row,x,y,tx,ty}]}: labels placed by BOM-APP for a DWG without drafter leaders (XY plane)")
+    ap.add_argument("--read-only", action="store_true", help="stop after the component table (no AutoCAD write/plot): JSON only"); ap.add_argument("--manual", help="JSON {comps:[...], tags:[{row,x,y,tx,ty}]}: labels placed by BOM-APP for a DWG without drafter leaders (XY plane)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     res, faces = read_all(a.dwg)
     views = cluster_views(faces)
@@ -252,6 +252,13 @@ def main():
     if MAN:
         comps = MAN["comps"]
         for i, c in enumerate(comps, 1): c["row"] = i
+    if a.read_only:
+        base = f"{a.item}_components"
+        js = dict(item=a.item, name=a.name, source_dwg=os.path.abspath(a.dwg), generated=datetime.datetime.now().isoformat(timespec="seconds"), reader=res.get("reader"),
+                  part_list=f"Part Master v{_PM['version']} ({_PM['updated']}, {_PM['total_parts']} parts) + factory material codes", components=comps, labels_rewritten=0, labels_unmatched=[],
+                  drawing_dimensions_mm=dims, views=len(views), faces=len(faces), seconds=round(time.time() - t0, 1))
+        json.dump(js, open(os.path.join(a.out, base + ".json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+        print(f"read-only [{res.get('reader')}] comps {len(comps)} CHECK {sum(1 for c in comps if c['status'] == 'CHECK')} faces {len(faces)} {time.time() - t0:.1f}s"); return
     def comp_for_label(label, x, z, w, h):
         kind, t, code, chk = material(label)
         cand = [c for c in comps if c["code"] == code]

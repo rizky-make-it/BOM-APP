@@ -50,3 +50,31 @@ def read(dwg):
 if __name__ == "__main__":
     r = read(sys.argv[1]); print({k: (len(v) if isinstance(v, list) else v) for k, v in r.items()})
     if "--out" in sys.argv: json.dump(r, open(sys.argv[sys.argv.index("--out") + 1], "w"))
+
+
+def read_compat(dwg):
+    """CADCraft MCP -> the same dict shape as acad_read.read(), so dwg2d_read / dwg2d_components can run unchanged.
+    Polylines come as OCS without the extrusion normal: assume the drafter plane (XZ -> normal (0,-1,0), XY -> (0,0,1)), picked from where the LINEs lie."""
+    t0 = time.time(); m = MCP()
+    try:
+        m.call("open", dict(path=dwg)); d = dict(lines=[], polylines=[], dims=[], leaders=[], model_leaders=[], paper_leaders=[], layouts=[])
+        for e in _all(m, "LINE"):
+            g = e["geometry"]; d["lines"].append([_xyz(g["a"]), _xyz(g["b"]), e["layer"]])
+        n_xz = sum(1 for l in d["lines"] if abs(l[0][1]) < 1e-3 and abs(l[1][1]) < 1e-3); n_xy = sum(1 for l in d["lines"] if abs(l[0][2]) < 1e-3 and abs(l[1][2]) < 1e-3)
+        xz = n_xz >= n_xy
+        for e in _all(m, "LWPOLYLINE"):
+            g = e["geometry"]; el = g.get("elevation", 0.0) or 0.0
+            pts = [[v["p"]["x"], -el, v["p"]["y"]] if xz else [v["p"]["x"], v["p"]["y"], el] for v in g.get("vertices", [])]
+            d["polylines"].append(dict(pts=pts, closed=int(bool(g.get("closed"))), layer=e["layer"]))
+        for e in _all(m, "DIMENSION"):
+            g = e["geometry"]
+            d["dims"].append(dict(value=g.get("measurement"), text=g.get("text", ""), def1=_xyz(g["defpt"]), def2=_xyz(g.get("p14") or g["p13"]), textpos=_xyz(g.get("textMid") or g["defpt"]), layer=e["layer"]))
+        for e in _all(m, "MULTILEADER"):
+            g = e["geometry"]; tx = g.get("text") or {}; ls = g.get("leaders") or [[]]
+            if not ls or not ls[0]: continue
+            lan = _xyz(g["landing"]); ins = _xyz(tx["insert"]) if tx.get("insert") else lan
+            d["leaders"].append(dict(handle=e["handle"], text=(tx.get("contents") or "").strip(), tip=_xyz(ls[0][0]), landing=lan, textpos=ins, dogleg=g.get("dogleg") or 0.0,
+                                     dir=[1 if ins[0] >= lan[0] else -1, 0, 0], th=tx.get("height") or 0.0, layer=e["layer"]))
+        d["_reader"] = "CADCraft MCP"; d["_seconds"] = round(time.time() - t0, 1); d["_source"] = os.path.abspath(dwg); return d
+    finally:
+        m.close()

@@ -22,7 +22,10 @@ def plain_mtext(t):
 
 
 def read(dwg):
-    d = acad_read.read(dwg)
+    if os.environ.get("BOM_READER") == "cc":
+        import cc_read; d = cc_read.read_compat(dwg)
+    else:
+        d = acad_read.read(dwg)
     # drawing plane: drafter style 1 draws 2D views in XZ (y == 0); styles 2/3 draw flat in XY (z == 0). Pick the plane
     # that holds more line vertices; P maps a 3D point to (u, v) in that plane.
     n_xz = sum(1 for l in d["lines"] if abs(l[0][1]) < 1e-3 and abs(l[1][1]) < 1e-3)
