@@ -19,6 +19,9 @@ Saran berasal dari (urut): label drafter yang ujung panahnya jatuh di titik klik
 
 Komponen yang sama (spesifikasi sama) otomatis memakai NOMOR yang sama: beri tag di setiap tampak, jumlahnya cukup diisi sekali.
 
+**Tanda terlihat (v2.1):** setiap komponen yang sudah ditandai langsung terisi warna di gambar: HIJAU = sudah ditandai dan lolos pemeriksaan, KUNING = sudah ditandai tetapi perlu dicek (nomor/bahan tidak valid, atau ukuran tampak bukan bidang sebenarnya). Nomor berkotak ikut berwarna sama.
+**BOMSHOW** - menyegarkan semua warna dari data tag, dan melingkari MERAH tiap label drafter yang belum ditandai (jadi terlihat mana yang tertinggal). **BOMCLEAR** - menghapus warna dan lingkaran (tag nomor tetap). Warna ada di layer `BOM-DONE`, `BOM-CHECK`, `BOM-TODO`: aman dimatikan atau dibekukan sebelum cetak.
+
 **BOMCHECK** - jalankan sebelum menyerahkan gambar. Melaporkan nomor part yang tidak ada di Part Master, kode bahan tidak dikenal, ukuran kosong, dan satu nomor dipakai untuk dua spesifikasi berbeda.
 
 **BOMEXPORT** - menulis `<nama gambar>_bomtag.json` di folder gambar. File ini diserahkan ke BOM-APP.
