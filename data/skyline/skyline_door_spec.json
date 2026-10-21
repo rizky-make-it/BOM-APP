@@ -1,16 +1,16 @@
 {
  "header": {
   "item_code": "SKYLINE-DOOR",
-  "item_name": "SKYLINE CABINET - 2 DOORS",
+  "item_name": "SKYLINE CABINET (2 DOORS + BODY)",
   "collection": "SKYLINE",
-  "overall_l": 980.0,
-  "overall_w": 23.0,
-  "overall_h": 2110.0,
+  "overall_l": 1000.0,
+  "overall_w": 521.0,
+  "overall_h": 2200.0,
   "order_qty": 1,
   "drawing_link": "SKYLINE CABINET.dwg",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "2 pintu @ 489 x 2110 x 23 (DWG: 2 pintu 489 + 489 = 980; daftar potong PDF). Badan lemari (1000x2200, kaki 80) TIDAK dihitung. Hardware diisi Rizky nanti."
+  "notes": "2 pintu @ 489 x 2110 x 23 (DWG: 2 pintu 489 + 489 = 980; daftar potong PDF). Badan 1000x2200 (kaki 80) diukur dari garis DWG. Back panel TIDAK ada di gambar. Hardware diisi Rizky nanti."
  },
  "solid_parts": [
   {
@@ -114,6 +114,50 @@
    "qty": 8,
    "exposed_faces": 1,
    "note": "[STATED] H: 459x158x7 PLYWOOD, 4/pintu x 2; [ASSUMED] 7 mm tidak ada di rate card -> E0-6 (terdekat), 1 muka veneer (muka depan pintu)"
+  },
+  {
+   "label": "Side panel",
+   "component": "Side panel",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 2090.0,
+   "w": 481.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "[MEASURED] tinggi 0-2090, kedalaman 31-512 dari tampak samping; gambar tebal 24 -> RULES 18; [ASSUMED] peran/veneer per meeting rule, belakang/back panel TIDAK ada di gambar -> tidak dihitung"
+  },
+  {
+   "label": "Top",
+   "component": "Top",
+   "panel_type": "LND-PLY-E0-18-MDF",
+   "l": 1000.0,
+   "w": 521.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 1,
+   "note": "[MEASURED] 1000 x 521 (tebal gambar 30 -> RULES 18); [ASSUMED] peran/veneer per meeting rule, belakang/back panel TIDAK ada di gambar -> tidak dihitung"
+  },
+  {
+   "label": "Bottom",
+   "component": "Bottom",
+   "panel_type": "LND-PLY-E0-18",
+   "l": 952.0,
+   "w": 481.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "[MEASURED] 952 = 1000-2x24 dinding; kedalaman 481; [ASSUMED] peran/veneer per meeting rule, belakang/back panel TIDAK ada di gambar -> tidak dihitung"
+  },
+  {
+   "label": "Shelf",
+   "component": "Shelf",
+   "panel_type": "LND-PLY-E0-18-MSF",
+   "l": 952.0,
+   "w": 481.0,
+   "t": 18.0,
+   "qty": 3,
+   "exposed_faces": 1,
+   "note": "[MEASURED] 3 rak di tinggi 396-420, 963-987, 1529-1553 (4 ruang ~525 sama tinggi panel pintu); tebal gambar 24 -> RULES 18; [ASSUMED] peran/veneer per meeting rule, belakang/back panel TIDAK ada di gambar -> tidak dihitung"
   }
  ],
  "hardware_parts": [],
