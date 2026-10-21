@@ -22,3 +22,10 @@ acad_core (jalankan/plot), acad_read (dump entget), dwg2d_read, dwg2d_components
 - "Sepenuhnya" belum mungkin selama ada DWG yang hanya punya solid 3D (lexi 3 versi 3D, tapi kita sudah memutuskan BOM mengandalkan 2D drafter).
 - DWG keluaran CADCraft R2000: periksa dibuka di AutoCAD drafter sebelum dipakai tim.
 - Lisensi AutoCAD sudah ada; migrasi menghemat lisensi hanya bila drafter juga pindah. Tidak ada keuntungan akurasi yang terbukti.
+
+## HASIL PENGUKURAN (21 Okt 2026, tools/cc_read.py + tools/cc_compare.py, 18 DWG: Skyline, Sienna x5, lexi 2/3, STANDARD x10)
+- LINE 4389/4389 identik (100%); DIMENSION 1306/1309 (99,8%; 3 beda di Skyline); MULTILEADER teks 341/341 dan ujung panah 341/341 (100%, Sienna+Lexi).
+- Kecepatan: CADCraft 4,4 detik total vs AutoCAD 21,7 detik (sekitar 5x lebih cepat); tanpa lisensi, tanpa proses accoreconsole yang bisa macet (ErrorStatus=76 terjadi pada AutoCAD saat DWG dibuka bersama file yang sedang terbuka).
+- KEKURANGAN CADCraft: (1) LWPOLYLINE keluar dalam koordinat OCS tanpa normal ekstrusi -> polyline pada bidang XZ (gaya Sienna/Lexi) tidak bisa diubah ke WCS: cocok 99/1831 saja; (2) 3DSOLID jadi Proxy tanpa geometri; (3) 3-4 record DWG tidak terbaca (tipe 535/519); (4) tulis DWG R2000.
+- KEKURANGAN cc_read (belum selesai, bukan CADCraft): entitas LEADER + MTEXT gaya STANDARD belum dipasangkan (data ada: CAB-01 6 Leader + 31 MText).
+- Kesimpulan: untuk membaca garis/dimensi/label, CADCraft MCP setara dan lebih cepat; untuk bidang XZ (polyline) dan solid, AutoCAD masih unggul. Migrasi penuh BELUM bisa.
