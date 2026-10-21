@@ -84,6 +84,7 @@ def main():
     t0 = time.time()
     ap = argparse.ArgumentParser(); ap.add_argument("dwg"); ap.add_argument("--item", required=True); ap.add_argument("--name", default="")
     ap.add_argument("--out", required=True); ap.add_argument("--metal", default="20x20")
+    ap.add_argument("--manual", help="JSON {comps:[...], tags:[{row,x,y,tx,ty}]}: labels placed by BOM-APP for a DWG without drafter leaders (XY plane)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     res, faces = read_all(a.dwg)
     views = cluster_views(faces)
@@ -247,6 +248,10 @@ def main():
     for i, c in enumerate(comps, 1):
         c["row"] = i
     # ---- write labels in place: each drafter MULTILEADER -> the component matched to its face
+    MAN = json.load(open(a.manual, encoding="utf-8")) if a.manual else None
+    if MAN:
+        comps = MAN["comps"]
+        for i, c in enumerate(comps, 1): c["row"] = i
     def comp_for_label(label, x, z, w, h):
         kind, t, code, chk = material(label)
         cand = [c for c in comps if c["code"] == code]
@@ -291,6 +296,13 @@ def main():
         L += [f'(setq e (handent "{hnd}"))',
               f'(if e (progn (setq d (entget e)) (setq a304 (assoc 304 d)) (if a304 (if (entmod (subst (cons 304 " ") a304 d)) (setq okn (1+ okn)) (setq failn (1+ failn))) (setq failn (1+ failn)))) (setq failn (1+ failn)))']
         L += kn_box(land[0], land[1], n, th, dirx)
+    if MAN:    # tags we place ourselves (XY plane): leader line from the target point to a boxed number
+        for tg in MAN["tags"]:
+            h = float(tg.get("h", 30)); side = 2.2 * h; cx, cy = tg["tx"], tg["ty"]
+            L.append(f'(entmake (list (cons 0 "LINE") (cons 8 "BOM-NO") (cons 10 (list {tg["x"]:.2f} {tg["y"]:.2f} 0.0)) (cons 11 (list {cx:.2f} {cy:.2f} 0.0))))')
+            L.append(f'(entmake (list (cons 0 "CIRCLE") (cons 8 "BOM-NO") (cons 10 (list {tg["x"]:.2f} {tg["y"]:.2f} 0.0)) (cons 40 {0.15 * h:.2f})))')
+            L.append(f'(entmake (list (cons 0 "LWPOLYLINE") (cons 100 "AcDbEntity") (cons 8 "BOM-NO") (cons 100 "AcDbPolyline") (cons 90 4) (cons 70 1) (cons 10 (list {cx - side / 2:.2f} {cy - side / 2:.2f})) (cons 10 (list {cx + side / 2:.2f} {cy - side / 2:.2f})) (cons 10 (list {cx + side / 2:.2f} {cy + side / 2:.2f})) (cons 10 (list {cx - side / 2:.2f} {cy + side / 2:.2f}))))')
+            L.append(f'(entmake (list (cons 0 "TEXT") (cons 8 "BOM-NO") (cons 10 (list {cx:.2f} {cy:.2f} 0.0)) (cons 40 {0.95 * h:.2f}) (cons 1 "{tg["row"]}") (cons 72 1) (cons 73 2) (cons 11 (list {cx:.2f} {cy:.2f} 0.0))))')
     L += ['(princ (strcat "\\nPREFIX_OK=" (itoa okn) " FAIL=" (itoa failn)))', "_.REGENALL"]
     # table on sheet 1 of the drafter layout (same placement logic as dwg2d_number_labels)
     # layouts/viewports/frames straight from AutoCAD (res["layouts"]): first layout that has viewports
