@@ -10,13 +10,13 @@
   "drawing_link": "LV433.B61 - Dresser 6 Drws Model (1).pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Dari gambar LV433.B61: ukuran luar, kaki, jumlah laci/pintu dan tinggi badan STATED. Konstruksi = STANDAR Tala (karkas panel 301/306/302/601, laci rumus pabrik), bukan rangka rel gambar. Divider/belakang/muka veneer ASSUMED."
+  "notes": "Dari gambar LV433.B61: ukuran luar, kaki, tinggi muka laci/pintu, jumlah laci/pintu STATED. Konstruksi = STANDAR Tala (box casegood: kaki pendek + side 301 + top 601 + bottom 306 + back 302), laci rumus pabrik. Lebar muka laci/pintu DERIVED; divider/belakang/rak ASSUMED."
  },
  "solid_parts": [
   {
    "label": "1 / A",
    "component": "Leg 60x60",
-   "l": 765.0,
+   "l": 60.0,
    "w": 60.0,
    "t": 60.0,
    "qty": 4,
@@ -24,75 +24,75 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "STATED kaki 60x60, tinggi dari gambar"
+   "note": "STATED kaki 60x60; tinggi 60 = jarak badan dari lantai (gambar)"
   }
  ],
  "panel_parts": [
   {
    "label": "PNL-01",
+   "component": "Side panel MDF veneer 18",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 740.0,
+   "w": 450.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "301 | RULES MDF 18 1 muka; 800-60 = 740 x 450 DERIVED"
+  },
+  {
+   "label": "PNL-02",
    "component": "Top panel MDF veneer 18",
    "panel_type": "LND-MDF-E0-18-MSF",
-   "l": 1500.0,
+   "l": 1464.0,
    "w": 450.0,
    "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "601 | RULES top MDF 18 1 muka; ukuran luar dari gambar (menggantikan top frame 35 + panel 15)"
-  },
-  {
-   "label": "PNL-02",
-   "component": "Side panel MDF veneer 18",
-   "panel_type": "LND-MDF-E0-18-MSF",
-   "l": 705.0,
-   "w": 330.0,
-   "t": 18.0,
-   "qty": 2,
-   "exposed_faces": 1,
-   "note": "301 | RULES MDF 18 1 muka; tinggi 705 STATED, lebar 450-2x60 DERIVED"
+   "note": "601 | RULES MDF 18 1 muka; 1500-2x18 = 1464 x 450 (di antara side) DERIVED"
   },
   {
    "label": "PNL-03",
    "component": "Bottom panel plywood 18",
    "panel_type": "LND-PLY-E0-18",
-   "l": 1380.0,
-   "w": 330.0,
+   "l": 1464.0,
+   "w": 450.0,
    "t": 18.0,
    "qty": 1,
    "exposed_faces": 0,
-   "note": "306 | RULES ply 18 polos; 1500-2x60 x 450-2x60 DERIVED"
+   "note": "306 | RULES ply 18 polos; 1464 x 450 DERIVED"
   },
   {
    "label": "PNL-04",
    "component": "Back panel plywood 9",
    "panel_type": "LND-PLY-E0-9",
-   "l": 1380.0,
-   "w": 705.0,
+   "l": 1464.0,
+   "w": 704.0,
    "t": 9.0,
    "qty": 1,
    "exposed_faces": 0,
-   "note": "302 | RULES ply 9; 1500-2x60 x 705 DERIVED (muka luar belakang dianggap polos, ASSUMED)"
+   "note": "302 | RULES ply 9 masuk alur; 1500-2x18 x 740-2x18 = 1464 x 704 DERIVED (muka luar polos, ASSUMED)"
   },
   {
    "label": "PNL-05",
    "component": "Divider plywood 18",
    "panel_type": "LND-PLY-E0-18",
-   "l": 705.0,
-   "w": 321.0,
+   "l": 704.0,
+   "w": 441.0,
    "t": 18.0,
    "qty": 1,
    "exposed_faces": 0,
-   "note": "307 | RULES ply 18; muka veneer = 0 (ASSUMED: di belakang laci, tanya Rizky); 705 x (330-9)"
+   "note": "307 | RULES ply 18; muka veneer 0 (ASSUMED: di belakang laci, tanya Rizky); 704 x (450-9) DERIVED"
   },
   {
    "label": "PNL-06",
    "component": "Drawer face MDF veneer 18",
    "panel_type": "LND-MDF-E0-18-MSF",
-   "l": 675.0,
+   "l": 717.0,
    "w": 222.0,
    "t": 18.0,
    "qty": 6,
    "exposed_faces": 1,
-   "note": "401 | STATED ukuran muka dari gambar; MDF 18 1 muka (RULES)"
+   "note": "401 | tinggi STATED gambar, lebar DERIVED dari box; MDF 18 1 muka (RULES)"
   },
   {
    "label": "PNL-08",
@@ -109,23 +109,23 @@
    "label": "PNL-09",
    "component": "Drawer box front/back",
    "panel_type": "LND-PLY-E0-12",
-   "l": 611.0,
+   "l": 653.0,
    "w": 192.0,
    "t": 12.0,
    "qty": 12,
    "exposed_faces": 0,
-   "note": "403 | RULES: W-64 = 611, H-30"
+   "note": "403 | RULES: W-64 = 653, H-30"
   },
   {
    "label": "PNL-10",
-   "component": "Drawer bottom",
+   "component": "Drawer box bottom",
    "panel_type": "LND-PLY-E0-6",
-   "l": 621.0,
+   "l": 663.0,
    "w": 293.0,
    "t": 6.0,
    "qty": 6,
    "exposed_faces": 0,
-   "note": "405 | RULES: W-54 x D-7 = 621 x 293"
+   "note": "405 | RULES: W-54 x D-7 = 663 x 293"
   }
  ],
  "hardware_parts": [

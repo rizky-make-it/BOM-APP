@@ -10,7 +10,7 @@
   "drawing_link": "LV433.L21 - Console Table 2 Drws & Shelf Model (1).pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Dari gambar LV433.L21: ukuran luar, kaki, jumlah laci/pintu dan tinggi badan STATED. Konstruksi = STANDAR Tala (karkas panel 301/306/302/601, laci rumus pabrik), bukan rangka rel gambar. Divider/belakang/muka veneer ASSUMED."
+  "notes": "Dari gambar LV433.L21: ukuran luar, kaki, tinggi muka laci/pintu, jumlah laci/pintu STATED. Konstruksi = STANDAR Tala (meja terbuka: kaki tiang sudut + top 601 + rak 308), laci rumus pabrik. Lebar muka laci/pintu DERIVED; divider/belakang/rak ASSUMED."
  },
  "solid_parts": [
   {
@@ -24,7 +24,7 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "STATED kaki 60x60, tinggi dari gambar"
+   "note": "STATED kaki 60x60 tiang sudut sampai bawah top"
   }
  ],
  "panel_parts": [
@@ -37,7 +37,7 @@
    "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "601 | RULES top MDF 18 1 muka; ukuran luar dari gambar (menggantikan top frame 35 + panel 15)"
+   "note": "601 | RULES MDF 18 1 muka; ukuran luar dari gambar"
   },
   {
    "label": "PNL-02",
@@ -70,7 +70,7 @@
    "t": 18.0,
    "qty": 2,
    "exposed_faces": 1,
-   "note": "401 | STATED ukuran muka dari gambar; MDF 18 1 muka (RULES)"
+   "note": "401 | tinggi STATED gambar, lebar DERIVED dari box; MDF 18 1 muka (RULES)"
   },
   {
    "label": "PNL-05",
@@ -96,7 +96,7 @@
   },
   {
    "label": "PNL-08",
-   "component": "Drawer bottom",
+   "component": "Drawer box bottom",
    "panel_type": "LND-PLY-E0-6",
    "l": 481.0,
    "w": 293.0,

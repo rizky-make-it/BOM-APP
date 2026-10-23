@@ -1,7 +1,7 @@
 """NAPIER (LV433) spec generator.
 Ukuran luar, kaki 60x60, tinggi badan, jumlah laci/pintu dibaca dari gambar kerja (data/napier/src).
-Konstruksi casegood/meja (B41 B51 B61 D21 L31 L01 L21) = STANDAR Tala 23 Okt 2026: karkas panel (side 301, bottom 306, back 302, top 601, divider 307, shelf 308/309), laci rumus pabrik,
-tanpa top frame dan rail kecil. Bed, meja makan, cermin tetap seperti gambar (dicek terpisah). Semua panel kode E0 eksplisit.
+Casegood (B41 B51 B61 D21 L31) = hitungan biasa BOX 23 Okt 2026: kaki pendek 60, side 301 penuh, top 601/bottom 306 di antara side (W-36), back 302 masuk alur, divider 307, rak 309, laci rumus pabrik. Meja terbuka L01 L21 = kaki tiang sudut + top + rak.
+ Bed, meja makan, cermin tetap seperti gambar (dicek terpisah). Semua panel kode E0 eksplisit.
 Run from repo root:  python data/napier/build_specs.py   -> lv433_*_spec.json + _order.json
 """
 import json, os
@@ -48,95 +48,104 @@ class Item:
 
 
 SIDE_T, TOP_T, BACK_T = 18, 18, 9      # RULES (Part Master v3): side C18 1X, top C18 1X, back B9
-LEG = 60                               # kaki / tiang sudut 60x60 (gambar Napier, tetap kayu solid)
+LEG = 60                               # kaki 60x60 (gambar Napier, tetap kayu solid)
+FOOT = 60                              # tinggi kaki pendek: badan duduk 60 mm di atas lantai (gambar)
 MSF18, PLY18, PLY9, MDF2F18 = "LND-MDF-E0-18-MSF", "LND-PLY-E0-18", "LND-PLY-E0-9", "LND-MDF-E0-18-MDF"
+GAP = 3                                # celah laci/pintu per sisi
 
 
-def top_and_legs(it, W, D, leg_h):
-    """Standar: 4 kaki kayu solid + 1 top panel 601 (tanpa top frame dan rail kecil)."""
-    it.solid("Leg 60x60", leg_h, LEG, LEG, 4, tier="B", note="STATED kaki 60x60, tinggi dari gambar")
-    it.panel("Top panel MDF veneer 18", MSF18, W, D, TOP_T, 1, 1, "601 | RULES top MDF 18 1 muka; ukuran luar dari gambar (menggantikan top frame 35 + panel 15)")
-
-
-def carcass(it, W, D, body_h, divider=False, door_unit=False):
-    """Karkas panel: 2 side 301, bottom 306, back 302 (+ divider 307). Lebar dalam = W - 2 x 60 (di antara kaki)."""
-    wi, di = W - 2 * LEG, D - 2 * LEG
-    it.panel("Side panel MDF veneer 18", MSF18, body_h, di, SIDE_T, 2, 1, f"301 | RULES MDF 18 1 muka; tinggi {body_h:g} STATED, lebar {D:g}-2x{LEG} DERIVED")
-    it.panel("Bottom panel plywood 18", PLY18, wi, di, 18, 1, 0, f"306 | RULES ply 18 polos; {W:g}-2x{LEG} x {D:g}-2x{LEG} DERIVED")
-    it.panel("Back panel plywood 9", PLY9, wi, body_h, BACK_T, 1, 0, f"302 | RULES ply 9; {W:g}-2x{LEG} x {body_h:g} DERIVED (muka luar belakang dianggap polos, ASSUMED)")
+def box(it, W, D, H, divider=False, door_unit=False):
+    """HITUNGAN BIASA BOX CASEGOOD (Rizky 23 Okt 2026). Kaki pendek 4x60x60x60 di bawah box; box tinggi Hb = H - 60.
+    Side 301 penuh (Hb x D); top 601 dan bottom 306 di antara side (W-36 x D); back 302 masuk alur ((W-36) x (Hb-36));
+    divider 307 di antara top dan bottom. Hasil: (lebar dalam wi, tinggi dalam hi, kedalaman D)."""
+    hb = H - FOOT
+    wi, hi = W - 2 * SIDE_T, hb - 2 * SIDE_T
+    it.solid("Leg 60x60", FOOT, LEG, LEG, 4, tier="B", note=f"STATED kaki 60x60; tinggi {FOOT} = jarak badan dari lantai (gambar)")
+    it.panel("Side panel MDF veneer 18", MSF18, hb, D, SIDE_T, 2, 1, f"301 | RULES MDF 18 1 muka; {H:g}-{FOOT} = {hb:g} x {D:g} DERIVED")
+    it.panel("Top panel MDF veneer 18", MSF18, wi, D, TOP_T, 1, 1, f"601 | RULES MDF 18 1 muka; {W:g}-2x18 = {wi:g} x {D:g} (di antara side) DERIVED")
+    it.panel("Bottom panel plywood 18", PLY18, wi, D, 18, 1, 0, f"306 | RULES ply 18 polos; {wi:g} x {D:g} DERIVED")
+    it.panel("Back panel plywood 9", PLY9, wi, hi, BACK_T, 1, 0, f"302 | RULES ply 9 masuk alur; {W:g}-2x18 x {hb:g}-2x18 = {wi:g} x {hi:g} DERIVED (muka luar polos, ASSUMED)")
     if divider:
         faces = 2 if door_unit else 0
-        pt = MDF2F18 if door_unit else PLY18
-        it.panel("Divider plywood 18", pt, body_h, di - BACK_T, 18, 1, faces,
-                 f"307 | RULES ply 18; muka veneer = {faces} (ASSUMED: {'pintu dibuka = terlihat' if door_unit else 'di belakang laci'}, tanya Rizky); {body_h:g} x ({di:g}-9)")
-    return wi, di
+        it.panel("Divider plywood 18", PLY18 + ("-MDF" if faces == 2 else ""), hi, D - BACK_T, 18, 1, faces,
+                 f"307 | RULES ply 18; muka veneer {faces} (ASSUMED: {'pintu dibuka = terlihat' if door_unit else 'di belakang laci'}, tanya Rizky); {hi:g} x ({D:g}-9) DERIVED")
+    return wi, hi
 
 
 def drawers_std(it, n, face_w, face_h, d_side, slide_note="Gambar: rel DTC 3 tingkat L300"):
     """Laci: muka MDF 18 (1 muka) + kotak laci RULES pabrik (inner W-64, H-30, base W-54 x D-7), 3 baris per set."""
-    it.panel("Drawer face MDF veneer 18", MSF18, face_w, face_h, 18, n, 1, "401 | STATED ukuran muka dari gambar; MDF 18 1 muka (RULES)")
+    it.panel("Drawer face MDF veneer 18", MSF18, face_w, face_h, 18, n, 1, "401 | tinggi STATED gambar, lebar DERIVED dari box; MDF 18 1 muka (RULES)")
     it.panel("Drawer box side", "LND-PLY-E0-12", d_side, face_h - 30, 12, 2 * n, 0, f"402 | panjang rel {d_side:g} STATED gambar, tinggi H-30 = {face_h - 30:g}")
     it.panel("Drawer box front/back", "LND-PLY-E0-12", face_w - 64, face_h - 30, 12, 2 * n, 0, f"403 | RULES: W-64 = {face_w - 64:g}, H-30")
-    it.panel("Drawer bottom", "LND-PLY-E0-6", face_w - 54, d_side - 7, 6, n, 0, f"405 | RULES: W-54 x D-7 = {face_w - 54:g} x {d_side - 7:g}")
+    it.panel("Drawer box bottom", "LND-PLY-E0-6", face_w - 54, d_side - 7, 6, n, 0, f"405 | RULES: W-54 x D-7 = {face_w - 54:g} x {d_side - 7:g}")
     it.hardware("HW-RAIL-DTC", "Rel laci DTC 3 tingkat L300 (lebar 42 mm)", n, "pair", RAIL_PAIR, slide_note)
 
 
-def std_notes(it, drawing):
-    it.h["notes"] = (f"Dari gambar {drawing[:9]}: ukuran luar, kaki, jumlah laci/pintu dan tinggi badan STATED. "
-                     "Konstruksi = STANDAR Tala (karkas panel 301/306/302/601, laci rumus pabrik), bukan rangka rel gambar. Divider/belakang/muka veneer ASSUMED.")
+def std_notes(it, drawing, table=False):
+    kind = "meja terbuka: kaki tiang sudut + top 601 + rak 308" if table else "box casegood: kaki pendek + side 301 + top 601 + bottom 306 + back 302"
+    it.h["notes"] = (f"Dari gambar {drawing[:9]}: ukuran luar, kaki, tinggi muka laci/pintu, jumlah laci/pintu STATED. "
+                     f"Konstruksi = STANDAR Tala ({kind}), laci rumus pabrik. Lebar muka laci/pintu DERIVED; divider/belakang/rak ASSUMED.")
+
+
+def drawer_w(wi, cols=1):
+    """lebar muka laci: lebar dalam (dikurangi divider 18 bila 2 kolom) dibagi kolom, minus celah 2 x 3"""
+    inner = (wi - 18 * (cols - 1)) / cols
+    return inner - 2 * GAP
 
 
 # ----------------------------------------------------------------------------------------------- BEDSIDE / TALLBOY / DRESSER
 b = Item("B41", "BEDSIDE 2 DRWS", "Bedroom", 550, 450, 550, "LV433.B41 - Bedside 2 Drws (1) Model (1).pdf")
-top_and_legs(b, 550, 450, 515); carcass(b, 550, 450, 455)
-drawers_std(b, 2, 426, 209, 300)
+wi, hi = box(b, 550, 450, 550)
+drawers_std(b, 2, drawer_w(wi), 209, 300)
 b.hardware("HNDL / TBD", "Handle (sesuai sampel)", 2, "pcs", 0.0, "Harga handle belum ada")
 b.hardware("I-00003", "Nylon leveler glides M8", 4, "pcs", LEVELER, "Leveler kaki")
 std_notes(b, "LV433.B41 - Bedside"); b.dump()
 
 t = Item("B51", "TALLBOY 4 DRWS", "Bedroom", 950, 450, 1100, "LV433.B51 - Tallboy 4 Drws Model (1).pdf")
-top_and_legs(t, 950, 450, 1065); carcass(t, 950, 450, 1005)
-drawers_std(t, 4, 826, 241, 300)
+wi, hi = box(t, 950, 450, 1100)
+drawers_std(t, 4, drawer_w(wi), 241, 300)
 t.hardware("HNDL / TBD", "Handle (sesuai sampel)", 8, "pcs", 0.0, "2 handle per laci, harga belum ada")
 t.hardware("I-00003", "Nylon leveler glides M8", 4, "pcs", LEVELER, "Leveler kaki")
 std_notes(t, "LV433.B51 - Tallboy"); t.dump()
 
 d = Item("B61", "DRESSER 6 DRWS", "Bedroom", 1500, 450, 800, "LV433.B61 - Dresser 6 Drws Model (1).pdf")
-top_and_legs(d, 1500, 450, 765); carcass(d, 1500, 450, 705, divider=True)
-drawers_std(d, 6, 675, 222, 300)
+wi, hi = box(d, 1500, 450, 800, divider=True)
+drawers_std(d, 6, drawer_w(wi, 2), 222, 300)
 d.hardware("HNDL / TBD", "Handle (sesuai sampel)", 6, "pcs", 0.0, "Harga handle belum ada")
 d.hardware("I-00003", "Nylon leveler glides M8", 5, "pcs", LEVELER, "4 sudut + 1 tengah")
 std_notes(d, "LV433.B61 - Dresser"); d.dump()
 
 
 # ----------------------------------------------------------------------------------------------- BUFFET + TV (pintu)
-def doors_unit(code, name, room, H, leg_h, body_h, door_h, drawing):
+def doors_unit(code, name, room, H, door_h, drawing):
     u = Item(code, name, room, 1800, 450, H, drawing)
-    top_and_legs(u, 1800, 450, leg_h)
-    wi, di = carcass(u, 1800, 450, body_h, divider=True, door_unit=True)
-    u.panel("Adjustable shelf plywood 18", "LND-PLY-E0-18-MSF", (wi - 18) / 2, di - BACK_T - 5, 18, 2, 1,
-            f"309 | RULES ply 18 1 muka; ({wi:g}-18)/2 x ({di:g}-9-5) DERIVED, 1 rak per ruang")
-    u.panel("Door MDF veneer 18", MDF2F18, door_h, 409, 18, 4, 2, "501 | STATED 4 pintu 409 lebar; MDF 18 2 muka (RULES)")
+    wi, hi = box(u, 1800, 450, H, divider=True, door_unit=True)
+    comp = (wi - 18) / 2
+    u.panel("Adjustable shelf plywood 18", "LND-PLY-E0-18-MSF", comp - 2, 450 - BACK_T - 5, 18, 2, 1,
+            f"309 | RULES ply 18 1 muka; ({wi:g}-18)/2 - 2 x ({450 - BACK_T - 5:g}) DERIVED, 1 rak per ruang")
+    dw = comp / 2 - 2 * GAP
+    u.panel("Door MDF veneer 18", MDF2F18, door_h, dw, 18, 4, 2, f"501 | tinggi {door_h:g} STATED; lebar ({comp:g})/2 - 2x{GAP} DERIVED; MDF 18 2 muka (RULES)")
     u.hardware("HW-HINGE-DTC", "Engsel bật soft close DTC, cup 35 mm 165 derajat", 8, "pcs", HINGE, "2 engsel per pintu")
     u.hardware("HNDL / TBD", "Handle (sesuai sampel)", 4, "pcs", 0.0, "Harga handle belum ada")
     u.hardware("I-00003", "Nylon leveler glides M8", 5, "pcs", LEVELER, "4 sudut + 1 tengah")
     std_notes(u, drawing); u.dump()
 
-doors_unit("D21", "BUFFET 4 DOORS", "Dining", 800, 765, 705, 671, "LV433.D21 - Buffet 4 Drs Model (1).pdf")
-doors_unit("L31", "TV UNIT 4 DOORS", "Living", 550, 515, 455, 421, "LV433.L31 - TV Unit 4 Drs. Model (1).pdf")
+doors_unit("D21", "BUFFET 4 DOORS", "Dining", 800, 671, "LV433.D21 - Buffet 4 Drs Model (1).pdf")
+doors_unit("L31", "TV UNIT 4 DOORS", "Living", 550, 421, "LV433.L31 - TV Unit 4 Drs. Model (1).pdf")
 
 
-# ----------------------------------------------------------------------------------------------- COFFEE + CONSOLE (meja terbuka)
+# ----------------------------------------------------------------------------------------------- COFFEE + CONSOLE (meja terbuka, bukan box)
 def open_table(code, name, room, W, D, H, drawing, box_d):
     u = Item(code, name, room, W, D, H, drawing)
-    top_and_legs(u, W, D, H - TOP_T)
+    u.solid("Leg 60x60", H - TOP_T, LEG, LEG, 4, tier="B", note="STATED kaki 60x60 tiang sudut sampai bawah top")
+    u.panel("Top panel MDF veneer 18", MSF18, W, D, TOP_T, 1, 1, "601 | RULES MDF 18 1 muka; ukuran luar dari gambar")
     wi, di = W - 2 * LEG, D - 2 * LEG
     u.panel("Bottom shelf plywood 18", "LND-PLY-E0-18-MSF", wi, di, 18, 1, 1, f"308 | RULES ply 18 1 muka (rak terbuka); {W:g}-2x{LEG} x {D:g}-2x{LEG} DERIVED")
     u.panel("Drawer divider plywood 18", PLY18, 155, di - BACK_T, 18, 1, 0, "307 | sekat antar 2 laci, tinggi 155 = muka laci; polos (ASSUMED)")
     drawers_std(u, 2, 535, 155, box_d)
     u.hardware("HNDL / TBD", "Handle (sesuai sampel)", 2, "pcs", 0.0, "Harga handle belum ada")
     u.hardware("I-00003", "Nylon leveler glides M8", 4, "pcs", LEVELER, "Leveler kaki")
-    std_notes(u, drawing); u.dump()
+    std_notes(u, drawing, table=True); u.dump()
 
 open_table("L01", "COFFEE TABLE 2 DRWS & SHELF", "Living", 1300, 600, 480, "LV433.L01 - Coffee Table 2 Drws, 1 shelf Model (1).pdf", 450)
 open_table("L21", "CONSOLE TABLE 2 DRWS & SHELF", "Living", 1300, 380, 760, "LV433.L21 - Console Table 2 Drws & Shelf Model (1).pdf", 300)
