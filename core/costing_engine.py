@@ -157,9 +157,12 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         tot_hw_cost +
         pack_cost
     )
+    # direct_cost = TOTAL COST (sum of lines); unit_cost = DIRECT COST IDR (total + misc) = HPP.
+    # Overhead was removed (Rizky, 23 Okt 2026); target price = HPP in USD x TARGET_X.
     misc_cost = direct_cost * rates["MISC_PCT"]
-    oh_cost = (direct_cost + misc_cost) * rates["OH_PCT"]
-    unit_cost = direct_cost + misc_cost + oh_cost
+    unit_cost = direct_cost + misc_cost
+    usd_cost = unit_cost / rates["FX_TARGET"]
+    target_price_usd = usd_cost * rates["TARGET_X"]
 
     return {
         "solid_vol": tot_solid_vol,
@@ -181,8 +184,9 @@ def calculate_bom_costing(spec: BOMSpecification, custom_rates: Dict[str, float]
         "pack_cost": pack_cost,
         "direct_cost": direct_cost,
         "misc_cost": misc_cost,
-        "overhead_cost": oh_cost,
         "unit_cost": unit_cost,
+        "usd_cost": usd_cost,
+        "target_price_usd": target_price_usd,
         "open_checks": 0,
         "solid_rows": solid_calc_rows,
         "metal_rows": metal_calc_rows,

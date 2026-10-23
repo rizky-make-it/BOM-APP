@@ -13,13 +13,13 @@ import openpyxl
 from openpyxl.drawing.image import Image as XLImage
 
 try:
-    from bom_app.config import GOLDEN_MASTER_PATH
+    from bom_app.config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from bom_app.models.item import BOMSpecification
     from bom_app.core.costing_engine import calculate_bom_costing
     from bom_app.core.writer import enable_cached_writer, clear_active_cache
     from bom_app.core.layout import compact_item_sheet, compact_items_sheet, count_pack_rows, highlight_missing_item_sheet, highlight_missing_rates, strip_helper_sheets
 except (ImportError, ModuleNotFoundError):
-    from config import GOLDEN_MASTER_PATH
+    from config import GOLDEN_MASTER_PATH, DEFAULT_RATES
     from models.item import BOMSpecification
     from core.costing_engine import calculate_bom_costing
     from core.writer import enable_cached_writer, clear_active_cache
@@ -60,15 +60,17 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
     ws_items = wb["ITEMS"]
 
     # Configure USD columns and FX banner on ITEMS
+    ws_items["P4"] = "MISC 4%"
+    ws_items["Q4"] = "DIRECT COST IDR (HPP)"
     ws_items["AB4"] = "UNIT COST USD"
     ws_items["AC4"] = "ORDER TOTAL USD"
     ws_items["AD4"] = "EXCHANGE RATE"
-    ws_items["AB2"] = "KURS TERKINI (BCA e-Rate 16 Okt 2026):"
-    ws_items["AD2"] = "=RATES!$C$172"
+    ws_items["AB2"] = "KURS USD (RATES FX_TARGET):"
+    ws_items["AD2"] = "=RATES!$C$169"
     
     # Rates from updated GOLDEN_MASTER
     custom_rates = get_workbook_rates()
-    custom_rates["FX_USD"] = 18040.0
+    custom_rates["FX_USD"] = DEFAULT_RATES["FX_TARGET"]
 
     cached_map = {}
 
@@ -159,27 +161,27 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         ws_items[f"M{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(SUM(INDIRECT(\"'\"&$C{row_num}&\"'!D90:D93\")),\"\"))"
         ws_items[f"N{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D94\"),\"\"))"
         ws_items[f"O{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D95\"),\"\"))"
-        ws_items[f"P{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D97\")+INDIRECT(\"'\"&$C{row_num}&\"'!D98\"),\"\"))"
-        ws_items[f"Q{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D99\"),\"\"))"
+        ws_items[f"P{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D97\"),\"\"))"
+        ws_items[f"Q{row_num}"] = f"=IF(OR($J{row_num}=\"\",$J{row_num}=\"no tab yet\",$J{row_num}=\"tab empty\"),\"\",IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D98\"),\"\"))"
         ws_items[f"R{row_num}"] = f"=IF(AND(ISNUMBER(H{row_num}),ISNUMBER(Q{row_num})),H{row_num}*Q{row_num},\"\")"
         ws_items[f"S{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D86\")+0,\"\")"
         ws_items[f"T{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D102\")+0,\"\")"
         ws_items[f"Y{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D82\")+0,\"\")"
         ws_items[f"Z{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D84\")+0,\"\")"
         ws_items[f"AA{row_num}"] = f"=IFERROR(INDIRECT(\"'\"&$C{row_num}&\"'!D89\")+INDIRECT(\"'\"&$C{row_num}&\"'!D94\"),\"\")"
-        ws_items[f"AB{row_num}"] = f"=IF(Q{row_num}=\"\",\"\",Q{row_num}/RATES!$C$172)"
-        ws_items[f"AC{row_num}"] = f"=IF(R{row_num}=\"\",\"\",R{row_num}/RATES!$C$172)"
-        ws_items[f"AD{row_num}"] = "=RATES!$C$172"
+        ws_items[f"AB{row_num}"] = f"=IF(Q{row_num}=\"\",\"\",Q{row_num}/RATES!$C$169)"
+        ws_items[f"AC{row_num}"] = f"=IF(R{row_num}=\"\",\"\",R{row_num}/RATES!$C$169)"
+        ws_items[f"AD{row_num}"] = "=RATES!$C$169"
 
         # Cache values for ITEMS
-        fx_val = float(custom_rates.get("FX_USD", 18040.0))
+        fx_val = float(DEFAULT_RATES["FX_TARGET"])
         cached_map[("ITEMS", f"J{row_num}")] = "costed"
         cached_map[("ITEMS", f"K{row_num}")] = cost_data["timber_cost"] + cost_data["fasteners_cost"] + cost_data["metal_cost"]
         cached_map[("ITEMS", f"L{row_num}")] = cost_data["panels_cost"]
         cached_map[("ITEMS", f"M{row_num}")] = cost_data["finishing_total"]
         cached_map[("ITEMS", f"N{row_num}")] = cost_data["hardware_cost"]
         cached_map[("ITEMS", f"O{row_num}")] = cost_data["pack_cost"]
-        cached_map[("ITEMS", f"P{row_num}")] = cost_data["misc_cost"] + cost_data["overhead_cost"]
+        cached_map[("ITEMS", f"P{row_num}")] = cost_data["misc_cost"]
         cached_map[("ITEMS", f"Q{row_num}")] = cost_data["unit_cost"]
         cached_map[("ITEMS", f"R{row_num}")] = cost_data["unit_cost"] * header.order_qty
         cached_map[("ITEMS", f"S{row_num}")] = cost_data["carton_m3"]
@@ -199,10 +201,6 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         ws["F11"] = header.overall_h
         ws["G11"] = 1
 
-        ws["C103"] = "UNIT COST USD"
-        ws["D103"] = "=D99/RATES!$C$172"
-        ws["C104"] = "EXCHANGE RATE (IDR/USD)"
-        ws["D104"] = "=RATES!$C$172"
 
         cached_map[(item_code, "G1")] = header.overall_l
         cached_map[(item_code, "C2")] = header.item_name
@@ -212,8 +210,6 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "C4")] = header.order_qty
         cached_map[(item_code, "G4")] = header.drawing_link
         cached_map[(item_code, "C7")] = header.notes or f"Koleksi {header.collection} — {header.item_name}"
-        cached_map[(item_code, "D103")] = round(cost_data["unit_cost"] / fx_val, 2)
-        cached_map[(item_code, "D104")] = fx_val
 
         # 6. Solid Wood (Rows 18-32) and METAL hollow (Rows 35-42, priced per metre)
         try:
@@ -238,7 +234,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"J{s_idx}"] = part.curved
             ws[f"K{s_idx}"] = part.tier_override
             ws[f"L{s_idx}"] = part.note
-            ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$172)"
+            ws[f"U{s_idx}"] = f"=IF(T{s_idx}=\"\",\"\",T{s_idx}/RATES!$C$169)"
             cached_map[(item_code, f"M{s_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{s_idx}")] = calc["face"]
             cached_map[(item_code, f"O{s_idx}")] = calc["tier"]
@@ -288,7 +284,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"H{p_idx}"] = part.qty
             ws[f"I{p_idx}"] = part.exposed_faces
             ws[f"L{p_idx}"] = part.note
-            ws[f"U{p_idx}"] = f"=IF(T{p_idx}=\"\",\"\",T{p_idx}/RATES!$C$172)"
+            ws[f"U{p_idx}"] = f"=IF(T{p_idx}=\"\",\"\",T{p_idx}/RATES!$C$169)"
 
             cached_map[(item_code, f"M{p_idx}")] = calc["vol"]
             cached_map[(item_code, f"N{p_idx}")] = calc["face"]
@@ -317,7 +313,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             ws[f"L{h_idx}"] = part.note
             ws[f"S{h_idx}"] = part.unit_price
             ws[f"T{h_idx}"] = f"=IF(OR(H{h_idx}=\"\",S{h_idx}=\"\"),\"\",H{h_idx}*S{h_idx})"
-            ws[f"U{h_idx}"] = f"=IF(T{h_idx}=\"\",\"\",T{h_idx}/RATES!$C$172)"
+            ws[f"U{h_idx}"] = f"=IF(T{h_idx}=\"\",\"\",T{h_idx}/RATES!$C$169)"
             cached_map[(item_code, f"T{h_idx}")] = calc["cost"]
             cached_map[(item_code, f"U{h_idx}")] = round(calc["cost"] / fx_val, 2)
 
@@ -333,8 +329,9 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
 
         # 9. Summary Cache Block (D82-D102 + E87-E101 USD)
         ws["E81"] = "COST USD (system)"
-        for r_sum in [80, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 101]:
-            ws[f"E{r_sum}"] = f"=D{r_sum}/RATES!$C$172"
+        for r_sum in [80, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 101]:
+            ws[f"E{r_sum}"] = f"=D{r_sum}/RATES!$C$169"
+            ws[f"E{r_sum}"].number_format = '"$"#,##0.00'
 
         cached_map[(item_code, "E87")] = round(cost_data["timber_cost"] / fx_val, 2)
         cached_map[(item_code, "E88")] = round(cost_data["fasteners_cost"] / fx_val, 2)
@@ -347,8 +344,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "E95")] = round(cost_data["pack_cost"] / fx_val, 2)
         cached_map[(item_code, "E96")] = round(cost_data["direct_cost"] / fx_val, 2)
         cached_map[(item_code, "E97")] = round(cost_data["misc_cost"] / fx_val, 2)
-        cached_map[(item_code, "E98")] = round(cost_data["overhead_cost"] / fx_val, 2)
-        cached_map[(item_code, "E99")] = round(cost_data["unit_cost"] / fx_val, 2)
+        cached_map[(item_code, "E98")] = round(cost_data["unit_cost"] / fx_val, 2)
         cached_map[(item_code, "E101")] = round((cost_data["unit_cost"] * header.order_qty) / fx_val, 2)
 
         cached_map[(item_code, "D82")] = cost_data["solid_vol"]
@@ -369,9 +365,9 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
         cached_map[(item_code, "D95")] = cost_data["pack_cost"]
         cached_map[(item_code, "D96")] = cost_data["direct_cost"]
         cached_map[(item_code, "D97")] = cost_data["misc_cost"]
-        cached_map[(item_code, "D98")] = cost_data["overhead_cost"]
-        cached_map[(item_code, "D99")] = cost_data["unit_cost"]
-        cached_map[(item_code, "D100")] = cost_data["carton_m2"]
+        cached_map[(item_code, "D98")] = cost_data["unit_cost"]
+        cached_map[(item_code, "D99")] = round(cost_data["usd_cost"], 2)
+        cached_map[(item_code, "D100")] = round(cost_data["target_price_usd"], 2)
         cached_map[(item_code, "D101")] = cost_data["unit_cost"] * header.order_qty
         cached_map[(item_code, "D102")] = 0
 

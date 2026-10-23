@@ -471,8 +471,7 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
     wb_res = openpyxl.load_workbook(output_xlsx, data_only=True)[item_code]
     direct_cost = wb_res["D96"].value
     misc_cost = wb_res["D97"].value
-    oh_cost = wb_res["D98"].value
-    unit_cost = wb_res["D99"].value
+    unit_cost = wb_res["D98"].value
     open_checks = wb_res["D102"].value
 
     res = {
@@ -482,7 +481,6 @@ def run_pipeline(pdf_path: str, output_xlsx: str = None) -> Dict[str, Any]:
         "drawer": dr,
         "direct_cost": direct_cost,
         "misc_cost": misc_cost,
-        "overhead_cost": oh_cost,
         "unit_cost": unit_cost,
         "open_checks": open_checks,
         "solid_parts": solid_parts,

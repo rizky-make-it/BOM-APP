@@ -106,10 +106,9 @@ def build_3way_comparison(files: list, output_path: str, title: str = "3-WAY BOM
         ("Finishing & Sanding", "D90:D93"),
         ("Hardware & Bought-In", "D94"),
         ("Packaging Carton", "D95"),
-        ("TOTAL DIRECT PRODUCTION COST", "D96"),
-        ("Factory Miscellaneous (5%)", "D97"),
-        ("Factory Overhead (12.99%)", "D98"),
-        ("TOTAL UNIT COST (HPP IDR)", "D99")
+        ("TOTAL PRODUCTION COST", "D96"),
+        ("Factory Miscellaneous (4%)", "D97"),
+        ("TOTAL UNIT COST (HPP IDR)", "D98")
     ]
 
     for r_idx, (cname, cell_ref) in enumerate(cost_rows, 7):
@@ -136,7 +135,7 @@ def build_3way_comparison(files: list, output_path: str, title: str = "3-WAY BOM
             cVal.border = border_double if "TOTAL UNIT COST" in cname else border_soft
             if is_tot: cVal.fill = fill_tot
 
-            unit_cost = float(sh["D99"].value or 1)
+            unit_cost = float(sh["D98"].value or 1)
             cShare = ws.cell(r_idx, col_idx+1, val / unit_cost if unit_cost > 0 else 0)
             cShare.number_format = '0.0%'
             cShare.font = f_italic

@@ -92,7 +92,7 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     cached_map[("ITEMS", "M6")] = cost_data["finishing_total"]
     cached_map[("ITEMS", "N6")] = cost_data["hardware_cost"]
     cached_map[("ITEMS", "O6")] = cost_data["pack_cost"]
-    cached_map[("ITEMS", "P6")] = cost_data["misc_cost"] + cost_data["overhead_cost"]
+    cached_map[("ITEMS", "P6")] = cost_data["misc_cost"]
     cached_map[("ITEMS", "Q6")] = cost_data["unit_cost"]
     cached_map[("ITEMS", "R6")] = cost_data["unit_cost"] * header.order_qty
     cached_map[("ITEMS", "S6")] = cost_data["carton_m3"]
@@ -249,9 +249,9 @@ def build_single_bom_workbook(spec: BOMSpecification, output_path: str, custom_r
     cached_map[(item_code, "D95")] = cost_data["pack_cost"]
     cached_map[(item_code, "D96")] = cost_data["direct_cost"]
     cached_map[(item_code, "D97")] = cost_data["misc_cost"]
-    cached_map[(item_code, "D98")] = cost_data["overhead_cost"]
-    cached_map[(item_code, "D99")] = cost_data["unit_cost"]
-    cached_map[(item_code, "D100")] = cost_data["carton_m2"]
+    cached_map[(item_code, "D98")] = cost_data["unit_cost"]
+    cached_map[(item_code, "D99")] = round(cost_data["usd_cost"], 2)
+    cached_map[(item_code, "D100")] = round(cost_data["target_price_usd"], 2)
     cached_map[(item_code, "D101")] = cost_data["unit_cost"] * header.order_qty
     cached_map[(item_code, "D102")] = 0
 

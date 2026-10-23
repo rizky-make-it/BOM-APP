@@ -21,11 +21,11 @@ CARTON_ADD = 40.0  # mm
 # Standard Factory Rates (PLV BOM Rate Card, active column C - 16 Okt 2026)
 DEFAULT_RATES = {
     # Solid Mindi Timber (rate card col C)
-    "MINDI_A": 18057965.09,
-    "MINDI_AC": 21620953.31,
-    "MINDI_B": 14818884.89,
-    "MINDI_C": 13199344.79,
-    "MINDI_D": 11579804.69,
+    "MINDI_A": 11918256.96,
+    "MINDI_AC": 14269829.18,
+    "MINDI_B": 9780464.027,
+    "MINDI_C": 8711567.561,
+    "MINDI_D": 7642671.095,
     # Solid Teak (rate card col C)
     "TEAK_A": 27507965.09,
     "TEAK_AC": 34040953.31,
@@ -112,8 +112,9 @@ DEFAULT_RATES = {
     "FIN_LAB_RATE": 45000.0,      # IDR per m2 exposed (Column D)
     "CARTON_M2_RATE": 40000.0,    # IDR per m2 carton (Column D)
     "PACK_LAB_RATE": 50000.0,     # IDR per m3 carton (Column D)
-    "MISC_PCT": 0.05,             # 5%
-    "OH_PCT": 0.1299,             # 12.99%
+    "MISC_PCT": 0.04,             # 4% of total cost (RATES C54)
+    "TARGET_X": 1.5,              # target price = direct cost USD x 1.5 (RATES C55)
+    "FX_TARGET": 17800.0,         # IDR/USD for the summary USD lines (RATES C169)
 }
 
 

@@ -264,7 +264,7 @@ for it in items:
         cost_rows = "\n".join(f"| {k} | Rp {IDR(c.get(v, 0))} |" for k, v in [
             ("Kayu + metal", "timber_cost"), ("Fastener", "fasteners_cost"), ("Panel", "panels_cost"), ("Finishing material", "fin_mat_cost"),
             ("Amplas material", "sand_mat_cost"), ("Amplas tenaga", "sand_lab_cost"), ("Finishing tenaga", "fin_lab_cost"),
-            ("Hardware", "hardware_cost"), ("Packing", "pack_cost"), ("Misc", "misc_cost"), ("Overhead", "overhead_cost"), ("**HPP unit**", "unit_cost")])
+            ("Hardware", "hardware_cost"), ("Packing", "pack_cost"), ("Misc", "misc_cost"), ("**HPP unit**", "unit_cost")])
     drawings = [pth for pth in glob.glob("data/**/*.pdf", recursive=True) if code.replace("-", ".") in os.path.basename(pth) or code.replace("-", "") in os.path.basename(pth).replace(".", "")]
     body = fm(["bom", "item", "auto", it["coll"].lower()], kode=code, koleksi=it["coll"], status=f'"{it["status"]}"', hpp_mesin=int(c.get("unit_cost", 0)) if c else 0)
     body += f"# {code} - {h.item_name}\n\nKoleksi: {link('10-Auto/Koleksi/' + it['coll'], it['coll'])} | Status: **{it['status']}** | Ukuran P{h.overall_l:g} x L{h.overall_w:g} x T{h.overall_h:g} mm\n\nSpec: `{it['file']}`\n\n"

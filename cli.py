@@ -41,7 +41,7 @@ def cmd_info(args):
     print(f"  Plywood 18mm MSF: Rp {ply_18:,.2f} / sheet")
     print(f"  MDF 18mm 2-Face:  Rp {mdf_18:,.2f} / sheet")
     print(f"  Fasteners Rate:   Rp {DEFAULT_RATES['FASTENERS_RATE']:,.2f} / m3")
-    print(f"  Overhead Rate:    {DEFAULT_RATES['OH_PCT'] * 100:.2f}%")
+    print(f"  Target markup:    x{DEFAULT_RATES['TARGET_X']:.2f} @ {DEFAULT_RATES['FX_TARGET']:,.0f} IDR/USD")
     print(f"  Misc Buffer:      {DEFAULT_RATES['MISC_PCT'] * 100:.2f}%")
     print("=" * 65)
 
@@ -176,10 +176,10 @@ def cmd_create(args):
     print(f"  Solid Timber Vol: {res['solid_vol']:.6f} m3 (Rp {res['timber_cost']:,.2f})")
     print(f"  Panel Sheets:     {res['panel_sheets']:.4f} sheets (Rp {res['panels_cost']:,.2f})")
     print(f"  Exposed Area:     {res['exposed_face_m2']:.4f} m2 (Rp {res['finishing_total']:,.2f})")
-    print(f"  Direct Cost:      Rp {res['direct_cost']:,.2f}")
-    print(f"  Miscellaneous 5%: Rp {res['misc_cost']:,.2f}")
-    print(f"  Factory OH 13%:   Rp {res['overhead_cost']:,.2f}")
-    print(f"  UNIT COST (HPP):  Rp {res['unit_cost']:,.2f}")
+    print(f"  Total Cost:       Rp {res['direct_cost']:,.2f}")
+    print(f"  Miscellaneous 4%: Rp {res['misc_cost']:,.2f}")
+    print(f"  DIRECT COST (HPP): Rp {res['unit_cost']:,.2f}")
+    print(f"  Target Price:     USD {res['target_price_usd']:,.2f}")
     print(f"  Open Checks:      {res['open_checks']} (VALID)")
 
 def cmd_compare(args):
@@ -211,7 +211,7 @@ def cmd_verify(args):
     code = item_sh['C1'].value
     checks = item_sh['D102'].value
     direct = item_sh['D96'].value
-    unit_cost = item_sh['D99'].value
+    unit_cost = item_sh['D98'].value
 
     print(f"Verifying BOM: {target.name}")
     print(f"  Product Code: {code}")
