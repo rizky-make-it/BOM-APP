@@ -10,13 +10,13 @@
   "drawing_link": "LV433.L21 - Console Table 2 Drws & Shelf Model (1).pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Dari gambar LV433.L21. Rel 30x20 dan sekat diasumsikan."
+  "notes": "Dari gambar LV433.L21: ukuran luar, kaki, jumlah laci/pintu dan tinggi badan STATED. Konstruksi = STANDAR Tala (karkas panel 301/306/302/601, laci rumus pabrik), bukan rangka rel gambar. Divider/belakang/muka veneer ASSUMED."
  },
  "solid_parts": [
   {
    "label": "1 / A",
    "component": "Leg 60x60",
-   "l": 725.0,
+   "l": 742.0,
    "w": 60.0,
    "t": 60.0,
    "qty": 4,
@@ -24,140 +24,86 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "Kaki 60x60, tinggi di bawah top 35"
-  },
-  {
-   "label": "2 / A",
-   "component": "Top frame long",
-   "l": 1300.0,
-   "w": 50.0,
-   "t": 35.0,
-   "qty": 2,
-   "material": "MINDI",
-   "exposed": "Y",
-   "curved": "N",
-   "tier_override": "A",
-   "note": "Frame top 50 x 35 keliling"
-  },
-  {
-   "label": "3 / A",
-   "component": "Top frame short",
-   "l": 280.0,
-   "w": 50.0,
-   "t": 35.0,
-   "qty": 2,
-   "material": "MINDI",
-   "exposed": "Y",
-   "curved": "N",
-   "tier_override": "B",
-   "note": "Frame top sisi pendek"
-  },
-  {
-   "label": "4 / A",
-   "component": "Frame rail long",
-   "l": 1180.0,
-   "w": 30.0,
-   "t": 20.0,
-   "qty": 4,
-   "material": "MINDI",
-   "exposed": "N",
-   "curved": "N",
-   "tier_override": "C",
-   "note": "Rel 30x20 atas dan bawah (rangka rak)"
-  },
-  {
-   "label": "5 / A",
-   "component": "Frame rail short",
-   "l": 260.0,
-   "w": 30.0,
-   "t": 20.0,
-   "qty": 4,
-   "material": "MINDI",
-   "exposed": "N",
-   "curved": "N",
-   "tier_override": "C",
-   "note": "Rel samping"
-  },
-  {
-   "label": "6 / A",
-   "component": "Drawer divider post",
-   "l": 155.0,
-   "w": 30.0,
-   "t": 20.0,
-   "qty": 1,
-   "material": "MINDI",
-   "exposed": "N",
-   "curved": "N",
-   "tier_override": "C",
-   "note": "Sekat tengah antar 2 laci (30 mm)"
+   "note": "STATED kaki 60x60, tinggi dari gambar"
   }
  ],
  "panel_parts": [
   {
    "label": "PNL-01",
-   "component": "Top panel MDF veneer 15",
-   "panel_type": "LND-MDF-E0-15-MSF",
-   "l": 1200.0,
-   "w": 280.0,
-   "t": 15.0,
+   "component": "Top panel MDF veneer 18",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 1300.0,
+   "w": 380.0,
+   "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "Panel top 15 mm dalam frame"
+   "note": "601 | RULES top MDF 18 1 muka; ukuran luar dari gambar (menggantikan top frame 35 + panel 15)"
   },
   {
    "label": "PNL-02",
-   "component": "Bottom shelf MDF veneer 15",
-   "panel_type": "LND-MDF-E0-15-MSF",
+   "component": "Bottom shelf plywood 18",
+   "panel_type": "LND-PLY-E0-18-MSF",
    "l": 1180.0,
    "w": 260.0,
-   "t": 15.0,
+   "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "Rak bawah terbuka"
+   "note": "308 | RULES ply 18 1 muka (rak terbuka); 1300-2x60 x 380-2x60 DERIVED"
   },
   {
    "label": "PNL-03",
-   "component": "Drawer face MDF veneer 15",
-   "panel_type": "LND-MDF-E0-15-MSF",
-   "l": 535.0,
-   "w": 155.0,
-   "t": 15.0,
-   "qty": 2,
-   "exposed_faces": 1,
-   "note": "Muka laci 15 mm"
+   "component": "Drawer divider plywood 18",
+   "panel_type": "LND-PLY-E0-18",
+   "l": 155.0,
+   "w": 251.0,
+   "t": 18.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "307 | sekat antar 2 laci, tinggi 155 = muka laci; polos (ASSUMED)"
   },
   {
    "label": "PNL-04",
-   "component": "Drawer box side",
-   "panel_type": "LND-PLY-E0-12",
-   "l": 300.0,
-   "w": 105.0,
-   "t": 12.0,
-   "qty": 4,
-   "exposed_faces": 0,
-   "note": "Sisi kotak laci 12 mm"
+   "component": "Drawer face MDF veneer 18",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 535.0,
+   "w": 155.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "401 | STATED ukuran muka dari gambar; MDF 18 1 muka (RULES)"
   },
   {
    "label": "PNL-05",
-   "component": "Drawer box front/back",
+   "component": "Drawer box side",
    "panel_type": "LND-PLY-E0-12",
-   "l": 525.0,
-   "w": 105.0,
+   "l": 300.0,
+   "w": 125.0,
    "t": 12.0,
    "qty": 4,
    "exposed_faces": 0,
-   "note": "Depan/belakang kotak laci (lebar - 2x12)"
+   "note": "402 | panjang rel 300 STATED gambar, tinggi H-30 = 125"
   },
   {
    "label": "PNL-06",
+   "component": "Drawer box front/back",
+   "panel_type": "LND-PLY-E0-12",
+   "l": 471.0,
+   "w": 125.0,
+   "t": 12.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": "403 | RULES: W-64 = 471, H-30"
+  },
+  {
+   "label": "PNL-08",
    "component": "Drawer bottom",
    "panel_type": "LND-PLY-E0-6",
-   "l": 537.0,
-   "w": 290.0,
+   "l": 481.0,
+   "w": 293.0,
    "t": 6.0,
    "qty": 2,
    "exposed_faces": 0,
-   "note": "Dasar laci 6 mm (tebal 5 di gambar, papan 6 terdekat)"
+   "note": "405 | RULES: W-54 x D-7 = 481 x 293"
   }
  ],
  "hardware_parts": [
@@ -169,7 +115,7 @@
    "qty": 2.0,
    "uom": "pair",
    "unit_price": 49610.0,
-   "note": "Gambar: ray trượt bi 3 tầng L300"
+   "note": "Gambar: rel DTC 3 tingkat L300"
   },
   {
    "item_master_code": "HARDWARE",

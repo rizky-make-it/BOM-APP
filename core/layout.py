@@ -32,6 +32,38 @@ def compact_item_sheet(ws, n_solid, n_panel, n_hw, n_pack=1, n_metal=0):
     # PANEL TYPE codes like LND-PLY-E0-12-MDF need ~19 chars
     if (ws.column_dimensions["B"].width or 0) < 20:
         ws.column_dimensions["B"].width = 20
+    move_notes_right(ws)
+
+
+def move_notes_right(ws, src="L", dst="V", first=17, last=78):
+    """Tables tighter (Rizky 23 Okt 2026): NOTE / LINK-NOTE text moves from column L (middle of the table) to the far right,
+    after COST USD. Column L stays (carton calc L15 lives there) but narrow; other columns shrink to their content."""
+    from copy import copy
+    for r in range(first, last + 1):
+        c = ws[f"{src}{r}"]
+        if c.value in (None, ""):
+            continue
+        if isinstance(c.value, str) and c.value.startswith("="):
+            continue
+        d = ws[f"{dst}{r}"]
+        d.value = c.value
+        d._style = copy(c._style)
+        c.value = None
+    for r in range(first, last + 1):  # COST USD column: readable money format
+        u = ws[f"U{r}"]
+        if u.value not in (None, "") and not (isinstance(u.value, str) and not u.value.startswith("=")):
+            u.number_format = '"$"#,##0.00'
+    # openpyxl keeps grouped column ranges (e.g. L:N): split them so each column gets its own width
+    from openpyxl.utils import get_column_letter as _L
+    from openpyxl.worksheet.dimensions import ColumnDimension
+    for key, dim in list(ws.column_dimensions.items()):
+        lo, hi = dim.min or 0, dim.max or 0
+        if hi > lo and hi < 60:
+            w = dim.width
+            for i in range(lo, hi + 1):
+                ws.column_dimensions[_L(i)] = ColumnDimension(ws, index=_L(i), width=w, customWidth=True)
+    for col, w in {"C": 22, "D": 30, "I": 11, "K": 12, "L": 8, "M": 11, "N": 11, "O": 11, "P": 9, "Q": 10, "R": 11, "S": 12, "T": 12, "U": 12, "V": 70}.items():
+        ws.column_dimensions[col].width = w
 
 
 def compact_items_sheet(ws, n_items):

@@ -10,7 +10,7 @@
   "drawing_link": "LV433.D21 - Buffet 4 Drs Model (1).pdf",
   "finish_recipe": "NC NATURAL",
   "flatpack_yn": "N",
-  "notes": "Dari gambar LV433.D21. Kedalaman shelf, rel, dan tebal back diasumsikan."
+  "notes": "Dari gambar LV433.D21: ukuran luar, kaki, jumlah laci/pintu dan tinggi badan STATED. Konstruksi = STANDAR Tala (karkas panel 301/306/302/601, laci rumus pabrik), bukan rangka rel gambar. Divider/belakang/muka veneer ASSUMED."
  },
  "solid_parts": [
   {
@@ -24,119 +24,78 @@
    "exposed": "Y",
    "curved": "N",
    "tier_override": "B",
-   "note": "Kaki 60x60, tinggi di bawah top 35"
-  },
-  {
-   "label": "2 / A",
-   "component": "Top frame long",
-   "l": 1800.0,
-   "w": 50.0,
-   "t": 35.0,
-   "qty": 2,
-   "material": "MINDI",
-   "exposed": "Y",
-   "curved": "N",
-   "tier_override": "A",
-   "note": "Frame top 50 x 35 keliling"
-  },
-  {
-   "label": "3 / A",
-   "component": "Top frame short",
-   "l": 350.0,
-   "w": 50.0,
-   "t": 35.0,
-   "qty": 2,
-   "material": "MINDI",
-   "exposed": "Y",
-   "curved": "N",
-   "tier_override": "B",
-   "note": "Frame top sisi pendek"
-  },
-  {
-   "label": "4 / A",
-   "component": "Frame rail front/back",
-   "l": 1680.0,
-   "w": 30.0,
-   "t": 20.0,
-   "qty": 4,
-   "material": "MINDI",
-   "exposed": "N",
-   "curved": "N",
-   "tier_override": "C",
-   "note": "Rel 30x20 atas dan bawah depan-belakang"
-  },
-  {
-   "label": "5 / A",
-   "component": "Frame rail side",
-   "l": 330.0,
-   "w": 30.0,
-   "t": 20.0,
-   "qty": 4,
-   "material": "MINDI",
-   "exposed": "N",
-   "curved": "N",
-   "tier_override": "C",
-   "note": "Rel samping"
+   "note": "STATED kaki 60x60, tinggi dari gambar"
   }
  ],
  "panel_parts": [
   {
    "label": "PNL-01",
-   "component": "Top panel MDF veneer 15",
-   "panel_type": "LND-MDF-E0-15-MSF",
-   "l": 1700.0,
-   "w": 350.0,
-   "t": 15.0,
+   "component": "Top panel MDF veneer 18",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 1800.0,
+   "w": 450.0,
+   "t": 18.0,
    "qty": 1,
    "exposed_faces": 1,
-   "note": "Panel top 15 mm dalam frame"
+   "note": "601 | RULES top MDF 18 1 muka; ukuran luar dari gambar (menggantikan top frame 35 + panel 15)"
   },
   {
    "label": "PNL-02",
-   "component": "Side panel MDF veneer 12",
-   "panel_type": "LND-MDF-E0-12-MSF",
+   "component": "Side panel MDF veneer 18",
+   "panel_type": "LND-MDF-E0-18-MSF",
    "l": 705.0,
    "w": 330.0,
-   "t": 12.0,
+   "t": 18.0,
    "qty": 2,
    "exposed_faces": 1,
-   "note": "Panel samping 330 x 705"
+   "note": "301 | RULES MDF 18 1 muka; tinggi 705 STATED, lebar 450-2x60 DERIVED"
   },
   {
    "label": "PNL-03",
-   "component": "Back panel MDF 12",
-   "panel_type": "LND-MDF-E0-12",
-   "l": 705.0,
-   "w": 1760.0,
-   "t": 12.0,
+   "component": "Bottom panel plywood 18",
+   "panel_type": "LND-PLY-E0-18",
+   "l": 1680.0,
+   "w": 330.0,
+   "t": 18.0,
    "qty": 1,
    "exposed_faces": 0,
-   "note": "Panel belakang 1760 (tebal diasumsikan)"
+   "note": "306 | RULES ply 18 polos; 1800-2x60 x 450-2x60 DERIVED"
   },
   {
    "label": "PNL-04",
-   "component": "Centre partition MDF veneer 18",
-   "panel_type": "LND-MDF-E0-18-MSF",
-   "l": 705.0,
-   "w": 405.0,
-   "t": 18.0,
+   "component": "Back panel plywood 9",
+   "panel_type": "LND-PLY-E0-9",
+   "l": 1680.0,
+   "w": 705.0,
+   "t": 9.0,
    "qty": 1,
-   "exposed_faces": 2,
-   "note": "Sekat tengah"
+   "exposed_faces": 0,
+   "note": "302 | RULES ply 9; 1800-2x60 x 705 DERIVED (muka luar belakang dianggap polos, ASSUMED)"
   },
   {
    "label": "PNL-05",
-   "component": "Adjustable shelf MDF veneer 18",
-   "panel_type": "LND-MDF-E0-18-MSF",
-   "l": 866.0,
-   "w": 340.0,
+   "component": "Divider plywood 18",
+   "panel_type": "LND-MDF-E0-18-MDF",
+   "l": 705.0,
+   "w": 321.0,
    "t": 18.0,
-   "qty": 2,
-   "exposed_faces": 1,
-   "note": "Adj. shelf 866 (kedalaman 340 diasumsikan)"
+   "qty": 1,
+   "exposed_faces": 2,
+   "note": "307 | RULES ply 18; muka veneer = 2 (ASSUMED: pintu dibuka = terlihat, tanya Rizky); 705 x (330-9)"
   },
   {
    "label": "PNL-06",
+   "component": "Adjustable shelf plywood 18",
+   "panel_type": "LND-PLY-E0-18-MSF",
+   "l": 831.0,
+   "w": 316.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "309 | RULES ply 18 1 muka; (1680-18)/2 x (330-9-5) DERIVED, 1 rak per ruang"
+  },
+  {
+   "label": "PNL-08",
    "component": "Door MDF veneer 18",
    "panel_type": "LND-MDF-E0-18-MDF",
    "l": 671.0,
@@ -144,7 +103,7 @@
    "t": 18.0,
    "qty": 4,
    "exposed_faces": 2,
-   "note": "4 pintu, 409 lebar"
+   "note": "501 | STATED 4 pintu 409 lebar; MDF 18 2 muka (RULES)"
   }
  ],
  "hardware_parts": [
