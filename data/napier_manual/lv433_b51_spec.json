@@ -1,0 +1,203 @@
+{
+ "header": {
+  "item_code": "LV433-B51",
+  "item_name": "TALLBOY 4 DRWS",
+  "collection": "NAPIER / Bedroom",
+  "overall_l": 950.0,
+  "overall_w": 450.0,
+  "overall_h": 1100.0,
+  "order_qty": 1,
+  "drawing_link": "LV433.B51 - Tallboy 4 Drws Model (1).pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Dari gambar LV433.B51. Rel 30x20 dan tebal panel belakang diasumsikan."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "A",
+   "l": 870.0,
+   "w": 45.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "2 / A",
+   "component": "B",
+   "l": 370.0,
+   "w": 45.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "3 / A",
+   "component": "C",
+   "l": 1100.0,
+   "w": 60.0,
+   "t": 60.0,
+   "qty": 4,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "4 / A",
+   "component": "D",
+   "l": 870.0,
+   "w": 30.0,
+   "t": 40.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "5 / A",
+   "component": "E",
+   "l": 370.0,
+   "w": 30.0,
+   "t": 45.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "6 / A",
+   "component": "F",
+   "l": 370.0,
+   "w": 30.0,
+   "t": 40.0,
+   "qty": 1,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "8 / A",
+   "component": "FRAME BACK PANEL",
+   "l": 830.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "9 / A",
+   "component": "FRAME BACK PANEL",
+   "l": 915.0,
+   "w": 30.0,
+   "t": 20.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  },
+  {
+   "label": "9 / A",
+   "component": "DRAWER FRONT",
+   "l": 830.0,
+   "w": 241.0,
+   "t": 20.0,
+   "qty": 6,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": ""
+  }
+ ],
+ "panel_parts": [
+  {
+   "label": "PNL-02",
+   "component": "Side panel MDF veneer",
+   "panel_type": "LND-MDF-E0-18-MSF",
+   "l": 1005.0,
+   "w": 350.0,
+   "t": 18.0,
+   "qty": 2,
+   "exposed_faces": 1,
+   "note": "[MEETING] sudah sesuai. Panel samping 330 x 1005"
+  },
+  {
+   "label": "PNL-03",
+   "component": "Back panel MDF",
+   "panel_type": "LND-PLY-E0-9",
+   "l": 1005.0,
+   "w": 850.0,
+   "t": 9.0,
+   "qty": 1,
+   "exposed_faces": 0,
+   "note": "[MEETING] LND-MDF-E0-12 -> LND-PLY-E0-12. Panel belakang 830 x 1005 (tebal diasumsikan)"
+  },
+  {
+   "label": "PNL-05",
+   "component": "Drawer box side",
+   "panel_type": "LND-PLY-E0-12",
+   "l": 350.0,
+   "w": 211.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "[MEETING] sudah sesuai. Sisi kotak laci 12 mm"
+  },
+  {
+   "label": "PNL-06",
+   "component": "Drawer box front/back",
+   "panel_type": "LND-PLY-E0-12",
+   "l": 766.0,
+   "w": 211.0,
+   "t": 12.0,
+   "qty": 8,
+   "exposed_faces": 0,
+   "note": "[MEETING] sudah sesuai. Depan/belakang kotak laci (lebar - 2x12)"
+  },
+  {
+   "label": "PNL-08",
+   "component": "Drawer bottom",
+   "panel_type": "LND-PLY-E0-6",
+   "l": 776.0,
+   "w": 343.0,
+   "t": 6.0,
+   "qty": 4,
+   "exposed_faces": 0,
+   "note": "[MEETING] sudah sesuai. Dasar laci 6 mm (tebal 5 di gambar, papan 6 terdekat)"
+  }
+ ],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "HW-RAIL-DTC",
+   "description": "Rel laci DTC 3 tingkat L300 (lebar 42 mm)",
+   "vendor": "Lokal",
+   "qty": 4.0,
+   "uom": "pair",
+   "unit_price": 49610.0,
+   "note": "Gambar: ray trượt bi 3 tầng L300"
+  }
+ ]
+}

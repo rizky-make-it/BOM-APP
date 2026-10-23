@@ -52,10 +52,32 @@ def sort_by_part_number(item):
         return (0, num, label)
     return (1, 999, label)
 
+def extend_wood_rows(ws, first, last):
+    """Turn rows first..last (the METAL block rows 33-42, unused when the item has no metal) into wood rows:
+    same style and formulas as row 32, shifted. Lets an item carry up to 25 wood lines."""
+    from copy import copy
+    from openpyxl.formula.translate import Translator
+    from openpyxl.worksheet.formula import ArrayFormula
+    for r in range(first, 43):
+        for col in range(1, 22):
+            src, dst = ws.cell(32, col), ws.cell(r, col)
+            dst._style = copy(src._style)
+            v = src.value
+            if isinstance(v, ArrayFormula):
+                dst.value = ArrayFormula(ref=f"{dst.column_letter}{r}", text=Translator(v.text, origin=src.coordinate).translate_formula(dst.coordinate))
+            elif isinstance(v, str) and v.startswith("="):
+                dst.value = Translator(v, origin=src.coordinate).translate_formula(dst.coordinate)
+            else:
+                dst.value = None
+        ws.cell(r, 1).value = float(r - 17)
+        ws.row_dimensions[r].height = ws.row_dimensions[32].height
+
+
 def header_code(spec):
     return spec.header.item_code
 
-def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
+def build_multi_bom(specs: List[Dict[str, Any]], output_path: str, keep_panel_types: bool = False):
+    """keep_panel_types=True: skip the meeting role rule so panel types stay exactly as given (manual BOM import)."""
     wb = openpyxl.load_workbook(GOLDEN_MASTER_PATH, data_only=False)
     ws_items = wb["ITEMS"]
 
@@ -102,7 +124,8 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             from bom_app.core.panel_rules import check_panel, to_e0, apply_meeting_rule
         for _p in spec.panel_parts:
             _p.panel_type = to_e0(_p.panel_type)  # ALL panels use explicit E0 codes
-            apply_meeting_rule(_p)                  # plywood vs MDF-veneer by role (meeting 19 Oct 2026)
+            if not keep_panel_types:
+                apply_meeting_rule(_p)              # plywood vs MDF-veneer by role (meeting 19 Oct 2026)
             for _msg in check_panel(_p):
                 print(f"[PANEL RULE WARNING] {header_code(spec)} {_p.component}: {_msg}")
 
@@ -218,8 +241,15 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             from bom_app.core.hollow import is_metal
         wood_parts = [p for p in spec.solid_parts if not is_metal(p.material)]
         metal_parts = [p for p in spec.solid_parts if is_metal(p.material)]
-        if len(wood_parts) > 15 or len(metal_parts) > 8:
-            raise ValueError(f"{item_code}: {len(wood_parts)} wood parts (max 15) / {len(metal_parts)} metal parts (max 8) do not fit the sheet")
+        # 16-25 wood rows are allowed ONLY when the item has no metal: rows 33-42 (the METAL block) then become wood rows
+        ext = len(wood_parts) > 15
+        if (ext and (metal_parts or len(wood_parts) > 25)) or len(metal_parts) > 8:
+            raise ValueError(f"{item_code}: {len(wood_parts)} wood parts (max 15, or 25 when no metal) / {len(metal_parts)} metal parts (max 8) do not fit the sheet")
+        if ext:
+            extend_wood_rows(ws, 33, 17 + len(wood_parts))
+            for k, f_ in (("D82", "=SUM(M18:M42)"), ("D87", "=SUM(T18:T42)"), ("D80", 0),
+                          ("D84", '=SUMIF(I18:I42,"Y",N18:N42)+SUMIF(I46:I60,1,N46:N60)+2*SUMIF(I46:I60,2,N46:N60)')):
+                ws[k] = f_
         ws["U17"] = "COST USD\n(system)"
         for s_idx, (part, calc) in enumerate(zip(wood_parts, cost_data["solid_rows"]), 18):
             ws[f"A{s_idx}"] = float(s_idx - 17)
@@ -243,7 +273,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             cached_map[(item_code, f"T{s_idx}")] = calc["cost"]
             cached_map[(item_code, f"U{s_idx}")] = round(calc["cost"] / fx_val, 2)
 
-        for r in range(18 + len(wood_parts), 33):
+        for r in range(18 + len(wood_parts), 43 if ext else 33):
             ws[f"A{r}"] = float(r - 17)
             for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "U"]:
                 ws[f"{c_let}{r}"] = None
@@ -266,7 +296,7 @@ def build_multi_bom(specs: List[Dict[str, Any]], output_path: str):
             cached_map[(item_code, f"S{m_idx}")] = calc["rate"]
             cached_map[(item_code, f"T{m_idx}")] = calc["cost"]
             cached_map[(item_code, f"U{m_idx}")] = round(calc["cost"] / fx_val, 2)
-        for r in range(35 + len(metal_parts), 43):
+        for r in range(35 + len(metal_parts), 35 if ext else 43):
             ws[f"A{r}"] = float(r - 34)
             for c_let in ["B", "C", "D", "E", "F", "G", "H", "I", "L"]:
                 ws[f"{c_let}{r}"] = None

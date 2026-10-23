@@ -1,0 +1,56 @@
+{
+ "header": {
+  "item_code": "LV433-B71",
+  "item_name": "MIRROR",
+  "collection": "NAPIER / Bedroom",
+  "overall_l": 1000.0,
+  "overall_w": 30.0,
+  "overall_h": 1000.0,
+  "order_qty": 1,
+  "drawing_link": "LV433.B71 - Mirror Model (1).pdf",
+  "finish_recipe": "NC NATURAL",
+  "flatpack_yn": "N",
+  "notes": "Dari gambar LV433.B71. Backing 4 mm dihitung dengan papan 3 mm."
+ },
+ "solid_parts": [
+  {
+   "label": "1 / A",
+   "component": "Frame horizontal",
+   "l": 1000.0,
+   "w": 60.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Frame 60x30, miter 45"
+  },
+  {
+   "label": "2 / A",
+   "component": "Frame vertical",
+   "l": 1000.0,
+   "w": 60.0,
+   "t": 30.0,
+   "qty": 2,
+   "material": "MINDI",
+   "exposed": "Y",
+   "curved": "N",
+   "tier_override": "B",
+   "note": "Frame 60x30, miter 45"
+  }
+ ],
+ "panel_parts": [],
+ "hardware_parts": [
+  {
+   "item_master_code": "HARDWARE",
+   "label": "I-00007",
+   "description": "Mirror 5 mm, beveled (930 x 930 mm)",
+   "vendor": "Lokal",
+   "qty": 0.865,
+   "uom": "m2",
+   "unit_price": 180000.0,
+   "note": "Kaca 5 mm mai vat"
+  }
+ ]
+}

@@ -26,6 +26,9 @@ def compact_item_sheet(ws, n_solid, n_panel, n_hw, n_pack=1, n_metal=0):
         ws.row_dimensions[r].hidden = n_metal == 0
     for r in range(METAL_FIRST, METAL_LAST + 1):
         ws.row_dimensions[r].hidden = n_metal == 0 or r >= METAL_FIRST + max(n_metal, 1)
+    if n_solid > 15:  # METAL block rows reused as wood rows 16-25 (item has no metal)
+        for r in range(33, 43):
+            ws.row_dimensions[r].hidden = r > 17 + n_solid
     _hide(ws, PANEL_FIRST, PANEL_LAST, n_panel)
     _hide(ws, HW_FIRST, HW_LAST, n_hw)
     _hide(ws, PACK_FIRST, PACK_LAST, n_pack)
